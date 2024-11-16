@@ -1,0 +1,32 @@
+{
+  "name": "build-changelog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc && ncc build lib/index.js",
+    "start": "node ./dist/index.js changelog",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@9.12.2+sha512.22721b3a11f81661ae1ec68ce1a7b879425a1ca5b991c975b074ac220b187ce56c708fe5db69f4c962c989452eee76c82877f4ee80f474cebd61ee13461b6228",
+  "dependencies": {
+    "@types/mustache": "^4.2.5",
+    "@vercel/ncc": "^0.38.3",
+    "mustache": "^4.2.0",
+    "ts-mustache": "^0.0.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3",
+    "yaml": "^2.6.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "@types/node": "^22.9.0",
+    "dprint": "^0.47.5"
+  },
+  "bin": {
+    "build-cl": "./dist/index.js"
+  }
+}
