@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
-- command arguments. (Note: This may will be reintroduced later)
+- [Breaking 🧨] command arguments. (Note: This may be reintroduced later)
 
 ## [0.0.6] - 2024-11-17
 
