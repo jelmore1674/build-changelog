@@ -1,5 +1,5 @@
 include:
-  - component: $CI_SERVER_FQDN/$CI_PROJECT_PATH/build-changelog@$CI_COMMIT_SHA
+  - component: $CI_SERVER_FQDN/jelmore1674/ci-templates/build-changelog@main
     inputs:
       job: build-changelog
       stage: build-changelog
