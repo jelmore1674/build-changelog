@@ -1,0 +1,28 @@
+image: node:20
+
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  before_script:
+    - corepack enable
+    - pnpm install --frozen-lockfile
+  script:
+    - pnpm lint
+    - pnpm build
+
+publish-npm:
+  stage: deploy
+  variables:
+    REGISTRY: "@scope:registry=https://${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/"
+    TOKEN: "//${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=${CI_JOB_TOKEN}"
+  before_script:
+    - corepack enable
+    - pnpm install --frozen-lockfile
+    - pnpm build
+  script:
+    - echo $REGISTRY > .npmrc
+    - echo $TOKEN >> .npmrc
+    - npm publish
