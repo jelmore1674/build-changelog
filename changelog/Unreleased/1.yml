@@ -2,4 +2,5 @@ added:
   - "support yaml config."
 
 removed:
-  - "command arguments. (Note: This may will be reintroduced later)"
+  breaking:
+    - "command arguments. (Note: This may be reintroduced later)"
