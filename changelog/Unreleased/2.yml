@@ -1,0 +1,2 @@
+fixed:
+  - "`breaking` flag not rendering in changelog correctly. Adds a hypen. to make it look better."

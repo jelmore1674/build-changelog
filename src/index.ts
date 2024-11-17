@@ -68,7 +68,7 @@ const versions = files.reduce((acc: Version[], dir) => {
           // @ts-ignore - breaking could exist.
           if (yaml[key]?.breaking) {
             // @ts-ignore - breaking exists.
-            currentVersion[key].push(...yaml[key].breaking.map((str: string) => `[Breaking 🧨] ${str}`));
+            currentVersion[key].push(...yaml[key].breaking.map((str: string) => `[Breaking 🧨] - ${str}`));
           } else {
             currentVersion[key].push(...yaml[key] as string[]);
           }
