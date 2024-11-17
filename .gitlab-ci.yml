@@ -23,6 +23,9 @@ build:
   script:
     - pnpm lint
     - pnpm build
+  rules:
+    - changes:
+        - src/*
 
 publish-npm:
   stage: deploy
