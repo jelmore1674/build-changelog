@@ -4,7 +4,9 @@
   "description": "",
   "main": "dist/index.js",
   "files": [
-    "dist"
+    "dist",
+    "lib",
+    "dist/templates/*.md"
   ],
   "scripts": {
     "build": "tsc && ncc build lib/index.js",
