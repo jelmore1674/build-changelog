@@ -4,9 +4,9 @@ include:
       job: changelog
       stage: changelog
     rules:
-      - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "main"'
       - changes:
           - changelog/**/*.yml
+      - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "main"'
 
 image: node:20
 
