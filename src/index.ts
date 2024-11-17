@@ -3,7 +3,7 @@
 import { readdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import YAML from "yaml";
-import { type Changes, generateChangelog, type Keywords, type Version } from "./templates";
+import { generateChangelog, type Keywords, type Version, type YamlChanges } from "./templates";
 import { isYamlFile } from "./utils/isYamlFile";
 
 const changelogDir = process.argv[2];
@@ -22,7 +22,7 @@ const versions = files.reduce((acc: Version[], dir) => {
       const currentVersion: Version = exists ?? { version: release, releaseDate: releaseDate ?? "TBD" };
 
       const changes = readFileSync(d, { encoding: "utf8" });
-      const yaml: Changes = YAML.parse(changes);
+      const yaml: YamlChanges = YAML.parse(changes);
 
       const yamlKeys = Object.keys(yaml) as Keywords[];
 
@@ -32,7 +32,13 @@ const versions = files.reduce((acc: Version[], dir) => {
         }
 
         if (yaml[key]) {
-          currentVersion[key].push(...yaml[key]);
+          // @ts-ignore - breaking could exist.
+          if (yaml[key]?.breaking) {
+            // @ts-ignore - breaking exists.
+            currentVersion[key].push(...yaml[key].breaking.map((str: string) => `[Breaking 🧨] ${str}`));
+          } else {
+            currentVersion[key].push(...yaml[key] as string[]);
+          }
         }
       }
 
