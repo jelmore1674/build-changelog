@@ -4,9 +4,9 @@ include:
       job: changelog
       stage: changelog
     rules:
-      - changes:
-          - changelog/**/*.yml
       - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "main"'
+        changes:
+          - changelog/**/*.yml
 
 image: node:20
 
@@ -41,4 +41,4 @@ publish-npm:
     - echo $TOKEN >> .npmrc
     - npm publish
   rules:
-    - if: $CI_COMMIT_TAG
+    - if: $CI_COMMIT_TAG && '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "main"'
