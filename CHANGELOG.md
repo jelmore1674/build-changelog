@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Breaking 🧨] command arguments. (Note: This may be reintroduced later)
 
+### Fixed
+
+- `breaking` flag not rendering in changelog correctly. Adds a hypen. to make it look better.
+
 ## [0.0.6] - 2024-11-17
 
 ### Fixed
