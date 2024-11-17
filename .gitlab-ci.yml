@@ -1,8 +1,8 @@
 include:
   - component: $CI_SERVER_FQDN/jelmore1674/ci-templates/build-changelog@main
     inputs:
-      job: build-changelog
-      stage: build-changelog
+      job: changelog
+      stage: changelog
     rules:
       - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "main"'
       - changes:
@@ -12,6 +12,7 @@ image: node:20
 
 stages:
   - build
+  - changelog
   - deploy
 
 build:
