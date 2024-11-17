@@ -8,13 +8,13 @@ import { isYamlFile } from "./utils/isYamlFile";
 
 const changelogDir = process.argv[2];
 
-const dir = path.join(__dirname, changelogDir);
+const dir = path.join(process.cwd(), changelogDir);
 const files = readdirSync(dir, { recursive: true });
 
 const versions = files.reduce((acc: Version[], dir) => {
   if (typeof dir === "string") {
     if (isYamlFile(dir)) {
-      const d = path.join(__dirname, `${changelogDir}/${dir}`);
+      const d = path.join(process.cwd(), `${changelogDir}/${dir}`);
       const [release, releaseDate] = path.basename(path.dirname(d)).split("_");
 
       const exists = acc.find(({ version }) => version === release);
@@ -45,4 +45,4 @@ const versions = files.reduce((acc: Version[], dir) => {
   return acc.sort((a, b) => b.version.localeCompare(a.version));
 }, []);
 
-writeFileSync("CHANGELOG.md", generateChangelog(versions), { encoding: "utf8" });
+writeFileSync(path.join(process.cwd(), "CHANGELOG.md"), generateChangelog(versions), { encoding: "utf8" });
