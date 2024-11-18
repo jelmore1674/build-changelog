@@ -12,13 +12,14 @@ image: node:20
 
 stages:
   - build
-  - changelog
   - deploy
+  - changelog
 
 build:
   stage: build
   before_script:
     - corepack enable
+    - pnpm config set store-dir .pnpm-store
     - pnpm install --frozen-lockfile
   script:
     - pnpm lint
@@ -26,6 +27,13 @@ build:
   rules:
     - changes:
         - src/*
+  cache:
+    key:
+      files:
+        - pnpm-lock.yaml
+    paths:
+      - .pnpm-store
+      - dist
 
 publish-npm:
   stage: deploy
@@ -34,11 +42,17 @@ publish-npm:
     TOKEN: "//${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=${CI_JOB_TOKEN}"
   before_script:
     - corepack enable
-    - pnpm install --frozen-lockfile
-    - pnpm build
+    - pnpm config set store-dir .pnpm-store
   script:
     - echo $REGISTRY > .npmrc
     - echo $TOKEN >> .npmrc
     - npm publish
   rules:
     - if: $CI_COMMIT_TAG && '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "main"'
+  cache:
+    key:
+      files:
+        - pnpm-lock.yaml
+    paths:
+      - .pnpm-store
+      - dist
