@@ -10,6 +10,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - caching to pipeline.
+- `init` command to stub out project.
+- `generate` command to create changelog.
+
+### Deprecated
+
+- `changelog` command, this will be removed once we finish the commands.
 
 ## [0.0.7] - 2024-11-17
 
