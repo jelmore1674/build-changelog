@@ -64,6 +64,7 @@ publish-npm:
   before_script:
     - corepack enable
     - pnpm config set store-dir .pnpm-store
+    - pnpm install --frozen-lockfile
   script:
     - echo $REGISTRY > .npmrc
     - echo $TOKEN >> .npmrc
