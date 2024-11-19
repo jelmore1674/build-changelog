@@ -1,0 +1,10 @@
+added:
+  - "Cleanup of old files after the changelog has been made"
+  - "Some unit testing."
+  - "`capitalizeFirstLetter` utility function."
+  - "README for `init` command."
+
+removed:
+  - "support for flags"
+  - breaking:
+      - "`version_date_separator` support has been removed."
