@@ -9,7 +9,7 @@
   "scripts": {
     "build": "tsc && ncc build lib/index.js && cp -R templates dist/",
     "lint": "biome lint",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "pnpm vitest"
   },
   "keywords": [],
   "author": "jelmore1674",
@@ -26,7 +26,8 @@
     "@types/mustache": "^4.2.5",
     "@types/node": "^22.9.0",
     "dprint": "^0.47.5",
-    "typescript": "^5.6.3"
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.5"
   },
   "bin": {
     "build-cl": "./dist/index.js"
