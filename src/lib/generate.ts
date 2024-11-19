@@ -6,7 +6,14 @@ import { changelogArchive, changelogDir, changelogPath } from "./config";
 import { generateChangelog, Keywords, Version, YamlChanges } from "./mustache";
 import { rl } from "./readline";
 
-function createChangelog() {
+const YAML_KEY_FILTER = ["releaseDate", "version"];
+
+/**
+ *  The generate command will read the existing `yaml|yml` files in the
+ *  `changelogDir`, write them to the `CHANGELOG.md`, and will remove the
+ *  files when done.
+ */
+function generateCommand() {
   console.log("Generating changelog.");
   const files = readdirSync(changelogDir, { recursive: true });
 
@@ -23,18 +30,19 @@ function createChangelog() {
 
         // Read the changes then delete the file.
         const changes = readFileSync(filePath, { encoding: "utf8" });
-        rmSync(filePath);
 
         const yaml: YamlChanges = YAML.parse(changes);
 
-        let version = yaml.version || path.basename(path.dirname(filePath))?.split("_")[0] || "Unreleased";
-        let releaseDate = yaml.releaseDate || path.basename(path.dirname(filePath))?.split("_")[1] || "TBD";
+        let version = yaml.version || "Unreleased";
+        let releaseDate = yaml.releaseDate || "TBD";
 
         const foundRelease = acc.find((release) => release.version === version);
         const currentVersion: Version = foundRelease ?? { version, releaseDate };
 
         if (yaml) {
-          const yamlKeys = Object.keys(yaml) as Keywords[];
+          const yamlProperties = Object.keys(yaml);
+
+          const yamlKeys = yamlProperties.filter(key => !YAML_KEY_FILTER.includes(key)) as Keywords[];
 
           for (const key of yamlKeys) {
             if (!currentVersion[key]) {
@@ -57,6 +65,9 @@ function createChangelog() {
             acc.push(currentVersion);
           }
         }
+
+        // Clean up changelog files.
+        rmSync(filePath);
       }
     }
 
@@ -69,10 +80,10 @@ function createChangelog() {
 
   const archive = YAML.stringify(versions);
   writeFileSync(changelogArchive, archive, { encoding: "utf8" });
-  writeFileSync(changelogPath, generateChangelog(versions), { encoding: "utf8" });
+  writeFileSync(changelogPath, generateChangelog(versions).trim(), { encoding: "utf8" });
 
   console.log("CHANGELOG.md finsihed writing.");
   rl.close();
 }
 
-export { createChangelog };
+export { generateCommand };
