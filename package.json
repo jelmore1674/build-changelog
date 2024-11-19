@@ -19,6 +19,7 @@
     "@vercel/ncc": "^0.38.3",
     "commander": "^12.1.0",
     "mustache": "^4.2.0",
+    "toml": "^3.0.0",
     "yaml": "^2.6.0"
   },
   "devDependencies": {
