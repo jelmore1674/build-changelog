@@ -30,7 +30,7 @@
     "vitest": "^2.1.5"
   },
   "bin": {
-    "build-cl": "./dist/index.js"
+    "build-cl": "dist/index.js"
   },
   "publishConfig": {
     "@scope:registry": "https://gitlab.justinelmore.dev/api/v4/projects/29/packages/npm/"
