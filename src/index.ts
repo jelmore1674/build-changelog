@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { Command } from "commander";
-import { createChangelog } from "./lib/generate";
+import { generateCommand } from "./lib/generate";
 import { initCommand } from "./lib/init";
 
 const commands = [
@@ -14,7 +14,7 @@ const commands = [
     name: "generate",
     description: "generate the changelog",
     alias: "changelog",
-    action: createChangelog,
+    action: generateCommand,
   },
 ];
 
@@ -23,7 +23,7 @@ const program = new Command();
 program
   .name("build-changelog")
   .description("cli tool to generate changelogs")
-  .version("0.1.0");
+  .version("0.1.1");
 
 for (const command of commands) {
   // This is to keep the changelog command alive. for now. Will be deprecated in the future.
