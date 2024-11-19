@@ -12,6 +12,7 @@ image: node:20
 
 stages:
   - build
+  - test
   - deploy
   - changelog
 
@@ -34,6 +35,23 @@ build:
     paths:
       - .pnpm-store
       - dist
+
+test:
+  stage: test
+  before_script:
+    - corepack enable
+    - pnpm config set store-dir .pnpm-store
+  script:
+    - pnpm test
+  rules:
+    - changes:
+        - src/*
+  cache:
+    key:
+      files:
+        - pnpm-lock.yaml
+    paths:
+      - .pnpm-store
 
 publish-npm:
   stage: deploy
