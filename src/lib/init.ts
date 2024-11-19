@@ -1,8 +1,13 @@
-import { mkdirSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import YAML from "yaml";
 import { changelogDir, config, configPath, initialConfig } from "./config";
 import { rl } from "./readline";
+
+const readme = readFileSync(
+  path.join(process.env.NODE_ENV === "test" ? process.cwd() : __dirname, "./templates/guide.md"),
+  "utf8",
+);
 
 /**
  * Intialize the application.
@@ -22,13 +27,9 @@ async function initCommand() {
   // Stub out Unreleased directory.
   mkdirSync(path.join(changelogDir, "Unreleased"), { recursive: true });
 
-  // Create `yaml` for our unreleased changelog.
-  const yaml = YAML.stringify({ added: ["`build-changlelog` to generate changelogs."] });
-  // Stub out template for unreleased.
-  writeFileSync(path.join(changelogDir, "Unreleased/init.yml"), yaml);
+  writeFileSync(path.join(changelogDir, "README.md"), readme);
 
-  // TODO: Update this README for the stubbed out documentation.
-  writeFileSync(path.join(changelogDir, "README.md"), "# Do this");
+  console.log(process.env.NODE_ENV);
 
   // Write new config file.
   const newConfig = YAML.stringify(config);

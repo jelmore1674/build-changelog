@@ -16,28 +16,25 @@ enum KEYWORDS {
   SECURITY = "security",
 }
 
-/** Initial list of supported flags */
-enum FLAGS {
-  BREAKING = "breaking",
-}
-
-type Keywords = `${KEYWORDS}`;
-type Flags = `${FLAGS}`;
-
-type Changes = Partial<Record<Keywords, string[]>>;
-type YamlChanges = Partial<Record<Keywords, string[] | Partial<Record<Flags, string[]>>>>;
-
-interface Version extends Changes {
+interface Release {
   version: string;
   releaseDate?: string;
 }
 
-interface ChangesSection {
-  /** Valid keyword for a section in the changelog */
-  keyword: Keywords;
-  /** the changes of a section */
-  changes: string;
-}
+/**
+ * The keywords used to make up the sections of the changelog.
+ */
+type Keywords = `${KEYWORDS}`;
+
+/**
+ * The Section that is used to make the Version.
+ */
+type Version = Release & Partial<Record<Keywords, string[]>>;
+
+/**
+ * Parsed yaml output.
+ */
+type YamlChanges = Partial<Record<Keywords, string[] | Partial<Record<"breaking", string[]>>>> & Release;
 
 /**
  * Generate the changelog.
@@ -48,6 +45,6 @@ function generateChangelog(versions: Version[]) {
   return Mustache.render(heading, { versions }, { versions: version, change });
 }
 
-export { change, generateChangelog, heading, version };
+export { generateChangelog };
 
-export type { Changes, ChangesSection, FLAGS, Flags, KEYWORDS, Keywords, Version, YamlChanges };
+export type { Keywords, Version, YamlChanges };

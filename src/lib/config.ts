@@ -1,21 +1,16 @@
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import YAML from "yaml";
-import { Keywords } from "../templates";
+import { Keywords } from "./mustache";
 
 type Config = {
   /** the directory our changlog files will be in */
   dir: string;
   /** Custom list of keywords. */
   keywords: string[];
-  /** Custom list of flags. */
-  flags: string[];
-  /** The separator to change how we do the date of a version */
-  version_date_separator: string;
 };
 
 const initialKeywords: Keywords[] = ["added", "changed", "fixed", "deprecated", "removed", "security"];
-const initialFlags = ["breaking"];
 
 /**
  * The initial configuration of the application.
@@ -24,26 +19,24 @@ const initialFlags = ["breaking"];
  * {
  *   "dir": "changelog",
  *   "keywords": ["added", "changed", "fixed", "deprecated", "removed", "security"],
- *   "flags": ["breaking"],
- *   "version_date_separator": "_"
  * }
  */
 const initialConfig: Config = {
   dir: "changelog",
   keywords: initialKeywords,
-  flags: initialFlags,
-  version_date_separator: "_",
 };
-
-/**
- * The path to our config. `bcl.yml`.
- */
-const configPath = path.join(process.cwd(), "bcl.yml");
 
 /**
  * The configuration of our changelog application.
  */
 let config = initialConfig;
+let configFile = "bcl.yml";
+let changelogFileName = "CHANGELOG.md";
+
+/**
+ * The path to our config. `bcl.yml`.
+ */
+const configPath = path.join(process.cwd(), configFile);
 
 // Use the initial config if we do not have a config file.
 if (existsSync(configPath)) {
@@ -51,11 +44,27 @@ if (existsSync(configPath)) {
   config = { ...initialConfig, ...YAML.parse(rawConfig) };
 }
 
+if (process.env.NODE_ENV === "test") {
+  configFile = "test.yml";
+  changelogFileName = "TEST.md";
+  config = { ...config, dir: "test" };
+}
+
 /**
  * The directory where we will put our changelog `yaml` files.
  */
 const changelogDir = path.join(process.cwd(), config.dir);
 
-export { changelogDir, config, configPath, initialConfig };
+/**
+ * The path to the CHANGELOG.md file
+ */
+const changelogPath = path.join(process.cwd(), changelogFileName);
+
+/**
+ * The path to the archive file of the changelog.
+ */
+const changelogArchive = path.join(changelogDir, "archive.yml");
+
+export { changelogArchive, changelogDir, changelogPath, config, configPath, initialConfig };
 
 export type { Config };

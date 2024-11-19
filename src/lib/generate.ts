@@ -1,28 +1,37 @@
-import { readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, rmdirSync, rmSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import YAML from "yaml";
-import { generateChangelog, Keywords, Version, YamlChanges } from "../templates";
 import { isYamlFile } from "../utils/isYamlFile";
-import { changelogDir, config } from "./config";
+import { changelogArchive, changelogDir, changelogPath } from "./config";
+import { generateChangelog, Keywords, Version, YamlChanges } from "./mustache";
 import { rl } from "./readline";
 
 function createChangelog() {
   console.log("Generating changelog.");
   const files = readdirSync(changelogDir, { recursive: true });
 
-  const versions = files.reduce((acc: Version[], dir) => {
-    if (typeof dir === "string") {
-      if (isYamlFile(dir)) {
-        const d = path.join(changelogDir, dir);
+  let initialVersions = [];
 
-        const [release, releaseDate] = path.basename(path.dirname(d)).split(config.version_date_separator);
+  if (existsSync(changelogArchive)) {
+    initialVersions = YAML.parse(readFileSync(changelogArchive, { encoding: "utf8" }));
+  }
 
-        const exists = acc.find(({ version }) => version === release);
+  const versions = files.reduce((acc: Version[], file) => {
+    if (typeof file === "string") {
+      if (isYamlFile(file) && !file.includes("archive.yml")) {
+        const filePath = path.join(changelogDir, file);
 
-        const currentVersion: Version = exists ?? { version: release, releaseDate: releaseDate ?? "TBD" };
+        // Read the changes then delete the file.
+        const changes = readFileSync(filePath, { encoding: "utf8" });
+        rmSync(filePath);
 
-        const changes = readFileSync(d, { encoding: "utf8" });
         const yaml: YamlChanges = YAML.parse(changes);
+
+        let version = yaml.version || "Unreleased";
+        let releaseDate = yaml.releaseDate || "TBD";
+
+        const foundRelease = acc.find((release) => release.version === version);
+        const currentVersion: Version = foundRelease ?? { version, releaseDate };
 
         if (yaml) {
           const yamlKeys = Object.keys(yaml) as Keywords[];
@@ -33,7 +42,8 @@ function createChangelog() {
             }
 
             if (yaml[key]) {
-              // @ts-ignore - breaking could exist.
+              // TODO: Look into possibly removing this funcionality.
+              // @ts-ignore - breaking could exists.
               if (yaml[key]?.breaking) {
                 // @ts-ignore - breaking exists.
                 currentVersion[key].push(...yaml[key].breaking.map((str: string) => `[Breaking 🧨] - ${str}`));
@@ -43,7 +53,7 @@ function createChangelog() {
             }
           }
 
-          if (!exists) {
+          if (!foundRelease) {
             acc.push(currentVersion);
           }
         }
@@ -51,9 +61,15 @@ function createChangelog() {
     }
 
     return acc.sort((a, b) => b.version.localeCompare(a.version));
-  }, []);
+  }, initialVersions);
 
-  writeFileSync(path.join(process.cwd(), "CHANGELOG.md"), generateChangelog(versions), { encoding: "utf8" });
+  readdirSync(changelogDir, { recursive: true }).forEach(dir => {
+    !dir.includes("archive.yml") && rmdirSync(path.join(changelogDir, dir as string));
+  });
+
+  const archive = YAML.stringify(versions);
+  writeFileSync(changelogArchive, archive, { encoding: "utf8" });
+  writeFileSync(changelogPath, generateChangelog(versions), { encoding: "utf8" });
 
   console.log("CHANGELOG.md finsihed writing.");
   rl.close();
