@@ -1,5 +1,5 @@
-- version: Unreleased
-  releaseDate: TBD
+- version: 0.1.0
+  releaseDate: 2024-11-18
   added:
     - Cleanup of old files after the changelog has been made
     - Some unit testing.
