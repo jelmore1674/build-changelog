@@ -1,3 +1,9 @@
+- version: Unreleased
+  releaseDate: TBD
+  removed:
+    - "[Breaking 🧨] - dir name fallbacks for undefined version and release date"
+  added:
+    - "`log` util function to hide logs during testing."
 - version: 0.1.0
   releaseDate: 2024-11-18
   added:
