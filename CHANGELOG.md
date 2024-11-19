@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Some unit testing.
 - `capitalizeFirstLetter` utility function.
 - README for `init` command.
+- paths in config
 - caching to pipeline.
 - `init` command to stub out project.
 - `generate` command to create changelog.
