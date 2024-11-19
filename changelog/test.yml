@@ -2,3 +2,5 @@ version: Unreleased
 removed:
   breaking:
     - "dir name fallbacks for undefined version and release date"
+added:
+  - "`log` util function to hide logs during testing."
