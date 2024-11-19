@@ -1,3 +1,4 @@
 version: Unreleased
-added:
-  - "toml support"
+removed:
+  breaking:
+    - "dir name fallbacks for undefined version and release date"

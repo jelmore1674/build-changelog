@@ -1,7 +1,8 @@
-import { existsSync, readdirSync, readFileSync, rmdirSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import YAML from "yaml";
 import { isYamlFile } from "../utils/isYamlFile";
+import { log } from "../utils/log";
 import { changelogArchive, changelogDir, changelogPath } from "./config";
 import { generateChangelog, Keywords, Version, YamlChanges } from "./mustache";
 import { rl } from "./readline";
@@ -14,8 +15,8 @@ const YAML_KEY_FILTER = ["releaseDate", "version"];
  *  files when done.
  */
 function generateCommand() {
-  console.log("Generating changelog.");
-  const files = readdirSync(changelogDir, { recursive: true });
+  log("Generating changelog.");
+  const files = readdirSync(changelogDir, { recursive: true, encoding: "utf8" });
 
   let initialVersions = [];
 
@@ -24,49 +25,49 @@ function generateCommand() {
   }
 
   const versions = files.reduce((acc: Version[], file) => {
-    if (typeof file === "string") {
-      if (isYamlFile(file) && !file.includes("archive.yml")) {
-        const filePath = path.join(changelogDir, file);
+    if (isYamlFile(file) && !file.includes("archive.yml")) {
+      const filePath = path.join(changelogDir, file);
 
-        // Read the changes then delete the file.
-        const changes = readFileSync(filePath, { encoding: "utf8" });
+      // Read the changes then delete the file.
+      const changes = readFileSync(filePath, { encoding: "utf8" });
 
-        const yaml: YamlChanges = YAML.parse(changes);
+      const yaml: YamlChanges = YAML.parse(changes);
 
-        let version = yaml.version || "Unreleased";
-        let releaseDate = yaml.releaseDate || "TBD";
+      let version = yaml.version || "Unreleased";
+      let releaseDate = yaml.releaseDate || "TBD";
 
-        const foundRelease = acc.find((release) => release.version === version);
-        const currentVersion: Version = foundRelease ?? { version, releaseDate };
+      const foundRelease = acc.find((release) => release.version === version);
+      const currentVersion: Version = foundRelease ?? { version, releaseDate };
 
-        if (yaml) {
-          const yamlProperties = Object.keys(yaml);
+      if (yaml) {
+        const yamlProperties = Object.keys(yaml);
 
-          const yamlKeys = yamlProperties.filter(key => !YAML_KEY_FILTER.includes(key)) as Keywords[];
+        const yamlKeys = yamlProperties.filter(key => !YAML_KEY_FILTER.includes(key)) as Keywords[];
 
-          for (const key of yamlKeys) {
-            if (!currentVersion[key]) {
-              currentVersion[key] = [];
-            }
-
-            if (yaml[key]) {
-              // TODO: Look into possibly removing this funcionality.
-              // @ts-ignore - breaking could exists.
-              if (yaml[key]?.breaking) {
-                // @ts-ignore - breaking exists.
-                currentVersion[key].push(...yaml[key].breaking.map((str: string) => `[Breaking 🧨] - ${str}`));
-              } else {
-                currentVersion[key].push(...yaml[key] as string[]);
-              }
-            }
+        for (const key of yamlKeys) {
+          if (!currentVersion[key]) {
+            currentVersion[key] = [];
           }
 
-          if (!foundRelease) {
-            acc.push(currentVersion);
+          if (yaml[key]) {
+            // TODO: Look into possibly removing this funcionality.
+            // @ts-ignore - breaking could exists.
+            if (yaml[key]?.breaking) {
+              // @ts-ignore - breaking exists.
+              currentVersion[key].push(...yaml[key].breaking.map((str: string) => `[Breaking 🧨] - ${str}`));
+            } else {
+              currentVersion[key].push(...yaml[key] as string[]);
+            }
           }
         }
 
-        // Clean up changelog files.
+        if (!foundRelease) {
+          acc.push(currentVersion);
+        }
+      }
+
+      // Clean up changelog files.
+      if (existsSync(filePath)) {
         rmSync(filePath);
       }
     }
@@ -75,14 +76,14 @@ function generateCommand() {
   }, initialVersions);
 
   readdirSync(changelogDir, { recursive: true }).forEach(dir => {
-    !dir.includes("archive.yml") && rmdirSync(path.join(changelogDir, dir as string));
+    !dir.includes("archive.yml") && rmSync(path.join(changelogDir, dir as string), { recursive: true, force: true });
   });
 
   const archive = YAML.stringify(versions);
   writeFileSync(changelogArchive, archive, { encoding: "utf8" });
-  writeFileSync(changelogPath, generateChangelog(versions).trim(), { encoding: "utf8" });
+  writeFileSync(changelogPath, generateChangelog(versions), { encoding: "utf8" });
 
-  console.log("CHANGELOG.md finsihed writing.");
+  log("CHANGELOG.md finsihed writing.");
   rl.close();
 }
 
