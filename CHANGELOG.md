@@ -9,13 +9,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Cleanup of old files after the changelog has been made
+- Some unit testing.
+- `capitalizeFirstLetter` utility function.
+- README for `init` command.
 - caching to pipeline.
 - `init` command to stub out project.
 - `generate` command to create changelog.
 
 ### Deprecated
 
+- [object Object]
 - `changelog` command, this will be removed once we finish the commands.
+
+### Removed
+
+- support for flags
 
 ## [0.0.7] - 2024-11-17
 
