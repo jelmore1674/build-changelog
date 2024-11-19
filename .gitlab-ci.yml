@@ -34,10 +34,12 @@ build:
         - pnpm-lock.yaml
     paths:
       - .pnpm-store
+      - node_modules
       - dist
 
 test:
   stage: test
+  needs: [build]
   before_script:
     - corepack enable
     - pnpm config set store-dir .pnpm-store
@@ -52,6 +54,7 @@ test:
         - pnpm-lock.yaml
     paths:
       - .pnpm-store
+      - node_modules
 
 publish-npm:
   stage: deploy
