@@ -1,4 +1,4 @@
 version: 0.1.2
 releaseDate: 2024-11-19
 fixed:
-  - "Prevent removing `READEME.md` from changelog dir."
+  - "Prevent removing `README.md` from changelog dir."
