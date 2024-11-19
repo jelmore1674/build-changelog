@@ -4,7 +4,6 @@ added:
   - "`capitalizeFirstLetter` utility function."
   - "README for `init` command."
   - "paths in config"
-  - "test"
 
 removed:
   - "support for flags"
