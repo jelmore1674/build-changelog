@@ -27,8 +27,8 @@ function createChangelog() {
 
         const yaml: YamlChanges = YAML.parse(changes);
 
-        let version = yaml.version || "Unreleased";
-        let releaseDate = yaml.releaseDate || "TBD";
+        let version = yaml.version || path.basename(path.dirname(filePath))?.split("_")[0] || "Unreleased";
+        let releaseDate = yaml.releaseDate || path.basename(path.dirname(filePath))?.split("_")[1] || "TBD";
 
         const foundRelease = acc.find((release) => release.version === version);
         const currentVersion: Version = foundRelease ?? { version, releaseDate };
