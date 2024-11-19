@@ -1,5 +1,5 @@
-- version: Unreleased
-  releaseDate: TBD
+- version: 0.1.1
+  releaseDate: 2024-11-19
   removed:
     - "[Breaking 🧨] - dir name fallbacks for undefined version and release date"
   added:

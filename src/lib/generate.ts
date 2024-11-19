@@ -65,18 +65,14 @@ function generateCommand() {
           acc.push(currentVersion);
         }
       }
-
-      // Clean up changelog files.
-      if (existsSync(filePath)) {
-        rmSync(filePath);
-      }
     }
 
     return acc.sort((a, b) => b.version.localeCompare(a.version));
   }, initialVersions);
 
-  readdirSync(changelogDir, { recursive: true }).forEach(dir => {
-    !dir.includes("archive.yml") && rmSync(path.join(changelogDir, dir as string), { recursive: true, force: true });
+  readdirSync(changelogDir, { recursive: true, encoding: "utf8" }).forEach(dir => {
+    isYamlFile(dir) && !dir.includes("archive.yml")
+      && rmSync(path.join(changelogDir, dir as string), { recursive: true, force: true });
   });
 
   const archive = YAML.stringify(versions);

@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - `log` util function to hide logs during testing.
+- `build-changelog` to the project.
 
 ### Removed
 
