@@ -23,7 +23,7 @@ const program = new Command();
 program
   .name("build-changelog")
   .description("cli tool to generate changelogs")
-  .version("0.1.1");
+  .version("0.1.2");
 
 for (const command of commands) {
   // This is to keep the changelog command alive. for now. Will be deprecated in the future.
