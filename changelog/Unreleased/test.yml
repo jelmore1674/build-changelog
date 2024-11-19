@@ -9,5 +9,5 @@ removed:
   - "support for flags"
 
 deprecated:
-  - breaking:
-      - "`version_date_separator` support will be removed."
+  breaking:
+    - "`version_date_separator` support will be removed."
