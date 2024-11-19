@@ -35,7 +35,6 @@ build:
     paths:
       - .pnpm-store
       - node_modules
-      - dist
 
 test:
   stage: test
@@ -64,6 +63,8 @@ publish-npm:
   before_script:
     - corepack enable
     - pnpm config set store-dir .pnpm-store
+    - pnpm install --frozen-lockfile
+    - pnpm build
   script:
     - echo $REGISTRY > .npmrc
     - echo $TOKEN >> .npmrc
@@ -76,4 +77,4 @@ publish-npm:
         - pnpm-lock.yaml
     paths:
       - .pnpm-store
-      - dist
+      - node_modules
