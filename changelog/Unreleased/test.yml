@@ -3,6 +3,7 @@ added:
   - "Some unit testing."
   - "`capitalizeFirstLetter` utility function."
   - "README for `init` command."
+  - "paths in config"
 
 removed:
   - "support for flags"
