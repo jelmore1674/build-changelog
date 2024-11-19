@@ -5,3 +5,4 @@ added:
 
 deprecated:
   - "`changelog` command, this will be removed once we finish the commands."
+  - "nothing"
