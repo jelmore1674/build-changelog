@@ -14,24 +14,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `capitalizeFirstLetter` utility function.
 - README for `init` command.
 - paths in config
-- test
 - caching to pipeline.
 - `init` command to stub out project.
 - `generate` command to create changelog.
 
 ### Deprecated
 
-- [object Object]
+- [Breaking 🧨] - `version_date_separator` support will be removed.
 - `changelog` command, this will be removed once we finish the commands.
-- nothing
 
 ### Removed
 
 - support for flags
-
-### Fixed
-
-- broken pipeline
 
 ## [0.0.7] - 2024-11-17
 

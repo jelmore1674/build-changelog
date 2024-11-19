@@ -1,7 +1,0 @@
-added:
-  - "caching to pipeline."
-  - "`init` command to stub out project."
-  - "`generate` command to create changelog."
-
-deprecated:
-  - "`changelog` command, this will be removed once we finish the commands."
