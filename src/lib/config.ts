@@ -33,6 +33,12 @@ let config = initialConfig;
 let configFile = "bcl.yml";
 let changelogFileName = "CHANGELOG.md";
 
+if (process.env.NODE_ENV === "test") {
+  configFile = "test.yml";
+  changelogFileName = "TEST.md";
+  config = { ...config, dir: "test" };
+}
+
 /**
  * The path to our config. `bcl.yml`.
  */
@@ -42,12 +48,6 @@ const configPath = path.join(process.cwd(), configFile);
 if (existsSync(configPath)) {
   const rawConfig = readFileSync(configPath, { encoding: "utf8" });
   config = { ...initialConfig, ...YAML.parse(rawConfig) };
-}
-
-if (process.env.NODE_ENV === "test") {
-  configFile = "test.yml";
-  changelogFileName = "TEST.md";
-  config = { ...config, dir: "test" };
 }
 
 /**

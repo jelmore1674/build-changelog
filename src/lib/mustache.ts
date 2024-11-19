@@ -42,7 +42,7 @@ type YamlChanges = Partial<Record<Keywords, string[] | Partial<Record<"breaking"
  * @returns A string that can be written to a file.
  */
 function generateChangelog(versions: Version[]) {
-  return Mustache.render(heading, { versions }, { versions: version, change });
+  return Mustache.render(heading, { versions }, { versions: version, change }).trim();
 }
 
 export { generateChangelog };
