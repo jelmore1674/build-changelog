@@ -27,14 +27,14 @@ interface Release {
 type Keywords = `${KEYWORDS}`;
 
 /**
+ * The changes from the `yaml` or `toml` file.
+ */
+type Changes = Release & Partial<Record<Keywords, Partial<Record<"change" | string, string[]>>>>;
+
+/**
  * The Section that is used to make the Version.
  */
 type Version = Release & Partial<Record<Keywords, string[]>>;
-
-/**
- * Parsed yaml output.
- */
-type YamlChanges = Partial<Record<Keywords, string[] | Partial<Record<"breaking", string[]>>>> & Release;
 
 /**
  * Generate the changelog.
@@ -47,4 +47,4 @@ function generateChangelog(versions: Version[]) {
 
 export { generateChangelog };
 
-export type { Keywords, Version, YamlChanges };
+export type { Changes, Keywords, Version };
