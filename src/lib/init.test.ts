@@ -34,6 +34,10 @@ describe("init command", () => {
       rmSync(TEST_DIR, { force: true, recursive: true });
     }
 
+    if (changelogDir.includes("test")) {
+      rmSync(changelogDir, { force: true, recursive: true });
+    }
+
     // Remove test config that is generated
     if (existsSync(configPath)) {
       rmSync(configPath);
@@ -47,12 +51,12 @@ describe("init command", () => {
 
     await initCommand();
 
-    expect(existsSync(TEST_DIR)).toBeTruthy();
-    expect(readdirSync(TEST_DIR).includes("README.md")).toBeTruthy();
-    expect(readFileSync(path.join(TEST_DIR, "README.md"), { encoding: "utf8" })).toContain("Build Changelog");
-    expect(readFileSync(path.join(TEST_DIR, "README.md"), { encoding: "utf8" })).toContain("Examples");
-    expect(readFileSync(path.join(TEST_DIR, "README.md"), { encoding: "utf8" })).toContain("added");
-    expect(readFileSync(path.join(TEST_DIR, "README.md"), { encoding: "utf8" })).toContain("fixed");
+    expect(existsSync(changelogDir)).toBeTruthy();
+    expect(readdirSync(changelogDir).includes("README.md")).toBeTruthy();
+    expect(readFileSync(path.join(changelogDir, "README.md"), { encoding: "utf8" })).toContain("Build Changelog");
+    expect(readFileSync(path.join(changelogDir, "README.md"), { encoding: "utf8" })).toContain("Examples");
+    expect(readFileSync(path.join(changelogDir, "README.md"), { encoding: "utf8" })).toContain("added");
+    expect(readFileSync(path.join(changelogDir, "README.md"), { encoding: "utf8" })).toContain("fixed");
   });
 
   it("generates the config file", async () => {
@@ -78,7 +82,7 @@ describe("init command", () => {
 
     const yaml: Changes = YAML.parse(readFileSync(sampleChangelogFile, { encoding: "utf8" }));
 
-    expect(yaml.added?.[0]).toContain("`build-changelog` to the project");
+    expect(yaml.added?.change?.[0]).toContain("`build-changelog` to the project");
     expect(yaml.version).toEqual("Unreleased");
   });
 
@@ -93,7 +97,7 @@ describe("init command", () => {
 
     const toml = TOML.parse(readFileSync(sampleChangelogFile, { encoding: "utf8" })) as unknown as Changes;
 
-    expect(toml.added?.[0]).toContain("`build-changelog` to the project");
+    expect(toml.added?.change?.[0]).toContain("`build-changelog` to the project");
     expect(toml.version).toEqual("Unreleased");
   });
 });

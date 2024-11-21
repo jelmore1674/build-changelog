@@ -12,8 +12,8 @@ const SAMPLE_FILE_NAME = {
 };
 
 const CONFIG_FILE = {
-  yaml: "bcl.yml",
-  toml: "bcl.toml",
+  yaml: "test.yml",
+  toml: "test.toml",
 };
 
 const readme = readFileSync(
@@ -21,7 +21,7 @@ const readme = readFileSync(
   "utf8",
 );
 
-const exampleChangelogEntry = { version: "Unreleased", added: ["`build-changelog` to the project."] };
+const exampleChangelogEntry = { version: "Unreleased", added: { change: ["`build-changelog` to the project."] } };
 
 /**
  * Intialize the application.

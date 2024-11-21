@@ -62,12 +62,6 @@ if (config.prefers === "toml" || existsSync(path.join(process.cwd(), tomlConfigF
   archiveFile = "archive.toml";
 }
 
-if (process.env.NODE_ENV === "test") {
-  configFile = config.prefers === "yaml" ? "test.yml" : "test.toml";
-  changelogFileName = "TEST.md";
-  config = { ...config, dir: "test" };
-}
-
 // Use the initial config if we do not have a config file.
 if (existsSync(configPath)) {
   const rawConfig = readFileSync(configPath, { encoding: "utf8" });
@@ -78,7 +72,7 @@ if (existsSync(configPath)) {
 /**
  * The directory where we will put our changelog `yaml` files.
  */
-const changelogDir = path.join(process.cwd(), config.dir);
+let changelogDir = path.join(process.cwd(), config.dir);
 
 /**
  * The path to the CHANGELOG.md file
@@ -89,6 +83,17 @@ const changelogPath = path.join(process.cwd(), changelogFileName);
  * The path to the archive file of the changelog.
  */
 const changelogArchive = path.join(changelogDir, archiveFile);
+
+/**
+ * The config used for testing.
+ */
+if (process.env.NODE_ENV) {
+  configFile = config.prefers === "yaml" ? "test.yml" : "test.toml";
+  configPath = path.join(process.cwd(), config.prefers === "yaml" ? "test.yml" : "test.toml");
+  changelogFileName = "TEST.md";
+  config = { ...config, dir: "test" };
+  changelogDir = path.join(__dirname, "test");
+}
 
 export { changelogArchive, changelogDir, changelogPath, config, configPath, initialConfig };
 
