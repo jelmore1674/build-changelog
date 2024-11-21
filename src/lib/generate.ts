@@ -26,7 +26,7 @@ function generateCommand() {
   let initialVersions: Version[] = [];
 
   if (existsSync(changelogArchive)) {
-    const parser = !isYamlFile(changelogArchive) ? YAML : TOML;
+    const parser = isYamlFile(changelogArchive) ? YAML : TOML;
     initialVersions = parser.parse(readFileSync(changelogArchive, { encoding: "utf8" }));
   }
 
