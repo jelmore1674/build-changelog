@@ -1,0 +1,8 @@
+dir = "changelog"
+prefers = "toml"
+
+[flags.breaking]
+prefix = "[Breaking 🧨]"
+
+[flags.test]
+prefix = "[Testing 💀]"
