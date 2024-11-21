@@ -1,3 +1,4 @@
+import TOML from "@iarna/toml";
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import YAML from "yaml";
@@ -31,30 +32,47 @@ type Config = {
 const initialConfig: Config = {
   dir: "changelog",
   prefers: "yaml",
+  flags: {
+    breaking: {
+      prefix: "[Breaking 🧨]",
+    },
+  },
 };
 
 /**
  * The configuration of our changelog application.
  */
 let config = initialConfig;
-let configFile = "bcl.yml";
+let yamlConfigFile = "bcl.yml";
+let tomlConfigFile = "bcl.toml";
+let configFile = yamlConfigFile;
 let changelogFileName = "CHANGELOG.md";
-
-if (process.env.NODE_ENV === "test") {
-  configFile = "test.yml";
-  changelogFileName = "TEST.md";
-  config = { ...config, dir: "test" };
-}
+let parser: typeof YAML | typeof TOML = YAML;
+let archiveFile = "archive.yml";
 
 /**
  * The path to our config. `bcl.yml`.
  */
-const configPath = path.join(process.cwd(), configFile);
+let configPath = path.join(process.cwd(), yamlConfigFile);
+
+if (config.prefers === "toml" || existsSync(path.join(process.cwd(), tomlConfigFile))) {
+  configPath = path.join(process.cwd(), tomlConfigFile);
+  configFile = tomlConfigFile;
+  parser = TOML;
+  archiveFile = "archive.toml";
+}
+
+if (process.env.NODE_ENV === "test") {
+  configFile = config.prefers === "yaml" ? "test.yml" : "test.toml";
+  changelogFileName = "TEST.md";
+  config = { ...config, dir: "test" };
+}
 
 // Use the initial config if we do not have a config file.
 if (existsSync(configPath)) {
   const rawConfig = readFileSync(configPath, { encoding: "utf8" });
-  config = { ...initialConfig, ...YAML.parse(rawConfig) };
+
+  config = { ...initialConfig, ...parser.parse(rawConfig) };
 }
 
 /**
@@ -70,7 +88,7 @@ const changelogPath = path.join(process.cwd(), changelogFileName);
 /**
  * The path to the archive file of the changelog.
  */
-const changelogArchive = path.join(changelogDir, "archive.yml");
+const changelogArchive = path.join(changelogDir, archiveFile);
 
 export { changelogArchive, changelogDir, changelogPath, config, configPath, initialConfig };
 
