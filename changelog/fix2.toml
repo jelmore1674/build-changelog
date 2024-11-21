@@ -1,5 +1,0 @@
-version = "0.2.2"
-releaseDate = "2024-11-21"
-
-[fixed]
-changes = ["Fix TOML not parsing correctly"]

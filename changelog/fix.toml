@@ -1,5 +1,0 @@
-version = "0.2.1"
-releaseDate = "2024-11-21"
-
-[fixed]
-change = ["Fix parsing of archive for toml configuration."]
