@@ -5,7 +5,6 @@ added = [
   "Support for TOML. Add versions with toml and set up config with TOML.",
   "[Breaking 🧨] - Flag customization in the config.",
   "[Breaking 🧨] - breaking change in toml",
-  "Update tests",
 ]
 changed = [
   "[Breaking 🧨] - The properties of the yaml file. you must have a nested property to add a change.",
