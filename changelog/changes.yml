@@ -1,0 +1,7 @@
+added:
+  breaking:
+    - Flag customization in the config.
+
+changed:
+  breaking:
+    - The properties of the yaml file. you must have a nested property to add a change.
