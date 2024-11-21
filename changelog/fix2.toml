@@ -1,0 +1,5 @@
+version = "0.2.2"
+releaseData = "2024-11-21"
+
+[fixed]
+changes = ["Fix TOML not parsing correctly"]
