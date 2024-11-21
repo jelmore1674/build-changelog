@@ -1,16 +1,21 @@
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import YAML from "yaml";
-import { Keywords } from "./mustache";
 
 type Config = {
   /** the directory our changlog files will be in */
   dir: string;
-  /** Custom list of keywords. */
-  keywords: string[];
-};
 
-const initialKeywords: Keywords[] = ["added", "changed", "fixed", "deprecated", "removed", "security"];
+  /**
+   * any custom flags with prefixes.
+   */
+  flags?: Record<string, { prefix?: string }>;
+
+  /**
+   * Prefer toml or yaml
+   */
+  prefers: "toml" | "yaml";
+};
 
 /**
  * The initial configuration of the application.
@@ -18,12 +23,14 @@ const initialKeywords: Keywords[] = ["added", "changed", "fixed", "deprecated", 
  * ```json
  * {
  *   "dir": "changelog",
- *   "keywords": ["added", "changed", "fixed", "deprecated", "removed", "security"],
+ *   "flags": {
+ *     "breaking": "[Breaking 🧨]"
+ *   }
  * }
  */
 const initialConfig: Config = {
   dir: "changelog",
-  keywords: initialKeywords,
+  prefers: "yaml",
 };
 
 /**
