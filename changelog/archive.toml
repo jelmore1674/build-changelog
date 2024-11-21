@@ -1,0 +1,67 @@
+[[versions]]
+version = "Unreleased"
+releaseDate = "TBD"
+added = [
+  "[Breaking 🧨] - Flag customization in the config.",
+  "This cool change",
+  "[Breaking 🧨] - breaking change in toml"
+]
+changed = [
+  "[Breaking 🧨] - The properties of the yaml file. you must have a nested property to add a change."
+]
+
+[[versions]]
+version = "0.1.2"
+releaseDate = "2024-11-19"
+fixed = [ "Prevent removing `README.md` from changelog dir." ]
+
+[[versions]]
+version = "0.1.1"
+releaseDate = "2024-11-19"
+removed = [
+  "[Breaking 🧨] - dir name fallbacks for undefined version and release date"
+]
+added = [ "`log` util function to hide logs during testing." ]
+
+[[versions]]
+version = "0.1.0"
+releaseDate = "2024-11-18"
+added = [
+  "Cleanup of old files after the changelog has been made",
+  "Some unit testing.",
+  "`capitalizeFirstLetter` utility function.",
+  "README for `init` command.",
+  "paths in config",
+  "caching to pipeline.",
+  "`init` command to stub out project.",
+  "`generate` command to create changelog."
+]
+removed = [ "support for flags" ]
+deprecated = [
+  "[Breaking 🧨] - `version_date_separator` support will be removed.",
+  "`changelog` command, this will be removed once we finish the commands."
+]
+
+[[versions]]
+version = "0.0.7"
+releaseDate = "2024-11-17"
+added = [ "support yaml config." ]
+removed = [
+  "[Breaking 🧨] - command arguments. (Note: This may be reintroduced later)"
+]
+fixed = [
+  "`breaking` flag not rendering in changelog correctly. Adds a hypen. to make it look better."
+]
+
+[[versions]]
+version = "0.0.6"
+releaseDate = "2024-11-17"
+fixed = [ "template escape characters" ]
+
+[[versions]]
+version = "0.0.5"
+releaseDate = "2024-11-17"
+added = [
+  "inital release of app.",
+  "`breaking` keyword to show breaking changes."
+]
