@@ -1,41 +1,41 @@
 {
-	"name": "@jelmore1674/build-changelog",
-	"version": "0.2.2",
-	"description": "",
-	"main": "dist/index.js",
-	"files": ["dist"],
-	"scripts": {
-		"build": "tsc && ncc build lib/index.js && cp -R templates dist/",
-		"lint": "biome lint",
-		"test": "pnpm vitest"
-	},
-	"keywords": [],
-	"author": "jelmore1674",
-	"license": "ISC",
-	"packageManager": "pnpm@9.12.2+sha512.22721b3a11f81661ae1ec68ce1a7b879425a1ca5b991c975b074ac220b187ce56c708fe5db69f4c962c989452eee76c82877f4ee80f474cebd61ee13461b6228",
-	"dependencies": {
-		"@iarna/toml": "^2.2.5",
-		"@vercel/ncc": "^0.38.3",
-		"commander": "^12.1.0",
-		"mustache": "^4.2.0",
-		"yaml": "^2.6.1"
-	},
-	"devDependencies": {
-		"@biomejs/biome": "1.9.4",
-		"@types/mustache": "^4.2.5",
-		"@types/node": "^22.9.1",
-		"dprint": "^0.47.5",
-		"typescript": "^5.6.3",
-		"vitest": "^2.1.5"
-	},
-	"bin": {
-		"build-cl": "dist/index.js"
-	},
-	"publishConfig": {
-		"@scope:registry": "https://gitlab.justinelmore.dev/api/v4/projects/29/packages/npm/"
-	},
-	"engines": {
-		"node": "~20"
-	},
-	"engineStrict": true
+  "name": "@jelmore1674/build-changelog",
+  "version": "0.2.2",
+  "description": "",
+  "main": "dist/index.js",
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc && ncc build lib/index.js && cp -R templates dist/",
+    "lint": "biome lint",
+    "test": "pnpm vitest"
+  },
+  "keywords": [],
+  "author": "jelmore1674",
+  "license": "ISC",
+  "packageManager": "pnpm@9.12.2+sha512.22721b3a11f81661ae1ec68ce1a7b879425a1ca5b991c975b074ac220b187ce56c708fe5db69f4c962c989452eee76c82877f4ee80f474cebd61ee13461b6228",
+  "dependencies": {
+    "@iarna/toml": "^2.2.5",
+    "@vercel/ncc": "^0.38.3",
+    "commander": "^12.1.0",
+    "mustache": "^4.2.0",
+    "yaml": "^2.6.1"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "@types/mustache": "^4.2.5",
+    "@types/node": "^22.9.1",
+    "dprint": "^0.47.5",
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.5"
+  },
+  "bin": {
+    "build-cl": "dist/index.js"
+  },
+  "publishConfig": {
+    "@scope:registry": "https://gitlab.justinelmore.dev/api/v4/projects/29/packages/npm/"
+  },
+  "engines": {
+    "node": "~20"
+  },
+  "engineStrict": true
 }
