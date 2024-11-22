@@ -1,7 +1,7 @@
 import TOML from "@iarna/toml";
 import { existsSync, readdirSync, readFileSync, rmSync } from "node:fs";
 import path from "node:path";
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, test, vi } from "vitest";
 import YAML from "yaml";
 import { changelogDir, Config, configPath } from "./config";
 import { initCommand } from "./init";
@@ -46,7 +46,7 @@ describe("init command", () => {
     vi.restoreAllMocks();
   });
 
-  it("creates the test dir with README", async () => {
+  test("creates the test dir with README", async () => {
     vi.spyOn(rl, "question").mockImplementation(mockPrefersYaml);
 
     await initCommand();
@@ -59,7 +59,7 @@ describe("init command", () => {
     expect(readFileSync(path.join(changelogDir, "README.md"), { encoding: "utf8" })).toContain("fixed");
   });
 
-  it("generates the config file", async () => {
+  test("generates the config file", async () => {
     vi.spyOn(rl, "question").mockImplementation(mockPrefersYaml);
 
     await initCommand();
@@ -71,7 +71,7 @@ describe("init command", () => {
     expect(yaml.dir).toEqual("test");
   });
 
-  it("generates a sample changelog entry", async () => {
+  test("generates a sample changelog entry", async () => {
     vi.spyOn(rl, "question").mockImplementation(mockPrefersYaml);
 
     const sampleChangelogFile = path.join(changelogDir, "init.yml");
@@ -86,7 +86,7 @@ describe("init command", () => {
     expect(yaml.version).toEqual("Unreleased");
   });
 
-  it("generates a sample changelog entry", async () => {
+  test("generates a sample changelog entry", async () => {
     vi.spyOn(rl, "question").mockImplementation(mockPrefersToml);
 
     const sampleChangelogFile = path.join(changelogDir, "init.toml");
