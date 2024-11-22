@@ -8,12 +8,28 @@ Examples:
 ```yaml
 # test-change.yml
 added:
-  - 'You can add a change by adding a string to the the valid properties.'
-  - Quotes are optional
+  changes:
+    - 'You can add a change by adding a string to the the valid properties.'
+    - Quotes are optional
 
 removed:
   breaking:
     - if you have a breaking change you can use the breaking property to have the prefix.
+```
+
+```toml
+version = "0.0.1"
+releaseDate = "TBD"
+
+[added]
+added = [
+  "We can also use toml."
+]
+
+[fixed]
+breaking = [
+  "the same properties work for both."
+]
 ```
 
 ## Valid Keywords
