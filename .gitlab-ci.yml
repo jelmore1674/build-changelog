@@ -13,9 +13,9 @@ image: node:20
 stages:
   - build
   - test
-  - deploy
   - changelog
   - create-release
+  - deploy
   - security
 
 build:
