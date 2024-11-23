@@ -6,15 +6,6 @@
 # Note that environment variables can be set in several places
 # See https://docs.gitlab.com/ee/ci/variables/#cicd-variable-precedence
 include:
-  - component: "$CI_SERVER_FQDN/jelmore1674/ci-templates/build-changelog@main"
-    inputs:
-      job: changelog
-      stage: changelog
-    rules:
-      - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "main"
-        changes:
-          - changelog/*.yml
-          - changelog/*.toml
   - template: Security/SAST.gitlab-ci.yml
 
 image: node:20
@@ -66,8 +57,60 @@ test:
       - ".pnpm-store"
       - node_modules
 
+changelog:
+  stage: changelog
+  before_script:
+    # in order to commit we have to have a user set
+    # this would also make it easy to distinct the CI-made commits
+    - git config user.name "CI Pipeline"
+    - git config user.email "cipipeline@gitlab.justinelmore.dev"
+    - git remote rm ci_origin || true
+    - git remote add ci_origin $CI_REPOSITORY_URL
+    ## Setup project
+    - corepack enable
+    - pnpm config set store-dir .pnpm-store
+    - pnpm install --frozen-lockfile
+    - pnpm lint
+    - pnpm build
+    - npm i -g .
+  script:
+    # Build changelog
+    - build-cl generate
+    # Check if changelog is updated.
+    # Commit to git
+    - git add .
+      # We can use `-o ci.skip`, but AFAIK it doesn't work for Merge Request pipelines, while having it inside the commit message works there as well
+    - git commit -m "Generated Changelog [skip ci]" || true
+    - git push ci_origin HEAD:$CI_COMMIT_REF_NAME
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "main"
+      changes:
+        - changelog/*.yml
+        - changelog/*.toml
+  cache:
+    key:
+      files:
+        - pnpm-lock.yaml
+    paths:
+      - ".pnpm-store"
+      - node_modules
+
+create-release:
+  stage: release
+  image: registry.gitlab.com/gitlab-org/release-cli:latest
+  script: echo "Creating release $CI_COMMIT_TAG"
+  rules:
+    - if: $CI_COMMIT_TAG
+      when: manual
+    - when: never
+  release:
+    tag_name: $CI_COMMIT_TAG
+    description: "Release $CI_COMMIT_TAG of build-changelog in $CI_PROJECT_PATH"
+
 publish-npm:
   stage: deploy
+  needs:
+    - release
   variables:
     REGISTRY: "@jelmore1674:registry=https://${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/"
     TOKEN: "//${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=${CI_JOB_TOKEN}"
