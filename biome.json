@@ -7,7 +7,8 @@
   },
   "files": {
     "ignoreUnknown": false,
-    "ignore": ["dist", "lib"]
+    "include": ["src/**/*.ts"],
+    "ignore": ["dist", "lib", "src/**/*.test.ts"]
   },
   "formatter": {
     "enabled": true,

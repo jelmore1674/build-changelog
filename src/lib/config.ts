@@ -82,17 +82,18 @@ const changelogPath = path.join(process.cwd(), changelogFileName);
 /**
  * The path to the archive file of the changelog.
  */
-const changelogArchive = path.join(changelogDir, archiveFile);
+let changelogArchive = path.join(changelogDir, archiveFile);
 
 /**
  * The config used for testing.
  */
-if (process.env.NODE_ENV) {
+if (process.env.NODE_ENV === "test") {
   configFile = config.prefers === "yaml" ? "test.yml" : "test.toml";
   configPath = path.join(process.cwd(), config.prefers === "yaml" ? "test.yml" : "test.toml");
   changelogFileName = "TEST.md";
   config = { ...config, dir: "test" };
-  changelogDir = path.join(__dirname, "test");
+  changelogDir = path.join(__dirname, "../../test");
+  changelogArchive = path.join(__dirname, "../../test", archiveFile);
 }
 
 export { changelogArchive, changelogDir, changelogPath, config, configPath, initialConfig };

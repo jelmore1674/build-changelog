@@ -1,3 +1,4 @@
+#:schema ./schemas/config.schema.json
 dir = "changelog"
 prefers = "toml"
 

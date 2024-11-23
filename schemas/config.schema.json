@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$ref": "#/definitions/BuildChangelogConfig",
+  "definitions": {
+    "BuildChangelogConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "dir": {
+          "type": "string",
+          "description": "The directory where you will store your changelog files."
+        },
+        "flags": {
+          "$ref": "#/definitions/Flags",
+          "description": "Custom flags to implement."
+        },
+        "prefers": {
+          "type": "string",
+          "enum": ["toml", "yaml"],
+          "description": "Prefer yaml or toml"
+        }
+      },
+      "required": ["dir"],
+      "title": "Build Changelog Config"
+    },
+    "Flags": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "minItems": 1,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "prefix": {
+              "type": "string",
+              "description": "When using a flag you select the custom prefix that is displayed with the flag."
+            }
+          },
+          "required": ["prefix"],
+          "title": "Flag"
+        }
+      },
+      "title": "Flags"
+    }
+  }
+}

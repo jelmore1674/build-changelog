@@ -2,9 +2,11 @@ import * as Mustache from "mustache";
 import { readFileSync } from "node:fs";
 import path from "node:path";
 
-const heading = readFileSync(path.join(__dirname, "./templates/heading.md"), "utf8");
-const version = readFileSync(path.join(__dirname, "./templates/version.md"), "utf8");
-const change = readFileSync(path.join(__dirname, "./templates/change.md"), "utf8");
+const dir = process.env.NODE_ENV === "test" ? process.cwd() : __dirname;
+
+const heading = readFileSync(path.join(dir, "./templates/heading.md"), "utf8");
+const version = readFileSync(path.join(dir, "./templates/version.md"), "utf8");
+const change = readFileSync(path.join(dir, "./templates/change.md"), "utf8");
 
 /** Initial list of supported keywords */
 enum KEYWORDS {

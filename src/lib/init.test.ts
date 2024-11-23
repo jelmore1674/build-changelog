@@ -1,103 +1,119 @@
 import TOML from "@iarna/toml";
-import { existsSync, readdirSync, readFileSync, rmSync } from "node:fs";
+import { removeSync } from "fs-extra";
+import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { afterEach, describe, expect, test, vi } from "vitest";
 import YAML from "yaml";
 import { changelogDir, Config, configPath } from "./config";
-import { initCommand } from "./init";
-import { Changes } from "./mustache";
+import * as init from "./init";
 import { rl } from "./readline";
 
 const TEST_DIR = path.join(__dirname, "../../test");
 
-const mockPrefersYaml = vi.fn(async (question) => {
-  if (question.includes("changelog")) {
-    return "test";
+function teardown() {
+  // Remove test dir that is generated.
+  if (existsSync(TEST_DIR)) {
+    removeSync(TEST_DIR);
   }
-  // Return a hardcoded response or simulate user input
-  return "yaml";
+
+  // Remove test config that is generated
+  if (existsSync(configPath)) {
+    removeSync(configPath);
+  }
+}
+
+describe("createChangelogDirectory", () => {
+  afterEach(async () => {
+    teardown();
+  });
+
+  test("can write the changelog dir preferring yaml", () => {
+    init.createChangelogDirectory("yaml", YAML);
+
+    const initFile = readFileSync(path.join(changelogDir, "init.yml"), { encoding: "utf8" });
+    expect(initFile).toBeTruthy();
+    expect(initFile).toContain("added");
+  });
+
+  test("can write the changelog dir preferring toml", () => {
+    init.createChangelogDirectory("toml", TOML);
+
+    const initFile = readFileSync(path.join(changelogDir, "init.toml"), { encoding: "utf8" });
+    expect(initFile).toBeTruthy();
+    expect(initFile).toContain("added");
+  });
+
+  test("can write the changelog dir preferring toml", () => {
+    init.createChangelogDirectory("toml", TOML);
+
+    const readme = readFileSync(path.join(changelogDir, "README.md"), { encoding: "utf8" });
+    expect(readme).toBeTruthy();
+    expect(readme).toContain("added");
+  });
 });
 
-const mockPrefersToml = vi.fn(async (question) => {
-  if (question.includes("changelog")) {
-    return "test";
-  }
+describe("writeChangelogConfig", () => {
+  afterEach(async () => {
+    teardown();
+  });
 
-  // Return a hardcoded response or simulate user input
-  return "toml";
+  test("write the changelog config in yaml", () => {
+    const config: Config = {
+      dir: "test",
+      flags: {
+        breaking: {
+          prefix: "[Breaking 🧨]",
+        },
+      },
+      prefers: "yaml",
+    };
+
+    init.writeChangelogConfig(config, YAML);
+    const configFile = readFileSync(configPath, { encoding: "utf8" });
+
+    expect(configFile).toBeTruthy();
+    expect(configFile).toBe("dir: test\nflags:\n  breaking:\n    prefix: \"[Breaking 🧨]\"\nprefers: yaml\n");
+  });
+
+  test("write the changelog config in toml", () => {
+    const config: Config = {
+      dir: "test",
+      flags: {
+        breaking: {
+          prefix: "[Breaking 🧨]",
+        },
+      },
+      prefers: "toml",
+    };
+
+    init.writeChangelogConfig(config, TOML);
+
+    const configFile = readFileSync(configPath, { encoding: "utf8" });
+
+    expect(configFile).toBeTruthy();
+    expect(configFile).toContain(
+      "dir = \"test\"\nprefers = \"toml\"\n\n[flags.breaking]\nprefix = \"[Breaking 🧨]\"\n",
+    );
+  });
 });
 
 describe("init command", () => {
-  afterEach(() => {
-    // Remove test dir that is generated.
-    if (existsSync(TEST_DIR)) {
-      rmSync(TEST_DIR, { force: true, recursive: true });
-    }
-
-    if (changelogDir.includes("test")) {
-      rmSync(changelogDir, { force: true, recursive: true });
-    }
-
-    // Remove test config that is generated
-    if (existsSync(configPath)) {
-      rmSync(configPath);
-    }
-
+  afterEach(async () => {
     vi.restoreAllMocks();
+    teardown();
   });
 
-  test("creates the test dir with README", async () => {
-    vi.spyOn(rl, "question").mockImplementation(mockPrefersYaml);
-
-    await initCommand();
-
-    expect(existsSync(changelogDir)).toBeTruthy();
-    expect(readdirSync(changelogDir).includes("README.md")).toBeTruthy();
-    expect(readFileSync(path.join(changelogDir, "README.md"), { encoding: "utf8" })).toContain("Build Changelog");
-    expect(readFileSync(path.join(changelogDir, "README.md"), { encoding: "utf8" })).toContain("Examples");
-    expect(readFileSync(path.join(changelogDir, "README.md"), { encoding: "utf8" })).toContain("added");
-    expect(readFileSync(path.join(changelogDir, "README.md"), { encoding: "utf8" })).toContain("fixed");
+  test("the initCommand resolves successfully with yaml", async () => {
+    vi.spyOn(rl, "question").mockResolvedValueOnce("test").mockResolvedValueOnce("yaml");
+    const initCommand = vi.spyOn(init, "initCommand");
+    await init.initCommand();
+    expect(initCommand).toHaveResolved();
   });
 
-  test("generates the config file", async () => {
-    vi.spyOn(rl, "question").mockImplementation(mockPrefersYaml);
-
-    await initCommand();
-
-    expect(existsSync(configPath)).toBeTruthy();
-
-    const yaml: Config = YAML.parse(readFileSync(configPath, { encoding: "utf8" }));
-
-    expect(yaml.dir).toEqual("test");
-  });
-
-  test("generates a sample changelog entry", async () => {
-    vi.spyOn(rl, "question").mockImplementation(mockPrefersYaml);
-
-    const sampleChangelogFile = path.join(changelogDir, "init.yml");
-
-    await initCommand();
-
-    expect(existsSync(sampleChangelogFile)).toBeTruthy();
-
-    const yaml: Changes = YAML.parse(readFileSync(sampleChangelogFile, { encoding: "utf8" }));
-
-    expect(yaml.added?.change?.[0]).toContain("`build-changelog` to the project");
-    expect(yaml.version).toEqual("Unreleased");
-  });
-
-  test("generates a sample changelog entry", async () => {
-    vi.spyOn(rl, "question").mockImplementation(mockPrefersToml);
-
-    const sampleChangelogFile = path.join(changelogDir, "init.toml");
-
-    await initCommand();
-
-    expect(existsSync(sampleChangelogFile)).toBeTruthy();
-
-    const toml = TOML.parse(readFileSync(sampleChangelogFile, { encoding: "utf8" })) as unknown as Changes;
-
-    expect(toml.added?.change?.[0]).toContain("`build-changelog` to the project");
-    expect(toml.version).toEqual("Unreleased");
+  test("the initCommand resolves successfully with toml", async () => {
+    vi.spyOn(rl, "question").mockResolvedValueOnce("test").mockResolvedValueOnce("toml");
+    const initCommand = vi.spyOn(init, "initCommand");
+    await init.initCommand();
+    expect(initCommand).toHaveResolved();
   });
 });

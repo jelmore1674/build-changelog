@@ -1,7 +1,7 @@
-import TOML, { JsonMap } from "@iarna/toml";
+import { JsonMap } from "@iarna/toml";
 import { existsSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import path from "node:path";
-import YAML from "yaml";
+import { getParser } from "../utils/getParser";
 import { isTomlFile } from "../utils/isTomlFile";
 import { isYamlFile } from "../utils/isYamlFile";
 import { log } from "../utils/log";
@@ -9,10 +9,67 @@ import { changelogArchive, changelogDir, changelogPath, config } from "./config"
 import { Changes, generateChangelog, Keywords, Version } from "./mustache";
 import { rl } from "./readline";
 
+/** Properties we will not use when adding changes to the changelog */
 const YAML_KEY_FILTER = ["releaseDate", "version"];
+
+/** The valid keywords that are used for the sections in the changelog */
 const VALID_KEYWORDS = ["added", "changed", "deprecated", "fixed", "removed", "security"];
 
+/** The archive files. `.toml` or '.yml'. */
 const ARCHIVE_FILES = ["archive.toml", "archive.yml"];
+
+/**
+ * Utility function that determines if the file is a `TOML` or `YAML` file.
+ *
+ * @param file - the file name you are checking.
+ */
+function isTomlOrYamlFile(file: string) {
+  return isTomlFile(file) || isYamlFile(file);
+}
+
+/**
+ * Parse the changes from a `yaml` or `toml` file.
+ *
+ * @param file - the file you are getting the changes from.
+ */
+function parseChanges<T = Changes>(file: string): T {
+  if (existsSync(file)) {
+    const parser = getParser(file);
+    return parser.parse(readFileSync(file, { encoding: "utf8" })) as unknown as T;
+  }
+
+  throw new Error(`The file does not exist\n\n${file}`);
+}
+
+/**
+ * Get the data from the changelog archive.
+ */
+function getChangelogArchive(): Version[] {
+  return parseChanges<{ changelog: Version[] }>(changelogArchive)?.changelog ?? [];
+}
+
+/**
+ * Write the changelog to the archive.
+ */
+function writeChangelogToArchive(changelog: Version[]) {
+  const parser = getParser(config.prefers);
+  const archive = parser.stringify({ changelog } as unknown as JsonMap);
+  writeFileSync(changelogArchive, archive, { encoding: "utf8" });
+}
+
+/**
+ * Remove all `yaml` or `toml` files from the changelog directory.
+ */
+function cleanUpChangelog() {
+  log("Cleaning up files.");
+  // Clean up the changelog directory after we have finished updating the CHANGELOG.
+  readdirSync(changelogDir, { recursive: true, encoding: "utf8" }).forEach(file => {
+    if (isTomlOrYamlFile(file) && !ARCHIVE_FILES.includes(file)) {
+      rmSync(path.join(changelogDir, file as string), { recursive: true, force: true });
+    }
+  });
+  log("Finished cleaing. ");
+}
 
 /**
  *  The generate command will read the existing `yaml|yml` files in the
@@ -21,26 +78,13 @@ const ARCHIVE_FILES = ["archive.toml", "archive.yml"];
  */
 function generateCommand() {
   log("Generating changelog.");
+  let changelogArchive: Version[] = getChangelogArchive();
+
   const files = readdirSync(changelogDir, { recursive: true, encoding: "utf8" });
 
-  let initialVersions: Version[] = [];
-
-  if (existsSync(changelogArchive)) {
-    if (isTomlFile(changelogArchive)) {
-      initialVersions = TOML.parse(readFileSync(changelogArchive, { encoding: "utf8" }))
-        .versions as unknown as Version[];
-    } else {
-      initialVersions = YAML.parse(readFileSync(changelogArchive, { encoding: "utf8" }));
-    }
-  }
-
-  const versions = files.reduce((acc: Version[], file) => {
-    if ((isTomlFile(file) || isYamlFile(file)) && !ARCHIVE_FILES.includes(file)) {
-      const parser = isYamlFile(file) ? YAML : TOML;
-      const filePath = path.join(changelogDir, file);
-      const changes = readFileSync(filePath, { encoding: "utf8" });
-
-      const parsedChanges: Changes = parser.parse(changes);
+  const changelog = files.reduce((acc: Version[], file) => {
+    if (isTomlOrYamlFile(file) && !ARCHIVE_FILES.includes(file)) {
+      const parsedChanges = parseChanges(path.join(changelogDir, file));
 
       // Set fallback values for releaseData and Version
       let version = parsedChanges.version || "Unreleased";
@@ -53,19 +97,20 @@ function generateCommand() {
       const currentVersion: Version = foundRelease ?? { version, releaseDate };
 
       if (parsedChanges) {
-        const yamlProperties = Object.keys(parsedChanges);
+        for (const changes in parsedChanges) {
+          // Filter out the non keyword properties.
+          if (YAML_KEY_FILTER.includes(changes)) {
+            continue;
+          }
+          const keyword = changes as Keywords;
 
-        // Get the Keywords from the parsed changes. Filtering out the
-        // `version` and `releaseDate`.
-        const keywords = yamlProperties.filter(key => !YAML_KEY_FILTER.includes(key)) as Keywords[];
-
-        for (const keyword of keywords) {
           if (!VALID_KEYWORDS.includes(keyword)) {
             console.error(`INVALID_KEYWORD: The keyword "${keyword}" is invalid.\n`);
             console.error(`VALID_KEYWORDS: ${VALID_KEYWORDS.join(", ")}\n`);
-            console.error(filePath, "\n");
+            console.error(path.join(changelogDir, file), "\n");
             process.exit(1);
           }
+
           // if the currentVersion doesn't have this change keyword, we will
           // initialize an empty array.
           if (!currentVersion[keyword]) {
@@ -73,9 +118,7 @@ function generateCommand() {
           }
 
           if (parsedChanges[keyword]) {
-            const flags = Object.keys(parsedChanges[keyword]);
-
-            for (const flag of flags) {
+            for (const flag in parsedChanges[keyword]) {
               // Add the change to the current version. If the change flag has
               // a prefix we will add the prefix. Else we will return the string.
               currentVersion[keyword]?.push(
@@ -85,7 +128,7 @@ function generateCommand() {
                   }
 
                   return change;
-                }) as string[],
+                })!,
               );
             }
           }
@@ -97,29 +140,25 @@ function generateCommand() {
       }
     }
 
+    // Sort the changelog by the version.
     return acc.sort((a, b) => b.version.localeCompare(a.version));
-  }, initialVersions);
+  }, changelogArchive);
 
-  const parser = config.prefers === "yaml" ? YAML : TOML;
-  const releases = config.prefers === "yaml" ? versions : { versions };
-
-  const archive = parser.stringify(releases as unknown as JsonMap);
-  writeFileSync(changelogArchive, archive, { encoding: "utf8" });
-  writeFileSync(changelogPath, generateChangelog(versions), { encoding: "utf8" });
+  writeChangelogToArchive(changelog);
+  writeFileSync(changelogPath, generateChangelog(changelog), { encoding: "utf8" });
 
   log("CHANGELOG.md finsihed writing.");
 
-  log("Cleaning up files.");
-
-  // Clean up the changelog directory after we have finished updating the CHANGELOG.
-  readdirSync(changelogDir, { recursive: true, encoding: "utf8" }).forEach(dir => {
-    if ((isYamlFile(dir) || isTomlFile(dir)) && !ARCHIVE_FILES.includes(dir)) {
-      rmSync(path.join(changelogDir, dir as string), { recursive: true, force: true });
-    }
-  });
-  log("Finished cleaing. ");
+  cleanUpChangelog();
 
   rl.close();
 }
 
-export { generateCommand };
+export {
+  cleanUpChangelog,
+  generateCommand,
+  getChangelogArchive,
+  isTomlOrYamlFile,
+  parseChanges,
+  writeChangelogToArchive,
+};
