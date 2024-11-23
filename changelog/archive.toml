@@ -1,4 +1,12 @@
 [[versions]]
+version = "Unreleased"
+releaseDate = "TBD"
+added = [
+  "`getParser` utility function.",
+  "`prompt` function to `readline` lib."
+]
+
+[[versions]]
 version = "0.2.2"
 releaseDate = "2024-11-21"
 fixed = [ "Fix TOML not parsing correctly" ]

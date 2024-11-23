@@ -1,5 +1,0 @@
-[added]
-change = [
-  "`getParser` utility function.",
-  "`prompt` function to `readline` lib.",
-]
