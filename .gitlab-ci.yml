@@ -111,7 +111,7 @@ release:
 publish-npm:
   stage: deploy
   needs:
-    - release
+    - job: release
   variables:
     REGISTRY: "@jelmore1674:registry=https://${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/"
     TOKEN: "//${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=${CI_JOB_TOKEN}"
