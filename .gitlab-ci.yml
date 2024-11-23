@@ -15,6 +15,7 @@ stages:
   - test
   - deploy
   - changelog
+  - release
   - security
 
 build:
