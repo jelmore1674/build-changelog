@@ -14,7 +14,6 @@ stages:
   - build
   - test
   - changelog
-  - create-release
   - deploy
   - security
 
@@ -97,7 +96,7 @@ changelog:
       - node_modules
 
 create-release:
-  stage: create-release
+  stage: deploy
   image: registry.gitlab.com/gitlab-org/release-cli:latest
   script: echo "Creating release $CI_COMMIT_TAG"
   rules:
@@ -110,6 +109,8 @@ create-release:
 
 publish-npm:
   stage: deploy
+  needs:
+    - create-release
   variables:
     REGISTRY: "@jelmore1674:registry=https://${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/"
     TOKEN: "//${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=${CI_JOB_TOKEN}"
@@ -124,8 +125,6 @@ publish-npm:
     - npm publish
   rules:
     - if: $CI_COMMIT_TAG && '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "main"'
-      when: manual
-    - when: never
   cache:
     key:
       files:
