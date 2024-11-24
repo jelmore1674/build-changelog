@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Bump version to 0.2.4
 
+## [0.3.0] - 2024-11-24
+
+### Added
+
+- Adds a new `notes` command to help populate release notes in ci pipeline.
+
 ## [0.2.3] - 2024-11-23
 
 ### Added

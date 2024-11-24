@@ -1,7 +1,0 @@
-version = "0.3.0"
-releaseDate = "2024-11-24"
-
-[added]
-change = [
-  "Adds a new `notes` command to help populate release notes in ci pipeline.",
-]

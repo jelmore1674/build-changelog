@@ -4,6 +4,13 @@ releaseDate = "2024-11-23"
 added = [ "Bump version to 0.2.4" ]
 
 [[changelog]]
+version = "0.3.0"
+releaseDate = "2024-11-24"
+added = [
+  "Adds a new `notes` command to help populate release notes in ci pipeline."
+]
+
+[[changelog]]
 version = "0.2.3"
 releaseDate = "2024-11-23"
 added = [
