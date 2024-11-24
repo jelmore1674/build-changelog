@@ -1,4 +1,9 @@
 [[changelog]]
+version = "v0.2.4"
+releaseDate = "2024-11-23"
+added = [ "Bump version to 0.2.4" ]
+
+[[changelog]]
 version = "0.2.3"
 releaseDate = "2024-11-23"
 added = [

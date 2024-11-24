@@ -1,5 +1,0 @@
-version = "v0.2.4"
-releaseDate = "2024-11-23"
-
-[added]
-change = ["Bump version to 0.2.4"]
