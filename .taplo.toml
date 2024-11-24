@@ -1,0 +1,13 @@
+[[rule]]
+include = ["bcl.toml"]
+
+[rule.schema]
+path = "./schemas/config.schema.json"
+enabled = true
+
+# [[rule]]
+# include = ["./changelog/*.toml"]
+
+# [rule.schema]
+# path = "./schemas/changlelog.json"
+# enabled = true
