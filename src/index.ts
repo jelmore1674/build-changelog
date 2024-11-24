@@ -2,8 +2,11 @@
 
 import { Command } from "commander";
 import { exec } from "node:child_process";
-import { generateCommand } from "./lib/generate";
+import { generateCommand, getChangelogArchive } from "./lib/generate";
 import { initCommand } from "./lib/init";
+import { generateChangelog, generateReleaseNotes } from "./lib/mustache";
+import { rl } from "./lib/readline";
+import { notesCommand } from "./lib/releaseNotes";
 
 const commands = [
   {
@@ -31,7 +34,11 @@ const commands = [
       });
     },
   },
-  // TODO: `realease notes` get the releases notes for the current version to be able to output in the release.
+  {
+    name: "notes [version]",
+    description: "gets the realease notes from the archive for the current git tag",
+    action: notesCommand,
+  },
 ];
 
 const program = new Command();
@@ -39,7 +46,7 @@ const program = new Command();
 program
   .name("build-changelog")
   .description("cli tool to generate changelogs")
-  .version("0.2.5");
+  .version("0.3.0");
 
 for (const command of commands) {
   // This is to keep the changelog command alive. for now. Will be deprecated in the future.

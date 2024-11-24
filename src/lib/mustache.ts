@@ -7,6 +7,7 @@ const dir = process.env.NODE_ENV === "test" ? process.cwd() : __dirname;
 const heading = readFileSync(path.join(dir, "./templates/heading.md"), "utf8");
 const version = readFileSync(path.join(dir, "./templates/version.md"), "utf8");
 const change = readFileSync(path.join(dir, "./templates/change.md"), "utf8");
+const releaseNotes = readFileSync(path.join(dir, "./templates/release-notes.md"), "utf8");
 
 /** Initial list of supported keywords */
 enum KEYWORDS {
@@ -47,6 +48,10 @@ function generateChangelog(versions: Version[]) {
   return Mustache.render(heading, { versions }, { versions: version, change }).trim();
 }
 
-export { generateChangelog };
+function generateReleaseNotes(version: Version) {
+  return Mustache.render(releaseNotes, version, { change }).trim();
+}
+
+export { generateChangelog, generateReleaseNotes };
 
 export type { Changes, Keywords, Version };

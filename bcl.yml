@@ -1,8 +1,0 @@
-# yaml-language-server: $schema=./schemas/config.schema.json
-dir: changelog
-prefers: yaml
-flags:
-  breaking:
-    prefix: "[Breaking 🧨]"
-  test:
-    prefix: "[Testing 💀]"

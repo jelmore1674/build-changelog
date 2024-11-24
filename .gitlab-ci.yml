@@ -95,22 +95,8 @@ changelog:
       - ".pnpm-store"
       - node_modules
 
-create-release:
-  stage: deploy
-  image: registry.gitlab.com/gitlab-org/release-cli:latest
-  script: echo "Creating release $CI_COMMIT_TAG"
-  rules:
-    - if: $CI_COMMIT_TAG
-      when: manual
-    - when: never
-  release:
-    tag_name: $CI_COMMIT_TAG
-    description: "Release $CI_COMMIT_TAG of build-changelog in $CI_PROJECT_PATH"
-
 publish-npm:
   stage: deploy
-  needs:
-    - create-release
   variables:
     REGISTRY: "@jelmore1674:registry=https://${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/"
     TOKEN: "//${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=${CI_JOB_TOKEN}"
@@ -119,19 +105,33 @@ publish-npm:
     - pnpm config set store-dir .pnpm-store
     - pnpm install --frozen-lockfile
     - pnpm build
+    - npm i -g .
+    - build-cl notes > release-notes.txt
+    - export RELEASE_NOTES=$(cat release-notes.txt)
   script:
     - echo $REGISTRY > .npmrc
     - echo $TOKEN >> .npmrc
     - npm publish
   rules:
-    - if: $CI_COMMIT_TAG && '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "main"'
-  cache:
-    key:
-      files:
-        - pnpm-lock.yaml
+    - if: $CI_COMMIT_TAG
+      when: manual
+    - when: never
+  artifacts:
     paths:
-      - ".pnpm-store"
-      - node_modules
+      - release-notes.txt
+    expire_in: "5 mins"
+
+create-release:
+  stage: deploy
+  needs:
+    - publish-npm
+  image: registry.gitlab.com/gitlab-org/release-cli:latest
+  script: echo "Creating release $CI_COMMIT_TAG"
+  release:
+    tag_name: $CI_COMMIT_TAG
+    description: "$(cat release-notes.txt)"
+  rules:
+    - if: $CI_COMMIT_TAG && '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "main"'
 
 sast:
   stage: security
