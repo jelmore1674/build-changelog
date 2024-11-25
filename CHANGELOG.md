@@ -11,6 +11,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Bump version to 0.2.4
 
+## [0.3.1] - 2024-11-24
+
+### Fixed
+
+- Fixed the `init` command generating `test.toml`.
+- Fixed the fallback value not working as expected in prompt.
+- Fixed crash when there is no archive file by genrating archive on `init` command.
+
 ## [0.3.0] - 2024-11-24
 
 ### Added

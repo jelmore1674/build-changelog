@@ -1,9 +1,0 @@
-version = "0.3.1"
-releaseDate = "2024-11-24"
-
-[fixed]
-change = [
-  "Fixed the `init` command generating `test.toml`.",
-  "Fixed the fallback value not working as expected in prompt.",
-  "Fixed crash when there is no archive file by genrating archive on `init` command.",
-]
