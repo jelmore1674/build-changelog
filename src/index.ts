@@ -20,7 +20,7 @@ const commands = [
     alias: "changelog",
     action: generateCommand,
   },
-  // TODO: `add` command to add a template changelog based on the git branch. (Maybe auto generate.)
+  // TODO: `add` command to add a template changelog based on the git branch. (Maybe auto generate?)
   {
     name: "ac",
     description: "add a change",
