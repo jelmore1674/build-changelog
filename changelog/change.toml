@@ -5,4 +5,5 @@ releaseDate = "2024-11-24"
 change = [
   "Fixed the `init` command generating `test.toml`.",
   "Fixed the fallback value not working as expected in prompt.",
+  "Fixed crash when there is no archive file by genrating archive on `init` command.",
 ]
