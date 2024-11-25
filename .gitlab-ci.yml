@@ -9,11 +9,18 @@ include:
   - component: $CI_SERVER_FQDN/jelmore1674/ci-templates/build-docker@1.3.1
     inputs:
       stage: "build"
-      needs:
-        - build
       job: "build-docker"
 
 image: node:20
+
+cache:
+  key:
+    files:
+      - pnpm-lock.yaml
+  paths:
+    - dist
+    - ".pnpm-store"
+    - node_modules
 
 stages:
   - build
