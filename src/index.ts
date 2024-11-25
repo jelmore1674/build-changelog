@@ -36,7 +36,7 @@ const commands = [
   },
   {
     name: "notes [version]",
-    description: "gets the realease notes from the archive for the current git tag",
+    description: "realease notes from the archive for the current git tag",
     action: notesCommand,
   },
 ];

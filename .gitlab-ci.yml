@@ -8,7 +8,7 @@
 include:
   - component: $CI_SERVER_FQDN/jelmore1674/ci-templates/build-docker@1.3.1
     inputs:
-      stage: "build"
+      stage: "build-docker"
       job: "build-docker"
 
 image: node:20
@@ -24,6 +24,7 @@ cache:
 
 stages:
   - build
+  - build-docker
   - test
   - changelog
   - deploy
