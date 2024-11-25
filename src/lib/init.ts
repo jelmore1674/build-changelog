@@ -12,6 +12,11 @@ const SAMPLE_FILE_NAME = {
   toml: "init.toml",
 };
 
+const ARCHVIE_FILE = {
+  toml: "archive.toml",
+  yaml: "archive.yml",
+};
+
 const CONFIG_FILE = {
   yaml: "test.yml",
   toml: "test.toml",
@@ -39,6 +44,15 @@ function createChangelogDirectory(prefers: "yaml" | "toml", parser: typeof TOML 
     encoding: "utf8",
   });
 
+  // Create archive files.
+  writeFileSync(
+    path.join(changelogDir, ARCHVIE_FILE[prefers]),
+    "# This is a generated archive of the changelog.\n### Do not delete this file!",
+    {
+      encoding: "utf8",
+    },
+  );
+
   // Create the readme.
   writeFileSync(path.join(changelogDir, "README.md"), readme, { encoding: "utf8" });
 }
@@ -51,11 +65,7 @@ function createChangelogDirectory(prefers: "yaml" | "toml", parser: typeof TOML 
  */
 function writeChangelogConfig(config: Config, parser: typeof TOML | typeof YAML) {
   const newConfig = parser.stringify(config);
-  if (process.env.NODE_ENV !== "test") {
-    writeFileSync(CONFIG_FILE[config.prefers], newConfig);
-  } else {
-    writeFileSync(configPath, newConfig);
-  }
+  writeFileSync(configPath, newConfig);
 }
 
 /**
