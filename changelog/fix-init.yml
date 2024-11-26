@@ -4,3 +4,4 @@ fixed:
   change:
     - init command always creates a `yml` config file.
     - crash when archive file is missing.
+    - deploy to docker on release.
