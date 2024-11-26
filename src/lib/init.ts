@@ -4,7 +4,7 @@ import path from "node:path";
 import YAML from "yaml";
 import { getParser } from "../utils/getParser";
 import { log } from "../utils/log";
-import { changelogDir, Config, config, configPath, initialConfig } from "./config";
+import { changelogDir, Config, config, initialConfig } from "./config";
 import { prompt, rl } from "./readline";
 
 const SAMPLE_FILE_NAME = {
@@ -15,11 +15,6 @@ const SAMPLE_FILE_NAME = {
 const ARCHVIE_FILE = {
   toml: "archive.toml",
   yaml: "archive.yml",
-};
-
-const CONFIG_FILE = {
-  yaml: "test.yml",
-  toml: "test.toml",
 };
 
 const readme = readFileSync(
@@ -65,7 +60,7 @@ function createChangelogDirectory(prefers: "yaml" | "toml", parser: typeof TOML 
  */
 function writeChangelogConfig(config: Config, parser: typeof TOML | typeof YAML) {
   const newConfig = parser.stringify(config);
-  writeFileSync(configPath, newConfig);
+  writeFileSync(path.join(config.prefers === "toml" ? "bcl.toml" : "bcl.yml"), newConfig);
 }
 
 /**
