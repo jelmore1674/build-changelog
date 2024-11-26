@@ -11,6 +11,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Bump version to 0.2.4
 
+## [0.3.2] - 2024-11-25
+
+### Fixed
+
+- init command always creates a `yml` config file.
+- crash when archive file is missing.
+- deploy to docker on release.
+
 ## [0.3.1] - 2024-11-24
 
 ### Fixed
