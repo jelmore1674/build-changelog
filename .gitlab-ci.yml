@@ -6,11 +6,10 @@
 # Note that environment variables can be set in several places
 # See https://docs.gitlab.com/ee/ci/variables/#cicd-variable-precedence
 include:
-  - component: $CI_SERVER_FQDN/jelmore1674/ci-templates/build-docker@1.3.1
+  - component: $CI_SERVER_FQDN/jelmore1674/ci-templates/build-docker@main
     inputs:
       stage: "deploy"
       job: "build-docker"
-      latest_branch: $CI_DEFAULT_BRANCH
 
 image: node:20
 
