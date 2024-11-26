@@ -45,7 +45,11 @@ function parseChanges<T = Changes>(file: string): T {
  * Get the data from the changelog archive.
  */
 function getChangelogArchive(): Version[] {
-  return parseChanges<{ changelog: Version[] }>(changelogArchive)?.changelog ?? [];
+  if (existsSync(changelogArchive)) {
+    return parseChanges<{ changelog: Version[] }>(changelogArchive)?.changelog ?? [];
+  }
+
+  return [];
 }
 
 /**
