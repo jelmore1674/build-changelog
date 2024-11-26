@@ -1,6 +1,6 @@
 {
   "name": "@jelmore1674/build-changelog",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "",
   "main": "dist/index.js",
   "files": [
@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "build": "tsc && ncc build lib/index.js && cp -R templates dist/",
-    "lint": "biome lint",
+    "lint": "biome lint --error-on-warnings",
     "test": "vitest",
     "test:coverage": "vitest run --coverage"
   },

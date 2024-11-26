@@ -1,0 +1,6 @@
+version: 0.3.2
+releaseDate: 2024-11-25
+fixed:
+  change:
+    - init command always creates a `yml` config file.
+    - crash when archive file is missing.

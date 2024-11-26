@@ -4,7 +4,7 @@ import path from "node:path";
 import YAML from "yaml";
 import { getParser } from "../utils/getParser";
 import { log } from "../utils/log";
-import { changelogDir, Config, config, initialConfig } from "./config";
+import { changelogDir, Config, config, configPath, initialConfig } from "./config";
 import { prompt, rl } from "./readline";
 
 const SAMPLE_FILE_NAME = {
@@ -60,7 +60,11 @@ function createChangelogDirectory(prefers: "yaml" | "toml", parser: typeof TOML 
  */
 function writeChangelogConfig(config: Config, parser: typeof TOML | typeof YAML) {
   const newConfig = parser.stringify(config);
-  writeFileSync(path.join(config.prefers === "toml" ? "bcl.toml" : "bcl.yml"), newConfig);
+  let configFile = path.join(config.prefers === "toml" ? "bcl.toml" : "bcl.yml");
+  if (process.env.NODE_ENV === "test") {
+    configFile = configPath;
+  }
+  writeFileSync(configFile, newConfig);
 }
 
 /**
