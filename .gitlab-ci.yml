@@ -57,7 +57,7 @@ test:
     - corepack enable
     - pnpm config set store-dir .pnpm-store
   script:
-    - pnpm test
+    - pnpm test:coverage
   rules:
     - changes:
         - src/*
@@ -68,6 +68,9 @@ test:
     paths:
       - ".pnpm-store"
       - node_modules
+  artifacts:
+    paths:
+      - coverage/
 
 changelog:
   stage: changelog
