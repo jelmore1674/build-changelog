@@ -71,7 +71,7 @@ test:
   artifacts:
     paths:
       - coverage/
-  coverage: '/All files\s+\|\s+\d+\.\d+\s+\|\s+\d+\.\d+\s+\|\s+\d+\.\d+\s+\|\s+(\d+\.\d+)\s+.*/'
+  coverage: '/All files(?:[^|]*\|){4}\s*(\S+)/'
 
 changelog:
   stage: changelog
