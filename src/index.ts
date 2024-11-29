@@ -15,7 +15,6 @@ const commands = [
   {
     name: "generate",
     description: "generate the changelog",
-    alias: "changelog",
     action: generateCommand,
   },
   // TODO: `add` command to add a template changelog based on the git branch. (Maybe auto generate?)
@@ -48,18 +47,10 @@ program
 
 for (const command of commands) {
   // This is to keep the changelog command alive. for now. Will be deprecated in the future.
-  if (command.alias) {
-    program
-      .command(command.name)
-      .description(command.description)
-      .action(command.action)
-      .alias(command.alias);
-  } else {
-    program
-      .command(command.name)
-      .description(command.description)
-      .action(command.action);
-  }
+  program
+    .command(command.name)
+    .description(command.description)
+    .action(command.action);
 }
 
 program.parse();
