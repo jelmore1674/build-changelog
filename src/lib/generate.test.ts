@@ -6,9 +6,10 @@ import { describe, expect, test } from "vitest";
 import { afterEach } from "vitest";
 import { vi } from "vitest";
 import YAML from "yaml";
-import { changelogArchive, changelogDir, configPath } from "./config.ts";
-import { cleanUpChangelog, getChangelogArchive, isTomlOrYamlFile, writeChangelogToArchive } from "./generate.ts";
-import { Changes, Version } from "./mustache.ts";
+import { changelogArchive, changelogDir, changelogPath, configPath } from "./config.ts";
+import * as generate from "./generate.ts";
+import * as mustache from "./mustache.ts";
+import type { Changes, Version } from "./mustache.ts";
 
 const TEST_DIR = path.join(__dirname, "../../test");
 const YAML_CHANGE = path.join(TEST_DIR, "testchange.yml");
@@ -22,7 +23,7 @@ test.each([["test.toml", "true"], ["test.yaml", "true"], ["test.yml", "true"], [
 ]])(
   "isTomlOrYaml(%s) -> %s",
   (file, expected) => {
-    expect(isTomlOrYamlFile(file)).toBe(expected === "true");
+    expect(generate.isTomlOrYamlFile(file)).toBe(expected === "true");
   },
 );
 
@@ -64,6 +65,12 @@ function teardown() {
   if (existsSync(configPath)) {
     rmSync(configPath);
   }
+
+  if (changelogPath.includes("TEST.md")) {
+    if (existsSync(changelogPath)) {
+      rmSync(changelogPath);
+    }
+  }
 }
 
 describe("generateCommand", () => {
@@ -74,7 +81,7 @@ describe("generateCommand", () => {
 
   test("getChangelogArchive can get the archive", () => {
     setupArchive();
-    const archive = getChangelogArchive();
+    const archive = generate.getChangelogArchive();
 
     expect(archive.length).toBe(2);
     expect(archive[0].version > archive[1].version).toBeTruthy();
@@ -98,7 +105,7 @@ describe("generateCommand", () => {
     ];
 
     mkdirSync(changelogDir);
-    writeChangelogToArchive(changelog);
+    generate.writeChangelogToArchive(changelog);
 
     const archive = readFileSync(changelogArchive, { encoding: "utf8" });
 
@@ -108,7 +115,19 @@ describe("generateCommand", () => {
   test("can clean up changelog", () => {
     setupChanges();
     expect(readdirSync(changelogDir).length).toBe(2);
-    cleanUpChangelog();
+    generate.cleanUpChangelog();
     expect(readdirSync(changelogDir).length).toBe(0);
+  });
+
+  test("sucessfully runs the generate command", () => {
+    setupChanges();
+    setupArchive();
+
+    vi.spyOn(mustache, "generateChangelog").mockReturnValue("# Changelog");
+    const generateCommand = vi.spyOn(generate, "generateCommand");
+
+    generate.generateCommand();
+
+    expect(generateCommand).toReturn();
   });
 });

@@ -7,16 +7,6 @@ import { initCommand } from "./lib/init";
 import { notesCommand } from "./lib/releaseNotes";
 
 const commands = [
-  {
-    name: "init",
-    description: "setup project to generate changelogs",
-    action: initCommand,
-  },
-  {
-    name: "generate",
-    description: "generate the changelog",
-    action: generateCommand,
-  },
   // TODO: `add` command to add a template changelog based on the git branch. (Maybe auto generate?)
   {
     name: "ac",
@@ -31,11 +21,6 @@ const commands = [
       });
     },
   },
-  {
-    name: "notes [version]",
-    description: "realease notes from the archive for the current git tag",
-    action: notesCommand,
-  },
 ];
 
 const program = new Command();
@@ -45,12 +30,20 @@ program
   .description("cli tool to generate changelogs")
   .version("0.3.3");
 
-for (const command of commands) {
-  // This is to keep the changelog command alive. for now. Will be deprecated in the future.
-  program
-    .command(command.name)
-    .description(command.description)
-    .action(command.action);
-}
+program
+  .command("init")
+  .description("setup project to generate changelogs")
+  .action(initCommand);
+
+program
+  .command("generate")
+  .description("generate the changelog")
+  .option("--require-changelog", "require that changes have been made to the changelog.")
+  .action(generateCommand);
+
+program
+  .command("notes [version]")
+  .description("realease notes from the archive for the current git tag")
+  .action(notesCommand);
 
 program.parse();

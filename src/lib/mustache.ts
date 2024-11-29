@@ -39,6 +39,7 @@ type Changes = Release & Partial<Record<Keywords, Partial<Record<"change" | stri
  */
 type Version = Release & Partial<Record<Keywords, string[]>>;
 
+/* v8 ignore start */
 /**
  * Generate the changelog.
  * @param versions - the versions to be rendered.
@@ -51,6 +52,7 @@ function generateChangelog(versions: Version[]) {
 function generateReleaseNotes(version: Version) {
   return Mustache.render(releaseNotes, version, { change }).trim();
 }
+/* v8 ignore end */
 
 export { generateChangelog, generateReleaseNotes };
 

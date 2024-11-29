@@ -75,11 +75,6 @@ if (existsSync(configPath)) {
 let changelogDir = path.join(process.cwd(), config.dir);
 
 /**
- * The path to the CHANGELOG.md file
- */
-const changelogPath = path.join(process.cwd(), changelogFileName);
-
-/**
  * The path to the archive file of the changelog.
  */
 let changelogArchive = path.join(changelogDir, archiveFile);
@@ -95,6 +90,11 @@ if (process.env.NODE_ENV === "test") {
   changelogDir = path.join(__dirname, "../../test");
   changelogArchive = path.join(__dirname, "../../test", archiveFile);
 }
+
+/**
+ * The path to the CHANGELOG.md file
+ */
+const changelogPath = path.join(process.cwd(), changelogFileName);
 
 export { changelogArchive, changelogDir, changelogPath, config, configPath, initialConfig };
 
