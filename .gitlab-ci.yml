@@ -91,7 +91,7 @@ changelog:
     - npm i -g .
   script:
     # Build changelog
-    - build-cl generate
+    - bcl generate
     # Check if changelog is updated.
     # Commit to git
     - git add .
@@ -122,7 +122,7 @@ publish-npm:
     - pnpm install --frozen-lockfile
     - pnpm build
     - npm i -g .
-    - build-cl notes > release-notes.txt
+    - bcl notes > release-notes.txt
     - export RELEASE_NOTES=$(cat release-notes.txt)
   script:
     - echo $REGISTRY > .npmrc

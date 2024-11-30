@@ -1,2 +1,5 @@
 [removed]
 breaking = ["Removed the alias `changelog` for the `generate` command."]
+
+[changed]
+breaking = ["Renamed the bin `build-cl` to `bcl`."]
