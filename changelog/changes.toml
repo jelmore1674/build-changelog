@@ -1,0 +1,2 @@
+[removed]
+breaking = ["Removed the alias `changelog` for the `generate` command."]
