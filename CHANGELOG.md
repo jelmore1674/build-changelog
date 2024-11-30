@@ -5,11 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [v0.2.4] - 2024-11-23
+## [Unreleased] - TBD
 
-### Added
+### Changed
 
-- Bump version to 0.2.4
+- [Breaking 🧨] - Renamed the bin `build-cl` to `bcl`.
+
+### Removed
+
+- [Breaking 🧨] - Removed the alias `changelog` for the `generate` command.
 
 ## [0.3.2] - 2024-11-25
 
@@ -32,6 +36,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Adds a new `notes` command to help populate release notes in ci pipeline.
+
+## [0.2.4] - 2024-11-23
+
+### Added
+
+- Bump version to 0.2.4
 
 ## [0.2.3] - 2024-11-23
 
