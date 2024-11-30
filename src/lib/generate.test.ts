@@ -2,7 +2,7 @@ import TOML, { JsonMap } from "@iarna/toml";
 import { outputFileSync, removeSync } from "fs-extra";
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync } from "node:fs";
 import path from "node:path";
-import { describe, expect, test } from "vitest";
+import { describe, expect, test, vitest } from "vitest";
 import { afterEach } from "vitest";
 import { vi } from "vitest";
 import YAML from "yaml";
@@ -89,6 +89,13 @@ describe("generateCommand", () => {
     expect(archive[0].releaseDate).toBe("2024-1-2");
   });
 
+  test("parseChanges throws when file is not found", () => {
+    const parseChanges = vitest.spyOn(generate, "parseChanges");
+
+    expect(() => generate.parseChanges("notfound.yml")).toThrowError(`The file does not exist\n\nnotfound.yml`);
+    expect(parseChanges).toHaveBeenCalledOnce();
+  });
+
   test("write changes to changelog archive", () => {
     // Setup the test archives.
     const changelog: Version[] = [
@@ -129,5 +136,22 @@ describe("generateCommand", () => {
     generate.generateCommand();
 
     expect(generateCommand).toReturn();
+  });
+
+  test("sucessfully runs the generate command", () => {
+    // Setup test changes files.
+    const change = {
+      version: "1.0.0",
+      releaseDate: "2024-1-1",
+      badkeyword: { breaking: ["this is a breaking change"], changes: ["this is a test change"] },
+    };
+    outputFileSync(YAML_CHANGE, YAML.stringify(change));
+    outputFileSync(TOML_CHANGE, TOML.stringify(change as unknown as JsonMap));
+
+    setupArchive();
+
+    vi.spyOn(mustache, "generateChangelog").mockReturnValue("# Changelog");
+
+    expect(() => generate.generateCommand()).toThrowError();
   });
 });

@@ -109,7 +109,7 @@ function generateCommand() {
           const keyword = changes as Keywords;
 
           if (!VALID_KEYWORDS.includes(keyword)) {
-            console.error(`INVALID_KEYWORD: The keyword "${keyword}" is invalid.\n`);
+            console.error(`\nINVALID_KEYWORD: The keyword "${keyword}" is invalid.\n`);
             console.error(`VALID_KEYWORDS: ${VALID_KEYWORDS.join(", ")}\n`);
             console.error(path.join(changelogDir, file), "\n");
             process.exit(1);
