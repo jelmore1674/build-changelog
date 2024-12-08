@@ -18,8 +18,9 @@ removed:
 ```
 
 ```toml
+# test-change.toml
 version = "0.0.1"
-releaseDate = "TBD"
+release_date = "TBD"
 
 [added]
 added = [
