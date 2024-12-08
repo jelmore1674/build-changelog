@@ -1,38 +1,41 @@
 import * as Mustache from "mustache";
 import { readFileSync } from "node:fs";
+import https from "node:https";
 import path from "node:path";
+import { config } from "./config";
 
 const dir = process.env.NODE_ENV === "test" ? process.cwd() : __dirname;
 
-const heading = readFileSync(path.join(dir, "./templates/heading.md"), "utf8");
-const version = readFileSync(path.join(dir, "./templates/version.md"), "utf8");
-const change = readFileSync(path.join(dir, "./templates/change.md"), "utf8");
-const releaseNotes = readFileSync(path.join(dir, "./templates/release-notes.md"), "utf8");
+const heading = readFileSync(path.join(dir, "templates/heading.md"), "utf8");
+const version = readFileSync(path.join(dir, "templates/version.md"), "utf8");
+const change = readFileSync(path.join(dir, "templates/change.md"), "utf8");
+const links = readFileSync(path.join(dir, "templates/links.md"), "utf8");
+const releaseNotes = readFileSync(path.join(dir, "templates/release-notes.md"), "utf8");
 
 /** Initial list of supported keywords */
-enum KEYWORDS {
-  ADDED = "added",
-  CHANGED = "changed",
-  DEPRECATED = "deprecated",
-  REMOVED = "removed",
-  FIXED = "fixed",
-  SECURITY = "security",
-}
+const KEYWORDS = {
+  added: "added",
+  changed: "changed",
+  deprecated: "deprecated",
+  removed: "removed",
+  fixed: "fixed",
+  security: "security",
+} as const;
 
 interface Release {
   version: string;
-  releaseDate?: string;
+  release_date?: string;
 }
 
 /**
  * The keywords used to make up the sections of the changelog.
  */
-type Keywords = `${KEYWORDS}`;
+type Keywords = keyof typeof KEYWORDS;
 
 /**
  * The changes from the `yaml` or `toml` file.
  */
-type Changes = Release & Partial<Record<Keywords, Partial<Record<"change" | string, string[]>>>>;
+type Changes = Release & Partial<Record<Keywords, Partial<Record<string, string[]>>>>;
 
 /**
  * The Section that is used to make the Version.
@@ -45,15 +48,32 @@ type Version = Release & Partial<Record<Keywords, string[]>>;
  * @param versions - the versions to be rendered.
  * @returns A string that can be written to a file.
  */
-function generateChangelog(versions: Version[]) {
-  return Mustache.render(heading, { versions }, { versions: version, change }).trim();
+async function generateChangelog(versions: Version[]) {
+  let genLinks: ({ version: string; url: string } | null)[] = [];
+  if (config.release_url) {
+    genLinks = await Promise.all(versions.map(async i => {
+      const url = `${config.release_url}/${config.git_tag_prefix}${i.version}`;
+
+      const { status } = await fetch(url);
+      if (status === 200) {
+        return ({
+          version: i.version,
+          url: url,
+        });
+      }
+
+      return null;
+    }));
+  }
+  return Mustache.render(heading, { versions, links: genLinks.filter(i => i) }, { versions: version, change, links })
+    ?.trim();
 }
 
 function generateReleaseNotes(version: Version) {
-  return Mustache.render(releaseNotes, version, { change }).trim();
+  return Mustache.render(releaseNotes, version, { change })?.trim();
 }
 /* v8 ignore end */
 
-export { generateChangelog, generateReleaseNotes };
+export { generateChangelog, generateReleaseNotes, KEYWORDS };
 
 export type { Changes, Keywords, Version };
