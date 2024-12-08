@@ -81,7 +81,7 @@ function cleanUpChangelog() {
  *  `changelogDir`, write them to the `CHANGELOG.md`, and will remove the
  *  files when done.
  */
-async function generateCommand() {
+function generateCommand() {
   log("Generating changelog.");
   let changelogArchive: Version[] = config.changelog_archive ? getChangelogArchive() : parseChangelog(changelogPath);
 
