@@ -1,4 +1,4 @@
-## [{{version}}] - {{releaseDate}}
+## [{{version}}] - {{release_date}}
 
 {{#added.length}}### Added
 
