@@ -2,7 +2,17 @@ version = "Unreleased"
 release_date = "TBD"
 
 [changed]
-breaking = ["Renames `releaseDate` to `release_date`."]
+breaking = [
+  "Renames `releaseDate` to `release_date`.",
+  "Default option to parse changelog over keeping an archive.",
+]
+templates = [
+  "Updated `guide.md` template.",
+  "Added release linking to Changelog generation.",
+]
+config = [
+  "Added `release_url`, `changelog_archive`, and `git_tag_prefix` to the configuration.",
+]
 
 [added]
 feature = ["Parsing existing changelog file."]
