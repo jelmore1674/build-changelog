@@ -1,0 +1,8 @@
+version = "Unreleased"
+release_date = "TBD"
+
+[changed]
+breaking = ["Renames `releaseDate` to `release_date`."]
+
+[added]
+feature = ["Parsing existing changelog file."]
