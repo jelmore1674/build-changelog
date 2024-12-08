@@ -2,8 +2,8 @@ import TOML, { JsonMap } from "@iarna/toml";
 import { removeSync } from "fs-extra";
 import { existsSync, mkdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
-import { expect, test, vi, vitest } from "vitest";
-import { changelogArchive, changelogDir, changelogPath, configPath } from "./config";
+import { expect, test, vitest } from "vitest";
+import { changelogArchive, changelogDir, configPath } from "./config";
 import * as mustache from "./mustache";
 import * as releaseNotes from "./releaseNotes";
 
@@ -33,14 +33,14 @@ const archive = {
   changelog: [
     {
       version: "1.0.0",
-      releaseDate: "2024-11-29",
+      release_date: "2024-11-29",
       fixed: [
         "this is a test fix",
       ],
     },
     {
       version: "0.9.9",
-      releaseDate: "2024-11-29",
+      release_date: "2024-11-29",
       fixed: [
         "this is a test fix",
       ],

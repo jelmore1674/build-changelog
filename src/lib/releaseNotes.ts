@@ -13,7 +13,7 @@ function notesCommand(version: string = getLatestTag()) {
 
   if (release) {
     const releaseNotes = generateReleaseNotes(release);
-    console.log(releaseNotes);
+    console.info(releaseNotes);
   }
 
   rl.close();
