@@ -8,10 +8,10 @@
   "files": {
     "ignoreUnknown": false,
     "include": ["src/**/*.ts"],
-    "ignore": ["dist", "lib", "src/**/*.test.ts"]
+    "ignore": ["dist", "lib"]
   },
   "formatter": {
-    "enabled": true,
+    "enabled": false,
     "indentStyle": "space"
   },
   "organizeImports": {
@@ -20,7 +20,18 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true
+      "all": true,
+      "correctness": {
+        "noNodejsModules": "off",
+        "useImportExtensions": "off"
+      },
+      "suspicious": {
+        "noConsole": {
+          "options": {
+            "allow": ["assert", "error", "info", "warn"]
+          }
+        }
+      }
     }
   },
   "javascript": {
