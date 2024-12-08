@@ -7,10 +7,11 @@ import { isYamlFile } from "../utils/isYamlFile";
 import { log } from "../utils/log";
 import { changelogArchive, changelogDir, changelogPath, config } from "./config";
 import { Changes, generateChangelog, Keywords, Version } from "./mustache";
+import { parseChangelog } from "./parseChangelog";
 import { rl } from "./readline";
 
 /** Properties we will not use when adding changes to the changelog */
-const YAML_KEY_FILTER = ["releaseDate", "version"];
+const YAML_KEY_FILTER = ["release_date", "version"];
 
 /** The valid keywords that are used for the sections in the changelog */
 const VALID_KEYWORDS = ["added", "changed", "deprecated", "fixed", "removed", "security"];
@@ -55,10 +56,10 @@ function getChangelogArchive(): Version[] {
 /**
  * Write the changelog to the archive.
  */
-function writeChangelogToArchive(changelog: Version[]) {
+function writeChangelogToArchive(changelog: Version[], archiveFile = changelogArchive) {
   const parser = getParser(config.prefers);
   const archive = parser.stringify({ changelog } as unknown as JsonMap);
-  writeFileSync(changelogArchive, archive, { encoding: "utf8" });
+  writeFileSync(archiveFile, archive, { encoding: "utf8" });
 }
 
 /**
@@ -80,9 +81,9 @@ function cleanUpChangelog() {
  *  `changelogDir`, write them to the `CHANGELOG.md`, and will remove the
  *  files when done.
  */
-function generateCommand() {
+async function generateCommand() {
   log("Generating changelog.");
-  let changelogArchive: Version[] = getChangelogArchive();
+  let changelogArchive: Version[] = config.changelog_archive ? getChangelogArchive() : parseChangelog(changelogPath);
 
   const files = readdirSync(changelogDir, { recursive: true, encoding: "utf8" });
 
@@ -90,15 +91,15 @@ function generateCommand() {
     if (isTomlOrYamlFile(file) && !ARCHIVE_FILES.includes(file)) {
       const parsedChanges = parseChanges(path.join(changelogDir, file));
 
-      // Set fallback values for releaseData and Version
+      // Set fallback values for release_date and Version
       let version = parsedChanges.version || "Unreleased";
-      let releaseDate = parsedChanges.releaseDate || "TBD";
+      let release_date = parsedChanges.release_date || "TBD";
 
       // Find a matching release.
       const foundRelease = acc.find((release) => release.version === version);
 
       // The currentVersion to add changes to.
-      const currentVersion: Version = foundRelease ?? { version, releaseDate };
+      const currentVersion: Version = foundRelease ?? { version, release_date };
 
       if (parsedChanges) {
         for (const changes in parsedChanges) {
@@ -127,8 +128,8 @@ function generateCommand() {
               // a prefix we will add the prefix. Else we will return the string.
               currentVersion[keyword]?.push(
                 ...parsedChanges[keyword]?.[flag]?.map((change: string) => {
-                  if (config.flags?.[flag]?.prefix) {
-                    return `${config.flags?.[flag]?.prefix} - ${change}`;
+                  if (config.flags?.[flag]) {
+                    return `${config.flags?.[flag]} - ${change}`;
                   }
 
                   return change;
@@ -148,8 +149,11 @@ function generateCommand() {
     return acc.sort((a, b) => b.version.localeCompare(a.version));
   }, changelogArchive);
 
-  writeChangelogToArchive(changelog);
-  writeFileSync(changelogPath, generateChangelog(changelog), { encoding: "utf8" });
+  if (config.changelog_archive) {
+    writeChangelogToArchive(changelog);
+  }
+
+  generateChangelog(changelog).then(changelog => writeFileSync(changelogPath, changelog, { encoding: "utf8" }));
 
   log("CHANGELOG.md finsihed writing.");
 

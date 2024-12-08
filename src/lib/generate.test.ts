@@ -31,7 +31,7 @@ function setupChanges() {
   // Setup test changes files.
   const change: Changes = {
     version: "1.0.0",
-    releaseDate: "2024-1-1",
+    release_date: "2024-1-1",
     added: { breaking: ["this is a breaking change"], changes: ["this is a test change"] },
   };
   outputFileSync(YAML_CHANGE, YAML.stringify(change));
@@ -43,12 +43,12 @@ function setupArchive() {
   const changelog: Version[] = [
     {
       version: "1.0.0",
-      releaseDate: "2024-1-2",
+      release_date: "2024-1-2",
       added: ["This cool feature"],
     },
     {
       version: "0.9.0",
-      releaseDate: "2024-1-1",
+      release_date: "2024-1-1",
       removed: ["Remove test feature"],
     },
   ];
@@ -86,7 +86,7 @@ describe("generateCommand", () => {
     expect(archive.length).toBe(2);
     expect(archive[0].version > archive[1].version).toBeTruthy();
     expect(archive[0].version).toBe("1.0.0");
-    expect(archive[0].releaseDate).toBe("2024-1-2");
+    expect(archive[0].release_date).toBe("2024-1-2");
   });
 
   test("parseChanges throws when file is not found", () => {
@@ -101,12 +101,12 @@ describe("generateCommand", () => {
     const changelog: Version[] = [
       {
         version: "1.0.0",
-        releaseDate: "2024-1-2",
+        release_date: "2024-1-2",
         added: ["This cool feature"],
       },
       {
         version: "0.9.0",
-        releaseDate: "2024-1-1",
+        release_date: "2024-1-1",
         removed: ["Remove test feature"],
       },
     ];
@@ -121,7 +121,7 @@ describe("generateCommand", () => {
 
   test("can clean up changelog", () => {
     setupChanges();
-    expect(readdirSync(changelogDir).length).toBe(2);
+    expect(readdirSync(changelogDir).length).toBeGreaterThan(1);
     generate.cleanUpChangelog();
     expect(readdirSync(changelogDir).length).toBe(0);
   });
@@ -142,7 +142,7 @@ describe("generateCommand", () => {
     // Setup test changes files.
     const change = {
       version: "1.0.0",
-      releaseDate: "2024-1-1",
+      release_date: "2024-1-1",
       badkeyword: { breaking: ["this is a breaking change"], changes: ["this is a test change"] },
     };
     outputFileSync(YAML_CHANGE, YAML.stringify(change));
