@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 import { Command } from "commander";
-import { exec } from "node:child_process";
 import { generateCommand } from "./lib/generate";
 import { initCommand } from "./lib/init";
 import { notesCommand } from "./lib/releaseNotes";
