@@ -130,7 +130,7 @@ describe("generateCommand", () => {
     setupChanges();
     setupArchive();
 
-    vi.spyOn(mustache, "generateChangelog").mockReturnValue("# Changelog");
+    vi.spyOn(mustache, "generateChangelog").mockResolvedValue("# Changelog");
     const generateCommand = vi.spyOn(generate, "generateCommand");
 
     generate.generateCommand();
@@ -150,7 +150,7 @@ describe("generateCommand", () => {
 
     setupArchive();
 
-    vi.spyOn(mustache, "generateChangelog").mockReturnValue("# Changelog");
+    vi.spyOn(mustache, "generateChangelog").mockResolvedValue("# Changelog");
 
     expect(() => generate.generateCommand()).toThrowError();
   });
