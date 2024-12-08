@@ -12,12 +12,24 @@
         },
         "flags": {
           "$ref": "#/definitions/Flags",
-          "description": "Custom flags to implement."
+          "description": "Custom flags to implement"
         },
         "prefers": {
           "type": "string",
           "enum": ["toml", "yaml"],
           "description": "Prefer yaml or toml"
+        },
+        "release_url": {
+          "type": "string",
+          "description": "Url to link releases in the changelog."
+        },
+        "git_tag_prefix": {
+          "type": "string",
+          "description": "If following semver, does your tag have a prefix. Ex. `v1.3.0`. So this would be `v`."
+        },
+        "changelog_archive": {
+          "type": "boolean",
+          "description": "If `true`, this will keep changes in a separate archive based on your `prefers` file type. If this is `false` parse the existing changelog when generating."
         }
       },
       "required": ["dir"],
@@ -27,21 +39,11 @@
       "type": "object",
       "minProperties": 1,
       "additionalProperties": {
-        "type": "object",
-        "minItems": 1,
-        "items": {
-          "type": "object",
-          "additionalProperties": false,
-          "properties": {
-            "prefix": {
-              "type": "string",
-              "description": "When using a flag you select the custom prefix that is displayed with the flag."
-            }
-          },
-          "required": ["prefix"],
-          "title": "Flag"
-        }
+        "type": "string",
+        "description": "When using a flag you select the custom prefix that is displayed with the flag.",
+        "title": "Flag"
       },
+      "description": "When using a flag you select the custom prefix that is displayed with the flag.",
       "title": "Flags"
     }
   }

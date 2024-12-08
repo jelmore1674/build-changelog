@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$ref": "#/definitions/Changelog",
+  "definitions": {
+    "Changelog": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "string",
+          "description": "The current version of the project. If left off this will fallback to being `Unreleased`."
+        },
+        "release_date": {
+          "type": "string",
+          "description": "The release date of the current version. If this is property is not defined this will fall back to `TBD`."
+        },
+        "test": {
+          "type": "object",
+          "description": "The release date of the current version. If this is property is not defined this will fall back to `TBD`.",
+          "minProperties": 1,
+          "additionalProperties": {
+            "type": "object",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "prefix": {
+                  "type": "string",
+                  "description": "When using a flag you select the custom prefix that is displayed with the flag."
+                }
+              },
+              "description": "When using a flag you select the custom prefix that is displayed with the flag.",
+              "required": ["prefix"],
+              "title": "Flag"
+            }
+          }
+        }
+      },
+      "title": "Build Changelog Config"
+    }
+  }
+}
