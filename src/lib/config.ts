@@ -10,12 +10,27 @@ type Config = {
   /**
    * any custom flags with prefixes.
    */
-  flags?: Record<string, { prefix?: string }>;
+  flags?: Record<string, string>;
 
   /**
    * Prefer toml or yaml
    */
   prefers: "toml" | "yaml";
+
+  /**
+   * Use changelog archive file, or parse changelog
+   */
+  changelog_archive: boolean;
+
+  /**
+   * the release url to prefix with linking changelog and release
+   */
+  release_url?: string;
+
+  /**
+   * The prefix of the git tag
+   */
+  git_tag_prefix: string;
 };
 
 /**
@@ -33,10 +48,10 @@ const initialConfig: Config = {
   dir: "changelog",
   prefers: "yaml",
   flags: {
-    breaking: {
-      prefix: "[Breaking 🧨]",
-    },
+    breaking: "[Breaking 🧨]",
   },
+  changelog_archive: false,
+  git_tag_prefix: "v",
 };
 
 /**
