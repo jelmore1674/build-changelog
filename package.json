@@ -7,7 +7,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc && ncc build lib/index.js && cp -R templates dist/",
+    "build": "ncc build src/index.ts -m && cp -R templates dist/",
     "lint": "biome lint --error-on-warnings",
     "test": "vitest",
     "test:coverage": "vitest run --coverage"

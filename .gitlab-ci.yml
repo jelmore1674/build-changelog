@@ -96,8 +96,8 @@ changelog:
     # Commit to git
     - git add .
       # We can use `-o ci.skip`, but AFAIK it doesn't work for Merge Request pipelines, while having it inside the commit message works there as well
-    - git commit -m "Generated Changelog [skip ci]" || true
-    - git push ci_origin HEAD:$CI_COMMIT_REF_NAME
+    - git commit --amend --no-edit || true
+    - git push ci_origin HEAD:$CI_COMMIT_REF_NAME --force -o ci.skip
   rules:
     - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "main"
       changes:
