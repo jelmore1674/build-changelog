@@ -1,8 +1,0 @@
-version = "0.5.1"
-release_date = "2024-12-26"
-
-[fixed]
-change = [
-  "`notes` command default value. updated pull `Unreleased` or latest version.",
-  "Links not appearing in the bottom of the Changelog.",
-]

@@ -1,4 +1,12 @@
 [[changelog]]
+version = "0.5.1"
+release_date = "2024-12-26"
+fixed = [
+  "`notes` command default value. updated pull `Unreleased` or latest version.",
+  "Links not appearing in the bottom of the Changelog."
+]
+
+[[changelog]]
 version = "0.5.0"
 release_date = "2024-12-26"
 added = [ "Forgejo Actions 🚀" ]
