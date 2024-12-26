@@ -6,7 +6,7 @@ import { initCommand } from "./lib/init";
 import { notesCommand } from "./lib/releaseNotes";
 
 // const commands = [
-//  // TODO: `add` command to add a template changelog based on the git branch. (Maybe auto generate?)
+//  // TODO: `add` command to add a template changelog based on the git branch. (Maybe auto generate?).
 //  {
 //    name: "ac",
 //    description: "add a change",
@@ -27,7 +27,7 @@ const program = new Command();
 program
   .name("build-changelog")
   .description("cli tool to generate changelogs")
-  .version("0.3.3");
+  .version("0.5.0");
 
 program
   .command("init")

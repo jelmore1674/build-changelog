@@ -153,13 +153,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - inital release of app.
 - `breaking` keyword to show breaking changes.
-
-
-[0.4.0]: https://gitlab.justinelmore.dev/jelmore1674/build-changelog/-/releases/v0.4.0
-[0.3.2]: https://gitlab.justinelmore.dev/jelmore1674/build-changelog/-/releases/v0.3.2
-[0.3.1]: https://gitlab.justinelmore.dev/jelmore1674/build-changelog/-/releases/v0.3.1
-[0.3.0]: https://gitlab.justinelmore.dev/jelmore1674/build-changelog/-/releases/v0.3.0
-[0.2.4]: https://gitlab.justinelmore.dev/jelmore1674/build-changelog/-/releases/v0.2.4
-[0.2.3]: https://gitlab.justinelmore.dev/jelmore1674/build-changelog/-/releases/v0.2.3
-[0.2.2]: https://gitlab.justinelmore.dev/jelmore1674/build-changelog/-/releases/v0.2.2
-[0.0.5]: https://gitlab.justinelmore.dev/jelmore1674/build-changelog/-/releases/v0.0.5

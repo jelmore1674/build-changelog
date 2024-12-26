@@ -7,7 +7,7 @@ function getLatestTag(): string {
   return execSync("git describe --tags", { encoding: "utf8" }).trim();
 }
 
-function notesCommand(version: string = getLatestTag()) {
+function notesCommand(version: string) {
   const archive = getChangelogArchive();
   const release = archive.find(i => version?.includes(i.version));
 
@@ -19,4 +19,4 @@ function notesCommand(version: string = getLatestTag()) {
   rl.close();
 }
 
-export { notesCommand };
+export { getLatestTag, notesCommand };

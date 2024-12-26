@@ -1,0 +1,66 @@
+name: Changelog
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "changelog/*"
+      - "bcl.toml"
+      - "**/changelog.yml"
+
+jobs:
+  generate-changelog:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: https://github.com/actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+      - uses: https://github.com/pnpm/action-setup@v4
+      - uses: https://github.com/actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "pnpm"
+
+      - run: pnpm i --frozen-lockfile
+      - run: pnpm build
+      - run: npm i -g .
+      - run: bcl generate
+
+      - name: Load secret
+        id: load-op
+        uses: https://github.com/1password/load-secrets-action@v2
+        with:
+          # Export loaded secrets as environment variables
+          export-env: false
+        env:
+          OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+          GPG_KEY: op://Forgejo/ENV/GPG_KEY
+          GPG_PASSPHRASE: op://Forgejo/ENV/GPG_PASSPHRASE
+
+      - name: decode gpg
+        id: decode
+        run: |
+          KEY=$(echo "${{ steps.load-op.outputs.GPG_KEY }}" | base64 -d) && \
+          cat >> $GITHUB_OUTPUT <<EOF
+          GPG<<STRING
+          $KEY
+          STRING
+          EOF
+
+      - name: "Import GPG key"
+        id: import-gpg
+        uses: https://github.com/crazy-max/ghaction-import-gpg@v6
+        with:
+          gpg_private_key: ${{ steps.decode.outputs.GPG }}
+          passphrase: "${{ steps.load-op.outputs.GPG_PASSPHRASE }}"
+          git_user_signingkey: true
+          git_commit_gpgsign: true
+
+      - name: "Commit and push changes"
+        uses: https://github.com/stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_author: "${{ steps.import-gpg.outputs.name }} <${{ steps.import-gpg.outputs.email }}>"
+          commit_user_name: ${{ steps.import-gpg.outputs.name }}
+          commit_user_email: ${{ steps.import-gpg.outputs.email }}
+          commit_message: "chore: Update CHANGELOG.md"

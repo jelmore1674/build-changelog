@@ -1,6 +1,6 @@
 {
   "name": "@jelmore1674/build-changelog",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "",
   "main": "dist/index.js",
   "files": [
@@ -38,9 +38,6 @@
   },
   "bin": {
     "bcl": "dist/index.js"
-  },
-  "publishConfig": {
-    "@scope:registry": "https://gitlab.justinelmore.dev/api/v4/projects/29/packages/npm/"
   },
   "engines": {
     "node": "~20"

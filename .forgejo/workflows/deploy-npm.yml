@@ -1,0 +1,43 @@
+name: deploy
+
+on:
+  push:
+    tags:
+      - "v*"
+
+  release:
+    types: [published]
+
+  workflow_dispatch:
+
+jobs:
+  build-npm:
+    name: build-npm
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Load ENV from 1Password
+        uses: https://github.com/1password/load-secrets-action@v2
+        id: load-op
+        with:
+          # Export loaded secrets as environment variables
+          export-env: false
+        env:
+          OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+          ACTION_TOKEN: op://Forgejo/ENV/ACTION_TOKEN
+
+      - uses: https://github.com/pnpm/action-setup@v4
+      - name: Setup Node
+        uses: https://github.com/actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "pnpm"
+      - run: pnpm i --frozen-lockfile
+      - run: pnpm build
+
+      - name: publish npm
+        uses: https://github.com/JS-DevTools/npm-publish@v3
+        with:
+          token: ${{ steps.load-op.outputs.ACTION_TOKEN }}
+          registry: "${{ env.NPM_REGISTRY_URL }}/${{ env.GITHUB_REPOSITORY_OWNER}}/npm"

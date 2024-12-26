@@ -54,6 +54,7 @@ test("should read match version from archive.", async () => {
     writeFileSync(changelogArchive, TOML.stringify(archive), { encoding: "utf8" });
   }
   vitest.spyOn(mustache, "generateReleaseNotes").mockReturnValue("Test");
+  vitest.spyOn(releaseNotes, "getLatestTag").mockReturnValue("1.0.0");
 
   const notesCommand = vitest.spyOn(releaseNotes, "notesCommand");
   releaseNotes.notesCommand("1.0.0");
