@@ -51,19 +51,12 @@ type Version = Release & Partial<Record<Keywords, string[]>>;
 async function generateChangelog(versions: Version[]) {
   let genLinks: ({ version: string; url: string } | null)[] = [];
   if (config.release_url) {
-    genLinks = await Promise.all(versions.map(async i => {
-      const url = `${config.release_url}/${config.git_tag_prefix}${i.version}`;
-
-      const { status } = await fetch(url);
-      if (status === 200) {
-        return ({
-          version: i.version,
-          url: url,
-        });
-      }
-
-      return null;
-    }));
+    genLinks = versions.map(i => {
+      return ({
+        version: i.version,
+        url: `${config.release_url}/${config.git_tag_prefix}${i.version}`,
+      });
+    });
   }
   return Mustache.render(heading, { versions, links: genLinks.filter(i => i) }, { versions: version, change, links })
     ?.trim();

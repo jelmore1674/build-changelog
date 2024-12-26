@@ -1,15 +1,10 @@
-import { execSync } from "node:child_process";
 import { getChangelogArchive } from "./generate";
 import { generateReleaseNotes } from "./mustache";
 import { rl } from "./readline";
 
-function getLatestTag(): string {
-  return execSync("git describe --tags", { encoding: "utf8" }).trim();
-}
-
-function notesCommand(version: string) {
+function notesCommand(version: string = "Unreleased") {
   const archive = getChangelogArchive();
-  const release = archive.find(i => version?.includes(i.version));
+  const release = archive.find(i => version?.includes(i.version)) || archive[0];
 
   if (release) {
     const releaseNotes = generateReleaseNotes(release);
@@ -19,4 +14,4 @@ function notesCommand(version: string) {
   rl.close();
 }
 
-export { getLatestTag, notesCommand };
+export { notesCommand };
