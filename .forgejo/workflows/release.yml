@@ -33,7 +33,7 @@ jobs:
       - name: Release Notes
         id: release-notes
         run: |
-          NOTES=$(bcl notes ${{ inputs.tag }}) && \
+          NOTES=$(bcl notes ${{ inputs.tag#v }}) && \
           cat >> $GITHUB_OUTPUT <<EOF
           NEW_NOTES<<STRING
           $NOTES
