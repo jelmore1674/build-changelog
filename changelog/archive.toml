@@ -1,28 +1,34 @@
 [[changelog]]
+version = "0.5.3"
+release_date = "2024-12-26"
+fixed = ["add release_dir to fix release from failing."]
+
+
+[[changelog]]
 version = "0.5.2"
 release_date = "2024-12-26"
-fixed = [ "release pipeline not working." ]
+fixed = ["release pipeline not working."]
 
 [[changelog]]
 version = "0.5.1"
 release_date = "2024-12-26"
 fixed = [
   "`notes` command default value. updated pull `Unreleased` or latest version.",
-  "Links not appearing in the bottom of the Changelog."
+  "Links not appearing in the bottom of the Changelog.",
 ]
 
 [[changelog]]
 version = "0.5.0"
 release_date = "2024-12-26"
-added = [ "Forgejo Actions 🚀" ]
-changed = [ "Pipeline ammends previous commit." ]
-removed = [ "Gitlab CI Pipelines" ]
+added = ["Forgejo Actions 🚀"]
+changed = ["Pipeline ammends previous commit."]
+removed = ["Gitlab CI Pipelines"]
 
 [[changelog]]
 version = "0.4.0"
 release_date = "2024-12-08"
 removed = [
-  "[Breaking 🧨] - Removed the alias `changelog` for the `generate` command."
+  "[Breaking 🧨] - Removed the alias `changelog` for the `generate` command.",
 ]
 changed = [
   "[Breaking 🧨] - Renamed the bin `build-cl` to `bcl`.",
@@ -30,9 +36,9 @@ changed = [
   "[Breaking 🧨] - Default option to parse changelog over keeping an archive.",
   "Updated `guide.md` template.",
   "Added release linking to Changelog generation.",
-  "Added `release_url`, `changelog_archive`, and `git_tag_prefix` to the configuration."
+  "Added `release_url`, `changelog_archive`, and `git_tag_prefix` to the configuration.",
 ]
-added = [ "Parsing existing changelog file." ]
+added = ["Parsing existing changelog file."]
 
 [[changelog]]
 version = "0.3.2"
@@ -40,7 +46,7 @@ release_date = "2024-11-25"
 fixed = [
   "init command always creates a `yml` config file.",
   "crash when archive file is missing.",
-  "deploy to docker on release."
+  "deploy to docker on release.",
 ]
 
 [[changelog]]
@@ -49,38 +55,38 @@ release_date = "2024-11-24"
 fixed = [
   "Fixed the `init` command generating `test.toml`.",
   "Fixed the fallback value not working as expected in prompt.",
-  "Fixed crash when there is no archive file by genrating archive on `init` command."
+  "Fixed crash when there is no archive file by genrating archive on `init` command.",
 ]
 
 [[changelog]]
 version = "0.3.0"
 release_date = "2024-11-24"
 added = [
-  "Adds a new `notes` command to help populate release notes in ci pipeline."
+  "Adds a new `notes` command to help populate release notes in ci pipeline.",
 ]
 
 [[changelog]]
 version = "0.2.4"
 release_date = "2024-11-23"
-added = [ "Bump version to 0.2.4" ]
+added = ["Bump version to 0.2.4"]
 
 [[changelog]]
 version = "0.2.3"
 release_date = "2024-11-23"
 added = [
   "`getParser` utility function.",
-  "`prompt` function to `readline` lib."
+  "`prompt` function to `readline` lib.",
 ]
 
 [[changelog]]
 version = "0.2.2"
 release_date = "2024-11-21"
-fixed = [ "Fix TOML not parsing correctly" ]
+fixed = ["Fix TOML not parsing correctly"]
 
 [[changelog]]
 version = "0.2.1"
 release_date = "2024-11-21"
-fixed = [ "Fix parsing of archive for toml configuration." ]
+fixed = ["Fix parsing of archive for toml configuration."]
 
 [[changelog]]
 version = "0.2.0"
@@ -88,24 +94,24 @@ release_date = "2024-11-21"
 added = [
   "Support for TOML. Add versions with toml and set up config with TOML.",
   "[Breaking 🧨] - Flag customization in the config.",
-  "[Breaking 🧨] - breaking change in toml"
+  "[Breaking 🧨] - breaking change in toml",
 ]
 changed = [
-  "[Breaking 🧨] - The properties of the yaml file. you must have a nested property to add a change."
+  "[Breaking 🧨] - The properties of the yaml file. you must have a nested property to add a change.",
 ]
 
 [[changelog]]
 version = "0.1.2"
 release_date = "2024-11-19"
-fixed = [ "Prevent removing `README.md` from changelog dir." ]
+fixed = ["Prevent removing `README.md` from changelog dir."]
 
 [[changelog]]
 version = "0.1.1"
 release_date = "2024-11-19"
 removed = [
-  "[Breaking 🧨] - dir name fallbacks for undefined version and release date"
+  "[Breaking 🧨] - dir name fallbacks for undefined version and release date",
 ]
-added = [ "`log` util function to hide logs during testing." ]
+added = ["`log` util function to hide logs during testing."]
 
 [[changelog]]
 version = "0.1.0"
@@ -118,34 +124,34 @@ added = [
   "paths in config",
   "caching to pipeline.",
   "`init` command to stub out project.",
-  "`generate` command to create changelog."
+  "`generate` command to create changelog.",
 ]
-removed = [ "support for flags" ]
+removed = ["support for flags"]
 deprecated = [
   "[Breaking 🧨] - `version_date_separator` support will be removed.",
-  "`changelog` command, this will be removed once we finish the commands."
+  "`changelog` command, this will be removed once we finish the commands.",
 ]
 
 [[changelog]]
 version = "0.0.7"
 release_date = "2024-11-17"
-added = [ "support yaml config." ]
+added = ["support yaml config."]
 removed = [
-  "[Breaking 🧨] - command arguments. (Note: This may be reintroduced later)"
+  "[Breaking 🧨] - command arguments. (Note: This may be reintroduced later)",
 ]
 fixed = [
-  "`breaking` flag not rendering in changelog correctly. Adds a hypen. to make it look better."
+  "`breaking` flag not rendering in changelog correctly. Adds a hypen. to make it look better.",
 ]
 
 [[changelog]]
 version = "0.0.6"
 release_date = "2024-11-17"
-fixed = [ "template escape characters" ]
+fixed = ["template escape characters"]
 
 [[changelog]]
 version = "0.0.5"
 release_date = "2024-11-17"
 added = [
   "inital release of app.",
-  "`breaking` keyword to show breaking changes."
+  "`breaking` keyword to show breaking changes.",
 ]

@@ -27,7 +27,7 @@ const program = new Command();
 program
   .name("build-changelog")
   .description("cli tool to generate changelogs")
-  .version("0.5.2");
+  .version("0.5.3");
 
 program
   .command("init")
