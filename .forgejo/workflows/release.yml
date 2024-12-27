@@ -49,6 +49,18 @@ jobs:
         env:
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
           ACTION_TOKEN: op://Forgejo/ENV/ACTION_TOKEN
+          GPG_KEY: op://Forgejo/ENV/GPG_KEY
+          GPG_PASSPHRASE: op://Forgejo/ENV/GPG_PASSPHRASE
+
+      - name: decode gpg
+        id: decode
+        run: |
+          KEY=$(echo "${{ steps.load-op.outputs.GPG_KEY }}" | base64 -d) && \
+          cat >> $GITHUB_OUTPUT <<EOF
+          GPG<<STRING
+          $KEY
+          STRING
+          EOF
 
       - uses: actions/forgejo-release@v2.5.1
         env:
@@ -62,3 +74,5 @@ jobs:
           verbose: true
           release-dir: "release"
           override: ${{ inputs.override }}
+          gpg-private-key: ${{ steps.decode.outputs.GPG }}
+          gpg-passphrase: "${{ steps.load-op.outputs.GPG_PASSPHRASE }}"
