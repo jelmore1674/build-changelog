@@ -49,7 +49,7 @@ jobs:
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
           ACTION_TOKEN: op://Forgejo/ENV/ACTION_TOKEN
 
-      - uses: actions/release@v2.6.0
+      - uses: actions/release@49507fb86d9e3ad7f2d5a922749eb1b266349bfe # v2.6.0
         env:
           RELEASE_NOTES: ${{ steps.release-notes.outputs.RELEASE_NOTES }}
         with:
