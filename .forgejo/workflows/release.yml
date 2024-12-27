@@ -29,6 +29,7 @@ jobs:
       - run: pnpm i --frozen-lockfile
       - run: pnpm build
       - run: npm i -g .
+      - run: mkdir release
 
       - name: Release Notes
         id: release-notes
