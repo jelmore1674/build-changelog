@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Load ENV from 1Password
-        uses: https://github.com/1password/load-secrets-action@v2
+        uses: 1password/load-secrets-action@v2
         id: load-op
         with:
           # Export loaded secrets as environment variables
@@ -27,9 +27,9 @@ jobs:
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
           ACTION_TOKEN: op://Forgejo/ENV/ACTION_TOKEN
 
-      - uses: https://github.com/pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v4
       - name: Setup Node
-        uses: https://github.com/actions/setup-node@v4
+        uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: "pnpm"
