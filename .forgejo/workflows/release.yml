@@ -19,9 +19,9 @@ jobs:
     outputs:
       RELEASE_NOTES: "${{ steps.release-notes.outputs.RELEASE_NOTES }}"
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4
         with:
           node-version: "20"
           cache: "pnpm"
@@ -40,7 +40,7 @@ jobs:
           STRING
           EOF
 
-      - uses: 1password/load-secrets-action@v2
+      - uses: 1password/load-secrets-action@581a835fb51b8e7ec56b71cf2ffddd7e68bb25e0 # v2
         id: load-op
         with:
           # Export loaded secrets as environment variables

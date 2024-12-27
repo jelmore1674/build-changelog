@@ -1,4 +1,4 @@
-FROM node:20-alpine
+FROM node:20-alpine@sha256:426f843809ae05f324883afceebaa2b9cab9cb697097dbb1a2a7a41c5701de72
 
 # Update the package list and install Node.js and npm
 RUN apk add --update nodejs npm git jq
