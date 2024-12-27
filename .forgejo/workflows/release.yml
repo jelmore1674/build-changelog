@@ -20,11 +20,6 @@ jobs:
       RELEASE_NOTES: "${{ steps.release-notes.outputs.RELEASE_NOTES }}"
     steps:
       - uses: actions/checkout@v4
-      - name: zip source_code
-
-        run: |
-          mkdir release
-          zip -r release/source_code.zip .
       - uses: https://github.com/pnpm/action-setup@v4
       - uses: https://github.com/actions/setup-node@v4
         with:
@@ -53,20 +48,8 @@ jobs:
         env:
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
           ACTION_TOKEN: op://Forgejo/ENV/ACTION_TOKEN
-          GPG_KEY: op://Forgejo/ENV/GPG_KEY
-          GPG_PASSPHRASE: op://Forgejo/ENV/GPG_PASSPHRASE
 
-      - name: decode gpg
-        id: decode
-        run: |
-          KEY=$(echo "${{ steps.load-op.outputs.GPG_KEY }}" | base64 -d) && \
-          cat >> $GITHUB_OUTPUT <<EOF
-          GPG<<STRING
-          $KEY
-          STRING
-          EOF
-
-      - uses: actions/forgejo-release@v2.5.1
+      - uses: https://forgejo.justinelmore.dev/actions/release@v2.6.0
         env:
           RELEASE_NOTES: ${{ steps.release-notes.outputs.RELEASE_NOTES }}
         with:
@@ -76,7 +59,4 @@ jobs:
           tag: ${{ inputs.tag }}
           token: ${{ steps.load-op.outputs.ACTION_TOKEN }}
           verbose: true
-          release-dir: "release"
           override: ${{ inputs.override }}
-          gpg-private-key: ${{ steps.decode.outputs.GPG }}
-          gpg-passphrase: "${{ steps.load-op.outputs.GPG_PASSPHRASE }}"
