@@ -32,7 +32,7 @@
     "@types/node": "22.9.1",
     "@vitest/coverage-v8": "2.1.8",
     "dprint": "0.48.0",
-    "typescript": "5.6.3",
+    "typescript": "5.7.2",
     "vitest": "2.1.8"
   },
   "bin": {
