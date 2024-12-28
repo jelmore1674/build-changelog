@@ -1,14 +1,13 @@
 name: Changelog
 
 on:
-  workflow_dispatch:
-  # push:
-  #   branches:
-  #     - main
-  #   paths:
-  #     - "changelog/*"
-  #     - "bcl.toml"
-  #     - "**/changelog.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "changelog/*"
+      - "bcl.toml"
+      - "**/changelog.yml"
 
 jobs:
   generate-changelog:
