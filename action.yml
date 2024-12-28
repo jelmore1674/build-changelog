@@ -1,0 +1,65 @@
+name: "Generate Changlog"
+description: "Generate your changelog from your changelog files."
+author: "Justin Elmore"
+
+inputs:
+  gpg_private_key:
+    description: "Optionally add a gpg key to sign the commits."
+    default: ""
+    required: false
+
+  passphrase:
+    description: "Passphrase for the GPG private key provided"
+    default: ""
+    required: false
+
+  commit_user_name:
+    description: "The name of the commit user."
+    default: "forgejo[bot]"
+    required: false
+
+  commit_user_email:
+    description: "The email of the commit user."
+    default: "forgejo[bot]@noreply.fogejo.justinelmore.dev"
+    required: false
+
+  commit_message:
+    description: "The commit message. "
+    default: "update changelog."
+    required: false
+
+  commit_options:
+    description: Commit options (eg. --no-verify)
+    required: false
+    default: ""
+
+  push_options:
+    description: Push options (eg. --force)
+    required: false
+    default: ""
+
+runs:
+  using: "composite"
+  steps:
+    - name: Generate Changlog
+      uses: ./generate
+
+    - if: ${{ inputs.gpg_private_key != ""}}
+      name: "Import GPG key"
+      id: import-gpg
+      uses: https://github.com/crazy-max/ghaction-import-gpg@v6
+      with:
+        gpg_private_key: ${{ steps.decode.outputs.GPG }}
+        passphrase: "${{ steps.load-op.outputs.GPG_PASSPHRASE }}"
+        git_user_signingkey: true
+        git_commit_gpgsign: true
+
+    - name: "Commit and push changes"
+      uses: https://github.com/stefanzweifel/git-auto-commit-action@v5
+      with:
+        commit_author: "${{ github.actor }} <${{ github.actor@noreply.forgejo.justinelmore.dev }}>"
+        commit_user_name: ${{ steps.import-gpg.outputs.name || inputs.commit_user_name }}
+        commit_user_email: ${{ steps.import-gpg.outputs.email || inputs.commit_user_email }}
+        commit_message: ${{ inputs.commit_message }}
+        commit_options: ${{ inputs.commit_options }}
+        push_options: ${{ inputs.push_options }}

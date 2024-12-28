@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "build": "ncc build src/index.ts -m && cp -R templates dist/",
-    "build:changelog": "ncc build src/changelog.ts -m",
+    "build:actions": "ncc build src/generate.ts -m -o generate && cp -R templates generate/",
     "lint": "biome lint --error-on-warnings",
     "test": "vitest",
     "test:coverage": "vitest run --coverage"
