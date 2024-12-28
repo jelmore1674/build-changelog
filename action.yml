@@ -44,7 +44,7 @@ runs:
     - name: Generate Changlog
       uses: ./generate
 
-    - if: ${{ inputs.gpg_private_key != ""}}
+    - if: ${{ inputs.gpg_private_key != ''}}
       name: "Import GPG key"
       id: import-gpg
       uses: https://github.com/crazy-max/ghaction-import-gpg@v6
