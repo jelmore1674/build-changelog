@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.0] - 2024-12-28
+
+### Added
+
+- Now able to be used as an action. See (docs)[https://forgejo.justinelmore.dev/jelmore1674/build-changelog#actions]
+
+### Security
+
+- pin depencies
+- update vitest monorepo to v2.1.8
+- update dependency vite-tsconfig-paths to v5.1.4
+- update pnpm to v9.15.1
+- update dependency dprint to v0.48.0
+- update dependency typescript to v5.7.2
+- update node.js to v22
+
 ## [0.5.5] - 2024-12-26
 
 ### Changed
@@ -194,6 +210,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `breaking` keyword to show breaking changes.
 
 
+[1.0.0]: https://forgejo.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v1.0.0
 [0.5.5]: https://forgejo.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.5.5
 [0.5.4]: https://forgejo.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.5.4
 [0.5.3]: https://forgejo.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.5.3
