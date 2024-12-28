@@ -8,6 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
 
       - name: Load secret
         id: load-op
@@ -30,7 +32,20 @@ jobs:
           STRING
           EOF
 
+      - name: Get last commit message
+        id: last-commit
+        run: |
+          echo "message=$(git log -1 --pretty=%s)" >> $GITHUB_OUTPUT
+          echo "author=$(git log -1 --pretty=\"%an <%ae>\")" >> $GITHUB_OUTPUT
+
       - name: Generate Changelog
         uses: ./
         with:
-          commit_message: "chore: Update CHANGELOG.md"
+          gpg_private_key: ${{ steps.decode.outputs.GPG }}
+          passphrase: "${{ steps.load-op.outputs.GPG_PASSPHRASE }}"
+          commit_user_name: ${{ steps.import-gpg.outputs.name }}
+          commit_user_email: ${{ steps.import-gpg.outputs.email }}
+          commit_author: ${{ steps.last-commit.outputs.author }}
+          commit_message: ${{ steps.last-commit.outputs.message }}
+          commit_options: "--amend"
+          push_options: "--force"
