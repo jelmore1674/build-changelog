@@ -33,8 +33,4 @@ jobs:
       - name: Generate Changelog
         uses: ./
         with:
-          gpg_private_key: ${{ steps.decode.outputs.GPG }}
-          passphrase: "${{ steps.load-op.outputs.GPG_PASSPHRASE }}"
-          commit_user_name: ${{ steps.import-gpg.outputs.name }}
-          commit_user_email: ${{ steps.import-gpg.outputs.email }}
           commit_message: "chore: Update CHANGELOG.md"
