@@ -1,3 +1,8 @@
+[![release](https://forgejo.justinelmore.dev/jelmore1674/build-changelog/badges/release.svg)](/jelmore1674/build-changelog/releases)
+[![issues](https://forgejo.justinelmore.dev/jelmore1674/build-changelog/badges/issues/open.svg)](/jelmore1674/build-changelog/issues)
+[![prs](https://forgejo.justinelmore.dev/jelmore1674/build-changelog/badges/pulls/open.svg)](/jelmore1674/build-changelog/pulls)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](/jelmore1674/build-changelog/src/branch/main/LICENSE)
+
 # build-changelog
 
 > Simplify managing changelog files.
@@ -26,7 +31,7 @@ If `build-changelog` is integrated to your project it can be used as an action.
 To get started using the action just add step in your action.
 
 ```yaml
-- uses: jelmore1674/build-changelog@v0.6.0
+- uses: jelmore1674/build-changelog@v1
 ```
 
 > [!NOTE]
@@ -124,13 +129,17 @@ jobs:
         with:
           # Customize your commit message
           commit_message: 'chore: update changelog'
+
           # To sign the commits just add the GPG KEY and Passphrase.
           gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
           passphrase: "${{ secrets.GPG_PASSPHRASE }}"
+
           # This will use the last author as the commit author.
           commit_author: ${{ steps.last-commit.outputs.author }}
+
           # This will use the last message as the commit message.
           commit_message: ${{ steps.last-commit.outputs.message }}
+
           # Amend and force push.
           commit_options: "--amend"
           push_options: "--force"
