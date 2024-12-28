@@ -3,7 +3,6 @@ version = "0.5.5"
 release_date = "2024-12-26"
 changed = [
   "Removed `forgejo-release` and forked so I can disable `release_dir`.",
-  "Added Github Action.",
 ]
 
 [[changelog]]
