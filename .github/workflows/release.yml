@@ -54,7 +54,7 @@ jobs:
           RELEASE_NOTES: ${{ steps.release-notes.outputs.RELEASE_NOTES }}
         with:
           direction: upload
-          url: https://forgejo.justinelmore.dev
+          url: https://git.justinelmore.dev
           release-notes: ${{ env.RELEASE_NOTES }}
           tag: ${{ inputs.tag }}
           token: ${{ steps.load-op.outputs.ACTION_TOKEN }}
