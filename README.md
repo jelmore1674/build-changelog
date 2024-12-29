@@ -1,4 +1,4 @@
-[![release](https://forgejo.justinelmore.dev/jelmore1674/build-changelog/badges/release.svg)](/jelmore1674/build-changelog/releases)
+[![release](https://forgejo.justinelmore.dev/jelmore1674/build-changelog/badges/release.svg?color=dark-green&logo=npm&logoColor=CB3837)](/jelmore1674/build-changelog/releases)
 [![issues](https://forgejo.justinelmore.dev/jelmore1674/build-changelog/badges/issues/open.svg)](/jelmore1674/build-changelog/issues)
 [![prs](https://forgejo.justinelmore.dev/jelmore1674/build-changelog/badges/pulls/open.svg)](/jelmore1674/build-changelog/pulls)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](/jelmore1674/build-changelog/src/branch/main/LICENSE)
