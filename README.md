@@ -1,6 +1,6 @@
-[![release](https://git.justinelmore.dev/jelmore1674/build-changelog/badges/release.svg?color=dark-green&logo=npm&logoColor=CB3837)](/jelmore1674/build-changelog/releases)
-[![issues](https://git.justinelmore.dev/jelmore1674/build-changelog/badges/issues/open.svg)](/jelmore1674/build-changelog/issues)
-[![prs](https://git.justinelmore.dev/jelmore1674/build-changelog/badges/pulls/open.svg)](/jelmore1674/build-changelog/pulls)
+![release](https://img.shields.io/gitea/v/release/jelmore1674/build-changelog?gitea_url=https%3A%2F%2Fgit.justinelmore.dev&display_name=release&logo=npm&logoColor=CB3837)
+[![issues](https://img.shields.io/gitea/issues/open/jelmore1674/build-changelog?gitea_url=https%3A%2F%2Fgit.justinelmore.dev)](/issues)
+![prs](https://img.shields.io/gitea/pull-requests/open/jelmore1674/build-changelog?gitea_url=https%3A%2F%2Fgit.justinelmore.dev)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](/jelmore1674/build-changelog/src/branch/main/LICENSE)
 
 # build-changelog
