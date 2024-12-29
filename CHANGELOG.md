@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased] - TBD
 
+### Fixed
+
+- Force composite to use full path instead of relative path.
+
 ### Security
 
 - update `actions/release` to `2.6.1`

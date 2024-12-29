@@ -2,6 +2,7 @@
 version = "Unreleased"
 release_date = "TBD"
 security = [ "update `actions/release` to `2.6.1`" ]
+fixed = [ "Force composite to use full path instead of relative path." ]
 
 [[changelog]]
 version = "1.0.0"
