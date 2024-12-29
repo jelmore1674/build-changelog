@@ -42,7 +42,7 @@ runs:
   using: "composite"
   steps:
     - name: Generate Changlog
-      uses: ./generate
+      uses: https://git.justinelmore.dev/jelmore1674/build-changelog/generate@main
 
     - if: ${{ inputs.gpg_private_key != ''}}
       name: "Import GPG key"
