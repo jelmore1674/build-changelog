@@ -1,0 +1,2 @@
+[security]
+change = ['update `actions/release` to `2.6.1`']
