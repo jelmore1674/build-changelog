@@ -1,6 +1,6 @@
-[![release](https://forgejo.justinelmore.dev/jelmore1674/build-changelog/badges/release.svg?color=dark-green&logo=npm&logoColor=CB3837)](/jelmore1674/build-changelog/releases)
-[![issues](https://forgejo.justinelmore.dev/jelmore1674/build-changelog/badges/issues/open.svg)](/jelmore1674/build-changelog/issues)
-[![prs](https://forgejo.justinelmore.dev/jelmore1674/build-changelog/badges/pulls/open.svg)](/jelmore1674/build-changelog/pulls)
+[![release](/jelmore1674/build-changelog/badges/release.svg?color=dark-green&logo=npm&logoColor=CB3837)](/jelmore1674/build-changelog/releases)
+[![issues](/jelmore1674/build-changelog/badges/issues/open.svg)](/jelmore1674/build-changelog/issues)
+[![prs](/jelmore1674/build-changelog/badges/pulls/open.svg)](/jelmore1674/build-changelog/pulls)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](/jelmore1674/build-changelog/src/branch/main/LICENSE)
 
 # build-changelog
@@ -12,8 +12,8 @@ add a separate file to put their changes, then generating the changelog.
 
 ## Table of Contents
 
-- [CLI Usage](#Getting-Started)
-- [Actions Usage](#Actions)
+- [CLI Usage](#getting-started)
+- [Actions Usage](#actions)
 
 ## Getting Started
 
