@@ -47,7 +47,7 @@ runs:
     - if: ${{ inputs.gpg_private_key != ''}}
       name: "Import GPG key"
       id: import-gpg
-      uses: https://github.com/crazy-max/ghaction-import-gpg@v6
+      uses: crazy-max/ghaction-import-gpg@v6
       with:
         gpg_private_key: ${{ inputs.gpg_private_key }}
         passphrase: "${{ inputs.passphrase }}"
@@ -55,7 +55,7 @@ runs:
         git_commit_gpgsign: true
 
     - name: "Commit and push changes"
-      uses: https://github.com/stefanzweifel/git-auto-commit-action@v5
+      uses: stefanzweifel/git-auto-commit-action@v5
       with:
         commit_author: "${{ github.actor }} <${{ github.actor@noreply.forgejo.justinelmore.dev }}>"
         commit_user_name: ${{ steps.import-gpg.outputs.name || inputs.commit_user_name }}
