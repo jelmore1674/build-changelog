@@ -1,5 +1,8 @@
 ## [{{version}}] - {{release_date}}
 
+{{#notice}}{{> notice}}
+
+{{/notice}}
 {{#added.length}}### Added
 
 {{#added}}
