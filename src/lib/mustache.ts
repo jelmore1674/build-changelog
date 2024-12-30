@@ -11,6 +11,7 @@ const version = readFileSync(path.join(dir, "templates/version.md"), "utf8");
 const change = readFileSync(path.join(dir, "templates/change.md"), "utf8");
 const links = readFileSync(path.join(dir, "templates/links.md"), "utf8");
 const releaseNotes = readFileSync(path.join(dir, "templates/release-notes.md"), "utf8");
+const notice = readFileSync(path.join(dir, "templates/notice.md"), "utf8");
 
 /** Initial list of supported keywords */
 const KEYWORDS = {
@@ -25,6 +26,7 @@ const KEYWORDS = {
 interface Release {
   version: string;
   release_date?: string;
+  notice?: string;
 }
 
 /**
@@ -58,7 +60,12 @@ async function generateChangelog(versions: Version[]) {
       });
     });
   }
-  return Mustache.render(heading, { versions, links: genLinks.filter(i => i) }, { versions: version, change, links })
+  return Mustache.render(heading, { versions, links: genLinks.filter(i => i) }, {
+    versions: version,
+    change,
+    links,
+    notice,
+  })
     ?.trim();
 }
 

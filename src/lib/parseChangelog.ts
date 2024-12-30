@@ -13,6 +13,8 @@ const changeSectionRegex = /(?=^#{3} .*?$)/gism;
 // keywords
 const keywordRegex = /(?:fixed|removed|changed|added|security|deprecated)/gism;
 const changesRegex = /^#{3} (?:fixed|removed|changed|added|security|deprecated)/gism;
+// notice
+const noticeRegex = /(?<=_)((.*)(?=_))/gism;
 
 /**
  * parse an existing changelog file and convert to an object.
@@ -29,13 +31,19 @@ function parseChangelog(changelogPath: string) {
       // Pull the version and release_date from the section.
       const [version] = section.match(versionRegex) || ["Unreleased"];
       const [release_date] = section.match(dateRegex) || ["TBD"];
-      // TODO: Add a way to add upgrade steps to parsing. ? Maybe. Unsure how to parse that.
+      // Get the notice if there is a notice.
+      const [notice] = section.match(noticeRegex) || [undefined];
 
       // Intialize the release version..
       const release: Version = {
         version,
         release_date,
       };
+
+      if (notice) {
+        // Only define notice if there is one.
+        release.notice = notice;
+      }
 
       section.split(changeSectionRegex).map(changeKeyword => {
         if (changeKeyword.match(versionSectionRegex)) {

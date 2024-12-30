@@ -74,6 +74,13 @@ function teardown() {
 }
 
 describe("generateCommand", () => {
+  vi.mock(import("mustache"), async (importOriginal) => {
+    const og = await importOriginal();
+    return ({
+      render: vi.fn().mockImplementation(og.render),
+    });
+  });
+
   afterEach(async () => {
     vi.restoreAllMocks();
     teardown();
@@ -101,6 +108,7 @@ describe("generateCommand", () => {
     const changelog: Version[] = [
       {
         version: "1.0.0",
+        notice: "Initial Release",
         release_date: "2024-1-2",
         added: ["This cool feature"],
       },
@@ -136,6 +144,23 @@ describe("generateCommand", () => {
     generate.generateCommand();
 
     expect(generateCommand).toReturn();
+  });
+
+  test("sucessfully runs the generate command", () => {
+    // Setup test changes files.
+    const change = {
+      version: "1.0.0",
+      release_date: "2024-1-1",
+      badkeyword: { breaking: ["this is a breaking change"], changes: ["this is a test change"] },
+    };
+    outputFileSync(YAML_CHANGE, YAML.stringify(change));
+    outputFileSync(TOML_CHANGE, TOML.stringify(change as unknown as JsonMap));
+
+    setupArchive();
+
+    vi.spyOn(mustache, "generateChangelog").mockResolvedValue("# Changelog");
+
+    expect(() => generate.generateCommand()).toThrowError();
   });
 
   test("sucessfully runs the generate command", () => {

@@ -151,4 +151,18 @@ Here we would have the update steps for 1.2.4 for people to follow.
       added: ["[Breaking 🧨] - this cool change"],
     }]);
   });
+
+  test("can get notice out of changelog", () => {
+    vi.spyOn(fs, "existsSync").mockReturnValue(true);
+    vi.spyOn(fs, "readFileSync").mockReturnValueOnce(
+      `# Changelog\n\n## [1.0.0] - 2024-12-07\n\n_This is a notice_\n\n### Added\n\n- [Breaking 🧨] - this cool change\n`,
+    );
+    const cl = parseChangelog("CHANGELOG.md");
+    expect(cl).toEqual([{
+      version: "1.0.0",
+      notice: "This is a notice",
+      release_date: "2024-12-07",
+      added: ["[Breaking 🧨] - this cool change"],
+    }]);
+  });
 });

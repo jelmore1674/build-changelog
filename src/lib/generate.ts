@@ -11,7 +11,7 @@ import { parseChangelog } from "./parseChangelog";
 import { rl } from "./readline";
 
 /** Properties we will not use when adding changes to the changelog */
-const YAML_KEY_FILTER = ["release_date", "version"];
+const YAML_KEY_FILTER = ["release_date", "version", "notice"];
 
 /** The valid keywords that are used for the sections in the changelog */
 const VALID_KEYWORDS = ["added", "changed", "deprecated", "fixed", "removed", "security"];
@@ -94,12 +94,21 @@ function generateCommand() {
       // Set fallback values for release_date and Version
       let version = parsedChanges.version || "Unreleased";
       let release_date = parsedChanges.release_date || "TBD";
+      let notice = parsedChanges.notice;
 
       // Find a matching release.
       const foundRelease = acc.find((release) => release.version === version);
 
       // The currentVersion to add changes to.
       const currentVersion: Version = foundRelease ?? { version, release_date };
+
+      if (notice) {
+        if (currentVersion.notice) {
+          throw new Error(`A notice already exists. Please look at the existing noice for the version.`);
+        }
+        // only define notice if it exists.
+        currentVersion.notice = notice;
+      }
 
       if (parsedChanges) {
         for (const changes in parsedChanges) {
