@@ -2,7 +2,7 @@ dir = "changelog"
 prefers = "toml"
 git_tag_prefix = "v"
 changelog_archive = true
-release_url = "https://forgejo.justinelmore.dev/jelmore1674/build-changelog/releases/tag"
+release_url = "https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag"
 
 [flags]
 breaking = "[Breaking 🧨]"
