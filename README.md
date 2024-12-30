@@ -127,9 +127,6 @@ jobs:
 
       - uses: jelmore1674/build-changelog@v1
         with:
-          # Customize your commit message
-          commit_message: 'chore: update changelog'
-
           # To sign the commits just add the GPG KEY and Passphrase.
           gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
           passphrase: "${{ secrets.GPG_PASSPHRASE }}"
