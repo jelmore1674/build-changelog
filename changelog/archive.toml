@@ -1,4 +1,9 @@
 [[changelog]]
+version = "Unreleased"
+release_date = "TBD"
+added = [ "Allow notice in changelog entries." ]
+
+[[changelog]]
 version = "1.0.1"
 release_date = "2024-12-29"
 security = [ "update `actions/release` to `2.6.1`" ]
