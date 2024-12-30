@@ -86,7 +86,7 @@ inputs:
     required: false
 
   commit_message:
-    description: 'The commit message. '
+    description: 'The commit message.'
     default: 'update changelog.'
     required: false
 
