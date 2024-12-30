@@ -23,6 +23,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2024-12-28
 
+_Initial Release_
+
 ### Added
 
 - Now able to be used as an action. See (docs)[https://forgejo.justinelmore.dev/jelmore1674/build-changelog#actions]
