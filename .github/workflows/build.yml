@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - "src/*"
+      - "src/**"
       - "package.json"
       - "pnpm-lock.yaml"
       - "**/build.yml"
