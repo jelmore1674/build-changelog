@@ -57,7 +57,12 @@ function parseChangelog(changelogPath: string) {
             changesRegex,
             "",
           ).trim().split("\n- ")
-            .map((change: string) => change.replace(/^- /g, "").replace(/\n /g, ""))
+            .map((change: string) =>
+              change.replace(/^\[.*/gism, "")
+                .replace(/^- /g, "")
+                .replace(/\n /g, "")
+                .trim()
+            )
             .filter(i => i);
         }
       }).filter(changes => {
