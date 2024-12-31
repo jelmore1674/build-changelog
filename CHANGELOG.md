@@ -7,9 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.3.0] - 2024-12-31
 
+### Added
+
+- An action to enforce changelog entries. ([#53](https://git.justinelmore.dev/jelmore1674/build-changelog/pulls/53)) ([Justin Elmore](https://git.justinelmore.dev/jelmore1674))
+
 ### Fixed
 
 - Reference links being duplicated. ([#51](https://git.justinelmore.dev/jelmore1674/build-changelog/issues/51), [#52](https://git.justinelmore.dev/jelmore1674/build-changelog/pulls/52)) (Justin Elmore)
+- Issue, where the regex was causing the changelog parsing to break when having words with multiple undercores ie. `_example_`. ([#53](https://git.justinelmore.dev/jelmore1674/build-changelog/pulls/53)) ([Justin Elmore](https://git.justinelmore.dev/jelmore1674))
 
 ## [1.2.0] - 2024-12-31
 
@@ -246,7 +251,8 @@ _Initial Release_
 - inital release of app.
 - `breaking` keyword to show breaking changes.
 
-[1.2.1]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v1.2.1
+
+[1.3.0]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v1.3.0
 [1.2.0]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v1.2.0
 [1.1.0]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v1.1.0
 [1.0.1]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v1.0.1
@@ -272,4 +278,3 @@ _Initial Release_
 [0.0.7]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.0.7
 [0.0.6]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.0.6
 [0.0.5]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.0.5
-
