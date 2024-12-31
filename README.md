@@ -15,6 +15,7 @@ add a separate file to put their changes, then generating the changelog.
 - [CLI Usage](#getting-started)
 - [Actions Usage](#actions)
   - [Release Notes](#release-notes)
+  - [Enforce Changelog](#enforce-changelog)
 
 ## Getting Started
 
@@ -219,4 +220,35 @@ jobs:
           token: ${{ secrets.ACTION_TOKEN }}
           verbose: true
           override: ${{ inputs.override }}
+```
+
+### Changelog Enforcer
+
+This actions will check if there are changes to the changelog. If there are no changes, it will fail.
+
+```yaml
+name: Enforce Changelog
+
+on:
+  pull_request:
+    branches: [main]
+    # For this action to work on pull-requests you need to enable all pull_request events.
+    types: [opened, synchronize, reopened, ready_for_review, labeled, unlabeled]
+
+jobs:
+  generate-changelog:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # You should run the generate action first.
+      - name: Check changelog changes.
+        uses: jelmore1674/build-changelog/generate@v1
+
+      # This will check to see if you changelog has any changes.
+      - uses: jelmore1674/build-changelog/enforcer@v1
+        with:
+          # If you want to skip enforcing the changelog you can use a comma
+          # separated list of labels. Make sure there are no spaces.
+          skipLabels: ops,maintenance,docs
 ```

@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.2.1] - 2024-12-31
+## [1.3.0] - 2024-12-31
 
 ### Fixed
 
@@ -50,7 +50,7 @@ _Initial Release_
 
 ### Added
 
-- Now able to be used as an action. See (docs)[https://forgejo.justinelmore.dev/jelmore1674/build-changelog#actions]
+- Now able to be used as an action. See [docs](https://git.justinelmore.dev/jelmore1674/build-changelog#actions)
 
 ### Security
 
@@ -78,7 +78,7 @@ _Initial Release_
 
 ### Fixed
 
-- add release_dir to fix release from failing.
+- add `release_dir` to fix release from failing.
 
 ## [0.5.2] - 2024-12-26
 
@@ -109,38 +109,6 @@ _Initial Release_
 
 ## [0.4.0] - 2024-12-08
 
-_date`.
-- [Breaking 🧨] - Default option to parse changelog over keeping an archive.
-- Updated `guide.md` template.
-- Added release linking to Changelog generation.
-- Added `release_url`, `changelog_archive`, and `git_tag_
-
-### Added
-
-- Parsing existing changelog file.
-
-### Changed
-
-- [Breaking 🧨] - Renamed the bin `build-cl` to `bcl`.
-- [Breaking 🧨] - Renames `releaseDate` to `release_date`.
-- [Breaking 🧨] - Default option to parse changelog over keeping an archive.
-- Updated `guide.md` template.
-- Added release linking to Changelog generation.
-- Added `release_url`, `changelog_archive`, and `git_tag_
-
-### Added
-
-- Parsing existing changelog file.
-
-### Changed
-
-- [Breaking 🧨] - Renamed the bin `build-cl` to `bcl`.
-- [Breaking 🧨] - Renames `releaseDate` to `release_date`.
-- [Breaking 🧨] - Default option to parse changelog over keeping an archive.
-- Updated `guide.md` template.
-- Added release linking to Changelog generation.
-- Added `release_url`, `changelog_archive`, and `git_tag_
-
 ### Added
 
 - Parsing existing changelog file.
@@ -150,7 +118,7 @@ _date`.
 - [Breaking 🧨] - Renamed the bin `build-cl` to `bcl`.
 - Updated `guide.md` template.
 - Added release linking to Changelog generation.
-- Added `release_url`, `changelog_archive`, and `git_tag_prefix` to the configuration.
+- Added `release_url`, `changelog_archive`, and `git_tag_prefix`.
 
 ### Removed
 
@@ -231,38 +199,6 @@ _date`.
 
 ## [0.1.0] - 2024-11-18
 
-_date_
-
-### Added
-
-- Cleanup of old files after the changelog has been made
-- Some unit testing.
-- `capitalizeFirstLetter` utility function.
-- README for `init` command.
-- paths in config
-- caching to pipeline.
-- `init` command to stub out project.
-- `generate` command to create changelog.
-
-### Deprecated
-
-- [Breaking 🧨] - `version_date_
-
-### Added
-
-- Cleanup of old files after the changelog has been made
-- Some unit testing.
-- `capitalizeFirstLetter` utility function.
-- README for `init` command.
-- paths in config
-- caching to pipeline.
-- `init` command to stub out project.
-- `generate` command to create changelog.
-
-### Deprecated
-
-- [Breaking 🧨] - `version_date_
-
 ### Added
 
 - Cleanup of old files after the changelog has been made
@@ -310,7 +246,6 @@ _date_
 - inital release of app.
 - `breaking` keyword to show breaking changes.
 
-
 [1.2.1]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v1.2.1
 [1.2.0]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v1.2.0
 [1.1.0]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v1.1.0
@@ -337,3 +272,4 @@ _date_
 [0.0.7]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.0.7
 [0.0.6]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.0.6
 [0.0.5]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.0.5
+

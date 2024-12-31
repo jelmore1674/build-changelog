@@ -1,0 +1,19 @@
+name: Changelog
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, ready_for_review, labeled, unlabeled]
+
+jobs:
+  generate-changelog:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check changelog changes.
+        uses: ./generate
+
+      - uses: ./enforcer
+        with:
+          skipLabels: ops,maintenance,docs

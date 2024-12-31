@@ -14,7 +14,7 @@ const changeSectionRegex = /(?=^#{3} .*?$)/gism;
 const keywordRegex = /(?:fixed|removed|changed|added|security|deprecated)/gism;
 const changesRegex = /^#{3} (?:fixed|removed|changed|added|security|deprecated)/gism;
 // notice
-const noticeRegex = /(?<=_)((.*)(?=_))/gism;
+const noticeRegex = /(?<=^_)((.*)(?=_))/gism;
 
 /**
  * parse an existing changelog file and convert to an object.

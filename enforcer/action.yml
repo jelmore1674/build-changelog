@@ -1,0 +1,11 @@
+name: Enforce Changelog
+description: "Enforce your changelog"
+
+inputs:
+  skip_labels:
+    default: "ops"
+    description: "Comma seperated list of labels to skip enforcing changelog changes."
+
+runs:
+  using: node20
+  main: index.js

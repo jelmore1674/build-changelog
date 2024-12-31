@@ -20,25 +20,10 @@ jobs:
       RELEASE_NOTES: "${{ steps.release-notes.outputs.RELEASE_NOTES }}"
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-          cache: "pnpm"
 
-      - run: pnpm i --frozen-lockfile
-      - run: pnpm build
-      - run: npm i -g .
-
-      - name: Release Notes
+      - name: Get Release Notes
         id: release-notes
-        run: |
-          NOTES=$(bcl notes ${{ inputs.tag }}) && \
-          cat >> $GITHUB_OUTPUT <<EOF
-          RELEASE_NOTES<<STRING
-          $NOTES
-          STRING
-          EOF
+        uses: ./notes
 
       - uses: 1password/load-secrets-action@v2
         id: load-op
@@ -51,7 +36,7 @@ jobs:
 
       - uses: https://git.justinelmore.dev/actions/release@v2.6.1
         env:
-          RELEASE_NOTES: ${{ steps.release-notes.outputs.RELEASE_NOTES }}
+          RELEASE_NOTES: ${{ steps.release-notes.outputs.notes }}
         with:
           direction: upload
           url: https://git.justinelmore.dev
