@@ -1,0 +1,7 @@
+name: Release Notes
+description: Get release notes your changelog.
+author: Justin Elmore
+
+runs:
+  using: node20
+  main: index.js

@@ -14,6 +14,7 @@ add a separate file to put their changes, then generating the changelog.
 
 - [CLI Usage](#getting-started)
 - [Actions Usage](#actions)
+  - [Release Notes](#release-notes)
 
 ## Getting Started
 
@@ -129,7 +130,7 @@ jobs:
         with:
           # To sign the commits just add the GPG KEY and Passphrase.
           gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
-          passphrase: "${{ secrets.GPG_PASSPHRASE }}"
+          passphrase: '${{ secrets.GPG_PASSPHRASE }}'
 
           # This will use the last author as the commit author.
           commit_author: ${{ steps.last-commit.outputs.author }}
@@ -138,6 +139,84 @@ jobs:
           commit_message: ${{ steps.last-commit.outputs.message }}
 
           # Amend and force push.
-          commit_options: "--amend"
-          push_options: "--force"
+          commit_options: '--amend'
+          push_options: '--force'
+```
+
+### Release Notes
+
+You can also get release notes from the changelog by using the `notes` action.
+
+```yaml
+uses: jelmore1674/build-changelog/notes@v1
+```
+
+The `notes` action has an output that can be read to send to your release action.
+
+#### Simple Example:
+
+```yaml
+name: release
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        type: string
+        description: the tag for your release
+
+jobs:
+  relase:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Release Notes
+        # You must set an id to be able to use the output.
+        id: release-notes
+        uses: jelmore1674/build-changelog/notes@v1
+
+        # You can use the output by getting it from the step.
+      - run: echo "${{ steps.release-notes.outputs.notes }}"
+```
+
+```yaml
+name: release
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release Tag'
+        type: 'string'
+        default: 'v'
+        required: true
+      override:
+        description: 'Override Existing Release'
+        type: boolean
+        required: true
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    outputs:
+      RELEASE_NOTES: '${{ steps.release-notes.outputs.RELEASE_NOTES }}'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Release Notes
+        # Set the id of the release-notes action.
+        id: release-notes
+        uses: jelmore1674/build-changelog/notes@v1
+
+      - uses: https://git.justinelmore.dev/actions/release@v2.6.1
+        with:
+          direction: upload
+          url: ${{ env.GITHUB_SERVER_URL }}
+          # The release notes are being set here.
+          release-notes: ${{ steps.release-notes.outputs.notes }}
+          tag: ${{ inputs.tag }}
+          token: ${{ secrets.ACTION_TOKEN }}
+          verbose: true
+          override: ${{ inputs.override }}
 ```

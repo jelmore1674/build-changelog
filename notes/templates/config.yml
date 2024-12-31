@@ -1,0 +1,11 @@
+dir: "changelog"
+keywords:
+  - "added"
+  - "changed"
+  - "deprecated"
+  - "removed"
+  - "fixed"
+  - "security"
+flags:
+  - "breaking"
+version_date_separator: "_"

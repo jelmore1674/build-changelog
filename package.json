@@ -1,6 +1,6 @@
 {
   "name": "@jelmore1674/build-changelog",
-  "version": "1.0.1",
+  "version": "1.2.0",
   "description": "",
   "main": "dist/index.js",
   "files": [
@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "build": "ncc build src/index.ts -m && cp -R templates dist/",
-    "build:actions": "ncc build src/generate.ts -m -o generate && cp -R templates generate/",
+    "build:actions": "ncc build src/generate.ts -m -o generate && cp -R templates generate/ && ncc build src/notes.ts -m -o notes && cp -R templates notes/",
     "lint": "biome lint --error-on-warnings",
     "test": "vitest",
     "test:coverage": "vitest run --coverage"
@@ -17,24 +17,26 @@
   "author": "jelmore1674",
   "license": "ISC",
   "packageManager": "pnpm@9.15.2+sha512.93e57b0126f0df74ce6bff29680394c0ba54ec47246b9cf321f0121d8d9bb03f750a705f24edc3c1180853afd7c2c3b94196d0a3d53d3e069d9e2793ef11f321",
-  "dependencies": {},
+  "dependencies": {
+    "@actions/core": "^1.11.1"
+  },
   "devDependencies": {
+    "@biomejs/biome": "1.9.4",
     "@iarna/toml": "2.2.5",
     "@types/fs-extra": "11.0.4",
     "@types/iarna__toml": "2.0.5",
-    "@vercel/ncc": "0.38.3",
-    "commander": "13.0.0",
-    "fs-extra": "11.2.0",
-    "mustache": "4.2.0",
-    "vite-tsconfig-paths": "5.1.4",
-    "yaml": "2.7.0",
-    "@biomejs/biome": "1.9.4",
     "@types/mustache": "4.2.5",
     "@types/node": "22.10.2",
+    "@vercel/ncc": "0.38.3",
     "@vitest/coverage-v8": "2.1.8",
+    "commander": "13.0.0",
     "dprint": "0.48.0",
+    "fs-extra": "11.2.0",
+    "mustache": "4.2.0",
     "typescript": "5.7.2",
-    "vitest": "2.1.8"
+    "vite-tsconfig-paths": "5.1.4",
+    "vitest": "2.1.8",
+    "yaml": "2.7.0"
   },
   "bin": {
     "bcl": "dist/index.js"
