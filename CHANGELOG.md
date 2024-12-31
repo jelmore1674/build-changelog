@@ -12,6 +12,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Allow notice in changelog entries.
 - Author name to change. 🚀 ([#42](https://git.justinelmore.dev/jelmore1674/build-changelog/issues/42), [#47](https://git.justinelmore.dev/jelmore1674/build-changelog/pulls/47)) (Justin Elmore)
 - References to changes, ie. Commit Hashes, Pull Requests and Issues. 🚀 ([#41](https://git.justinelmore.dev/jelmore1674/build-changelog/issues/41), [#47](https://git.justinelmore.dev/jelmore1674/build-changelog/pulls/47)) (Justin Elmore)
+- Allow usage of github relase url when releases url is not set in the config file. ([#47](https://git.justinelmore.dev/jelmore1674/build-changelog/pulls/47)) (Justin Elmore)
+
+### Security
+
+- update dependency yaml to v2.7.0 ([#46](https://git.justinelmore.dev/jelmore1674/build-changelog/pulls/46)) (renovate-bot)
 
 ## [1.0.1] - 2024-12-29
 
@@ -87,6 +92,12 @@ _Initial Release_
 - Gitlab CI Pipelines
 
 ## [0.4.0] - 2024-12-08
+
+_date`.
+- [Breaking 🧨] - Default option to parse changelog over keeping an archive.
+- Updated `guide.md` template.
+- Added release linking to Changelog generation.
+- Added `release_url`, `changelog_archive`, and `git_tag_
 
 ### Added
 
@@ -182,6 +193,8 @@ _Initial Release_
 
 ## [0.1.0] - 2024-11-18
 
+_date_
+
 ### Added
 
 - Cleanup of old files after the changelog has been made
@@ -254,3 +267,28 @@ _Initial Release_
 [0.0.6]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.0.6
 [0.0.5]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.0.5
 
+
+[1.1.0]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v1.1.0
+[1.0.1]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v1.0.1
+[1.0.0]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v1.0.0
+[0.5.5]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.5.5
+[0.5.4]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.5.4
+[0.5.3]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.5.3
+[0.5.2]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.5.2
+[0.5.1]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.5.1
+[0.5.0]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.5.0
+[0.4.0]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.4.0
+[0.3.2]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.3.2
+[0.3.1]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.3.1
+[0.3.0]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.3.0
+[0.2.4]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.2.4
+[0.2.3]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.2.3
+[0.2.2]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.2.2
+[0.2.1]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.2.1
+[0.2.0]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.2.0
+[0.1.2]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.1.2
+[0.1.1]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.1.1
+[0.1.0]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.1.0
+[0.0.7]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.0.7
+[0.0.6]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.0.6
+[0.0.5]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.0.5
