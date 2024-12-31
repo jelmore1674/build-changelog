@@ -6,12 +6,15 @@ import { isTomlFile } from "../utils/isTomlFile";
 import { isYamlFile } from "../utils/isYamlFile";
 import { log } from "../utils/log";
 import { changelogArchive, changelogDir, changelogPath, config } from "./config";
-import { Changes, generateChangelog, Keywords, Version } from "./mustache";
+import { Changes, generateChangelog, Keywords, Reference, Version } from "./mustache";
 import { parseChangelog } from "./parseChangelog";
 import { rl } from "./readline";
 
+const GITHUB_SERVER_URL = process.env.GITHUB_SERVER_URL;
+const GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY;
+
 /** Properties we will not use when adding changes to the changelog */
-const YAML_KEY_FILTER = ["release_date", "version", "notice"];
+const YAML_KEY_FILTER = ["release_date", "version", "notice", "references", "author"];
 
 /** The valid keywords that are used for the sections in the changelog */
 const VALID_KEYWORDS = ["added", "changed", "deprecated", "fixed", "removed", "security"];
@@ -55,6 +58,9 @@ function getChangelogArchive(): Version[] {
 
 /**
  * Write the changelog to the archive.
+ *
+ * @param changelog - the changelog to write
+ * @param archiveFile - where we will write the changelog archive.
  */
 function writeChangelogToArchive(changelog: Version[], archiveFile = changelogArchive) {
   const parser = getParser(config.prefers);
@@ -76,6 +82,45 @@ function cleanUpChangelog() {
   log("Finished cleaing. ");
 }
 
+const LINK_TYPE = {
+  pull_request: "pulls",
+  issue: "issues",
+};
+
+interface LinkReference extends Omit<Reference, "type"> {
+  type: "pull_request" | "issue";
+}
+
+/**
+ * Generate the link of the change.
+ *
+ * @param reference - the reference we are creating a link for.
+ */
+function generateLink(reference: LinkReference) {
+  if (config.repo_url) {
+    return `[#${reference.reference}](${config.repo_url}/${LINK_TYPE[reference.type]}/${reference.reference})`;
+  }
+
+  return `[#${reference.reference}](${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/${
+    LINK_TYPE[reference.type]
+  }/${reference.reference})`;
+}
+
+/**
+ * Generate References of the change.
+ *
+ * @param references - the references we are adding to the change.
+ */
+function generateReferences(references: Reference[]): string {
+  return references.map((reference) => {
+    if (reference.type === "commit") {
+      return `\`${reference.reference}\``;
+    }
+
+    return generateLink(reference as LinkReference);
+  }).join(", ");
+}
+
 /**
  *  The generate command will read the existing `yaml|yml` files in the
  *  `changelogDir`, write them to the `CHANGELOG.md`, and will remove the
@@ -95,6 +140,8 @@ function generateCommand() {
       let version = parsedChanges.version || "Unreleased";
       let release_date = parsedChanges.release_date || "TBD";
       let notice = parsedChanges.notice;
+      const author = parsedChanges.author;
+      const references = parsedChanges.references;
 
       // Find a matching release.
       const foundRelease = acc.find((release) => release.version === version);
@@ -137,11 +184,23 @@ function generateCommand() {
               // a prefix we will add the prefix. Else we will return the string.
               currentVersion[keyword]?.push(
                 ...parsedChanges[keyword]?.[flag]?.map((change: string) => {
-                  if (config.flags?.[flag]) {
-                    return `${config.flags?.[flag]} - ${change}`;
+                  let renderedChange = change;
+
+                  // Generate the links for the change.
+                  if (references && (config.repo_url || GITHUB_REPOSITORY)) {
+                    renderedChange = `${change} (${generateReferences(references)})`;
                   }
 
-                  return change;
+                  // Add author to the change.
+                  if (author) {
+                    renderedChange = `${renderedChange} (${author})`;
+                  }
+
+                  if (config.flags?.[flag]) {
+                    return `${config.flags?.[flag]} - ${renderedChange}`;
+                  }
+
+                  return renderedChange;
                 })!,
               );
             }
@@ -162,7 +221,8 @@ function generateCommand() {
     writeChangelogToArchive(changelog);
   }
 
-  generateChangelog(changelog).then(changelog => writeFileSync(changelogPath, changelog, { encoding: "utf8" }));
+  const renderedChangelog = generateChangelog(changelog);
+  writeFileSync(changelogPath, renderedChangelog, { encoding: "utf8" });
 
   log("CHANGELOG.md finsihed writing.");
 

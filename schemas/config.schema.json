@@ -23,6 +23,10 @@
           "type": "string",
           "description": "Url to link releases in the changelog."
         },
+        "repo_url": {
+          "type": "string",
+          "description": "Url to the repo."
+        },
         "git_tag_prefix": {
           "type": "string",
           "description": "If following semver, does your tag have a prefix. Ex. `v1.3.0`. So this would be `v`."

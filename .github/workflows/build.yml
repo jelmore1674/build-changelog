@@ -30,7 +30,17 @@ jobs:
       - name: Build actions
         run: pnpm build:actions
 
-      - name: Load secret
+      - name: Check for changes
+        id: dirty
+        run: |
+          if [[ -n $(git status --porcelain) ]]; then
+            echo "changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "changes=false" >> $GITHUB_OUTPUT
+          fi
+
+      - if: ${{ steps.dirty.outputs.changes == 'true' }}
+        name: Load secret
         id: load-op
         uses: 1password/load-secrets-action@v2
         with:
@@ -41,7 +51,8 @@ jobs:
           GPG_KEY: op://Forgejo/ENV/GPG_KEY
           GPG_PASSPHRASE: op://Forgejo/ENV/GPG_PASSPHRASE
 
-      - name: decode gpg
+      - if: ${{ steps.dirty.outputs.changes == 'true' }}
+        name: decode gpg
         id: decode
         run: |
           KEY=$(echo "${{ steps.load-op.outputs.GPG_KEY }}" | base64 -d) && \
@@ -51,7 +62,8 @@ jobs:
           STRING
           EOF
 
-      - name: "Import GPG key"
+      - if: ${{ steps.dirty.outputs.changes == 'true' }}
+        name: "Import GPG key"
         id: import-gpg
         uses: https://github.com/crazy-max/ghaction-import-gpg@v6
         with:
@@ -60,7 +72,8 @@ jobs:
           git_user_signingkey: true
           git_commit_gpgsign: true
 
-      - name: "Commit and push changes"
+      - if: ${{ steps.dirty.outputs.changes == 'true' }}
+        name: "Commit and push changes"
         uses: https://github.com/stefanzweifel/git-auto-commit-action@v5
         with:
           commit_author: "${{ steps.import-gpg.outputs.name }} <${{ steps.import-gpg.outputs.email }}>"

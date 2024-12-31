@@ -28,6 +28,11 @@ type Config = {
   release_url?: string;
 
   /**
+   * the repo url to prefix with linking changelog and release
+   */
+  repo_url?: string;
+
+  /**
    * The prefix of the git tag
    */
   git_tag_prefix: string;

@@ -1,6 +1,5 @@
 import * as Mustache from "mustache";
 import { readFileSync } from "node:fs";
-import https from "node:https";
 import path from "node:path";
 import { config } from "./config";
 
@@ -13,6 +12,9 @@ const links = readFileSync(path.join(dir, "templates/links.md"), "utf8");
 const releaseNotes = readFileSync(path.join(dir, "templates/release-notes.md"), "utf8");
 const notice = readFileSync(path.join(dir, "templates/notice.md"), "utf8");
 
+const GITHUB_SERVER_URL = process.env.GITHUB_SERVER_URL;
+const GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY;
+
 /** Initial list of supported keywords */
 const KEYWORDS = {
   added: "added",
@@ -23,10 +25,17 @@ const KEYWORDS = {
   security: "security",
 } as const;
 
+interface Reference {
+  type: "commit" | "issue" | "pull_request";
+  reference: string;
+}
+
 interface Release {
   version: string;
   release_date?: string;
   notice?: string;
+  author?: string;
+  references?: Reference[];
 }
 
 /**
@@ -50,8 +59,16 @@ type Version = Release & Partial<Record<Keywords, string[]>>;
  * @param versions - the versions to be rendered.
  * @returns A string that can be written to a file.
  */
-async function generateChangelog(versions: Version[]) {
+function generateChangelog(versions: Version[]) {
   let genLinks: ({ version: string; url: string } | null)[] = [];
+
+  if (GITHUB_SERVER_URL) {
+    genLinks = versions.map(i => ({
+      version: i.version,
+      url: `${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/releases/tag/${config.git_tag_prefix || "v"}${i.version}`,
+    }));
+  }
+
   if (config.release_url) {
     genLinks = versions.map(i => {
       return ({
@@ -76,4 +93,4 @@ function generateReleaseNotes(version: Version) {
 
 export { generateChangelog, generateReleaseNotes, KEYWORDS };
 
-export type { Changes, Keywords, Version };
+export type { Changes, Keywords, Reference, Version };

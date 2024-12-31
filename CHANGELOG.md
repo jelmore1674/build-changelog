@@ -5,11 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - TBD
+## [1.1.0] - 2024-12-31
 
 ### Added
 
 - Allow notice in changelog entries.
+- Author name to change. 🚀 ([#42](https://git.justinelmore.dev/jelmore1674/build-changelog/issues/42), [#47](https://git.justinelmore.dev/jelmore1674/build-changelog/pulls/47)) (Justin Elmore)
+- References to changes, ie. Commit Hashes, Pull Requests and Issues. 🚀 ([#41](https://git.justinelmore.dev/jelmore1674/build-changelog/issues/41), [#47](https://git.justinelmore.dev/jelmore1674/build-changelog/pulls/47)) (Justin Elmore)
 
 ## [1.0.1] - 2024-12-29
 
@@ -227,7 +229,6 @@ _Initial Release_
 - inital release of app.
 - `breaking` keyword to show breaking changes.
 
-
 [Unreleased]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/vUnreleased
 [1.0.1]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v1.0.1
 [1.0.0]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v1.0.0
@@ -252,3 +253,4 @@ _Initial Release_
 [0.0.7]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.0.7
 [0.0.6]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.0.6
 [0.0.5]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.0.5
+
