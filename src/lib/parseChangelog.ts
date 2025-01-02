@@ -58,7 +58,7 @@ function parseChangelog(changelogPath: string) {
             "",
           ).trim().split("\n- ")
             .map((change: string) =>
-              change.replace(/^\[.*/gism, "")
+              change.replace(/^\[(\d\.\d\.\d|unreleased).*/gism, "")
                 .replace(/^- /g, "")
                 .replace(/\n /g, "")
                 .trim()
