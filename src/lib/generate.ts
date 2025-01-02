@@ -228,7 +228,7 @@ function generateCommand() {
     }
 
     // Sort the changelog by the version.
-    return acc.sort((a, b) => b.version.localeCompare(a.version));
+    return acc.sort((a, b) => b.version.localeCompare(a.version, "en-US", { ignorePunctuation: true, numeric: true }));
   }, changelogArchive);
 
   if (config.changelog_archive) {

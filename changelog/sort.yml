@@ -1,0 +1,13 @@
+version: 1.4.1
+release_date: 2025-01-02
+author: Justin Elmore
+
+fixed:
+  bug:
+    - Resolve sorting versions when minor or patch version is greater than single digits.
+
+references:
+  - type: issue
+    reference: 63
+  - type: pull_request
+    reference: 64
