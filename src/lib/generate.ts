@@ -12,6 +12,7 @@ import { rl } from "./readline";
 
 const GITHUB_SERVER_URL = process.env.GITHUB_SERVER_URL;
 const GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY;
+const GITHUB_ACTOR = process.env.GITHUB_ACTOR;
 
 /** Properties we will not use when adding changes to the changelog */
 const YAML_KEY_FILTER = ["release_date", "version", "notice", "references", "author"];
@@ -122,6 +123,15 @@ function generateReferences(references: Reference[]): string {
 }
 
 /**
+ * Generate the link for the author.
+ *
+ * @param author - author name.
+ */
+function generateAuthorLink(author: string) {
+  return `[${author}](${GITHUB_SERVER_URL}/${GITHUB_ACTOR})`;
+}
+
+/**
  *  The generate command will read the existing `yaml|yml` files in the
  *  `changelogDir`, write them to the `CHANGELOG.md`, and will remove the
  *  files when done.
@@ -193,7 +203,11 @@ function generateCommand() {
 
                   // Add author to the change.
                   if (author) {
-                    renderedChange = `${renderedChange} (${author})`;
+                    if (GITHUB_ACTOR) {
+                      renderedChange = `${renderedChange} (${generateAuthorLink(author)})`;
+                    } else {
+                      renderedChange = `${renderedChange} (${author})`;
+                    }
                   }
 
                   if (config.flags?.[flag]) {

@@ -1,9 +1,13 @@
 import { existsSync, readFileSync } from "node:fs";
-import path from "node:path";
 import { Keywords, Version } from "./mustache";
 
-// semver versioning
-const versionRegex = /\d\.\d\.\d/gism;
+/**
+ * semver versioning.
+ * Regex is from [semver](https://semver.org/#is-there-a-suggested-regular-expression-regex-to-check-a-semver-string)
+ * The only change from semver is added check for unreleased.
+ */
+const versionRegex =
+  /((0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?|unreleased)/gism;
 // release version section.
 const versionSectionRegex = /(?=^#{2} .*?$)/gism;
 // date: looks for either 2024-12-06 or 12-06-2024
@@ -58,7 +62,7 @@ function parseChangelog(changelogPath: string) {
             "",
           ).trim().split("\n- ")
             .map((change: string) =>
-              change.replace(/^\[(\d\.\d\.\d|unreleased).*/gism, "")
+              change.replace(/^\[(\d{1,4}\.\d{1,4}\.\d{1,4}|unreleased).*/gism, "")
                 .replace(/^- /g, "")
                 .replace(/\n /g, "")
                 .trim()

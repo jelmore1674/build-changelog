@@ -1,0 +1,13 @@
+version: 1.4.0
+release_date: 2025-01-02
+author: Justin Elmore
+
+fixed:
+  bug:
+    - Resolve bug where versions with more than 1 digit was not being parsed correctly.
+
+references:
+  - type: issue
+    reference: 61
+  - type: pull_request
+    reference: 62

@@ -1,0 +1,11 @@
+version: 1.4.0
+release_date: 2025-01-02
+author: Justin Elmore
+
+added:
+  feature:
+    - Author linking inside of action! 🚀
+
+references:
+  - type: pull_request
+    reference: 62
