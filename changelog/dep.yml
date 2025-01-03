@@ -1,0 +1,9 @@
+author: renovate-bot
+
+security:
+  update:
+    - update dependency @types/node to v22.10.4.
+
+references:
+  - type: pull_request
+    reference: 68
