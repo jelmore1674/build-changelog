@@ -167,7 +167,7 @@ on:
         description: the tag for your release
 
 jobs:
-  relase:
+  release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -222,7 +222,7 @@ jobs:
           override: ${{ inputs.override }}
 ```
 
-### Changelog Enforcer
+### Enforce Changelog
 
 This actions will check if there are changes to the changelog. If there are no changes, it will fail.
 
