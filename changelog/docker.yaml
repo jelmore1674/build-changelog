@@ -1,9 +1,0 @@
-author: Justin Elmore
-
-changed:
-  docker:
-    - "Update Dockerfile, to remove uneeded node and npm."
-
-references:
-  - type: pr
-    reference: 71
