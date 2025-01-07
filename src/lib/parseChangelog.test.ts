@@ -204,4 +204,30 @@ Here we would have the update steps for 1.2.4 for people to follow.
       added: ["[Breaking 🧨] - this cool change.", "[Breaking 🧨] - this other change here."],
     }]);
   });
+
+  test("can handle different variations of versions", () => {
+    vi.spyOn(fs, "existsSync").mockReturnValue(true);
+    vi.spyOn(fs, "readFileSync").mockReturnValueOnce(
+      `# Changelog\n\n## [1.0.0-alpha] - 2024-12-07\n\n### Added\n\n- [Breaking 🧨] - this other change here.\n\n## [1.4.30] - 2024-12-07\n\n### Added\n\n- [Breaking 🧨] - this other change here.\n\n## [1.0.0] - 2024-12-07\n\n### Added\n\n- [Breaking 🧨] - this other change here.`,
+    );
+    const cl = parseChangelog("CHANGELOG.md");
+    console.log({ cl });
+    expect(cl).toEqual([
+      {
+        version: "1.0.0-alpha",
+        release_date: "2024-12-07",
+        added: ["[Breaking 🧨] - this other change here."],
+      },
+      {
+        version: "1.4.30",
+        release_date: "2024-12-07",
+        added: ["[Breaking 🧨] - this other change here."],
+      },
+      {
+        version: "1.0.0",
+        release_date: "2024-12-07",
+        added: ["[Breaking 🧨] - this other change here."],
+      },
+    ]);
+  });
 });

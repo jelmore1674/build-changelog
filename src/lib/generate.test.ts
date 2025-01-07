@@ -134,7 +134,7 @@ describe("generateCommand", () => {
     expect(readdirSync(changelogDir).length).toBe(0);
   });
 
-  test("sucessfully runs the generate command", () => {
+  test("successfully runs the generate command", () => {
     setupChanges();
     setupArchive();
 
@@ -146,7 +146,7 @@ describe("generateCommand", () => {
     expect(generateCommand).toReturn();
   });
 
-  test("sucessfully runs the generate command", () => {
+  test("successfully runs the generate command", () => {
     // Setup test changes files.
     const change = {
       version: "1.0.0",
@@ -163,7 +163,7 @@ describe("generateCommand", () => {
     expect(() => generate.generateCommand()).toThrowError();
   });
 
-  test("sucessfully runs the generate command", () => {
+  test("successfully runs the generate command", () => {
     // Setup test changes files.
     const change = {
       version: "1.0.0",

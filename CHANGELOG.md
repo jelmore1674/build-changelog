@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
-- update dependency @types/node to v22.10.4. ([#68](https://git.justinelmore.dev/jelmore1674/build-changelog/pulls/68)) ([renovate-bot](https://git.justinelmore.dev/jelmore1674))
+- update dependency @types/node to v22.10.5. ([#69](https://git.justinelmore.dev/jelmore1674/build-changelog/pulls/69)) ([renovate-bot](https://git.justinelmore.dev/jelmore1674))
 
 ## [1.4.1] - 2025-01-02
 
@@ -69,7 +69,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Allow notice in changelog entries.
 - Author name to change. 🚀 ([#42](https://git.justinelmore.dev/jelmore1674/build-changelog/issues/42), [#47](https://git.justinelmore.dev/jelmore1674/build-changelog/pulls/47)) (Justin Elmore)
 - References to changes, ie. Commit Hashes, Pull Requests and Issues. 🚀 ([#41](https://git.justinelmore.dev/jelmore1674/build-changelog/issues/41), [#47](https://git.justinelmore.dev/jelmore1674/build-changelog/pulls/47)) (Justin Elmore)
-- Allow usage of github relase url when releases url is not set in the config file. ([#47](https://git.justinelmore.dev/jelmore1674/build-changelog/pulls/47)) (Justin Elmore)
+- Allow usage of github release url when releases url is not set in the config file. ([#47](https://git.justinelmore.dev/jelmore1674/build-changelog/pulls/47)) (Justin Elmore)
 
 ### Security
 
@@ -95,7 +95,7 @@ _Initial Release_
 
 ### Security
 
-- pin depencies
+- pin dependencies
 - update vitest monorepo to v2.1.8
 - update dependency vite-tsconfig-paths to v5.1.4
 - update pnpm to v9.15.1
@@ -142,7 +142,7 @@ _Initial Release_
 
 ### Changed
 
-- Pipeline ammends previous commit.
+- Pipeline amends previous commit.
 
 ### Removed
 
@@ -179,7 +179,7 @@ _Initial Release_
 
 - Fixed the `init` command generating `test.toml`.
 - Fixed the fallback value not working as expected in prompt.
-- Fixed crash when there is no archive file by genrating archive on `init` command.
+- Fixed crash when there is no archive file by generating archive on `init` command.
 
 ## [0.3.0] - 2024-11-24
 
@@ -272,7 +272,7 @@ _Initial Release_
 
 ### Fixed
 
-- `breaking` flag not rendering in changelog correctly. Adds a hypen. to make it look better.
+- `breaking` flag not rendering in changelog correctly. Adds a hyphen. to make it look better.
 
 ## [0.0.6] - 2024-11-17
 
@@ -284,9 +284,8 @@ _Initial Release_
 
 ### Added
 
-- inital release of app.
+- initial release of app.
 - `breaking` keyword to show breaking changes.
-
 
 [Unreleased]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/vUnreleased
 [1.4.1]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v1.4.1
@@ -318,3 +317,4 @@ _Initial Release_
 [0.0.7]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.0.7
 [0.0.6]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.0.6
 [0.0.5]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.0.5
+
