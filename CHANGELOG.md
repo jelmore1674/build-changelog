@@ -10,6 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Update Dockerfile, to remove uneeded node and npm. ([#71](https://git.justinelmore.dev/jelmore1674/build-changelog/undefined/71)) ([Justin Elmore](https://git.justinelmore.dev/jelmore1674))
+- Update to amend the commit and append the changelog commit message. ([Justin Elmore](https://git.justinelmore.dev/jelmore1674))
+
+### Removed
+
+- Removed mentions of forgejo in the project. ([Justin Elmore](https://git.justinelmore.dev/jelmore1674))
 
 ### Security
 
@@ -287,6 +292,7 @@ _Initial Release_
 - initial release of app.
 - `breaking` keyword to show breaking changes.
 
+
 [Unreleased]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/vUnreleased
 [1.4.1]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v1.4.1
 [1.4.0]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v1.4.0
@@ -317,4 +323,3 @@ _Initial Release_
 [0.0.7]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.0.7
 [0.0.6]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.0.6
 [0.0.5]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.0.5
-

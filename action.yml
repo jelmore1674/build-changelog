@@ -1,4 +1,4 @@
-name: "Generate Changlog"
+name: "Generate Changelog"
 description: "Generate your changelog from your changelog files."
 author: "Justin Elmore"
 
@@ -15,12 +15,12 @@ inputs:
 
   commit_user_name:
     description: "The name of the commit user."
-    default: "forgejo[bot]"
+    default: "gitea[bot]"
     required: false
 
   commit_user_email:
     description: "The email of the commit user."
-    default: "forgejo[bot]@noreply.fogejo.justinelmore.dev"
+    default: "gitea[bot]@noreply.git.justinelmore.dev"
     required: false
 
   commit_message:
@@ -41,7 +41,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Generate Changlog
+    - name: Generate Changelog
       uses: https://git.justinelmore.dev/jelmore1674/build-changelog/generate@v1
 
     - if: ${{ inputs.gpg_private_key != ''}}
@@ -57,7 +57,7 @@ runs:
     - name: "Commit and push changes"
       uses: stefanzweifel/git-auto-commit-action@v5
       with:
-        commit_author: "${{ github.actor }} <${{ github.actor@noreply.forgejo.justinelmore.dev }}>"
+        commit_author: "${{ github.actor }} <${{ github.actor@noreply.gitea.justinelmore.dev }}>"
         commit_user_name: ${{ steps.import-gpg.outputs.name || inputs.commit_user_name }}
         commit_user_email: ${{ steps.import-gpg.outputs.email || inputs.commit_user_email }}
         commit_message: ${{ inputs.commit_message }}

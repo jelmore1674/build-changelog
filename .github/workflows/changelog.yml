@@ -17,6 +17,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.head_ref }}
+          fetch-depth: 2
 
       - name: Generate Changelog
         uses: ./generate
@@ -51,10 +52,25 @@ jobs:
           git_user_signingkey: true
           git_commit_gpgsign: true
 
+      - name: Reuse message
+        run: |
+          # Actions do not support multiline `::set-output`s
+          echo 'COMMIT_MSG<<EOM' >> "$GITHUB_ENV"
+          git log -n1 --pretty='%B' >> "$GITHUB_ENV"
+          echo "" >> "$GITHUB_ENV"
+          echo "chore: update changelog" >> "$GITHUB_ENV"
+          echo 'EOM' >> "$GITHUB_ENV"
+
       - name: "Commit and push changes"
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_author: "${{ steps.import-gpg.outputs.name }} <${{ steps.import-gpg.outputs.email }}>"
           commit_user_name: ${{ steps.import-gpg.outputs.name }}
           commit_user_email: ${{ steps.import-gpg.outputs.email }}
-          commit_message: "chore: Update CHANGELOG.md"
+          # --amend --no-edit doesn't work because of default --message
+          # (effectively --no-edit is ignored)
+          commit_message: ${{ env.COMMIT_MSG }}
+          commit_options: --amend --no-edit
+          push_options: --force
+          # so as not to make too shallow for commit --amend and push -f
+          skip_fetch: true
