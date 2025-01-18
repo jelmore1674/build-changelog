@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Security
 
 - Update dependency @types/node to v22.10.7 ([#76](https://git.justinelmore.dev/jelmore1674/build-changelog/pulls/76)) ([renovate-bot](https://git.justinelmore.dev/jelmore1674))
+- Update dependency fs-extra to v11.3.0 ([#78](https://git.justinelmore.dev/jelmore1674/build-changelog/pulls/78)) ([renovate-bot](https://git.justinelmore.dev/jelmore1674))
 
 ## [1.4.1] - 2025-01-02
 

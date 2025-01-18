@@ -32,7 +32,7 @@
     "@vitest/coverage-v8": "2.1.8",
     "commander": "13.0.0",
     "dprint": "0.48.0",
-    "fs-extra": "11.2.0",
+    "fs-extra": "11.3.0",
     "mustache": "4.2.0",
     "typescript": "5.7.3",
     "vite-tsconfig-paths": "5.1.4",
