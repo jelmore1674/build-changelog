@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Update Dockerfile, to remove uneeded node and npm. ([#71](https://git.justinelmore.dev/jelmore1674/build-changelog/undefined/71)) ([Justin Elmore](https://git.justinelmore.dev/jelmore1674))
+- Update Dockerfile, to remove uneeded node and npm. ([#71](https://git.justinelmore.dev/jelmore1674/build-changelog/pulls/71)) ([Justin Elmore](https://git.justinelmore.dev/jelmore1674))
 - Update to amend the commit and append the changelog commit message. ([Justin Elmore](https://git.justinelmore.dev/jelmore1674))
 
 ### Removed
@@ -18,7 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
-- update dependency @types/node to v22.10.5. ([#69](https://git.justinelmore.dev/jelmore1674/build-changelog/pulls/69)) ([renovate-bot](https://git.justinelmore.dev/jelmore1674))
+- Update dependency @types/node to v22.10.7 ([#76](https://git.justinelmore.dev/jelmore1674/build-changelog/pulls/76)) ([renovate-bot](https://git.justinelmore.dev/jelmore1674))
 
 ## [1.4.1] - 2025-01-02
 
