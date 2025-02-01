@@ -45,5 +45,5 @@
   "engines": {
     "node": ">=18.0.0 <=24.0.0"
   },
-  "engineStrict": false
+  "engineStrict": true
 }
