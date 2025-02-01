@@ -236,7 +236,7 @@ on:
     types: [opened, synchronize, reopened, ready_for_review, labeled, unlabeled]
 
 jobs:
-  generate-changelog:
+  enforce-changelog:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
