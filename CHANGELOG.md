@@ -9,77 +9,77 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Update Dockerfile, to remove uneeded node and npm. ([#71](https://git.justinelmore.dev/jelmore1674/build-changelog/pulls/71)) ([Justin Elmore](https://git.justinelmore.dev/jelmore1674))
-- Update to amend the commit and append the changelog commit message. ([Justin Elmore](https://git.justinelmore.dev/jelmore1674))
+- Update Dockerfile, to remove uneeded node and npm. ([#71](https://gitea.justinelmore.dev/jelmore1674/build-changelog/pulls/71)) ([Justin Elmore](https://gitea.justinelmore.dev/jelmore1674))
+- Update to amend the commit and append the changelog commit message. ([Justin Elmore](https://gitea.justinelmore.dev/jelmore1674))
 
 ### Removed
 
-- Removed mentions of forgejo in the project. ([Justin Elmore](https://git.justinelmore.dev/jelmore1674))
+- Removed mentions of forgejo in the project. ([Justin Elmore](https://gitea.justinelmore.dev/jelmore1674))
 
 ### Security
 
-- Update dependency @types/node to v22.10.7 ([#76](https://git.justinelmore.dev/jelmore1674/build-changelog/pulls/76)) ([renovate-bot](https://git.justinelmore.dev/jelmore1674))
-- Update dependency fs-extra to v11.3.0 ([#78](https://git.justinelmore.dev/jelmore1674/build-changelog/pulls/78)) ([renovate-bot](https://git.justinelmore.dev/jelmore1674))
+- Update dependency @types/node to v22.10.7 ([#76](https://gitea.justinelmore.dev/jelmore1674/build-changelog/pulls/76)) ([renovate-bot](https://gitea.justinelmore.dev/jelmore1674))
+- Update dependency fs-extra to v11.3.0 ([#78](https://gitea.justinelmore.dev/jelmore1674/build-changelog/pulls/78)) ([renovate-bot](https://gitea.justinelmore.dev/jelmore1674))
 
 ## [1.4.1] - 2025-01-02
 
 ### Fixed
 
-- Resolve sorting versions when minor or patch version is greater than single digits. ([#63](https://git.justinelmore.dev/jelmore1674/build-changelog/issues/63), [#64](https://git.justinelmore.dev/jelmore1674/build-changelog/pulls/64)) ([Justin Elmore](https://git.justinelmore.dev/jelmore1674))
+- Resolve sorting versions when minor or patch version is greater than single digits. ([#63](https://gitea.justinelmore.dev/jelmore1674/build-changelog/issues/63), [#64](https://gitea.justinelmore.dev/jelmore1674/build-changelog/pulls/64)) ([Justin Elmore](https://gitea.justinelmore.dev/jelmore1674))
 
 ## [1.4.0] - 2025-01-02
 
 ### Added
 
-- Author linking inside of action! 🚀 ([#62](https://git.justinelmore.dev/jelmore1674/build-changelog/pulls/62)) ([Justin Elmore](https://git.justinelmore.dev/jelmore1674))
+- Author linking inside of action! 🚀 ([#62](https://gitea.justinelmore.dev/jelmore1674/build-changelog/pulls/62)) ([Justin Elmore](https://gitea.justinelmore.dev/jelmore1674))
 
 ### Fixed
 
-- Resolve bug where versions with more than 1 digit was not being parsed correctly. ([#61](https://git.justinelmore.dev/jelmore1674/build-changelog/issues/61), [#62](https://git.justinelmore.dev/jelmore1674/build-changelog/pulls/62)) ([Justin Elmore](https://git.justinelmore.dev/jelmore1674))
+- Resolve bug where versions with more than 1 digit was not being parsed correctly. ([#61](https://gitea.justinelmore.dev/jelmore1674/build-changelog/issues/61), [#62](https://gitea.justinelmore.dev/jelmore1674/build-changelog/pulls/62)) ([Justin Elmore](https://gitea.justinelmore.dev/jelmore1674))
 
 ## [1.3.1] - 2025-01-01
 
 ### Fixed
 
-- Prevent changes with a prefix from being omitted when parsing from existing changelog. ([#60](https://git.justinelmore.dev/jelmore1674/build-changelog/pulls/60), [#59](https://git.justinelmore.dev/jelmore1674/build-changelog/issues/59)) ([Justin Elmore](https://git.justinelmore.dev/jelmore1674))
+- Prevent changes with a prefix from being omitted when parsing from existing changelog. ([#60](https://gitea.justinelmore.dev/jelmore1674/build-changelog/pulls/60), [#59](https://gitea.justinelmore.dev/jelmore1674/build-changelog/issues/59)) ([Justin Elmore](https://gitea.justinelmore.dev/jelmore1674))
 
 ### Security
 
-- update dependency @types/node to v22.10.3 ([#55](https://git.justinelmore.dev/jelmore1674/build-changelog/pulls/55)) (renovate-bot)
+- update dependency @types/node to v22.10.3 ([#55](https://gitea.justinelmore.dev/jelmore1674/build-changelog/pulls/55)) (renovate-bot)
 
 ## [1.3.0] - 2024-12-31
 
 ### Added
 
-- An action to enforce changelog entries. ([#53](https://git.justinelmore.dev/jelmore1674/build-changelog/pulls/53)) ([Justin Elmore](https://git.justinelmore.dev/jelmore1674))
+- An action to enforce changelog entries. ([#53](https://gitea.justinelmore.dev/jelmore1674/build-changelog/pulls/53)) ([Justin Elmore](https://gitea.justinelmore.dev/jelmore1674))
 
 ### Fixed
 
-- Reference links being duplicated. ([#51](https://git.justinelmore.dev/jelmore1674/build-changelog/issues/51), [#52](https://git.justinelmore.dev/jelmore1674/build-changelog/pulls/52)) (Justin Elmore)
-- Issue, where the regex was causing the changelog parsing to break when having words with multiple undercores ie. `_example_`. ([#53](https://git.justinelmore.dev/jelmore1674/build-changelog/pulls/53)) ([Justin Elmore](https://git.justinelmore.dev/jelmore1674))
+- Reference links being duplicated. ([#51](https://gitea.justinelmore.dev/jelmore1674/build-changelog/issues/51), [#52](https://gitea.justinelmore.dev/jelmore1674/build-changelog/pulls/52)) (Justin Elmore)
+- Issue, where the regex was causing the changelog parsing to break when having words with multiple undercores ie. `_example_`. ([#53](https://gitea.justinelmore.dev/jelmore1674/build-changelog/pulls/53)) ([Justin Elmore](https://gitea.justinelmore.dev/jelmore1674))
 
 ## [1.2.0] - 2024-12-31
 
 ### Added
 
-- 🚀 `jelmore1674/build-changelog/notes` action. ([#39](https://git.justinelmore.dev/jelmore1674/build-changelog/issues/39), [#50](https://git.justinelmore.dev/jelmore1674/build-changelog/pulls/50)) (Justin Elmore)
+- 🚀 `jelmore1674/build-changelog/notes` action. ([#39](https://gitea.justinelmore.dev/jelmore1674/build-changelog/issues/39), [#50](https://gitea.justinelmore.dev/jelmore1674/build-changelog/pulls/50)) (Justin Elmore)
 
 ### Fixed
 
-- `notes` command not generating release notes when not having an archive file. ([#49](https://git.justinelmore.dev/jelmore1674/build-changelog/issues/49), [#50](https://git.justinelmore.dev/jelmore1674/build-changelog/pulls/50)) (Justin Elmore)
+- `notes` command not generating release notes when not having an archive file. ([#49](https://gitea.justinelmore.dev/jelmore1674/build-changelog/issues/49), [#50](https://gitea.justinelmore.dev/jelmore1674/build-changelog/pulls/50)) (Justin Elmore)
 
 ## [1.1.0] - 2024-12-31
 
 ### Added
 
 - Allow notice in changelog entries.
-- Author name to change. 🚀 ([#42](https://git.justinelmore.dev/jelmore1674/build-changelog/issues/42), [#47](https://git.justinelmore.dev/jelmore1674/build-changelog/pulls/47)) (Justin Elmore)
-- References to changes, ie. Commit Hashes, Pull Requests and Issues. 🚀 ([#41](https://git.justinelmore.dev/jelmore1674/build-changelog/issues/41), [#47](https://git.justinelmore.dev/jelmore1674/build-changelog/pulls/47)) (Justin Elmore)
-- Allow usage of github release url when releases url is not set in the config file. ([#47](https://git.justinelmore.dev/jelmore1674/build-changelog/pulls/47)) (Justin Elmore)
+- Author name to change. 🚀 ([#42](https://gitea.justinelmore.dev/jelmore1674/build-changelog/issues/42), [#47](https://gitea.justinelmore.dev/jelmore1674/build-changelog/pulls/47)) (Justin Elmore)
+- References to changes, ie. Commit Hashes, Pull Requests and Issues. 🚀 ([#41](https://gitea.justinelmore.dev/jelmore1674/build-changelog/issues/41), [#47](https://gitea.justinelmore.dev/jelmore1674/build-changelog/pulls/47)) (Justin Elmore)
+- Allow usage of github release url when releases url is not set in the config file. ([#47](https://gitea.justinelmore.dev/jelmore1674/build-changelog/pulls/47)) (Justin Elmore)
 
 ### Security
 
-- update dependency yaml to v2.7.0 ([#46](https://git.justinelmore.dev/jelmore1674/build-changelog/pulls/46)) (renovate-bot)
+- update dependency yaml to v2.7.0 ([#46](https://gitea.justinelmore.dev/jelmore1674/build-changelog/pulls/46)) (renovate-bot)
 
 ## [1.0.1] - 2024-12-29
 
@@ -97,7 +97,7 @@ _Initial Release_
 
 ### Added
 
-- Now able to be used as an action. See [docs](https://git.justinelmore.dev/jelmore1674/build-changelog#actions)
+- Now able to be used as an action. See [docs](https://gitea.justinelmore.dev/jelmore1674/build-changelog#actions)
 
 ### Security
 
@@ -293,34 +293,34 @@ _Initial Release_
 - initial release of app.
 - `breaking` keyword to show breaking changes.
 
+[Unreleased]: https://gitea.justinelmore.dev/jelmore1674/build-changelog/releases/tag/vUnreleased
+[1.4.1]: https://gitea.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v1.4.1
+[1.4.0]: https://gitea.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v1.4.0
+[1.3.1]: https://gitea.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v1.3.1
+[1.3.0]: https://gitea.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v1.3.0
+[1.2.0]: https://gitea.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v1.2.0
+[1.1.0]: https://gitea.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v1.1.0
+[1.0.1]: https://gitea.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v1.0.1
+[1.0.0]: https://gitea.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v1.0.0
+[0.5.5]: https://gitea.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.5.5
+[0.5.4]: https://gitea.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.5.4
+[0.5.3]: https://gitea.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.5.3
+[0.5.2]: https://gitea.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.5.2
+[0.5.1]: https://gitea.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.5.1
+[0.5.0]: https://gitea.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.5.0
+[0.4.0]: https://gitea.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.4.0
+[0.3.2]: https://gitea.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.3.2
+[0.3.1]: https://gitea.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.3.1
+[0.3.0]: https://gitea.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.3.0
+[0.2.4]: https://gitea.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.2.4
+[0.2.3]: https://gitea.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.2.3
+[0.2.2]: https://gitea.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.2.2
+[0.2.1]: https://gitea.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.2.1
+[0.2.0]: https://gitea.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.2.0
+[0.1.2]: https://gitea.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.1.2
+[0.1.1]: https://gitea.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.1.1
+[0.1.0]: https://gitea.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.1.0
+[0.0.7]: https://gitea.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.0.7
+[0.0.6]: https://gitea.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.0.6
+[0.0.5]: https://gitea.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.0.5
 
-[Unreleased]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/vUnreleased
-[1.4.1]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v1.4.1
-[1.4.0]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v1.4.0
-[1.3.1]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v1.3.1
-[1.3.0]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v1.3.0
-[1.2.0]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v1.2.0
-[1.1.0]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v1.1.0
-[1.0.1]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v1.0.1
-[1.0.0]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v1.0.0
-[0.5.5]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.5.5
-[0.5.4]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.5.4
-[0.5.3]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.5.3
-[0.5.2]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.5.2
-[0.5.1]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.5.1
-[0.5.0]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.5.0
-[0.4.0]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.4.0
-[0.3.2]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.3.2
-[0.3.1]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.3.1
-[0.3.0]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.3.0
-[0.2.4]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.2.4
-[0.2.3]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.2.3
-[0.2.2]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.2.2
-[0.2.1]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.2.1
-[0.2.0]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.2.0
-[0.1.2]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.1.2
-[0.1.1]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.1.1
-[0.1.0]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.1.0
-[0.0.7]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.0.7
-[0.0.6]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.0.6
-[0.0.5]: https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag/v0.0.5
