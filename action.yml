@@ -38,6 +38,11 @@ inputs:
     required: false
     default: ""
 
+  skip_fetch:
+    description: Skip fetch
+    required: false
+    default: "true"
+
 runs:
   using: "composite"
   steps:
@@ -63,3 +68,4 @@ runs:
         commit_message: ${{ inputs.commit_message }}
         commit_options: ${{ inputs.commit_options }}
         push_options: ${{ inputs.push_options }}
+        skip_fetch: ${{ inputs.skip_fetch }}
