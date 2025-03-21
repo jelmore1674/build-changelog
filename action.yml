@@ -15,12 +15,12 @@ inputs:
 
   commit_user_name:
     description: "The name of the commit user."
-    default: "gitea[bot]"
+    default: "git[bot]"
     required: false
 
   commit_user_email:
     description: "The email of the commit user."
-    default: "gitea[bot]@noreply.git.justinelmore.dev"
+    default: "git[bot]@users.noreply.github.com"
     required: false
 
   commit_message:
@@ -42,7 +42,7 @@ runs:
   using: "composite"
   steps:
     - name: Generate Changelog
-      uses: https://git.justinelmore.dev/jelmore1674/build-changelog/generate@v1
+      uses: jelmore1674/build-changelog/generate@v1
 
     - if: ${{ inputs.gpg_private_key != ''}}
       name: "Import GPG key"
@@ -57,7 +57,7 @@ runs:
     - name: "Commit and push changes"
       uses: stefanzweifel/git-auto-commit-action@v5
       with:
-        commit_author: "${{ github.actor }} <${{ github.actor@noreply.gitea.justinelmore.dev }}>"
+        commit_author: "${{ github.actor }} <${{ github.actor }}>"
         commit_user_name: ${{ steps.import-gpg.outputs.name || inputs.commit_user_name }}
         commit_user_email: ${{ steps.import-gpg.outputs.email || inputs.commit_user_email }}
         commit_message: ${{ inputs.commit_message }}
