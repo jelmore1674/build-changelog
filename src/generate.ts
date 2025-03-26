@@ -1,9 +1,9 @@
-import { getInput } from "@actions/core";
+import * as core from "@actions/core";
 import { context, getOctokit } from "@actions/github";
 import { generateCommand } from "./lib/generate";
 import { log } from "./utils/log";
 
-const GITHUB_TOKEN = getInput("token");
+const GITHUB_TOKEN = core.getInput("token");
 
 /**
  * Get the name of the author from github.
@@ -18,7 +18,9 @@ async function getAuthorName() {
     ref: context.sha,
   });
 
-  console.info(JSON.stringify(commit, null, 2));
+  core.debug(JSON.stringify(context, null, 2));
+
+  console.info(JSON.stringify(commit.data, null, 2));
 
   const commitMessage = commit.data.commit.message;
   const coAuthors = commitMessage.match(/Co-authored-by:\s*(.*)/g);
