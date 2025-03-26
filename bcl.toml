@@ -1,9 +1,10 @@
 dir = "changelog"
-prefers = "toml"
+# prefers = "toml"
 # git_tag_prefix = "v"
 # changelog_archive = true
 # release_url = "https://git.justinelmore.dev/jelmore1674/build-changelog/releases/tag"
 # repo_url = "https://git.justinelmore.dev/jelmore1674/build-changelog"
+show_author_full_name = true
 
 [flags]
 breaking = "[Breaking 🧨]"

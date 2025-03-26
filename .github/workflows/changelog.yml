@@ -10,6 +10,11 @@ on:
       - "bcl.toml"
       - "**/changelog.yml"
 
+permissions:
+  # Give the default GITHUB_TOKEN write permission to commit and push the
+  # added or changed files to the repository.
+  contents: write
+
 jobs:
   generate-changelog:
     runs-on: ubuntu-latest
@@ -30,8 +35,8 @@ jobs:
           export-env: false
         env:
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
-          GPG_KEY: op://Forgejo/ENV/GPG_KEY
-          GPG_PASSPHRASE: op://Forgejo/ENV/GPG_PASSPHRASE
+          GPG_KEY: op://Actions/shared/GPG_KEY
+          GPG_PASSPHRASE: op://Actions/shared/GPG_PASSPHRASE
 
       - name: decode gpg
         id: decode

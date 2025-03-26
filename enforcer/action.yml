@@ -4,7 +4,11 @@ description: "Enforce your changelog"
 inputs:
   skip_labels:
     default: "ops"
-    description: "Comma seperated list of labels to skip enforcing changelog changes."
+    description: "Comma separated list of labels to skip enforcing changelog changes."
+  token:
+    description: "The secret value from your GITHUB_TOKEN or another token to access the GitHub API. Defaults to the token at `github.token`"
+    required: true
+    default: ${{ github.token }}
 
 runs:
   using: node20
