@@ -34,6 +34,14 @@
         "changelog_archive": {
           "type": "boolean",
           "description": "If `true`, this will keep changes in a separate archive based on your `prefers` file type. If this is `false` parse the existing changelog when generating."
+        },
+        "show_author": {
+          "type": "boolean",
+          "description": "If `true`, show the author in the changelog entry. If this is `false` do not show the author in the changelog entry."
+        },
+        "show_author_full_name": {
+          "type": "boolean",
+          "description": "If `true`, this show the authors full name."
         }
       },
       "required": ["dir"],
