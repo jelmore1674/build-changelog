@@ -20,10 +20,15 @@ async function getAuthorName() {
   return context.actor as string;
 }
 
+function sleep(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 /**
  * Get the pr number for this commit hash
  */
 async function getPrNumber() {
+  await sleep(10_000);
   const pulls = await getOctokit(GITHUB_TOKEN).rest.search.issuesAndPullRequests({
     q: `${context.sha} type:pr is:merged`,
   });
