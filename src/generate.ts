@@ -8,10 +8,7 @@ const GITHUB_TOKEN = getInput("token");
  * Get the name of the author from github.
  */
 async function getAuthorName() {
-  // Log this to see what we get on a merge.
-  console.info(JSON.stringify(context, null, 2));
-
-  const user = await getOctokit(GITHUB_TOKEN as string).rest.users.getByUsername({
+  const user = await getOctokit(GITHUB_TOKEN).rest.users.getByUsername({
     username: context.actor,
   });
 
@@ -23,9 +20,25 @@ async function getAuthorName() {
   return context.actor as string;
 }
 
+/**
+ * Get the pr number for this commit hash
+ */
+async function getPrNumber() {
+  if (context.payload?.pull_request) {
+    return context.payload.pull_request.number;
+  }
+
+  const pulls = await getOctokit(GITHUB_TOKEN).rest.search.issuesAndPullRequests({
+    q: `${context.sha} type:pr is:merged`,
+  });
+
+  return pulls.data.items[0].number;
+}
+
 async function generate() {
-  const authorName = await getAuthorName();
-  generateCommand(authorName);
+  const author = await getAuthorName();
+  const prNumber = await getPrNumber();
+  generateCommand(author, prNumber);
 }
 
 generate();

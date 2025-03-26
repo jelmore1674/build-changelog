@@ -138,7 +138,7 @@ function generateAuthorLink(author: string) {
  *
  *  @param author - the name of the author.
  */
-function generateCommand(author: string) {
+function generateCommand(author: string, prNumber: number) {
   log("Generating changelog.");
 
   let changelogArchive: Version[] = config.changelog_archive ? getChangelogArchive() : parseChangelog(changelogPath);
@@ -153,7 +153,8 @@ function generateCommand(author: string) {
       let version = parsedChanges.version || "Unreleased";
       let release_date = parsedChanges.release_date || "TBD";
       let notice = parsedChanges.notice;
-      const references = parsedChanges.references;
+      const references = parsedChanges.references || [];
+      const pullRequest: Reference = { type: "pull_request", reference: prNumber.toString() };
 
       // Find a matching release.
       const foundRelease = acc.find((release) => release.version === version);
@@ -199,8 +200,13 @@ function generateCommand(author: string) {
                   let renderedChange = change;
 
                   // Generate the links for the change.
-                  if (references && (config.repo_url || GITHUB_REPOSITORY)) {
-                    renderedChange = `${change} (${generateReferences(references)})`;
+                  if ((config.reference_pull_requests || references.length) && (config.repo_url || GITHUB_REPOSITORY)) {
+                    renderedChange = `${change} (${
+                      generateReferences([
+                        ...(config.reference_pull_requests ? [pullRequest] : []),
+                        ...references,
+                      ])
+                    })`;
                   }
 
                   // Add author to the change.

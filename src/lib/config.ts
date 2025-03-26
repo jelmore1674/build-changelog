@@ -46,6 +46,13 @@ type Config = {
    * The prefix of the git tag
    */
   git_tag_prefix: string;
+
+  /**
+   * Reference Pull Requests by default
+   *
+   * @default true
+   */
+  reference_pull_requests: boolean;
 };
 
 /**
@@ -68,6 +75,7 @@ const initialConfig: Config = {
   changelog_archive: false,
   show_author: true,
   show_author_full_name: false,
+  reference_pull_requests: true,
   git_tag_prefix: "v",
 };
 
