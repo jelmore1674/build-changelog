@@ -44,7 +44,11 @@ async function recursiveGetPrNumber(count = 0): Promise<number> {
 
   console.info(`Detected a pr: ${pulls.data.items[0]?.number}`);
 
-  return pulls.data.items[0]?.number || recursiveGetPrNumber(count + 1);
+  if (!pulls.data.items[0]?.number) {
+    return recursiveGetPrNumber(count + 1);
+  }
+
+  return pulls.data.items[0]?.number;
 }
 
 async function generate() {
