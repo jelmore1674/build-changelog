@@ -135,9 +135,12 @@ function generateAuthorLink(author: string) {
  *  The generate command will read the existing `yaml|yml` files in the
  *  `changelogDir`, write them to the `CHANGELOG.md`, and will remove the
  *  files when done.
+ *
+ *  @param author - the name of the author.
  */
-function generateCommand() {
+function generateCommand(author: string) {
   log("Generating changelog.");
+
   let changelogArchive: Version[] = config.changelog_archive ? getChangelogArchive() : parseChangelog(changelogPath);
 
   const files = readdirSync(changelogDir, { recursive: true, encoding: "utf8" });
@@ -150,7 +153,6 @@ function generateCommand() {
       let version = parsedChanges.version || "Unreleased";
       let release_date = parsedChanges.release_date || "TBD";
       let notice = parsedChanges.notice;
-      const author = parsedChanges.author;
       const references = parsedChanges.references;
 
       // Find a matching release.
@@ -238,7 +240,7 @@ function generateCommand() {
   const renderedChangelog = generateChangelog(changelog);
   writeFileSync(changelogPath, renderedChangelog, { encoding: "utf8" });
 
-  log("CHANGELOG.md finsihed writing.");
+  log("CHANGELOG.md finished writing.");
 
   cleanUpChangelog();
 
