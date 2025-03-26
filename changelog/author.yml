@@ -1,3 +1,7 @@
 added:
   features:
     - "Added `show_author` and `show_author_full_name` to the changelog configuration."
+
+changed:
+  enforcer:
+    - "Changed enforcer to call `generate` directly instead of relying on another action."
