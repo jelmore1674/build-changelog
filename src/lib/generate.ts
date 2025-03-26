@@ -84,7 +84,7 @@ function cleanUpChangelog() {
 }
 
 const LINK_TYPE = {
-  pull_request: "pulls",
+  pull_request: "pull",
   issue: "issues",
 };
 
