@@ -31,6 +31,8 @@ async function getPrNumber() {
     q: encodeURIComponent(`${sha} AND type:pr AND is:merged&advanced_search=true`),
   });
 
+  console.info(`Detected a pr: ${pulls.data.items[0]?.number}`);
+
   return pulls.data.items[0]?.number;
 }
 
