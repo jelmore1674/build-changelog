@@ -25,17 +25,13 @@ async function getAuthorName() {
  * Get the pr number for this commit hash
  */
 async function getPrNumber() {
-  if (context.payload?.pull_request) {
-    return context.payload.pull_request.number;
-  }
-
   const sha = execSync("git rev-parse HEAD", { encoding: "utf8" });
 
   const pulls = await getOctokit(GITHUB_TOKEN).rest.search.issuesAndPullRequests({
     q: encodeURIComponent(`${sha} AND type:pr AND is:merged&advanced_search=true`),
   });
 
-  return pulls.data.items[0].number;
+  return pulls.data.items[0]?.number;
 }
 
 async function generate() {

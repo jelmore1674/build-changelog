@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Added `show_author` and `show_author_full_name` to the changelog configuration. ([Justin Elmore](https://github.com/jelmore1674))
+- Automatically reference `pull_request` number to the changelog entry. ([Justin Elmore](https://github.com/jelmore1674))
 
 ### Changed
 
@@ -19,6 +20,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 _Initial Release_
 
+
 [Unreleased]: https://github.com/jelmore1674/build-changelog/releases/tag/vUnreleased
 [1.0.0]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.0.0
-
