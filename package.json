@@ -8,7 +8,10 @@
   ],
   "scripts": {
     "build": "ncc build src/index.ts -m && cp -R templates dist/",
-    "build:actions": "ncc build src/generate.ts -m -o generate && cp -R templates generate/ && ncc build src/notes.ts -m -o notes && cp -R templates notes/ && ncc build src/enforcer.ts -m -o enforcer",
+    "build:actions": "pnpm build:enforcer && pnpm build:generate && pnpm build:notes",
+    "build:enforcer": "ncc build src/enforcer.ts -m -o enforcer && cp -R templates enforcer/",
+    "build:generate": "ncc build src/generate.ts -m -o generate && cp -R templates generate/",
+    "build:notes": "ncc build src/notes.ts -m -o notes && cp -R templates notes/",
     "lint": "biome lint --error-on-warnings",
     "test": "vitest",
     "test:coverage": "vitest run --coverage"
