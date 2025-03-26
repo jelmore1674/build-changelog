@@ -15,5 +15,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Changed enforcer to call `generate` directly instead of relying on another action. ([Justin Elmore](https://github.com/jelmore1674))
 
+## [1.0.0] - 2025-03-20
+
+_Initial Release_
 
 [Unreleased]: https://github.com/jelmore1674/build-changelog/releases/tag/vUnreleased
+
