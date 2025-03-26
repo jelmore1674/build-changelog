@@ -10,6 +10,8 @@ const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 async function getAuthorName() {
   // Log this to see what we get on a merge.
   console.info({ context });
+
+  console.log({ GITHUB_TOKEN });
   const user = await getOctokit(GITHUB_TOKEN as string).rest.users.getByUsername({
     username: GITHUB_ACTOR as string,
   });
