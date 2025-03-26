@@ -28,3 +28,5 @@ async function generate() {
 }
 
 generate();
+
+export { generate };

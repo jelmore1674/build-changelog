@@ -1,8 +1,10 @@
 import { getInput, setFailed } from "@actions/core";
 import { context } from "@actions/github";
 import { execSync } from "node:child_process";
+import { generate } from "./generate";
 
-function enforceChangelog() {
+async function enforceChangelog() {
+  await generate();
   const status = execSync("git status --porcelain", { encoding: "utf8" });
 
   const skipLabels = getInput("skip_labels").split(",");

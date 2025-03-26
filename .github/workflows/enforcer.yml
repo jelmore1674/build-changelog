@@ -11,9 +11,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Check changelog changes.
-        uses: ./generate
-
       - uses: ./enforcer
         with:
           skipLabels: ops,maintenance,docs
