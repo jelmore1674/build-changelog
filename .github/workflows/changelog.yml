@@ -9,6 +9,7 @@ on:
       - "changelog/*"
       - "bcl.toml"
       - "**/changelog.yml"
+      - "CHANGELOG.md"
 
 permissions:
   # Give the default GITHUB_TOKEN write permission to commit and push the
