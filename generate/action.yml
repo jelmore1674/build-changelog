@@ -2,6 +2,12 @@ name: Generate Changelog
 description: Generate your changelog and clean up files.
 author: Justin Elmore
 
+inputs:
+  token:
+    description: "The secret value from your GITHUB_TOKEN or another token to access the GitHub API. Defaults to the token at `github.token`"
+    required: true
+    default: ${{ github.token }}
+
 runs:
   using: node20
   main: index.js

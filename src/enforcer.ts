@@ -4,13 +4,8 @@ import { execSync } from "node:child_process";
 import { generate } from "./generate";
 
 async function enforceChangelog() {
-  try {
-    await generate();
-  } catch (e) {
-    console.log(e);
+  await generate();
 
-    process.exit(100);
-  }
   const status = execSync("git status --porcelain", { encoding: "utf8" });
 
   const skipLabels = getInput("skip_labels").split(",");
