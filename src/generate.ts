@@ -1,5 +1,6 @@
 import { getInput } from "@actions/core";
 import { context, getOctokit } from "@actions/github";
+import { execSync } from "node:child_process";
 import { generateCommand } from "./lib/generate";
 
 const GITHUB_TOKEN = getInput("token");
@@ -28,8 +29,10 @@ async function getPrNumber() {
     return context.payload.pull_request.number;
   }
 
+  const sha = execSync("git rev-parse HEAD", { encoding: "utf8" });
+
   const pulls = await getOctokit(GITHUB_TOKEN).rest.search.issuesAndPullRequests({
-    q: `${context.sha} type:pr is:merged`,
+    q: encodeURIComponent(`${sha} AND type:pr AND is:merged&advanced_search=true`),
   });
 
   return pulls.data.items[0].number;
