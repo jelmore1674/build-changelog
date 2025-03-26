@@ -202,7 +202,7 @@ function generateCommand(author: string, prNumber?: number) {
                   if ((config.reference_pull_requests || references.length) && (config.repo_url || GITHUB_REPOSITORY)) {
                     renderedChange = `${change} (${
                       generateReferences([
-                        ...(config.reference_pull_requests && prNumber
+                        ...((config.reference_pull_requests && prNumber)
                           ? [{ type: "pull_request", reference: prNumber.toString() }] as Reference[]
                           : []),
                         ...references,
