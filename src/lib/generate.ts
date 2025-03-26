@@ -113,13 +113,17 @@ function generateLink(reference: LinkReference) {
  * @param references - the references we are adding to the change.
  */
 function generateReferences(references: Reference[]): string {
-  return references.map((reference) => {
-    if (reference.type === "commit") {
-      return `\`${reference.reference}\``;
-    }
+  if (references.length) {
+    return references.map((reference) => {
+      if (reference.type === "commit") {
+        return `\`${reference.reference}\``;
+      }
 
-    return generateLink(reference as LinkReference);
-  }).join(", ");
+      return generateLink(reference as LinkReference);
+    }).join(", ");
+  }
+
+  return "";
 }
 
 /**
@@ -199,7 +203,10 @@ function generateCommand(author: string, prNumber?: number) {
                   let renderedChange = change;
 
                   // Generate the links for the change.
-                  if ((config.reference_pull_requests || references.length) && (config.repo_url || GITHUB_REPOSITORY)) {
+                  if (
+                    prNumber && (config.reference_pull_requests || references.length)
+                    && (config.repo_url || GITHUB_REPOSITORY)
+                  ) {
                     renderedChange = `${change} (${
                       generateReferences([
                         ...((config.reference_pull_requests && prNumber)
