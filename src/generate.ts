@@ -25,11 +25,7 @@ async function getAuthorName() {
  * Get the pr number for this commit hash
  */
 async function getPrNumber() {
-  const sha = execSync("git rev-parse HEAD", { encoding: "utf8" });
-
-  console.info({ sha });
-
-  console.info({ ctxSha: context.sha });
+  const sha = execSync("git rev-parse HEAD", { encoding: "utf8" }).trim();
 
   const pulls = await getOctokit(GITHUB_TOKEN).rest.search.issuesAndPullRequests({
     q: encodeURIComponent(`${sha} type:pr is:merged`),
