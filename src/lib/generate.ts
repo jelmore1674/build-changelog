@@ -204,9 +204,11 @@ function generateCommand(author: string) {
                   }
 
                   // Add author to the change.
-                  if (author) {
+                  if (config.show_author) {
                     if (GITHUB_ACTOR) {
-                      renderedChange = `${renderedChange} (${generateAuthorLink(author)})`;
+                      renderedChange = `${renderedChange} (${
+                        generateAuthorLink(config.show_author_full_name ? author : GITHUB_ACTOR)
+                      })`;
                     } else {
                       renderedChange = `${renderedChange} (${author})`;
                     }

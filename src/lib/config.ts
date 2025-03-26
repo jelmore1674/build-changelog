@@ -28,6 +28,11 @@ type Config = {
   show_author: boolean;
 
   /**
+   * Show Author Full Name
+   */
+  show_author_full_name: boolean;
+
+  /**
    * the release url to prefix with linking changelog and release
    */
   release_url?: string;
@@ -62,6 +67,7 @@ const initialConfig: Config = {
   },
   changelog_archive: false,
   show_author: true,
+  show_author_full_name: false,
   git_tag_prefix: "v",
 };
 
