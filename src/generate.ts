@@ -18,11 +18,7 @@ async function getAuthorName() {
     ref: context.sha,
   });
 
-  const test = await getOctokit(GITHUB_TOKEN).rest.search.users({
-    q: context.sha,
-  });
-
-  console.info(JSON.stringify(test, null, 2));
+  console.info(JSON.stringify(commit, null, 2));
 
   const commitMessage = commit.data.commit.message;
   const coAuthors = commitMessage.match(/Co-authored-by:\s*(.*)/g);
