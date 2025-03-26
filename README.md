@@ -235,6 +235,9 @@ on:
     # For this action to work on pull-requests you need to enable all pull_request events.
     types: [opened, synchronize, reopened, ready_for_review, labeled, unlabeled]
 
+permissions:
+  pull_request: read
+
 jobs:
   enforce-changelog:
     runs-on: ubuntu-latest
