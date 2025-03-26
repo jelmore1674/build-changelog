@@ -1,0 +1,3 @@
+fixed:
+  ref:
+    - Fixed `pull_request` auto referencing.
