@@ -8,10 +8,6 @@ on:
         type: "string"
         default: "v"
         required: true
-      override:
-        description: "Override Existing Release"
-        type: boolean
-        required: true
 
 jobs:
   release:
@@ -25,23 +21,15 @@ jobs:
         id: release-notes
         uses: ./notes
 
-      - uses: 1password/load-secrets-action@v2
-        id: load-op
-        with:
-          # Export loaded secrets as environment variables
-          export-env: false
+      - name: Create Release
+        id: create_release
+        uses: comnoco/create-release-action@v2
         env:
-          OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
-          ACTION_TOKEN: op://Forgejo/ENV/ACTION_TOKEN
-
-      - uses: https://gitea.justinelmore.dev/actions/release@v2.6.1
-        env:
-          RELEASE_NOTES: ${{ steps.release-notes.outputs.notes }}
+          NOTES: ${{ steps.release-notes.outputs.notes }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          direction: upload
-          url: https://gitea.justinelmore.dev
-          release-notes: ${{ env.RELEASE_NOTES }}
-          tag: ${{ inputs.tag }}
-          token: ${{ steps.load-op.outputs.ACTION_TOKEN }}
-          verbose: true
-          override: ${{ inputs.override }}
+          tag_name: ${{ inputs.tag }}
+          release_name: ${{ inputs.tag }}
+          body: ${{ env.NOTES }}
+          draft: false
+          prerelease: false
