@@ -27,20 +27,25 @@ function sleep(ms: number) {
 /**
  * Get the pr number for this commit hash
  */
-async function getPrNumber() {
+async function recursiveGetPrNumber(count = 0): Promise<number> {
+  if (count >= 10) {
+    process.exit(100);
+  }
+
   await sleep(10_000);
+
   const pulls = await getOctokit(GITHUB_TOKEN).rest.search.issuesAndPullRequests({
     q: `${context.sha} type:pr is:merged`,
   });
 
   console.info(`Detected a pr: ${pulls.data.items[0]?.number}`);
 
-  return pulls.data.items[0]?.number;
+  return pulls.data.items[0]?.number || recursiveGetPrNumber(count + 1);
 }
 
 async function generate() {
   const author = await getAuthorName();
-  const prNumber = await getPrNumber();
+  const prNumber = await recursiveGetPrNumber();
   generateCommand(author, prNumber);
 }
 
