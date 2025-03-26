@@ -28,7 +28,7 @@ function sleep(ms: number) {
  * Get the pr number for this commit hash
  */
 async function recursiveGetPrNumber(count = 0): Promise<number> {
-  if (context.payload?.pull_request?.number) {
+  if (context.payload.pull_request?.number) {
     return context.payload.pull_request.number;
   }
 
