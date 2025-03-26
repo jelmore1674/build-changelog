@@ -1,0 +1,3 @@
+changed:
+  nothing:
+    - Change to use `context.sha` to detect if pr has been merged.
