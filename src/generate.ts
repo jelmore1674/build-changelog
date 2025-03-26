@@ -27,9 +27,9 @@ async function getAuthorName() {
 async function getPrNumber() {
   const sha = execSync("git rev-parse HEAD", { encoding: "utf8" });
 
-  console.log({ sha });
+  console.info({ sha });
 
-  console.log({ ctxSha: context.sha });
+  console.info({ ctxSha: context.sha });
 
   const pulls = await getOctokit(GITHUB_TOKEN).rest.search.issuesAndPullRequests({
     q: encodeURIComponent(`${sha} type:pr is:merged`),
