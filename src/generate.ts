@@ -20,18 +20,10 @@ async function getAuthorName() {
   return context.actor as string;
 }
 
-function sleep(ms: number) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
 /**
  * Get the pr number for this commit hash
  */
-async function recursiveGetPrNumber(count = 0): Promise<number> {
-  if (count >= 10) {
-    process.exit(100);
-  }
-
+async function getPrNumber() {
   if (context.payload.pull_request) {
     return context.payload.pull_request.number;
   }
@@ -42,17 +34,12 @@ async function recursiveGetPrNumber(count = 0): Promise<number> {
 
   console.info(`Detected a pr: ${pulls.data.items[0]?.number}`);
 
-  if (!pulls.data.items[0]?.number) {
-    await sleep(10_000);
-    return recursiveGetPrNumber(count + 1);
-  }
-
   return pulls.data.items[0]?.number;
 }
 
 async function generate() {
   const author = await getAuthorName();
-  const prNumber = await recursiveGetPrNumber();
+  const prNumber = await getPrNumber();
   generateCommand(author, prNumber);
 }
 
