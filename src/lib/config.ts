@@ -4,7 +4,7 @@ import path from "node:path";
 import YAML from "yaml";
 
 type Config = {
-  /** the directory our changlog files will be in */
+  /** the directory our changelog files will be in */
   dir: string;
 
   /**
@@ -21,6 +21,11 @@ type Config = {
    * Use changelog archive file, or parse changelog
    */
   changelog_archive: boolean;
+
+  /**
+   * Show Author
+   */
+  show_author: boolean;
 
   /**
    * the release url to prefix with linking changelog and release
@@ -56,6 +61,7 @@ const initialConfig: Config = {
     breaking: "[Breaking 🧨]",
   },
   changelog_archive: false,
+  show_author: true,
   git_tag_prefix: "v",
 };
 
