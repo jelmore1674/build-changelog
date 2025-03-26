@@ -1,6 +1,5 @@
 import { getInput } from "@actions/core";
 import { context, getOctokit } from "@actions/github";
-import { execSync } from "node:child_process";
 import { generateCommand } from "./lib/generate";
 
 const GITHUB_TOKEN = getInput("token");
@@ -25,11 +24,11 @@ async function getAuthorName() {
  * Get the pr number for this commit hash
  */
 async function getPrNumber() {
-  const sha = execSync("git rev-parse HEAD", { encoding: "utf8" });
-
   const pulls = await getOctokit(GITHUB_TOKEN).rest.search.issuesAndPullRequests({
-    q: encodeURIComponent(`${sha} AND type:pr AND is:merged&advanced_search=true`),
+    q: `${context.sha} type:pr is:merged`,
   });
+
+  console.info(`Detected a pr: ${pulls.data.items[0]?.number}`);
 
   return pulls.data.items[0]?.number;
 }
