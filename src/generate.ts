@@ -1,6 +1,7 @@
 import { getInput } from "@actions/core";
 import { context, getOctokit } from "@actions/github";
 import { generateCommand } from "./lib/generate";
+import { log } from "./utils/log";
 
 const GITHUB_TOKEN = getInput("token");
 
@@ -11,6 +12,16 @@ async function getAuthorName() {
   const user = await getOctokit(GITHUB_TOKEN).rest.users.getByUsername({
     username: context.actor,
   });
+
+  const commit = await getOctokit(GITHUB_TOKEN).rest.repos.getCommit({
+    ...context.repo,
+    ref: context.sha,
+  });
+
+  const commitMessage = commit.data.commit.message;
+  const coAuthors = commitMessage.match(/Co-authored-by:\s*(.*)/g);
+
+  coAuthors?.map(coAuthor => log(`CoAuthor: ${coAuthor}`));
 
   if (user?.data?.name) {
     return user.data.name;
@@ -32,7 +43,7 @@ async function getPrNumber() {
     q: encodeURIComponent(`${context.sha} type:pr is:merged`),
   });
 
-  console.info(`Detected a pr: ${pulls.data.items[0]?.number}`);
+  log(`Detected a pr: ${pulls.data.items[0]?.number}`);
 
   return pulls.data.items[0]?.number;
 }
