@@ -17,41 +17,64 @@ permissions:
 jobs:
   lint:
     runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-          cache: "pnpm"
-      - name: Install Packages.
-        run: pnpm i --frozen-lockfile
-      - name: Lint
-        run: pnpm lint
-      - name: Build
-        run: pnpm build
-      - name: Test
-        run: pnpm test
-      - name: Build actions
-        run: pnpm build:actions
-
-      - name: Check for changes
-        id: dirty
-        run: |
-          if [[ -n $(git status --porcelain) ]]; then
-            echo "changes=true" >> $GITHUB_OUTPUT
-          else
-            echo "changes=false" >> $GITHUB_OUTPUT
-          fi
-
-      - if: ${{ steps.dirty.outputs.changes == 'true' }}
-        name: commit and push
-        run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add .
-          git commit -m 'Updated Distributed Actions.'
-          git push origin HEAD
+      - run: |
+          date > generated.txt
+          date > generated1.txt
+          date > generated2.txt
+          CHANGED=($(git diff --name-only | xargs))
+          for value in "${CHANGED[@]}"; do
+            FILES="${FILES} -F files[][path]=\"$value\" -F files[][contents]=$(base64 -w0 $value)"
+          done
+          gh api graphql \
+            -F \$githubRepository=${GIT_REPOSITORY} \
+            -F branchName=${PUBLISH_BRANCH} \
+            -F expectedHeadOid=$(git rev-parse HEAD) \
+            -F commitMessage="commit by github-actions[bot]" \
+            -F "query=@.github/api/createCommitOnBranch.gql" \
+            ${FILES}
+          # # Note: the following account information will not work on GHES
+          # git config user.name "github-actions[bot]"
+          # git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # git add .
+          # git commit -m "generated"
+          # git push
+      # - uses: pnpm/action-setup@v4
+      # - uses: actions/setup-node@v4
+      #   with:
+      #     node-version: "20"
+      #     cache: "pnpm"
+      # - name: Install Packages.
+      #   run: pnpm i --frozen-lockfile
+      # - name: Lint
+      #   run: pnpm lint
+      # - name: Build
+      #   run: pnpm build
+      # - name: Test
+      #   run: pnpm test
+      # - name: Build actions
+      #   run: pnpm build:actions
+      #
+      # - name: Check for changes
+      #   id: dirty
+      #   run: |
+      #     if [[ -n $(git status --porcelain) ]]; then
+      #       echo "changes=true" >> $GITHUB_OUTPUT
+      #     else
+      #       echo "changes=false" >> $GITHUB_OUTPUT
+      #     fi
+      #
+      # - if: ${{ steps.dirty.outputs.changes == 'true' }}
+      #   name: commit and push
+      #   run: |
+      #     git config --global user.name 'github-actions[bot]'
+      #     git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
+      #     git add .
+      #     git commit -m 'Updated Distributed Actions.'
+      #     git push origin HEAD
       #   name: Load secret
       #   id: load-op
       #   uses: 1password/load-secrets-action@v2
