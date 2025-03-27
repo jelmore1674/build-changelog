@@ -42,14 +42,16 @@ jobs:
             echo "changes=true" >> $GITHUB_OUTPUT
           else
             echo "changes=false" >> $GITHUB_OUTPUT
-            git config --global user.name 'github-actions[bot]'
-            git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
-            git add .
-            git commit -m 'Updated Distributed Actions.'
-            git push origin HEAD
           fi
 
-      # - if: ${{ steps.dirty.outputs.changes == 'true' }}
+      - if: ${{ steps.dirty.outputs.changes == 'true' }}
+        name: commit and push
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add .
+          git commit -m 'Updated Distributed Actions.'
+          git push origin HEAD
       #   name: Load secret
       #   id: load-op
       #   uses: 1password/load-secrets-action@v2
