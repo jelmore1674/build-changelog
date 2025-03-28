@@ -29,55 +29,10 @@ jobs:
       - name: Generate Changelog
         uses: ./generate
 
-      - name: Load secret
-        id: load-op
-        uses: 1password/load-secrets-action@v2
-        with:
-          # Export loaded secrets as environment variables
-          export-env: false
-        env:
-          OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
-          GPG_KEY: op://Actions/shared/GPG_KEY
-          GPG_PASSPHRASE: op://Actions/shared/GPG_PASSPHRASE
-
-      - name: decode gpg
-        id: decode
+      - name: Commit and Push
         run: |
-          KEY=$(echo "${{ steps.load-op.outputs.GPG_KEY }}" | base64 -d) && \
-          cat >> $GITHUB_OUTPUT <<EOF
-          GPG<<STRING
-          $KEY
-          STRING
-          EOF
-
-      - name: "Import GPG key"
-        id: import-gpg
-        uses: crazy-max/ghaction-import-gpg@v6
-        with:
-          gpg_private_key: ${{ steps.decode.outputs.GPG }}
-          passphrase: "${{ steps.load-op.outputs.GPG_PASSPHRASE }}"
-          git_user_signingkey: true
-          git_commit_gpgsign: true
-
-      - name: Reuse message
-        run: |
-          # Actions do not support multiline `::set-output`s
-          echo 'COMMIT_MSG<<EOM' >> "$GITHUB_ENV"
-          git log -n1 --pretty='%B' >> "$GITHUB_ENV"
-          echo "" >> "$GITHUB_ENV"
-          echo "chore: update changelog" >> "$GITHUB_ENV"
-          echo 'EOM' >> "$GITHUB_ENV"
-
-      - name: "Commit and push changes"
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_author: "${{ steps.import-gpg.outputs.name }} <${{ steps.import-gpg.outputs.email }}>"
-          commit_user_name: ${{ steps.import-gpg.outputs.name }}
-          commit_user_email: ${{ steps.import-gpg.outputs.email }}
-          # --amend --no-edit doesn't work because of default --message
-          # (effectively --no-edit is ignored)
-          commit_message: ${{ env.COMMIT_MSG }}
-          commit_options: --amend --no-edit
-          push_options: --force
-          # so as not to make too shallow for commit --amend and push -f
-          skip_fetch: true
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add .
+          git commit --amend --no-edit
+          git push origin HEAD
