@@ -1,14 +1,14 @@
 import { getInput, setFailed } from "@actions/core";
 import { getExecOutput } from "@actions/exec";
 import { context } from "@actions/github";
-import { generate } from "./generate";
+import { generateChangelogAction } from "./generate";
 
 /**
  * Run the generate command and check the git diff to see if there are changes
  * in the CHANGELOG.
  */
 async function enforceChangelogAction() {
-  await generate();
+  await generateChangelogAction();
 
   const { stdout } = await getExecOutput("git", ["status", "--porcelain"]);
 
