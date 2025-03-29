@@ -3,6 +3,10 @@ import { getExecOutput } from "@actions/exec";
 import { context } from "@actions/github";
 import { generate } from "./generate";
 
+/**
+ * Run the generate command and check the git diff to see if there are changes
+ * in the CHANGELOG.
+ */
 async function enforceChangelog() {
   await generate();
 
