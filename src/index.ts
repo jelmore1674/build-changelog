@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { Command } from "commander";
-import { generateCommand } from "./lib/generate";
+import { generateChangelogAction } from "./actions/generate";
 import { initCommand } from "./lib/init";
 import { notesCommand } from "./lib/releaseNotes";
 
@@ -21,11 +21,11 @@ program
   .command("generate")
   .description("generate the changelog")
   .option("--require-changelog", "require that changes have been made to the changelog.")
-  .action(generateCommand);
+  .action(generateChangelogAction);
 
 program
   .command("notes [version]")
-  .description("realease notes from the archive for the current git tag")
+  .description("release notes from the archive for the current git tag")
   .action(notesCommand);
 
 program.parse();
