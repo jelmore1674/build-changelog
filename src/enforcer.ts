@@ -1,6 +1,7 @@
 import { getInput, setFailed } from "@actions/core";
 import { getExecOutput } from "@actions/exec";
 import { context } from "@actions/github";
+import { generate } from "./generate";
 
 async function enforceChangelog() {
   await generate();
