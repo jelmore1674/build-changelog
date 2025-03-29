@@ -1,3 +1,3 @@
-import { enforceChangelogAction } from "./actions/enforcer.ts";
+import { enforceChangelogAction } from "./actions/enforcer";
 
 enforceChangelogAction();
