@@ -1,0 +1,3 @@
+changed:
+  feature:
+    - Update `enforcer` action to use `@actions/exec` instead of node's `execSync`.
