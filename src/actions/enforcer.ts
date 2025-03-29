@@ -7,7 +7,7 @@ import { generate } from "./generate";
  * Run the generate command and check the git diff to see if there are changes
  * in the CHANGELOG.
  */
-async function enforceChangelog() {
+async function enforceChangelogAction() {
   await generate();
 
   const { stdout } = await getExecOutput("git", ["status", "--porcelain"]);
@@ -26,4 +26,4 @@ async function enforceChangelog() {
   }
 }
 
-enforceChangelog();
+export { enforceChangelogAction };
