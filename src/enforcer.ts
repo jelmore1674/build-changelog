@@ -1,22 +1,19 @@
 import { getInput, setFailed } from "@actions/core";
+import { getExecOutput } from "@actions/exec";
 import { context } from "@actions/github";
-import { execSync } from "node:child_process";
-import { generate } from "./generate";
 
 async function enforceChangelog() {
   await generate();
 
-  const status = execSync("git status --porcelain", { encoding: "utf8" });
+  const { stdout } = await getExecOutput("git", ["status", "--porcelain"]);
 
   const skipLabels = getInput("skip_labels").split(",");
 
-  if (!status) {
+  if (!stdout.match(/CHANGELOG\.md/gi)) {
     const pullRequest = context.payload.pull_request;
 
     const pullRequestLabels = pullRequest?.labels?.map((label: { name: string }) => label.name) || [];
     const set = new Set(pullRequestLabels);
-
-    // const author = pullRequest?.user?.full_name;
 
     if (!skipLabels.some(label => set.has(label))) {
       setFailed("Changelog changes not found.");
