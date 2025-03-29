@@ -1,4 +1,4 @@
-import { getInput } from "@actions/core";
+import { debug, getInput } from "@actions/core";
 import { context, getOctokit } from "@actions/github";
 import { generateCommand } from "./lib/generate";
 
@@ -32,7 +32,7 @@ async function getPrNumber() {
     q: encodeURIComponent(`${context.sha} type:pr is:merged`),
   });
 
-  console.info(`Detected a pr: ${pulls.data.items[0]?.number}`);
+  debug(`Detected a pr: ${pulls.data.items[0]?.number}`);
 
   return pulls.data.items[0]?.number;
 }
