@@ -1,4 +1,9 @@
-changed:
-  nothing:
-    - "test message."
-    - "Another test message."
+added:
+  feature:
+    - Commit and push using the Github Api.
+    - Commit and push using the git binary in the action.
+    - "`commit_with_api` input to choose between using binary or api to commit."
+
+removed:
+  actions_inputs:
+    - "Remove unused inputs from the project."
