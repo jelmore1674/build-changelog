@@ -6,6 +6,9 @@ import { exit } from "node:process";
 
 const GITHUB_TOKEN = getInput("token");
 
+const ADDITION_REGEX = /^1 (M|A)\./;
+const DELETION_REGEX = /^1 D\./;
+
 /**
  * This is used for creating the type that will be sent to GitHub for file changes.
  */
@@ -27,8 +30,8 @@ interface Addition {
 async function gitDiff() {
   const { stdout: diff } = await getExecOutput("git", ["status", "--porcelain=v2", "--branch", "--untracked-files=no"]);
 
-  const stagedAdditionFilePaths = [];
-  const stagedDeletionFilePaths = [];
+  const stagedAdditionFilePaths: string[] = [];
+  const stagedDeletionFilePaths: string[] = [];
 
   const lines = diff.split("\n");
 
@@ -36,11 +39,11 @@ async function gitDiff() {
     const file = line.split(" ").pop();
 
     if (file) {
-      if (line.match(/^1 (M|A)\./)) {
+      if (line.match(ADDITION_REGEX)) {
         stagedAdditionFilePaths.push(file);
       }
 
-      if (line.match(/^1 D\./)) {
+      if (line.match(DELETION_REGEX)) {
         stagedDeletionFilePaths.push(file);
       }
     }

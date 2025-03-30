@@ -2,22 +2,22 @@ import { getInput } from "@actions/core";
 import { exec } from "@actions/exec";
 
 async function commitAndPush(commitMessage: string) {
-  const COMMIT_AUTHOR = getInput("commit_author");
-  const COMMIT_EMAIL = getInput("commit_email");
-  const COMMIT_USER_NAME = getInput("commit_user_name");
-  const COMMIT_OPTIONS = getInput("commit_options");
-  const PUSH_OPTIONS = getInput("push_options");
+  const commitAuthor = getInput("commit_author");
+  const commitEmail = getInput("commit_email");
+  const commitUserName = getInput("commit_user_name");
+  const commitOptions = getInput("commit_options");
+  const pushOptions = getInput("push_options");
 
   await exec("git", [
-    `-c user.name="${COMMIT_USER_NAME}"`,
-    `-c user.email="${COMMIT_EMAIL}"`,
+    `-c user.name="${commitUserName}"`,
+    `-c user.email="${commitEmail}"`,
     "commit",
     `-m "${commitMessage}"`,
-    `--author="${COMMIT_AUTHOR}"`,
-    COMMIT_OPTIONS,
+    `--author="${commitAuthor}"`,
+    commitOptions,
   ]);
 
-  await exec("git", ["push", "origin", PUSH_OPTIONS]);
+  await exec("git", ["push", "origin", pushOptions]);
 }
 
 export { commitAndPush };

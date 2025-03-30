@@ -7,14 +7,14 @@ import { commitWithApi } from "./utils/commitWithApi";
 import { getAuthorName } from "./utils/getAuthorName";
 import { getPrNumber } from "./utils/getPrNumber";
 
-const COMMIT_WITH_API = Boolean(getInput("commit_with_api"));
-const COMMIT_MESSAGE = getInput("commit_message");
+const isApiCommit = Boolean(getInput("commit_with_api"));
+const commitMessage = getInput("commit_message");
 
 async function generateChangelogAction() {
   // Check to make sure git exists.
   try {
     await exec("git", ["--version"]);
-  } catch (e) {
+  } catch (_error) {
     setFailed("Git binary not found.");
     exit(1);
   }
@@ -25,10 +25,10 @@ async function generateChangelogAction() {
 
   await exec("git", ["add", "."]);
 
-  if (COMMIT_WITH_API) {
-    await commitWithApi(COMMIT_MESSAGE);
+  if (isApiCommit) {
+    await commitWithApi(commitMessage);
   } else {
-    await commitAndPush(COMMIT_MESSAGE);
+    await commitAndPush(commitMessage);
   }
 }
 
