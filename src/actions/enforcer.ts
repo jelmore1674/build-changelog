@@ -1,6 +1,7 @@
-import { getInput, setFailed } from "@actions/core";
+import { debug, getInput, setFailed } from "@actions/core";
 import { getExecOutput } from "@actions/exec";
 import { context } from "@actions/github";
+import { exit } from "node:process";
 import { generateChangelogAction } from "./generate";
 
 /**
@@ -8,21 +9,21 @@ import { generateChangelogAction } from "./generate";
  * in the CHANGELOG.
  */
 async function enforceChangelogAction() {
-  await generateChangelogAction();
+  const skipLabels = getInput("skip_labels").split(",");
+  const pullRequest = context.payload.pull_request;
+  const pullRequestLabels = pullRequest?.labels?.map((label: { name: string }) => label.name) || [];
+  const set = new Set(pullRequestLabels);
 
+  if (skipLabels.some(label => set.has(label))) {
+    debug("Skip Enforcing Changelog.");
+    exit(0);
+  }
+
+  await generateChangelogAction();
   const { stdout } = await getExecOutput("git", ["status", "--porcelain"]);
 
-  const skipLabels = getInput("skip_labels").split(",");
-
   if (!stdout.match(/CHANGELOG\.md/gi)) {
-    const pullRequest = context.payload.pull_request;
-
-    const pullRequestLabels = pullRequest?.labels?.map((label: { name: string }) => label.name) || [];
-    const set = new Set(pullRequestLabels);
-
-    if (!skipLabels.some(label => set.has(label))) {
-      setFailed("Changelog changes not found.");
-    }
+    setFailed("Changelog changes not found.");
   }
 }
 
