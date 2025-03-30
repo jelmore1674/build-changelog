@@ -4,31 +4,45 @@ import path from "node:path";
 import YAML from "yaml";
 
 type Config = {
-  /** the directory our changelog files will be in */
+  /**
+   * The directory our changelog files will be in.
+   *
+   * @default changelog
+   */
   dir: string;
 
   /**
-   * any custom flags with prefixes.
+   * Any custom flags with prefixes.
+   *
+   * @default { breaking: "[Breaking 🧨]" }
    */
   flags?: Record<string, string>;
 
   /**
    * Prefer toml or yaml
+   *
+   * @default yaml
    */
   prefers: "toml" | "yaml";
 
   /**
    * Use changelog archive file, or parse changelog
+   *
+   * @default false
    */
   changelog_archive: boolean;
 
   /**
    * Show Author
+   *
+   * @default true
    */
   show_author: boolean;
 
   /**
    * Show Author Full Name
+   *
+   * @default false
    */
   show_author_full_name: boolean;
 
@@ -44,6 +58,8 @@ type Config = {
 
   /**
    * The prefix of the git tag
+   *
+   * @default v
    */
   git_tag_prefix: string;
 
@@ -58,13 +74,14 @@ type Config = {
 /**
  * The initial configuration of the application.
  *
- * ```json
- * {
- *   "dir": "changelog",
- *   "flags": {
- *     "breaking": "[Breaking 🧨]"
- *   }
- * }
+ * ```toml
+ * dir = "changelog"
+ * show_author = true
+ * reference_pull_requests = true
+ *
+ * [flags]
+ * breaking = "[Breaking 🧨]"
+ * ```
  */
 const initialConfig: Config = {
   dir: "changelog",
