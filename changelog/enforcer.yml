@@ -1,0 +1,3 @@
+fixed:
+  enforcer:
+    - Prevent `Enforcer` action from failing when running the generate command.
