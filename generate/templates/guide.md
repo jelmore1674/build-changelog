@@ -23,7 +23,7 @@ version = "0.0.1"
 release_date = "TBD"
 
 [added]
-added = [
+feature = [
   "We can also use toml."
 ]
 
