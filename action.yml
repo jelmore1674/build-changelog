@@ -3,13 +3,18 @@ description: Generate your changelog from your changelog files.
 author: Justin Elmore
 
 inputs:
+  commit_with_api:
+    description: Use the GitHub api to generate a signed commit. However, you cannot force push and this will be a new commit.
+    default: "true"
+    required: false
+
   commit_user_name:
     description: The committer user name. Defaults to `github-actions[bot]`.
     default: github-actions[bot]
     required: false
 
   commit_user_email:
-    description: The commiter email. Defaults to `41898282+github-actions[bot]@users.noreply.github.com`.
+    description: The committer email. Defaults to `41898282+github-actions[bot]@users.noreply.github.com`.
     default: 41898282+github-actions[bot]@users.noreply.github.com
     required: false
 
@@ -32,16 +37,6 @@ inputs:
     description: Push options (ex. --force)
     required: false
     default: ""
-
-  skip_fetch:
-    description: Skip fetch
-    required: false
-    default: "true"
-
-  sign_commit:
-    description: Sign the commit using the `GithubAPI`. Caveat, you cannot amend a commit using the api.
-    required: false
-    default: "false"
 
   token:
     description: The secret value from your GITHUB_TOKEN or another token to access the GitHub API. Defaults to the token at `github.token`
