@@ -42,12 +42,18 @@ To get started using the action just add step in your action.
 Your workflow will be something like this.
 
 ```yaml
-name: changelog-action
+name: Build Changelog
 
 # You can set this only to run when you push/merge into the main branch.
 on:
   push:
     - main
+
+permissions:
+  # Give the default GITHUB_TOKEN write permission to commit and push the
+  # added or changed files to the repository.
+  contents: write
+  pull-requests: read
 
 jobs:
   changelog:
@@ -58,55 +64,57 @@ jobs:
           fetch-depth: 2
 
       - uses: jelmore1674/build-changelog@v1
-        with:
-          # Customize your commit message
-          commit_message: 'chore: update changelog'
 ```
 
 Here is a list of all of the inputs for the action.
 
 ```yaml
 inputs:
-  gpg_private_key:
-    description: 'Optionally add a gpg key to sign the commits.'
-    default: ''
-    required: false
-
-  passphrase:
-    description: 'Passphrase for the GPG private key provided'
-    default: ''
+  commit_with_api:
+    description: Use the GitHub api to generate a signed commit. However, you cannot force push and this will be a new commit.
+    default: 'true'
     required: false
 
   commit_user_name:
-    description: 'The name of the commit user.'
-    default: 'forgejo[bot]'
+    description: The committer user name. Defaults to `github-actions[bot]`.
+    default: github-actions[bot]
     required: false
 
   commit_user_email:
-    description: 'The email of the commit user.'
-    default: 'forgejo[bot]@noreply.fogejo.justinelmore.dev'
+    description: The committer email. Defaults to `41898282+github-actions[bot]@users.noreply.github.com`.
+    default: 41898282+github-actions[bot]@users.noreply.github.com
     required: false
 
+  commit_author:
+    description: The commit author. Defaults to the use who triggered the action.
+    required: false
+    default: ${{ github.actor }} <${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com>
+
   commit_message:
-    description: 'The commit message.'
-    default: 'update changelog.'
+    description: The commit message.
+    default: Update CHANGELOG.
     required: false
 
   commit_options:
-    description: Commit options (eg. --no-verify)
+    description: Commit options (ex. --amend)
     required: false
     default: ''
 
-    push_options:
-    description: Push options (eg. --force)
+  push_options:
+    description: Push options (ex. --force)
     required: false
     default: ''
+
+  token:
+    description: The secret value from your GITHUB_TOKEN or another token to access the GitHub API. Defaults to the token at `github.token`
+    required: true
+    default: ${{ github.token }}
 ```
 
 This a complex example that amends the previous commit to keep the git history clean.
 
 ```yaml
-name: changelog-action
+name: Build Changelog
 
 # You can set this only to run when you push/merge into the main branch.
 on:
@@ -129,16 +137,59 @@ jobs:
 
       - uses: jelmore1674/build-changelog@v1
         with:
-          # To sign the commits just add the GPG KEY and Passphrase.
-          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
-          passphrase: '${{ secrets.GPG_PASSPHRASE }}'
-
           # This will use the last author as the commit author.
           commit_author: ${{ steps.last-commit.outputs.author }}
 
           # This will use the last message as the commit message.
           commit_message: ${{ steps.last-commit.outputs.message }}
 
+          # Amend and force push.
+          commit_options: '--amend'
+          push_options: '--force'
+```
+
+> [!WARNING]
+> If you want to sign an amended commit you must yous something like [crazy-max/ghaction-import-gpg](https://github.com/crazy-max/ghaction-import-gpg).
+> To be able to use a gpg key.
+
+```yaml
+name: Build Changelog
+
+# You can set this only to run when you push/merge into the main branch.
+on:
+  push:
+    - main
+
+jobs:
+  changelog:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: 'Import GPG key'
+        id: import-gpg
+        uses: crazy-max/ghaction-import-gpg@v6
+        with:
+          gpg_private_key: ${{ secrets.GPG_KEY }}
+          passphrase: '${{ secrets.GPG_PASSPHRASE }}'
+          git_user_signingkey: true
+          git_commit_gpgsign: true
+
+      - name: Get last commit message
+        id: last-commit
+        run: |
+          echo "message=$(git log -1 --pretty=%s)" >> $GITHUB_OUTPUT
+          echo "author=$(git log -1 --pretty=\"%an <%ae>\")" >> $GITHUB_OUTPUT
+
+      - uses: jelmore1674/build-changelog@v1
+        with:
+          commit_author: '${{ steps.import-gpg.outputs.name }} <${{ steps.import-gpg.outputs.email }}>'
+          commit_user_name: ${{ steps.import-gpg.outputs.name }}
+          commit_user_email: ${{ steps.import-gpg.outputs.email }}
+          # This will use the last message as the commit message.
+          commit_message: ${{ steps.last-commit.outputs.message }}
           # Amend and force push.
           commit_options: '--amend'
           push_options: '--force'
@@ -181,47 +232,6 @@ jobs:
       - run: echo "${{ steps.release-notes.outputs.notes }}"
 ```
 
-```yaml
-name: release
-
-on:
-  workflow_dispatch:
-    inputs:
-      tag:
-        description: 'Release Tag'
-        type: 'string'
-        default: 'v'
-        required: true
-      override:
-        description: 'Override Existing Release'
-        type: boolean
-        required: true
-
-jobs:
-  release:
-    runs-on: ubuntu-latest
-    outputs:
-      RELEASE_NOTES: '${{ steps.release-notes.outputs.RELEASE_NOTES }}'
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Release Notes
-        # Set the id of the release-notes action.
-        id: release-notes
-        uses: jelmore1674/build-changelog/notes@v1
-
-      - uses: https://git.justinelmore.dev/actions/release@v2.6.1
-        with:
-          direction: upload
-          url: ${{ env.GITHUB_SERVER_URL }}
-          # The release notes are being set here.
-          release-notes: ${{ steps.release-notes.outputs.notes }}
-          tag: ${{ inputs.tag }}
-          token: ${{ secrets.ACTION_TOKEN }}
-          verbose: true
-          override: ${{ inputs.override }}
-```
-
 ### Enforce Changelog
 
 This actions will check if there are changes to the changelog. If there are no changes, it will fail.
@@ -241,14 +251,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # You should run the generate action first.
-      - name: Check changelog changes.
-        uses: jelmore1674/build-changelog/generate@v1
-
       # This will check to see if you changelog has any changes.
       - uses: jelmore1674/build-changelog/enforcer@v1
         with:
           # If you want to skip enforcing the changelog you can use a comma
           # separated list of labels. Make sure there are no spaces.
           skipLabels: ops,maintenance,docs
+```
+
+The input for `Enforce Changelog`
+
+```yaml
+skip_labels:
+  default: 'ops'
+  description: 'Comma separated list of labels to skip enforcing changelog changes.'
 ```

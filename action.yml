@@ -1,71 +1,48 @@
-name: "Generate Changelog"
-description: "Generate your changelog from your changelog files."
-author: "Justin Elmore"
+name: Build Changelog Action
+description: Generate your changelog from your changelog files.
+author: Justin Elmore
 
 inputs:
-  gpg_private_key:
-    description: "Optionally add a gpg key to sign the commits."
-    default: ""
-    required: false
-
-  passphrase:
-    description: "Passphrase for the GPG private key provided"
-    default: ""
+  commit_with_api:
+    description: Use the GitHub api to generate a signed commit. However, you cannot force push and this will be a new commit.
+    default: "true"
     required: false
 
   commit_user_name:
-    description: "The name of the commit user."
-    default: "github-actions[bot]"
+    description: The committer user name. Defaults to `github-actions[bot]`.
+    default: github-actions[bot]
     required: false
 
   commit_user_email:
-    description: "The email of the commit user."
-    default: "github-actions[bot]@users.noreply.github.com"
+    description: The committer email. Defaults to `41898282+github-actions[bot]@users.noreply.github.com`.
+    default: 41898282+github-actions[bot]@users.noreply.github.com
     required: false
 
+  commit_author:
+    description: The commit author. Defaults to the use who triggered the action.
+    required: false
+    default: ${{ github.actor }} <${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com>
+
   commit_message:
-    description: "The commit message. "
-    default: "update changelog."
+    description: The commit message.
+    default: Update CHANGELOG.
     required: false
 
   commit_options:
-    description: Commit options (eg. --no-verify)
+    description: Commit options (ex. --amend)
     required: false
     default: ""
 
   push_options:
-    description: Push options (eg. --force)
+    description: Push options (ex. --force)
     required: false
     default: ""
 
-  skip_fetch:
-    description: Skip fetch
-    required: false
-    default: "true"
+  token:
+    description: The secret value from your GITHUB_TOKEN or another token to access the GitHub API. Defaults to the token at `github.token`
+    required: true
+    default: ${{ github.token }}
 
 runs:
-  using: "composite"
-  steps:
-    - name: Generate Changelog
-      uses: jelmore1674/build-changelog/generate@v1
-
-    - if: ${{ inputs.gpg_private_key != ''}}
-      name: "Import GPG key"
-      id: import-gpg
-      uses: crazy-max/ghaction-import-gpg@v6
-      with:
-        gpg_private_key: ${{ inputs.gpg_private_key }}
-        passphrase: ${{ inputs.passphrase }}
-        git_user_signingkey: true
-        git_commit_gpgsign: true
-
-    - name: "Commit and push changes"
-      uses: stefanzweifel/git-auto-commit-action@v5
-      with:
-        commit_author: "${{ github.actor }} <${{ github.actor }}>"
-        commit_user_name: ${{ steps.import-gpg.outputs.name || inputs.commit_user_name }}
-        commit_user_email: ${{ steps.import-gpg.outputs.email || inputs.commit_user_email }}
-        commit_message: ${{ inputs.commit_message }}
-        commit_options: ${{ inputs.commit_options }}
-        push_options: ${{ inputs.push_options }}
-        skip_fetch: ${{ inputs.skip_fetch }}
+  using: node20
+  main: ./generate/index.js
