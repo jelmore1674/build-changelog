@@ -1,7 +1,6 @@
-![release](https://img.shields.io/gitea/v/release/jelmore1674/build-changelog?gitea_url=https%3A%2F%2Fgitea.justinelmore.dev&display_name=release&logo=npm&logoColor=CB3837)
-![issues](https://img.shields.io/gitea/issues/open/jelmore1674/build-changelog?gitea_url=https%3A%2F%2Fgitea.justinelmore.dev)
-![prs](https://img.shields.io/gitea/pull-requests/open/jelmore1674/build-changelog?gitea_url=https%3A%2F%2Fgitea.justinelmore.dev)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](/jelmore1674/build-changelog/src/branch/main/LICENSE)
+![release](https://img.shields.io/github/v/release/jelmore1674/build-changelog?display_name=release&logo=npm&logoColor=CB3837)
+![issues](https://img.shields.io/github/issues/jelmore1674/build-changelog)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](/tree/main?tab=MIT-1-ov-file)
 
 # build-changelog
 
