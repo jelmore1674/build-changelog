@@ -11,18 +11,42 @@ add a separate file to put their changes, then generating the changelog.
 
 ## Table of Contents
 
-- [CLI Usage](#getting-started)
+- [Changelog](#changelog)
 - [Actions Usage](#actions)
   - [Release Notes](#release-notes)
   - [Enforce Changelog](#enforce-changelog)
 
-## Getting Started
+## Changelog
 
-To quickly get started install `build-changelog` with `npm` you can install
-this globally or with the project.
+To begin using `build-changelog` first create a `changelog` directory.
 
-```bash
-npm i -g @jelmore1674/build-changelog
+Example of a changelog file.
+
+```yaml
+# changelog/<issue-or-unique-file-name>.yml
+changed:
+  feature:
+    - This is an example commit message.
+```
+
+> [!NOTE]
+> You can also use toml if you prefer for the changelog file.
+
+```toml
+[changed]
+feature = [
+  "This is an example change."
+]
+```
+
+The output of that file would be something like this.
+
+```md
+## [Unreleased] - TBD
+
+### Changed
+
+- This is an example commit message. ([<author-name>](#))
 ```
 
 ## Actions
@@ -136,6 +160,9 @@ jobs:
 
       - uses: jelmore1674/build-changelog@v1
         with:
+          # Disable using the api to make a commit.
+          commit_with_api: 'false'
+
           # This will use the last author as the commit author.
           commit_author: ${{ steps.last-commit.outputs.author }}
 
@@ -148,7 +175,7 @@ jobs:
 ```
 
 > [!WARNING]
-> If you want to sign an amended commit you must yous something like [crazy-max/ghaction-import-gpg](https://github.com/crazy-max/ghaction-import-gpg).
+> If you want to sign an amended commit you must use something like [crazy-max/ghaction-import-gpg](https://github.com/crazy-max/ghaction-import-gpg).
 > To be able to use a gpg key.
 
 ```yaml
@@ -184,6 +211,7 @@ jobs:
 
       - uses: jelmore1674/build-changelog@v1
         with:
+          commit_with_api: 'false'
           commit_author: '${{ steps.import-gpg.outputs.name }} <${{ steps.import-gpg.outputs.email }}>'
           commit_user_name: ${{ steps.import-gpg.outputs.name }}
           commit_user_email: ${{ steps.import-gpg.outputs.email }}
