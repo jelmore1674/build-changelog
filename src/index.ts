@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { Command } from "commander";
-import { generateChangelogAction } from "./actions/generate";
+import { generateCommand } from "./lib/generate";
 import { initCommand } from "./lib/init";
 import { notesCommand } from "./lib/releaseNotes";
 
@@ -21,7 +21,7 @@ program
   .command("generate")
   .description("generate the changelog")
   .option("--require-changelog", "require that changes have been made to the changelog.")
-  .action(generateChangelogAction);
+  .action(generateCommand);
 
 program
   .command("notes [version]")
