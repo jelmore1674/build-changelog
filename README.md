@@ -12,6 +12,7 @@ add a separate file to put their changes, then generating the changelog.
 ## Table of Contents
 
 - [Changelog](#changelog)
+  - [Simple Example](#simple-example)
 - [Actions Usage](#actions)
   - [Release Notes](#release-notes)
   - [Enforce Changelog](#enforce-changelog)
@@ -20,7 +21,19 @@ add a separate file to put their changes, then generating the changelog.
 
 To begin using `build-changelog` first create a `changelog` directory.
 
-Example of a changelog file.
+> [!WARNING]
+> If you have an existing `CHANGELOG.md`. Make sure it adheres to the format.
+>
+> - All versions should use semantic versions with an h2 heading.
+> - All changes should be under an h3 with one of the following keywords.
+>   - `added`
+>   - `changed`
+>   - `deprecated`
+>   - `fixed`
+>   - `removed`
+>   - `sercurity`
+
+### Simple Example
 
 ```yaml
 # changelog/<issue-or-unique-file-name>.yml
@@ -33,6 +46,7 @@ changed:
 > You can also use toml if you prefer for the changelog file.
 
 ```toml
+# changelog/<issue-or-unique-file-name>.toml
 [changed]
 feature = [
   "This is an example change."
@@ -47,6 +61,52 @@ The output of that file would be something like this.
 ### Changed
 
 - This is an example commit message. ([<author-name>](#))
+```
+
+Build Changelog will automatically add references from pull requests.
+
+### Complex Example
+
+```yaml
+# changelog/<issue-or-unique-file-name>.yml
+version: 1.0.0
+release_date: 2025-01-01
+
+changed:
+  breaking:
+    - This is a breaking change.
+
+references:
+  - type: 'issue'
+    reference: 1
+```
+
+> [!NOTE]
+> You can also use toml if you prefer for the changelog file.
+
+```toml
+# changelog/<issue-or-unique-file-name>.toml
+version = "1.0.0"
+release_date = "2025-01-01"
+
+[changed]
+breaking = [
+  "This is a breaking change."
+]
+
+[[references]]
+type = "issue"
+reference = "1"
+```
+
+The output of that file would be something like this.
+
+```md
+## [1.0.0] - 2025-01-01
+
+### Changed
+
+- [Breaking 🧨] This is breaking change.([1](/#)) ([<author-name>](#))
 ```
 
 ## Actions
