@@ -1,6 +1,6 @@
 changelog:
-  - version: Unreleased
-    release_date: TBD
+  - version: 1.1.0
+    release_date: 2025-04-02
     added:
       - Added `show_author` and `show_author_full_name` to the changelog
         configuration. ([Justin Elmore](https://github.com/jelmore1674))
