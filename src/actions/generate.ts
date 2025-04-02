@@ -19,14 +19,11 @@ function formatFlags(flags: string) {
   }, {} as Record<string, string>);
 }
 
-// biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
-const changelog_archive = Boolean(getInput("changelog_archive", { required: false }));
 const commitMessage = getInput("commit_message");
 const dir = getInput("dir", { required: true });
 // biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
 const git_tag_prefix = getInput("git_tag_prefix", { required: false });
 const isApiCommit = Boolean(getInput("commit_with_api"));
-const prefers = getInput("changelog_archive_file_type", { required: false }) as "toml" | "yaml";
 const rawFlags = getInput("flags", { required: false });
 // biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
 const reference_pull_requests = Boolean(getInput("reference_pull_requests", { required: false }));
@@ -49,12 +46,10 @@ async function generateChangelogAction() {
     exit(1);
   }
 
-  const config: Omit<Config, "repo_url" | "release_url"> = {
-    changelog_archive,
+  const config: Omit<Config, "repo_url" | "release_url" | "changelog_archive" | "prefers"> = {
     dir,
     flags,
     git_tag_prefix,
-    prefers,
     reference_pull_requests,
     show_author,
     show_author_full_name,

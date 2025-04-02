@@ -59,7 +59,10 @@ type Version = Release & Partial<Record<Keywords, string[]>>;
  * @param versions - the versions to be rendered.
  * @returns A string that can be written to a file.
  */
-function generateChangelog(versions: Version[], actionConfig = config as Omit<Config, "repo_url" | "release_url">) {
+function generateChangelog(
+  versions: Version[],
+  actionConfig = config as Omit<Config, "repo_url" | "release_url" | "changelog_archive" | "prefers">,
+) {
   let genLinks: ({ version: string; url: string } | null)[] = [];
 
   if (GITHUB_SERVER_URL) {

@@ -103,7 +103,8 @@ describe("generateCommand", () => {
     expect(parseChanges).toHaveBeenCalledOnce();
   });
 
-  test("write changes to changelog archive", () => {
+  // REMOVED ARCHIVE 2025-04-02
+  test.skip("write changes to changelog archive", () => {
     // Setup the test archives.
     const changelog: Version[] = [
       {

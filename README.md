@@ -170,16 +170,6 @@ inputs:
     default: 'breaking=[Breaking 🧨]'
     required: false
 
-  changelog_archive:
-    description: Use a changelog archive file if you prefer to not parse the changelog file.
-    default: 'false'
-    required: false
-
-  changelog_archive_file_type:
-    description: The file type if using a changelog archive. You can use `toml` or `yaml`
-    default: 'yaml'
-    required: false
-
   show_author:
     description: Reference the author in the changelog entry.
     default: 'true'

@@ -146,15 +146,13 @@ function generateCommand(
   author = "bcl-bot",
   prNumber?: number,
   releaseVersion?: string,
-  actionConfig = config as Omit<Config, "repo_url" | "release_url">,
+  actionConfig = config as Omit<Config, "repo_url" | "release_url" | "changelog_archive" | "prefers">,
 ) {
   console.info("generate command parameters", { author, prNumber, releaseVersion });
 
   log("Generating changelog.");
 
-  let changelogArchive: Version[] = config.changelog_archive
-    ? getChangelogArchive()
-    : parseChangelog(changelogPath, releaseVersion);
+  let changelogArchive: Version[] = parseChangelog(changelogPath, releaseVersion);
 
   const files = readdirSync(changelogDir, { recursive: true, encoding: "utf8" });
 
@@ -267,10 +265,6 @@ function generateCommand(
     // Sort the changelog by the version.
     return acc.sort((a, b) => b.version.localeCompare(a.version, "en-US", { ignorePunctuation: true, numeric: true }));
   }, changelogArchive);
-
-  if (actionConfig.changelog_archive) {
-    writeChangelogToArchive(changelog, undefined, actionConfig.prefers);
-  }
 
   const renderedChangelog = generateChangelog(changelog, actionConfig);
   writeFileSync(changelogPath, renderedChangelog, { encoding: "utf8" });
