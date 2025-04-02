@@ -142,10 +142,14 @@ function generateAuthorLink(author: string) {
  *
  *  @param author - the name of the author.
  */
-function generateCommand(author: string, prNumber?: number, releaseVersion = "Unreleased") {
+function generateCommand(author = "bcl-bot", prNumber?: number, releaseVersion = "Unreleased") {
+  console.info("generate command parameters", { author, prNumber, releaseVersion });
+
   log("Generating changelog.");
 
-  let changelogArchive: Version[] = config.changelog_archive ? getChangelogArchive() : parseChangelog(changelogPath);
+  let changelogArchive: Version[] = config.changelog_archive
+    ? getChangelogArchive()
+    : parseChangelog(changelogPath, releaseVersion);
 
   const files = readdirSync(changelogDir, { recursive: true, encoding: "utf8" });
 
@@ -162,13 +166,14 @@ function generateCommand(author: string, prNumber?: number, releaseVersion = "Un
       // Find a matching release.
       const foundRelease = acc.find((release) => release.version === version);
 
+      //
       // The currentVersion to add changes to.
       const currentVersion: Version = foundRelease ?? { version, release_date };
 
-      if (releaseVersion !== "Unreleased") {
-        const today = new Date();
+      if (currentVersion.version.toLowerCase() === "unreleased" && releaseVersion !== "Unreleased") {
+        const today = new Date().toISOString().split("T")[0];
         currentVersion.version = releaseVersion;
-        currentVersion.release_date = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`;
+        currentVersion.release_date = today;
       }
 
       if (notice) {

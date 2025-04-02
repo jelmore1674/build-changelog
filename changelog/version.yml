@@ -1,0 +1,3 @@
+fixed:
+  versions:
+    - Fixes being able to set version and date of unreleased changes.
