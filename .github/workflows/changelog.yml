@@ -34,3 +34,5 @@ jobs:
 
       - name: Generate Changelog
         uses: ./
+        with:
+          show_author_full_name: true

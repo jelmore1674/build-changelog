@@ -114,6 +114,7 @@ async function initCommand() {
       writeChangelogToArchive(
         parseChangelog("CHANGELOG.md"),
         path.join(config.dir, ARCHVIE_FILE[config.prefers]),
+        config.prefers,
       );
     }
   }

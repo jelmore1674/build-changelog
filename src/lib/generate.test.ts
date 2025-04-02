@@ -120,7 +120,7 @@ describe("generateCommand", () => {
     ];
 
     mkdirSync(changelogDir);
-    generate.writeChangelogToArchive(changelog);
+    generate.writeChangelogToArchive(changelog, undefined, "toml");
 
     const archive = readFileSync(changelogArchive, { encoding: "utf8" });
 

@@ -1,7 +1,7 @@
 import * as Mustache from "mustache";
 import { readFileSync } from "node:fs";
 import path from "node:path";
-import { config } from "./config";
+import { Config, config } from "./config";
 
 const dir = process.env.NODE_ENV === "test" ? process.cwd() : __dirname;
 
@@ -59,13 +59,13 @@ type Version = Release & Partial<Record<Keywords, string[]>>;
  * @param versions - the versions to be rendered.
  * @returns A string that can be written to a file.
  */
-function generateChangelog(versions: Version[]) {
+function generateChangelog(versions: Version[], actionConfig = config as Omit<Config, "repo_url" | "release_url">) {
   let genLinks: ({ version: string; url: string } | null)[] = [];
 
   if (GITHUB_SERVER_URL) {
     genLinks = versions.map(i => ({
       version: i.version,
-      url: `${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/releases/tag/${config.git_tag_prefix || "v"}${i.version}`,
+      url: `${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/releases/tag/${actionConfig.git_tag_prefix || "v"}${i.version}`,
     }));
   }
 
@@ -73,7 +73,7 @@ function generateChangelog(versions: Version[]) {
     genLinks = versions.map(i => {
       return ({
         version: i.version,
-        url: `${config.release_url}/${config.git_tag_prefix}${i.version}`,
+        url: `${config.release_url}/${actionConfig.git_tag_prefix}${i.version}`,
       });
     });
   }

@@ -5,7 +5,7 @@ import { getParser } from "../utils/getParser";
 import { isTomlFile } from "../utils/isTomlFile";
 import { isYamlFile } from "../utils/isYamlFile";
 import { log } from "../utils/log";
-import { changelogArchive, changelogDir, changelogPath, config } from "./config";
+import { changelogArchive, changelogDir, changelogPath, Config, config } from "./config";
 import { Changes, generateChangelog, Keywords, Reference, Version } from "./mustache";
 import { parseChangelog } from "./parseChangelog";
 import { rl } from "./readline";
@@ -63,8 +63,8 @@ function getChangelogArchive(): Version[] {
  * @param changelog - the changelog to write
  * @param archiveFile - where we will write the changelog archive.
  */
-function writeChangelogToArchive(changelog: Version[], archiveFile = changelogArchive) {
-  const parser = getParser(config.prefers);
+function writeChangelogToArchive(changelog: Version[], archiveFile = changelogArchive, prefers: "toml" | "yaml") {
+  const parser = getParser(prefers);
   const archive = parser.stringify({ changelog } as unknown as JsonMap);
   writeFileSync(archiveFile, archive, { encoding: "utf8" });
 }
@@ -142,7 +142,12 @@ function generateAuthorLink(author: string) {
  *
  *  @param author - the name of the author.
  */
-function generateCommand(author = "bcl-bot", prNumber?: number, releaseVersion?: string) {
+function generateCommand(
+  author = "bcl-bot",
+  prNumber?: number,
+  releaseVersion?: string,
+  actionConfig = config as Omit<Config, "repo_url" | "release_url">,
+) {
   console.info("generate command parameters", { author, prNumber, releaseVersion });
 
   log("Generating changelog.");
@@ -218,12 +223,12 @@ function generateCommand(author = "bcl-bot", prNumber?: number, releaseVersion?:
 
                   // Generate the links for the change.
                   if (
-                    prNumber && (config.reference_pull_requests || references.length)
-                    && (config.repo_url || GITHUB_REPOSITORY)
+                    prNumber && (actionConfig.reference_pull_requests || references.length)
+                    && GITHUB_REPOSITORY
                   ) {
                     renderedChange = `${change} (${
                       generateReferences([
-                        ...((config.reference_pull_requests && prNumber)
+                        ...((actionConfig.reference_pull_requests && prNumber)
                           ? [{ type: "pull_request", reference: prNumber.toString() }] as Reference[]
                           : []),
                         ...references,
@@ -232,18 +237,18 @@ function generateCommand(author = "bcl-bot", prNumber?: number, releaseVersion?:
                   }
 
                   // Add author to the change.
-                  if (config.show_author) {
+                  if (actionConfig.show_author) {
                     if (GITHUB_ACTOR) {
                       renderedChange = `${renderedChange} (${
-                        generateAuthorLink(config.show_author_full_name ? author : GITHUB_ACTOR)
+                        generateAuthorLink(actionConfig.show_author_full_name ? author : GITHUB_ACTOR)
                       })`;
                     } else {
                       renderedChange = `${renderedChange} (${author})`;
                     }
                   }
 
-                  if (config.flags?.[flag]) {
-                    return `${config.flags?.[flag]} - ${renderedChange}`;
+                  if (actionConfig.flags?.[flag]) {
+                    return `${actionConfig.flags?.[flag]} - ${renderedChange}`;
                   }
 
                   return renderedChange;
@@ -263,11 +268,11 @@ function generateCommand(author = "bcl-bot", prNumber?: number, releaseVersion?:
     return acc.sort((a, b) => b.version.localeCompare(a.version, "en-US", { ignorePunctuation: true, numeric: true }));
   }, changelogArchive);
 
-  if (config.changelog_archive) {
-    writeChangelogToArchive(changelog);
+  if (actionConfig.changelog_archive) {
+    writeChangelogToArchive(changelog, undefined, actionConfig.prefers);
   }
 
-  const renderedChangelog = generateChangelog(changelog);
+  const renderedChangelog = generateChangelog(changelog, actionConfig);
   writeFileSync(changelogPath, renderedChangelog, { encoding: "utf8" });
 
   log("CHANGELOG.md finished writing.");
