@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Update `dprint` to version `0.49.1`. ([#39](https://github.com/jelmore1674/build-changelog/pull/39)) ([Justin Elmore](https://github.com/jelmore1674))
 - Update `yaml` to `2.7.1`. ([#40](https://github.com/jelmore1674/build-changelog/pull/40)) ([Justin Elmore](https://github.com/jelmore1674))
+- Update `vitest` and `vitest/coverage-v8`to `3.1.1`. ([#43](https://github.com/jelmore1674/build-changelog/pull/43)) ([Justin Elmore](https://github.com/jelmore1674))
 
 ## [1.1.0] - 2025-04-02
 
