@@ -22,7 +22,7 @@ async function generateChangelogAction() {
 
   const author = await getAuthorName();
   const prNumber = await getPrNumber();
-  generateCommand(author, prNumber, version);
+  generateCommand(author, prNumber, version.replace(/^v/, ""));
 
   await exec("git", ["add", "."]);
 

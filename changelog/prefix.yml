@@ -1,0 +1,3 @@
+fixed:
+  issue:
+    - Remove the leading `v` from the version prefix when using the tag as input.
