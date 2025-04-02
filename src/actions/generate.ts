@@ -1,7 +1,8 @@
-import { getInput, setFailed } from "@actions/core";
-import { exec } from "@actions/exec";
+import { endGroup, getInput, setFailed, startGroup } from "@actions/core";
+import { exec, getExecOutput } from "@actions/exec";
 import { exit } from "node:process";
 import { generateCommand } from "../lib/generate";
+import { log } from "../utils/log";
 import { commitAndPush } from "./utils/commitAndPush";
 import { commitWithApi } from "./utils/commitWithApi";
 import { getAuthorName } from "./utils/getAuthorName";
@@ -26,15 +27,27 @@ async function generateChangelogAction() {
 
   const author = await getAuthorName();
   const prNumber = await getPrNumber();
+
+  startGroup("Generate Changelog");
   generateCommand(author, prNumber, cleanedVersion);
+  endGroup();
+
+  const { stdout } = await getExecOutput("git", ["status", "--porcelain"]);
+
+  if (!stdout.match(/CHANGELOG\.md/gi)) {
+    log("No changes to the changelog");
+    exit(0);
+  }
 
   await exec("git", ["add", "."]);
 
+  startGroup("Commit changes.");
   if (isApiCommit) {
     await commitWithApi(commitMessage);
   } else {
     await commitAndPush(commitMessage);
   }
+  endGroup();
 }
 
 export { generateChangelogAction };

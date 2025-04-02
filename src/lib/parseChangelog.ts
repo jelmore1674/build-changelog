@@ -23,7 +23,7 @@ const noticeRegex = /(?<=^_)((.*)(?=_))/gism;
 /**
  * parse an existing changelog file and convert to an object.
  */
-function parseChangelog(changelogPath: string) {
+function parseChangelog(changelogPath: string, releaseVersion?: string) {
   if (existsSync(changelogPath)) {
     const cl = readFileSync(changelogPath, { encoding: "utf8" });
 
@@ -43,6 +43,13 @@ function parseChangelog(changelogPath: string) {
         version,
         release_date,
       };
+
+      // Overwrite the release version if there is one set.
+      if (releaseVersion && release.version.toLowerCase() === "unreleased") {
+        const today = new Date().toISOString().split("T")[0];
+        release.version = releaseVersion;
+        release.release_date = today;
+      }
 
       if (notice) {
         // Only define notice if there is one.
