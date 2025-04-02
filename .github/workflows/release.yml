@@ -28,8 +28,11 @@ jobs:
         with:
           version: ${{ inputs.tag }}
 
-      - run: |
-          git pull origin main
+      - name: Get Latest Sha
+        id: sha
+        run: |
+          git pull origin HEAD
+          echo "sha=$(git rev-parse HEAD)"  >> "$GITHUB_OUTPUT"
 
       - name: Get Release Notes
         id: release-notes
@@ -42,6 +45,7 @@ jobs:
           NOTES: ${{ steps.release-notes.outputs.notes }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
+          sha: ${{ steps.sha.outputs.sha}}
           tag_name: ${{ inputs.tag }}
           release_name: ${{ inputs.tag }}
           body: ${{ env.NOTES }}
