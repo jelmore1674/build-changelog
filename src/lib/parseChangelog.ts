@@ -45,7 +45,10 @@ function parseChangelog(changelogPath: string, releaseVersion?: string) {
       };
 
       // Overwrite the release version if there is one set.
-      if (releaseVersion && release.version.toLowerCase() === "unreleased") {
+      if (
+        releaseVersion && releaseVersion.toLowerCase() !== "unreleased"
+        && release.version.toLowerCase() === "unreleased"
+      ) {
         const today = new Date().toISOString().split("T")[0];
         release.version = releaseVersion;
         release.release_date = today;

@@ -170,7 +170,10 @@ function generateCommand(author = "bcl-bot", prNumber?: number, releaseVersion?:
       // The currentVersion to add changes to.
       const currentVersion: Version = foundRelease ?? { version, release_date };
 
-      if (releaseVersion && currentVersion.version.toLowerCase() === "unreleased") {
+      if (
+        releaseVersion && releaseVersion.toLowerCase() !== "unreleased"
+        && currentVersion.version.toLowerCase() === "unreleased"
+      ) {
         const today = new Date().toISOString().split("T")[0];
         currentVersion.version = releaseVersion;
         currentVersion.release_date = today;
