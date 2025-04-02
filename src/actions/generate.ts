@@ -1,6 +1,7 @@
 import { endGroup, getInput, setFailed, startGroup } from "@actions/core";
 import { exec, getExecOutput } from "@actions/exec";
 import { exit } from "node:process";
+import type { Config } from "../lib/config";
 import { generateCommand } from "../lib/generate";
 import { log } from "../utils/log";
 import { commitAndPush } from "./utils/commitAndPush";
@@ -8,9 +9,34 @@ import { commitWithApi } from "./utils/commitWithApi";
 import { getAuthorName } from "./utils/getAuthorName";
 import { getPrNumber } from "./utils/getPrNumber";
 
-const isApiCommit = Boolean(getInput("commit_with_api"));
+/**
+ * Format the flags from a key value pair to an array object.
+ */
+function formatFlags(flags: string) {
+  return flags.split(",").reduce((acc, flag) => {
+    acc[flag.split("=")[0]] = flag.split("=")[1];
+    return acc;
+  }, {} as Record<string, string>);
+}
+
+// biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
+const changelog_archive = Boolean(getInput("changelog_archive", { required: false }));
 const commitMessage = getInput("commit_message");
+const dir = getInput("dir", { required: true });
+// biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
+const git_tag_prefix = getInput("git_tag_prefix", { required: false });
+const isApiCommit = Boolean(getInput("commit_with_api"));
+const prefers = getInput("changelog_archive_file_type", { required: false }) as "toml" | "yaml";
+const rawFlags = getInput("flags", { required: false });
+// biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
+const reference_pull_requests = Boolean(getInput("reference_pull_requests", { required: false }));
+// biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
+const show_author = Boolean(getInput("show_author", { required: false }));
+// biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
+const show_author_full_name = Boolean(getInput("show_author_full_name", { required: false }));
 const version = getInput("version");
+
+const flags = formatFlags(rawFlags);
 
 const V_PREFIX_REGEX = /^v/;
 
@@ -23,13 +49,24 @@ async function generateChangelogAction() {
     exit(1);
   }
 
+  const config: Omit<Config, "repo_url" | "release_url"> = {
+    changelog_archive,
+    dir,
+    flags,
+    git_tag_prefix,
+    prefers,
+    reference_pull_requests,
+    show_author,
+    show_author_full_name,
+  };
+
   const cleanedVersion = version?.replace(V_PREFIX_REGEX, "");
 
   const author = await getAuthorName();
   const prNumber = await getPrNumber();
 
   startGroup("Generate Changelog");
-  generateCommand(author, prNumber, cleanedVersion);
+  generateCommand(author, prNumber, cleanedVersion, config);
   endGroup();
 
   const { stdout } = await getExecOutput("git", ["status", "--porcelain"]);

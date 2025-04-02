@@ -9,6 +9,8 @@
 The aim of `build-changelog` is to simplify changelogs, by letting contributors
 add a separate file to put their changes, then generating the changelog.
 
+Inspiration from [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and [Common Changelog](https://common-changelog.org/)
+
 ## Table of Contents
 
 - [Changelog](#changelog)
@@ -156,6 +158,51 @@ inputs:
   commit_with_api:
     description: Use the GitHub api to generate a signed commit. However, you cannot force push and this will be a new commit.
     default: 'true'
+    required: false
+
+  dir:
+    description: The directory to keep your changelog files. Defaults to the `changelog` directory.
+    default: 'changelog'
+    required: true
+
+  flags:
+    description: Any custom flags with prefixes. Ex. `[Breaking 🧨]` for breaking changes. Must use a key=value pair comma separated list no spaces.
+    default: 'breaking=[Breaking 🧨]'
+    required: false
+
+  changelog_archive:
+    description: Use a changelog archive file if you prefer to not parse the changelog file.
+    default: 'false'
+    required: false
+
+  changelog_archive_file_type:
+    description: The file type if using a changelog archive. You can use `toml` or `yaml`
+    default: 'yaml'
+    required: false
+
+  show_author:
+    description: Reference the author in the changelog entry.
+    default: 'true'
+    required: false
+
+  show_author_full_name:
+    description: Show the authors name instead of the authors username.
+    default: 'false'
+    required: false
+
+  git_tag_prefix:
+    description: The prefix for your git tags.
+    default: 'v'
+    required: true
+
+  reference_pull_requests:
+    description: Automatically reference pull requests when you merge changes in.
+    default: 'true'
+    required: false
+
+  version:
+    description: Set the version of the unreleased changes.
+    default: 'Unreleased'
     required: false
 
   commit_user_name:
