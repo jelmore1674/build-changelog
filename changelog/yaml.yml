@@ -1,0 +1,3 @@
+security:
+  updates:
+    - Update `yaml` to `2.7.1`.
