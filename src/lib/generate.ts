@@ -142,7 +142,7 @@ function generateAuthorLink(author: string) {
  *
  *  @param author - the name of the author.
  */
-function generateCommand(author: string, prNumber?: number, releaseVersion = "Unreleased") {
+async function generateCommand(author: string, prNumber?: number, releaseVersion = "Unreleased") {
   log("Generating changelog.");
 
   let changelogArchive: Version[] = config.changelog_archive ? getChangelogArchive() : parseChangelog(changelogPath);
