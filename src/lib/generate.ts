@@ -142,7 +142,7 @@ function generateAuthorLink(author: string) {
  *
  *  @param author - the name of the author.
  */
-function generateCommand(author = "bcl-bot", prNumber?: number, releaseVersion = "Unreleased") {
+function generateCommand(author = "bcl-bot", prNumber?: number, releaseVersion?: string) {
   console.info("generate command parameters", { author, prNumber, releaseVersion });
 
   log("Generating changelog.");
@@ -170,7 +170,7 @@ function generateCommand(author = "bcl-bot", prNumber?: number, releaseVersion =
       // The currentVersion to add changes to.
       const currentVersion: Version = foundRelease ?? { version, release_date };
 
-      if (currentVersion.version.toLowerCase() === "unreleased" && releaseVersion !== "Unreleased") {
+      if (releaseVersion && currentVersion.version.toLowerCase() === "unreleased") {
         const today = new Date().toISOString().split("T")[0];
         currentVersion.version = releaseVersion;
         currentVersion.release_date = today;
