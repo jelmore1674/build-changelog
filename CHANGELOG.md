@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - TBD
+## [Unreleased] - 2025-04-02
 
 ### Added
 
@@ -31,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed `pull_request` auto referencing. ([#19](https://github.com/jelmore1674/build-changelog/pull/19)) ([Justin Elmore](https://github.com/jelmore1674))
 - Prevent `Enforcer` action from failing when running the generate command. ([#33](https://github.com/jelmore1674/build-changelog/pull/33)) ([Justin Elmore](https://github.com/jelmore1674))
 - Remove the leading `v` from the version prefix when using the tag as input. ([#35](https://github.com/jelmore1674/build-changelog/pull/35)) ([Justin Elmore](https://github.com/jelmore1674))
+- Fixes being able to set version and date of unreleased changes. ([#36](https://github.com/jelmore1674/build-changelog/pull/36)) ([Justin Elmore](https://github.com/jelmore1674))
 
 ## [1.0.0] - 2025-03-20
 
