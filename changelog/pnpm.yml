@@ -1,0 +1,3 @@
+security:
+  update:
+    - Update `pnpm` to version `10.7.1`.
