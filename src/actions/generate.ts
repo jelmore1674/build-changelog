@@ -11,6 +11,8 @@ const isApiCommit = Boolean(getInput("commit_with_api"));
 const commitMessage = getInput("commit_message");
 const version = getInput("version");
 
+const V_PREFIX_REGEX = /^v/;
+
 async function generateChangelogAction() {
   // Check to make sure git exists.
   try {
@@ -20,9 +22,11 @@ async function generateChangelogAction() {
     exit(1);
   }
 
+  const cleanedVersion = version?.replace(V_PREFIX_REGEX, "");
+
   const author = await getAuthorName();
   const prNumber = await getPrNumber();
-  generateCommand(author, prNumber, version.replace(/^v/, ""));
+  generateCommand(author, prNumber, cleanedVersion);
 
   await exec("git", ["add", "."]);
 
