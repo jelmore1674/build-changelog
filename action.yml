@@ -8,6 +8,11 @@ inputs:
     default: "true"
     required: false
 
+  version:
+    description: Set the version of the unreleased changes.
+    default: "Unreleased"
+    required: false
+
   commit_user_name:
     description: The committer user name. Defaults to `github-actions[bot]`.
     default: github-actions[bot]

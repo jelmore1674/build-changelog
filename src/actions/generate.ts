@@ -9,6 +9,7 @@ import { getPrNumber } from "./utils/getPrNumber";
 
 const isApiCommit = Boolean(getInput("commit_with_api"));
 const commitMessage = getInput("commit_message");
+const version = getInput("version");
 
 async function generateChangelogAction() {
   // Check to make sure git exists.

@@ -142,7 +142,7 @@ function generateAuthorLink(author: string) {
  *
  *  @param author - the name of the author.
  */
-function generateCommand(author: string, prNumber?: number) {
+function generateCommand(author: string, prNumber?: number, releaseVersion = "Unreleased") {
   log("Generating changelog.");
 
   let changelogArchive: Version[] = config.changelog_archive ? getChangelogArchive() : parseChangelog(changelogPath);
@@ -164,6 +164,12 @@ function generateCommand(author: string, prNumber?: number) {
 
       // The currentVersion to add changes to.
       const currentVersion: Version = foundRelease ?? { version, release_date };
+
+      if (releaseVersion !== "Unreleased") {
+        const today = new Date();
+        currentVersion.version = releaseVersion;
+        currentVersion.release_date = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`;
+      }
 
       if (notice) {
         if (currentVersion.notice) {
