@@ -2,7 +2,7 @@ import { debug, getInput, setFailed } from "@actions/core";
 import { getExecOutput } from "@actions/exec";
 import { context } from "@actions/github";
 import { exit } from "node:process";
-import { generateChangelogAction } from "./generate";
+import { generateCommand } from "../lib/generate";
 
 /**
  * Run the generate command and check the git diff to see if there are changes
@@ -19,7 +19,7 @@ async function enforceChangelogAction() {
     exit(0);
   }
 
-  await generateChangelogAction();
+  generateCommand("BCL_Bot");
   const { stdout } = await getExecOutput("git", ["status", "--porcelain"]);
 
   if (!stdout.match(/CHANGELOG\.md/gi)) {

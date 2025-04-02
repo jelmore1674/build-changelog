@@ -2,6 +2,12 @@ name: Changelog
 
 on:
   workflow_dispatch:
+    inputs:
+      version:
+        description: "Release Version"
+        type: "string"
+        default: ""
+        required: false
   push:
     branches:
       - main

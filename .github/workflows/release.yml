@@ -17,6 +17,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Set Version for Unreleased
+        uses: ./
+        with:
+          version: ${{ inputs.tag }}
+
+      - run: |
+          git pull origin main
+
       - name: Get Release Notes
         id: release-notes
         uses: ./notes
