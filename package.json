@@ -41,7 +41,7 @@
     "typescript": "5.8.2",
     "vite-tsconfig-paths": "5.1.4",
     "vitest": "3.0.8",
-    "yaml": "2.7.0"
+    "yaml": "2.7.1"
   },
   "bin": {
     "bcl": "dist/index.js"
