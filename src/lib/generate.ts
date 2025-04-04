@@ -148,7 +148,7 @@ function generateCommand(
   releaseVersion?: string,
   actionConfig = config as Omit<Config, "repo_url" | "release_url" | "changelog_archive" | "prefers">,
 ) {
-  console.info("generate command parameters", { author, prNumber, releaseVersion });
+  log("generate command parameters", { author, prNumber, releaseVersion });
 
   log("Generating changelog.");
 
@@ -184,7 +184,10 @@ function generateCommand(
 
       if (notice) {
         if (currentVersion.notice) {
-          throw new Error(`A notice already exists. Please look at the existing noice for the version.`);
+          console.error("A notice already exists. Please look at the existing noice for the current version.\n");
+          console.error(`Version: "${currentVersion.version}"\n`);
+          console.error(`Notice: "${currentVersion.notice}"`);
+          process.exit(1);
         }
         // only define notice if it exists.
         currentVersion.notice = notice;
