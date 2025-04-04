@@ -18,12 +18,11 @@ permissions:
 jobs:
   release:
     runs-on: ubuntu-latest
-    outputs:
-      RELEASE_NOTES: "${{ steps.release-notes.outputs.RELEASE_NOTES }}"
     steps:
       - uses: actions/checkout@v4
 
       - name: Set Version for Unreleased
+        id: changelog
         uses: ./
         with:
           version: ${{ inputs.tag }}
@@ -34,15 +33,11 @@ jobs:
           git pull origin HEAD
           echo "sha=$(git rev-parse HEAD)"  >> "$GITHUB_OUTPUT"
 
-      - name: Get Release Notes
-        id: release-notes
-        uses: ./notes
-
       - name: Create Release
         id: create_release
         uses: comnoco/create-release-action@v2
         env:
-          NOTES: ${{ steps.release-notes.outputs.notes }}
+          NOTES: ${{ steps.changelog.outputs.notes }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
           commitish: ${{ steps.sha.outputs.sha }}
