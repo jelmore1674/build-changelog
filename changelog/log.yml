@@ -1,0 +1,3 @@
+changed:
+  log:
+    - Allow `log` function to take more than one parameter.
