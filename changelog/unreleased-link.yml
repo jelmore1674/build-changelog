@@ -1,3 +1,0 @@
-fixed:
-  bug:
-    - Prevent `Unreleased` heading from creating a broken link.

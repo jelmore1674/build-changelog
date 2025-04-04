@@ -1,4 +1,0 @@
-changed:
-  log:
-    - Allow `log` function to take more than one parameter.
-    - Ordering of the change groups to match the order from [Common Changelog](https://common-changelog.org/#24-change-group)
