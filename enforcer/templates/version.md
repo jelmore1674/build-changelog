@@ -3,13 +3,6 @@
 {{#notice}}{{> notice}}
 
 {{/notice}}
-{{#added.length}}### Added
-
-{{#added}}
-{{> change}}
-{{/added}}
-
-{{/added.length}}
 {{#changed.length}}### Changed
 
 {{#changed}}
@@ -17,13 +10,13 @@
 {{/changed}}
 
 {{/changed.length}}
-{{#deprecated.length}}### Deprecated
+{{#added.length}}### Added
 
-{{#deprecated}}
+{{#added}}
 {{> change}}
-{{/deprecated}}
+{{/added}}
 
-{{/deprecated.length}}
+{{/added.length}}
 {{#removed.length}}### Removed
 
 {{#removed}}
@@ -31,6 +24,13 @@
 {{/removed}}
 
 {{/removed.length}}
+{{#deprecated.length}}### Deprecated
+
+{{#deprecated}}
+{{> change}}
+{{/deprecated}}
+
+{{/deprecated.length}}
 {{#fixed.length}}### Fixed
 
 {{#fixed}}
