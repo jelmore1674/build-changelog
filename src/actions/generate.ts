@@ -3,6 +3,7 @@ import { exec, getExecOutput } from "@actions/exec";
 import { exit } from "node:process";
 import type { Config } from "../lib/config";
 import { generateCommand } from "../lib/generate";
+import { notesCommand } from "../lib/releaseNotes";
 import { log } from "../utils/log";
 import { commitAndPush } from "./utils/commitAndPush";
 import { commitWithApi } from "./utils/commitWithApi";
@@ -80,6 +81,8 @@ async function generateChangelogAction() {
     await commitAndPush(commitMessage);
   }
   endGroup();
+
+  notesCommand(version);
 }
 
 export { generateChangelogAction };

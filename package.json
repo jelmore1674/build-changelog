@@ -1,6 +1,6 @@
 {
   "name": "@jelmore1674/build-changelog",
-  "version": "1.4.1",
+  "version": "1.1.2",
   "description": "",
   "main": "dist/index.js",
   "files": [
@@ -47,7 +47,7 @@
     "bcl": "dist/index.js"
   },
   "engines": {
-    "node": "^18 ||^20 || ^22"
+    "node": ">=20"
   },
   "engineStrict": true
 }

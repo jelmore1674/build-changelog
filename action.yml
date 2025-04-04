@@ -78,6 +78,10 @@ inputs:
     required: true
     default: ${{ github.token }}
 
+outputs:
+  notes:
+    description: "The Release Notes for the latest changes."
+
 runs:
   using: node20
   main: ./generate/index.js
