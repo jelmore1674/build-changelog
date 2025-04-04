@@ -66,20 +66,19 @@ function generateChangelog(
   let genLinks: ({ version: string; url: string } | null)[] = [];
 
   if (GITHUB_SERVER_URL) {
-    genLinks = versions.map(i => ({
-      version: i.version,
-      url: `${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/releases/tag/${actionConfig.git_tag_prefix || "v"}${i.version}`,
-    }));
-  }
+    genLinks = versions.map(({ version }) => {
+      // Prevent Unreleased from creating link.
+      if (version.toLowerCase() === "unreleased") {
+        return null;
+      }
 
-  if (config.release_url) {
-    genLinks = versions.map(i => {
-      return ({
-        version: i.version,
-        url: `${config.release_url}/${actionConfig.git_tag_prefix}${i.version}`,
-      });
+      return {
+        version,
+        url: `${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/releases/tag/${actionConfig.git_tag_prefix || "v"}${version}`,
+      };
     });
   }
+
   return Mustache.render(heading, { versions, links: genLinks.filter(i => i) }, {
     versions: version,
     change,
