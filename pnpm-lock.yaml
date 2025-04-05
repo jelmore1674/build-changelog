@@ -52,7 +52,7 @@ importers:
         specifier: 22.13.9
         version: 22.13.9
       '@types/semver':
-        specifier: ^7.7.0
+        specifier: 7.7.0
         version: 7.7.0
       '@vercel/ncc':
         specifier: 0.38.3
