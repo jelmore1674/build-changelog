@@ -1,5 +1,6 @@
 import latestSemver from "latest-semver";
 import { existsSync, readFileSync } from "node:fs";
+import { log } from "../utils/log";
 import { Keywords, Version } from "./mustache";
 
 /**
@@ -97,8 +98,15 @@ function parseChangelog(changelogPath: string, releaseVersion?: string) {
  * Get the latest release
  */
 function getLatestRelease(changelogPath: string) {
-  const versions = parseChangelog(changelogPath).map(({ version }) => version);
-  return latestSemver(versions);
+  const versions = parseChangelog(changelogPath).map(({ version }) => version).filter(v => v);
+
+  log({ versions });
+
+  const latestVersion = latestSemver(versions);
+
+  log({ latestVersion });
+
+  return latestVersion;
 }
 
 export { getLatestRelease, parseChangelog };
