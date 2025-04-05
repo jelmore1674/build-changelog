@@ -22,7 +22,7 @@ function formatFlags(flags: string) {
   }, {} as Record<string, string>);
 }
 
-const releaseType = getInput("release_type", { required: true }) as ReleaseType;
+const releaseType = getInput("release_type", { required: false }) as ReleaseType;
 const commitMessage = getInput("commit_message");
 const dir = getInput("dir", { required: true });
 const isApiCommit = Boolean(getInput("commit_with_api"));
@@ -58,31 +58,35 @@ async function generateChangelogAction() {
     show_author_full_name,
   };
 
-  let cleanedVersion = clean(version);
+  let releaseVersion: string | null = "Unreleased";
 
-  if (!cleanedVersion) {
-    const latestVersion = getLatestRelease(changelogPath);
+  if (releaseType) {
+    let cleanedVersion = clean(version);
 
-    if (latestVersion) {
+    if (!cleanedVersion) {
+      const latestVersion = getLatestRelease(changelogPath);
+
+      if (!latestVersion) {
+        setFailed("Unable to find the version.");
+        exit(1);
+      }
+
       cleanedVersion = latestVersion;
     }
 
-    setFailed("Unable to find the version.");
-    exit(1);
-  }
+    releaseVersion = inc(cleanedVersion, releaseType);
 
-  const bumpedVersion = inc(cleanedVersion, releaseType);
-
-  if (!bumpedVersion) {
-    setFailed("Unable to increment the version");
-    exit(1);
+    if (!releaseVersion) {
+      setFailed("Unable to increment the version");
+      exit(1);
+    }
   }
 
   const author = await getAuthorName();
   const prNumber = await getPrNumber();
 
   startGroup("Generate Changelog");
-  generateCommand(author, prNumber, bumpedVersion, config);
+  generateCommand(author, prNumber, releaseVersion, config);
   endGroup();
 
   const { stdout } = await getExecOutput("git", ["status", "--porcelain"]);

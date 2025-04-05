@@ -11,7 +11,6 @@ inputs:
   release_type:
     description: The semantic version change type. Accepted values are major, minor, patch
     required: false
-    default: patch
 
   dir:
     description: The directory to keep your changelog files. Defaults to the `changelog` directory.
