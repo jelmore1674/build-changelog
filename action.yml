@@ -8,6 +8,11 @@ inputs:
     default: "true"
     required: false
 
+  release_type:
+    description: The semantic version change type. Accepted values are major, minor, patch
+    required: false
+    default: patch
+
   dir:
     description: The directory to keep your changelog files. Defaults to the `changelog` directory.
     default: "changelog"
@@ -40,7 +45,6 @@ inputs:
 
   version:
     description: Set the version of the unreleased changes.
-    default: "Unreleased"
     required: false
 
   commit_user_name:

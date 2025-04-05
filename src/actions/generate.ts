@@ -1,8 +1,10 @@
-import { endGroup, getInput, setFailed, startGroup } from "@actions/core";
+import { endGroup, getInput, setFailed, setOutput, startGroup } from "@actions/core";
 import { exec, getExecOutput } from "@actions/exec";
 import { exit } from "node:process";
-import type { Config } from "../lib/config";
+import { clean, inc, type ReleaseType } from "semver";
+import { changelogPath, type Config } from "../lib/config";
 import { generateCommand } from "../lib/generate";
+import { getLatestRelease } from "../lib/parseChangelog";
 import { notesCommand } from "../lib/releaseNotes";
 import { log } from "../utils/log";
 import { commitAndPush } from "./utils/commitAndPush";
@@ -20,23 +22,23 @@ function formatFlags(flags: string) {
   }, {} as Record<string, string>);
 }
 
+const releaseType = getInput("release_type", { required: true }) as ReleaseType;
 const commitMessage = getInput("commit_message");
 const dir = getInput("dir", { required: true });
-// biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
-const git_tag_prefix = getInput("git_tag_prefix", { required: false });
 const isApiCommit = Boolean(getInput("commit_with_api"));
 const rawFlags = getInput("flags", { required: false });
+const version = getInput("version", { required: false });
+
+// biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
+const git_tag_prefix = getInput("git_tag_prefix", { required: false });
 // biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
 const reference_pull_requests = Boolean(getInput("reference_pull_requests", { required: false }));
 // biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
 const show_author = Boolean(getInput("show_author", { required: false }));
 // biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
 const show_author_full_name = Boolean(getInput("show_author_full_name", { required: false }));
-const version = getInput("version");
 
 const flags = formatFlags(rawFlags);
-
-const V_PREFIX_REGEX = /^v/;
 
 async function generateChangelogAction() {
   // Check to make sure git exists.
@@ -56,13 +58,31 @@ async function generateChangelogAction() {
     show_author_full_name,
   };
 
-  const cleanedVersion = version?.replace(V_PREFIX_REGEX, "");
+  let cleanedVersion = clean(version);
+
+  if (!cleanedVersion) {
+    const latestVersion = getLatestRelease(changelogPath);
+
+    if (latestVersion) {
+      cleanedVersion = latestVersion;
+    }
+
+    setFailed("Unable to find the version.");
+    exit(1);
+  }
+
+  const bumpedVersion = inc(cleanedVersion, releaseType);
+
+  if (!bumpedVersion) {
+    setFailed("Unable to increment the version");
+    exit(1);
+  }
 
   const author = await getAuthorName();
   const prNumber = await getPrNumber();
 
   startGroup("Generate Changelog");
-  generateCommand(author, prNumber, cleanedVersion, config);
+  generateCommand(author, prNumber, bumpedVersion, config);
   endGroup();
 
   const { stdout } = await getExecOutput("git", ["status", "--porcelain"]);
@@ -83,6 +103,7 @@ async function generateChangelogAction() {
   endGroup();
 
   notesCommand(version);
+  setOutput("release_version", bumpedVersion);
 }
 
 export { generateChangelogAction };
