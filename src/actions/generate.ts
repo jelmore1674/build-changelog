@@ -107,7 +107,7 @@ async function generateChangelogAction() {
   endGroup();
 
   notesCommand(version);
-  setOutput("release_version", bumpedVersion);
+  setOutput("release_version", releaseVersion);
 }
 
 export { generateChangelogAction };
