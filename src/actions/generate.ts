@@ -107,7 +107,7 @@ async function generateChangelogAction() {
   endGroup();
 
   notesCommand(version);
-  setOutput("release_version", releaseVersion);
+  setOutput("release_version", `${git_tag_prefix}${releaseVersion}`);
 }
 
 export { generateChangelogAction };
