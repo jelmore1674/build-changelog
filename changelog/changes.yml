@@ -1,0 +1,7 @@
+added:
+  feature:
+    - Feature to allow for semantic versioning to manage the version.
+
+changed:
+  workflow:
+    - Replaced release action with `release-semver-action`.
