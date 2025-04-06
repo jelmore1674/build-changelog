@@ -1,0 +1,3 @@
+fixed:
+  notes:
+    - Fixed issue where `Added` was at top of the release notes always.
