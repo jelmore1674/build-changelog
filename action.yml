@@ -87,6 +87,8 @@ inputs:
 outputs:
   notes:
     description: "The Release Notes for the latest changes."
+  release_version:
+    description: The Semantically updated version.
 
 runs:
   using: node20
