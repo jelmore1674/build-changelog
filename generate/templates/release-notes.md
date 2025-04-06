@@ -1,7 +1,5 @@
 # What's Changed
 
-{{#added.length}}## Added
-
 {{#changed.length}}## Changed
 
 {{#changed}}
@@ -9,6 +7,8 @@
 {{/changed}}
 
 {{/changed.length}}
+{{#added.length}}## Added
+
 {{#added}}
 {{> change}}
 {{/added}}
