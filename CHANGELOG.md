@@ -22,6 +22,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Prevent `Unreleased` heading from creating a broken link. ([#51](https://github.com/jelmore1674/build-changelog/pull/51)) ([Justin Elmore](https://github.com/jelmore1674))
 
+### Security
+
+- Pin dependency `@types/semver` to `7.7.0`. ([#54](https://github.com/jelmore1674/build-changelog/pull/54)) ([Justin Elmore](https://github.com/jelmore1674))
+
 ## [1.1.1] - 2025-04-02
 
 ### Security
@@ -64,7 +68,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 _Initial Release_
 
-
 [1.1.1]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.1.1
 [1.1.0]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.1.0
 [1.0.0]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.0.0
+
