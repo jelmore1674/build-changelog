@@ -3,11 +3,35 @@ name: Release
 on:
   workflow_dispatch:
     inputs:
-      tag:
-        description: "Release Tag"
-        type: "string"
-        default: "v"
+      release_type:
+        description: The semver release type
+        type: choice
+        default: patch
         required: true
+        options:
+          - patch
+          - minor
+          - major
+
+      tag:
+        description: Release Tag
+        type: string
+        required: false
+
+      release_name:
+        description: The release name.
+        type: string
+        required: false
+
+      update_package_json:
+        description: Update the package.json version.
+        type: boolean
+        default: true
+
+      move_major_version_tag:
+        description: Move the major version tag.
+        type: boolean
+        default: true
 
 permissions:
   # Give the default GITHUB_TOKEN write permission to commit and push the
@@ -27,22 +51,13 @@ jobs:
         with:
           version: ${{ inputs.tag }}
 
-      - name: Get Latest Sha
-        id: sha
-        run: |
-          git pull origin HEAD
-          echo "sha=$(git rev-parse HEAD)"  >> "$GITHUB_OUTPUT"
-
       - name: Create Release
         id: create_release
-        uses: comnoco/create-release-action@v2
-        env:
-          NOTES: ${{ steps.changelog.outputs.notes }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        uses: jelmore1674/release-semver-action@v2
         with:
           commitish: ${{ steps.sha.outputs.sha }}
           tag_name: ${{ inputs.tag }}
           release_name: ${{ inputs.tag }}
-          body: ${{ env.NOTES }}
+          body: ${{ steps.changelog.outputs.notes }}
           draft: false
           prerelease: false
