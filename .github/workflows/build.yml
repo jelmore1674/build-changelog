@@ -8,6 +8,7 @@ on:
       - "package.json"
       - "pnpm-lock.yaml"
       - "**/build.yml"
+      - "templates/**"
 
 permissions:
   # Give the default GITHUB_TOKEN write permission to commit and push the
