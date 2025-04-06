@@ -44,7 +44,7 @@ jobs:
 
       - name: Create Release
         id: create_release
-        uses: jelmore1674/release-semver-action@v2
+        uses: jelmore1674/release-semver-action@v1
         with:
           tag_name: ${{ inputs.tag }}
           release_name: ${{ inputs.tag }}
