@@ -25,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Security
 
 - Pin dependency `@types/semver` to `7.7.0`. ([#54](https://github.com/jelmore1674/build-changelog/pull/54)) ([Justin Elmore](https://github.com/jelmore1674))
+- Update dependency `typescript` to `v5.8.3`. ([#52](https://github.com/jelmore1674/build-changelog/pull/52)) ([Justin Elmore](https://github.com/jelmore1674))
 
 ## [1.1.1] - 2025-04-02
 
