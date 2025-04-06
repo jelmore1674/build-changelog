@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Fixed issue where `Added` was at top of the release notes always. ([#57](https://github.com/jelmore1674/build-changelog/pull/57)) ([Justin Elmore](https://github.com/jelmore1674))
+- Added util `stringToBoolean` to replace `Boolean` to determine if a string is a boolean or not. ([#58](https://github.com/jelmore1674/build-changelog/pull/58)) ([Justin Elmore](https://github.com/jelmore1674))
 
 ## [1.2.0] - 2025-04-06
 

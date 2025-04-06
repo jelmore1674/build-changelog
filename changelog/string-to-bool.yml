@@ -1,3 +1,0 @@
-fixed:
-  feature:
-    - Added util `stringToBoolean` to replace `Boolean` to determine if a string is a boolean or not.
