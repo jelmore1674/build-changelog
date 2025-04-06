@@ -11,10 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Allow `log` function to take more than one parameter. ([#51](https://github.com/jelmore1674/build-changelog/pull/51)) ([Justin Elmore](https://github.com/jelmore1674))
 - Ordering of the change groups to match the order from [Common Changelog](https://common-changelog.org/#24-change-group) ([#51](https://github.com/jelmore1674/build-changelog/pull/51)) ([Justin Elmore](https://github.com/jelmore1674))
+- Replaced release action with `release-semver-action`. ([#55](https://github.com/jelmore1674/build-changelog/pull/55)) ([Justin Elmore](https://github.com/jelmore1674))
 
 ### Added
 
 - Output `notes` that has the latest release notes in it. ([#50](https://github.com/jelmore1674/build-changelog/pull/50)) ([Justin Elmore](https://github.com/jelmore1674))
+- Feature to allow for semantic versioning to manage the version. ([#55](https://github.com/jelmore1674/build-changelog/pull/55)) ([Justin Elmore](https://github.com/jelmore1674))
 
 ### Fixed
 
