@@ -23,16 +23,6 @@ on:
         type: string
         required: false
 
-      update_package_json:
-        description: Update the package.json version.
-        type: boolean
-        default: true
-
-      move_major_version_tag:
-        description: Move the major version tag.
-        type: boolean
-        default: true
-
 permissions:
   # Give the default GITHUB_TOKEN write permission to commit and push the
   # added or changed files to the repository.
@@ -49,15 +39,15 @@ jobs:
         id: changelog
         uses: ./
         with:
+          release_type: ${{ inputs.release_type }}
           version: ${{ inputs.tag }}
 
       - name: Create Release
         id: create_release
         uses: jelmore1674/release-semver-action@v2
         with:
-          commitish: ${{ steps.sha.outputs.sha }}
           tag_name: ${{ inputs.tag }}
           release_name: ${{ inputs.tag }}
           body: ${{ steps.changelog.outputs.notes }}
-          draft: false
-          prerelease: false
+          update_package_json: true
+          move_major_version_tag: true
