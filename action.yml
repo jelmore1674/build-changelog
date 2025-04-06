@@ -1,6 +1,9 @@
 name: Build Changelog Action
 description: Generate your changelog from your changelog files.
 author: Justin Elmore
+branding:
+  color: gray-dark
+  icon: edit
 
 inputs:
   commit_with_api:
