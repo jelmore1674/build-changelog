@@ -11,6 +11,7 @@ import { commitAndPush } from "./utils/commitAndPush";
 import { commitWithApi } from "./utils/commitWithApi";
 import { getAuthorName } from "./utils/getAuthorName";
 import { getPrNumber } from "./utils/getPrNumber";
+import { stringToBoolean } from "./utils/stringToBoolean";
 
 /**
  * Format the flags from a key value pair to an array object.
@@ -25,18 +26,18 @@ function formatFlags(flags: string) {
 const releaseType = getInput("release_type", { required: false }) as ReleaseType;
 const commitMessage = getInput("commit_message");
 const dir = getInput("dir", { required: true });
-const isApiCommit = Boolean(getInput("commit_with_api"));
+const isApiCommit = stringToBoolean(getInput("commit_with_api"));
 const rawFlags = getInput("flags", { required: false });
 const version = getInput("version", { required: false });
 
 // biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
 const git_tag_prefix = getInput("git_tag_prefix", { required: false });
 // biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
-const reference_pull_requests = Boolean(getInput("reference_pull_requests", { required: false }));
+const reference_pull_requests = stringToBoolean(getInput("reference_pull_requests", { required: false }));
 // biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
-const show_author = Boolean(getInput("show_author", { required: false }));
+const show_author = stringToBoolean(getInput("show_author", { required: false }));
 // biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
-const show_author_full_name = Boolean(getInput("show_author_full_name", { required: false }));
+const show_author_full_name = stringToBoolean(getInput("show_author_full_name", { required: false }));
 
 const flags = formatFlags(rawFlags);
 
