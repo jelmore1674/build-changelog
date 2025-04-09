@@ -21,8 +21,8 @@ importers:
         specifier: 2.2.5
         version: 2.2.5
       '@jelmore1674/changelog':
-        specifier: ^0.2.7
-        version: 0.2.7
+        specifier: ^0.2.8
+        version: 0.2.8
       fs-extra:
         specifier: 11.3.0
         version: 11.3.0
@@ -384,8 +384,8 @@ packages:
     resolution: {integrity: sha512-ZXRY4jNvVgSVQ8DL3LTcakaAtXwTVUxE81hslsyD2AtoXW/wVob10HkOJ1X/pAlcI7D+2YoZKg5do8G/w6RYgA==}
     engines: {node: '>=8'}
 
-  '@jelmore1674/changelog@0.2.7':
-    resolution: {integrity: sha512-BdgIloNdRyPXG2WAA3yJNpWc89sBQLtNt/LRBuDNZ40gfnjgc++yA4fyblj2ogO1GVo2w3jXa4tHMXb1NqNOGw==}
+  '@jelmore1674/changelog@0.2.8':
+    resolution: {integrity: sha512-RSJ2JyWHmoVVjra7g79VC/b9w11MihzT15F01WFTL52u2NwHLbfdrcjjUlK4akuqAfnh2U/nVpeuE75nF3H/Iw==}
 
   '@jridgewell/gen-mapping@0.3.8':
     resolution: {integrity: sha512-imAbBGkb+ebQyxKgzv5Hu2nmROxoDOXHh80evxdoXNOrvAnVx7zimzc1Oo5h9RlfV4vPXaE2iM5pOFbvOCClWA==}
@@ -1269,7 +1269,7 @@ snapshots:
 
   '@istanbuljs/schema@0.1.3': {}
 
-  '@jelmore1674/changelog@0.2.7':
+  '@jelmore1674/changelog@0.2.8':
     dependencies:
       latest-semver: 4.0.0
       semver: 7.7.1
