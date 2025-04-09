@@ -5,7 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.2.2] - date
+## [Unreleased] - TBD
+
+### Fixed
+
+- Update `@jelmore1674/changelog` to fix bug where on release version doesn't update. ([Justin Elmore](https://github.com/jelmore1674))
+
+## [1.2.2] - TBD
 
 ### Added
 
@@ -86,9 +92,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 _Initial Release_
 
+
+[1.2.2]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.2.2
 [1.2.1]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.2.1
 [1.2.0]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.2.0
 [1.1.1]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.1.1
 [1.1.0]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.1.0
 [1.0.0]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.0.0
-

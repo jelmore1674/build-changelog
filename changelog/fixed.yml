@@ -1,3 +1,0 @@
-fixed:
-  ops:
-    - Update `@jelmore1674/changelog` to fix bug where on release version doesn't update.
