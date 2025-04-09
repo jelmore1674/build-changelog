@@ -1,0 +1,7 @@
+added:
+  feature:
+    - Implemented the `@jelmore1674/changelog` package, to replace `parseChangelog` functionality.
+
+removed:
+  function:
+    - Removed the `parseChangelog` function.

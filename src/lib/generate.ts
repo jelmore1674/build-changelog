@@ -1,4 +1,5 @@
 import { JsonMap } from "@iarna/toml";
+import { parseChangelog } from "@jelmore1674/changelog";
 import { existsSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { getParser } from "../utils/getParser";
@@ -7,7 +8,6 @@ import { isYamlFile } from "../utils/isYamlFile";
 import { log } from "../utils/log";
 import { changelogArchive, changelogDir, changelogPath, Config, config } from "./config";
 import { Changes, generateChangelog, Keywords, Reference, Version } from "./mustache";
-import { parseChangelog } from "./parseChangelog";
 import { rl } from "./readline";
 
 const GITHUB_SERVER_URL = process.env.GITHUB_SERVER_URL;
@@ -152,7 +152,12 @@ function generateCommand(
 
   log("Generating changelog.");
 
-  let changelogArchive: Version[] = parseChangelog(changelogPath, releaseVersion);
+  let changelogArchive: Version[] = [];
+
+  if (existsSync(changelogPath)) {
+    const changelogFile = readFileSync(changelogPath, { encoding: "utf8" });
+    changelogArchive = parseChangelog(changelogFile, releaseVersion);
+  }
 
   const files = readdirSync(changelogDir, { recursive: true, encoding: "utf8" });
 

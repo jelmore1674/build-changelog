@@ -1,4 +1,5 @@
 import TOML from "@iarna/toml";
+import { parseChangelog } from "@jelmore1674/changelog";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import YAML from "yaml";
@@ -6,7 +7,6 @@ import { getParser } from "../utils/getParser";
 import { log } from "../utils/log";
 import { changelogDir, Config, config, configPath, initialConfig } from "./config";
 import { writeChangelogToArchive } from "./generate";
-import { parseChangelog } from "./parseChangelog";
 import { prompt, rl } from "./readline";
 
 const SAMPLE_FILE_NAME = {
@@ -111,8 +111,9 @@ async function initCommand() {
       "yes",
     ]) || "no";
     if (existing === "yes") {
+      const changelogFile = readFileSync("CHANGELOG.md", { encoding: "utf8" });
       writeChangelogToArchive(
-        parseChangelog("CHANGELOG.md"),
+        parseChangelog(changelogFile),
         path.join(config.dir, ARCHVIE_FILE[config.prefers]),
         config.prefers,
       );
