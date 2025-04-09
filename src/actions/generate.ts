@@ -1,10 +1,11 @@
 import { endGroup, getInput, setFailed, setOutput, startGroup } from "@actions/core";
 import { exec, getExecOutput } from "@actions/exec";
+import { getLatestRelease } from "@jelmore1674/changelog";
+import { readFileSync } from "node:fs";
 import { exit } from "node:process";
 import { clean, inc, type ReleaseType } from "semver";
 import { changelogPath, type Config } from "../lib/config";
 import { generateCommand } from "../lib/generate";
-import { getLatestRelease } from "../lib/parseChangelog";
 import { notesCommand } from "../lib/releaseNotes";
 import { log } from "../utils/log";
 import { commitAndPush } from "./utils/commitAndPush";
@@ -65,7 +66,8 @@ async function generateChangelogAction() {
     let cleanedVersion = clean(version);
 
     if (!cleanedVersion) {
-      const latestVersion = getLatestRelease(changelogPath);
+      const changelogFile = readFileSync(changelogPath, { encoding: "utf8" });
+      const latestVersion = getLatestRelease(changelogFile);
 
       if (!latestVersion) {
         setFailed("Unable to find the version.");
