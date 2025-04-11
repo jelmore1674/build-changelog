@@ -28,6 +28,7 @@ const releaseType = getInput("release_type", { required: false }) as ReleaseType
 const commitMessage = getInput("commit_message");
 const dir = getInput("dir", { required: true });
 const isApiCommit = stringToBoolean(getInput("commit_with_api"));
+const skipCommit = stringToBoolean(getInput("skipCommit"));
 const rawFlags = getInput("flags", { required: false });
 const version = getInput("version", { required: false });
 
@@ -92,22 +93,24 @@ async function generateChangelogAction() {
   generateCommand(author, prNumber, releaseVersion, config);
   endGroup();
 
-  const { stdout } = await getExecOutput("git", ["status", "--porcelain"]);
+  if (!skipCommit) {
+    const { stdout } = await getExecOutput("git", ["status", "--porcelain"]);
 
-  if (!stdout.match(/CHANGELOG\.md/gi)) {
-    log("No changes to the changelog");
-    exit(0);
+    if (!stdout.match(/CHANGELOG\.md/gi)) {
+      log("No changes to the changelog");
+      exit(0);
+    }
+
+    await exec("git", ["add", "."]);
+
+    startGroup("Commit changes.");
+    if (isApiCommit) {
+      await commitWithApi(commitMessage);
+    } else {
+      await commitAndPush(commitMessage);
+    }
+    endGroup();
   }
-
-  await exec("git", ["add", "."]);
-
-  startGroup("Commit changes.");
-  if (isApiCommit) {
-    await commitWithApi(commitMessage);
-  } else {
-    await commitAndPush(commitMessage);
-  }
-  endGroup();
 
   notesCommand(version);
   setOutput("release_version", `${git_tag_prefix}${releaseVersion}`);

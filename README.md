@@ -225,6 +225,11 @@ inputs:
     required: false
     default: ''
 
+  skip_commit:
+    description: Opt out of committing change. (Ex. You can defer the commit until a later step.)
+    required: false
+    default: 'false'
+
   token:
     description: The secret value from your GITHUB_TOKEN or another token to access the GitHub API. Defaults to the token at `github.token`
     required: true

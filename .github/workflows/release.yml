@@ -41,6 +41,7 @@ jobs:
         with:
           release_type: ${{ inputs.release_type }}
           version: ${{ inputs.tag }}
+          skip_commit: true
 
       - name: Create Release
         id: create_release
