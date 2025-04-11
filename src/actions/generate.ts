@@ -93,16 +93,16 @@ async function generateChangelogAction() {
   generateCommand(author, prNumber, releaseVersion, config);
   endGroup();
 
-  const { stdout } = await getExecOutput("git", ["status", "--porcelain"]);
-
-  if (!stdout.match(/CHANGELOG\.md/gi)) {
-    log("No changes to the changelog");
-    exit(0);
-  }
-
-  await exec("git", ["add", "."]);
-
   if (!skipCommit) {
+    const { stdout } = await getExecOutput("git", ["status", "--porcelain"]);
+
+    if (!stdout.match(/CHANGELOG\.md/gi)) {
+      log("No changes to the changelog");
+      exit(0);
+    }
+
+    await exec("git", ["add", "."]);
+
     startGroup("Commit changes.");
     if (isApiCommit) {
       await commitWithApi(commitMessage);
