@@ -1,3 +1,0 @@
-fixed:
-  change:
-    - Fix typo in `getInput` for `skip_commit`.
