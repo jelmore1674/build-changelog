@@ -228,13 +228,10 @@ function generateCommand(
                   let renderedChange = change;
 
                   // Generate the links for the change.
-                  if (
-                    prNumber && (actionConfig.reference_pull_requests || references.length)
-                    && GITHUB_REPOSITORY
-                  ) {
+                  if (references.length && GITHUB_REPOSITORY) {
                     renderedChange = `${change} (${
                       generateReferences([
-                        ...((actionConfig.reference_pull_requests && prNumber)
+                        ...((actionConfig?.reference_pull_requests && prNumber)
                           ? [{ type: "pull_request", reference: prNumber.toString() }] as Reference[]
                           : []),
                         ...references,
