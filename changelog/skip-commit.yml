@@ -1,3 +1,0 @@
-added:
-  feature:
-    - Optional `skip_commit` input to opt out of committing changelog changes.
