@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased] - TBD
+
+### Fixed
+
+- References in changelog file entry are not being added. ([#68](https://github.com/jelmore1674/build-changelog/pull/68), [#67](https://github.com/jelmore1674/build-changelog/issues/67)) ([Justin Elmore](https://github.com/jelmore1674))
+
 ## [1.3.2] - 2025-04-11
 
 ### Fixed

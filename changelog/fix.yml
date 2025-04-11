@@ -1,7 +1,0 @@
-fixed:
-  changes:
-    - References in changelog file entry are not being added.
-
-references:
-  - type: issue
-    reference: 67
