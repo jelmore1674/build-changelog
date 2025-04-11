@@ -28,7 +28,7 @@ const releaseType = getInput("release_type", { required: false }) as ReleaseType
 const commitMessage = getInput("commit_message");
 const dir = getInput("dir", { required: true });
 const isApiCommit = stringToBoolean(getInput("commit_with_api"));
-const skipCommit = stringToBoolean(getInput("skipCommit"));
+const skipCommit = stringToBoolean(getInput("skip_commit"));
 const rawFlags = getInput("flags", { required: false });
 const version = getInput("version", { required: false });
 
