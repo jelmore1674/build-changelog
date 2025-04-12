@@ -183,7 +183,7 @@ function generateChange(
  */
 function generateCommand(
   author = "bcl-bot",
-  prNumber?: number,
+  prNumber = 10,
   releaseVersion?: string,
   actionConfig = config as Omit<Config, "repo_url" | "release_url" | "prefers">,
 ) {
