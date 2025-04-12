@@ -15,6 +15,9 @@ const notice = readFileSync(path.join(dir, "templates/notice.md"), "utf8");
 const GITHUB_SERVER_URL = process.env.GITHUB_SERVER_URL;
 const GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY;
 
+/** Properties we will not use when adding changes to the changelog */
+const KEY_FILTER = ["release_date", "version", "notice", "references", "author"];
+
 /** Initial list of supported keywords */
 const KEYWORDS = {
   added: "added",
@@ -53,6 +56,36 @@ type Changes = Release & Partial<Record<Keywords, Partial<Record<string, string[
  */
 type Version = Release & Partial<Record<Keywords, string[]>>;
 
+function sortBreakingChanges(version: Version) {
+  for (const changes in version) {
+    if (KEY_FILTER.includes(changes)) {
+      continue;
+    }
+    const keyword = changes as Keywords;
+
+    if (version[keyword]) {
+      version?.[keyword].sort((a, b) => {
+        if (config.flags?.breaking) {
+          const isPrefixedA = a.startsWith(config.flags?.breaking);
+          const isPrefixedB = b.startsWith(config.flags?.breaking);
+
+          if (isPrefixedA && !isPrefixedB) {
+            return -1;
+          }
+
+          if (!isPrefixedA && isPrefixedB) {
+            return 1;
+          }
+        }
+
+        return a.localeCompare(b);
+      });
+    }
+  }
+
+  return version;
+}
+
 /* v8 ignore start */
 /**
  * Generate the changelog.
@@ -79,7 +112,9 @@ function generateChangelog(
     });
   }
 
-  return Mustache.render(heading, { versions, links: genLinks.filter(i => i) }, {
+  const sortedVersions = versions.map(sortBreakingChanges);
+
+  return Mustache.render(heading, { versions: sortedVersions, links: genLinks.filter(i => i) }, {
     versions: version,
     change,
     links,
@@ -89,7 +124,7 @@ function generateChangelog(
 }
 
 function generateReleaseNotes(version: Version) {
-  return Mustache.render(releaseNotes, version, { change })?.trim();
+  return Mustache.render(releaseNotes, sortBreakingChanges(version), { change })?.trim();
 }
 /* v8 ignore end */
 
