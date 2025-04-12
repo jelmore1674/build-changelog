@@ -1,7 +1,7 @@
-changed:
-  - test
-  - test2
-
 added:
-  breaking:
-    - feature
+  - message: Support for 3 different type of entries into the changelog.
+    references:
+      - type: issue
+        number: 69
+
+notice: Read the [README](./changelog/README.md) how to add changes.
