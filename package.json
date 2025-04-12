@@ -25,7 +25,7 @@
     "@actions/exec": "^1.1.1",
     "@actions/github": "^6.0.0",
     "@iarna/toml": "2.2.5",
-    "@jelmore1674/changelog": "^0.2.8",
+    "@jelmore1674/changelog": "^0.3.0",
     "fs-extra": "11.3.0",
     "latest-semver": "^4.0.0",
     "mustache": "4.2.0",
