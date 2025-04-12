@@ -26,13 +26,6 @@ type Config = {
   prefers: "toml" | "yaml";
 
   /**
-   * Use changelog archive file, or parse changelog
-   *
-   * @default false
-   */
-  changelog_archive: boolean;
-
-  /**
    * Show Author
    *
    * @default true
@@ -89,7 +82,6 @@ const initialConfig: Config = {
   flags: {
     breaking: "[Breaking 🧨]",
   },
-  changelog_archive: false,
   show_author: true,
   show_author_full_name: false,
   reference_pull_requests: true,
