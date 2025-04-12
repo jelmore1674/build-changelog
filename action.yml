@@ -35,6 +35,10 @@ inputs:
     default: "false"
     required: false
 
+  name_override:
+    description: If you have a naming that you want to use that is not the github username, then you can override the github username. Must use a `key=value` pair comma separated.
+    required: false
+
   git_tag_prefix:
     description: The prefix for your git tags.
     default: "v"

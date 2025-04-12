@@ -15,11 +15,17 @@ import { getPrNumber } from "./utils/getPrNumber";
 import { stringToBoolean } from "./utils/stringToBoolean";
 
 /**
- * Format the flags from a key value pair to an array object.
+ * Format a key value pair to an object.
+ *
+ * @param pair the key value pair to turn into an object.
  */
-function formatFlags(flags: string) {
-  return flags.split(",").reduce((acc, flag) => {
-    acc[flag.split("=")[0]] = flag.split("=")[1];
+function formatKeyValuePairToObject(pair: string) {
+  if (!pair) {
+    return undefined;
+  }
+
+  return pair.split(",").reduce((acc, value) => {
+    acc[value.split("=")[0]] = value.split("=")[1];
     return acc;
   }, {} as Record<string, string>);
 }
@@ -40,8 +46,10 @@ const reference_pull_requests = stringToBoolean(getInput("reference_pull_request
 const show_author = stringToBoolean(getInput("show_author", { required: false }));
 // biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
 const show_author_full_name = stringToBoolean(getInput("show_author_full_name", { required: false }));
+const nameOverrideInput = getInput("name_override", { required: false });
 
-const flags = formatFlags(rawFlags);
+const flags = formatKeyValuePairToObject(rawFlags);
+const nameOverrides = formatKeyValuePairToObject(nameOverrideInput);
 
 async function generateChangelogAction() {
   // Check to make sure git exists.
@@ -86,7 +94,7 @@ async function generateChangelogAction() {
     }
   }
 
-  const author = await getAuthorName();
+  const author = await getAuthorName(nameOverrides);
   const prNumber = await getPrNumber();
 
   startGroup("Generate Changelog");

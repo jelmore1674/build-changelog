@@ -3,5 +3,13 @@ added:
     references:
       - type: issue
         number: 69
+  - message: Sort breaking changes to the top of the change section.
+    references:
+      - type: issue
+        number: 31
+  - message: Add `name_override` input to give more control on naming convention of contributors.
+    references:
+      - type: issue
+        number: 70
 
-notice: Read the [README](./changelog/README.md) how to add changes.
+notice: Read the [README](./README.md) how to add changes.
