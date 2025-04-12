@@ -169,6 +169,8 @@ function generateChange(
     return `${config.flags?.[flag]} - ${renderedChange}`;
   }
 
+  log(`Change: ${renderedChange}`);
+
   return renderedChange;
 }
 
