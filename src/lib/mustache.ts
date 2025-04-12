@@ -26,8 +26,8 @@ const KEYWORDS = {
 } as const;
 
 interface Reference {
-  type: "commit" | "issue" | "pull_request";
-  reference: string;
+  type: "issue" | "pull_request";
+  number: string | number;
 }
 
 interface Release {
@@ -61,7 +61,7 @@ type Version = Release & Partial<Record<Keywords, string[]>>;
  */
 function generateChangelog(
   versions: Version[],
-  actionConfig = config as Omit<Config, "repo_url" | "release_url" | "changelog_archive" | "prefers">,
+  actionConfig = config as Omit<Config, "repo_url" | "release_url" | "prefers">,
 ) {
   let genLinks: ({ version: string; url: string } | null)[] = [];
 
