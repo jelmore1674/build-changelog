@@ -183,7 +183,7 @@ function generateChange(
  */
 function generateCommand(
   author = "bcl-bot",
-  prNumber = 10,
+  prNumber?: number,
   releaseVersion?: string,
   actionConfig = config as Omit<Config, "repo_url" | "release_url" | "prefers">,
 ) {
@@ -299,6 +299,7 @@ function generateCommand(
         }
 
         if (!foundRelease) {
+          log("currentVersion", currentVersion);
           acc.push(currentVersion);
         }
       }
