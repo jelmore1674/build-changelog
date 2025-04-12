@@ -103,6 +103,7 @@ function generateLink(reference: LinkReference) {
  * @param references - the references we are adding to the change.
  */
 function generateReferences(references: Reference[]): string {
+  log(`References Found: ${references.length}`);
   if (references.length) {
     return references.map((reference) => {
       return generateLink(reference as LinkReference);
@@ -186,6 +187,8 @@ function generateCommand(
 ) {
   log("generate command parameters", { author, prNumber, releaseVersion });
 
+  log("actionConfig", JSON.stringify(actionConfig, null, 2));
+
   log("Generating changelog.");
 
   let changelog: Version[] = [];
@@ -199,6 +202,7 @@ function generateCommand(
 
   const parsedChangelog = files.reduce((acc: Version[], file) => {
     if (isTomlOrYamlFile(file)) {
+      log(`Parsing ${file} file now.`);
       const parsedChanges = parseChanges<ParsedChanges>(path.join(changelogDir, file));
 
       // Set fallback values for release_date and Version
