@@ -1,36 +1,67 @@
-import { JsonMap } from "@iarna/toml";
 import { parseChangelog } from "@jelmore1674/changelog";
-import { existsSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
+import { cleanUpChangelog } from "../utils/cleanUpChangelog";
 import { getParser } from "../utils/getParser";
-import { isTomlFile } from "../utils/isTomlFile";
-import { isYamlFile } from "../utils/isYamlFile";
+import { isTomlOrYamlFile } from "../utils/isTomlOrYamlFile";
 import { log } from "../utils/log";
-import { changelogArchive, changelogDir, changelogPath, Config, config } from "./config";
+import { changelogDir, changelogPath, Config, config } from "./config";
 import { Changes, generateChangelog, Keywords, Reference, Version } from "./mustache";
 import { rl } from "./readline";
 
-const GITHUB_SERVER_URL = process.env.GITHUB_SERVER_URL;
-const GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY;
-const GITHUB_ACTOR = process.env.GITHUB_ACTOR;
+const GITHUB_SERVER_URL = process.env.GITHUB_SERVER_URL ?? "https://api.github.com";
+const GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY ?? "jelmore1674/build-changelog";
+const GITHUB_ACTOR = process.env.GITHUB_ACTOR ?? "bcl-bot";
+
+/**
+ * Complex changelog entry
+ */
+type ComplexChange = {
+  /**
+   * Any custom flags with prefixes.
+   */
+  flag?: string;
+  /**
+   * The changelog message.
+   */
+  message: string;
+  /**
+   * References
+   */
+  references?: Reference[];
+};
+
+/**
+ * The parsed changed from the changelog file.
+ */
+interface ParsedChanges extends Partial<Record<Keywords, string[] | Record<string, string[]> | ComplexChange[]>> {
+  /**
+   * The version of the change
+   */
+  version: string;
+  /**
+   * The release date of the version
+   */
+  release_date?: string;
+  /**
+   * A notice for the version entry.
+   */
+  notice?: string;
+  /**
+   * References to a issue or pull request.
+   */
+  references?: Reference[];
+}
+
+interface LinkReference extends Omit<Reference, "type"> {
+  type: "pull_request" | "issue";
+}
 
 /** Properties we will not use when adding changes to the changelog */
-const YAML_KEY_FILTER = ["release_date", "version", "notice", "references", "author"];
+const KEY_FILTER = ["release_date", "version", "notice", "references", "author"];
 
 /** The valid keywords that are used for the sections in the changelog */
 const VALID_KEYWORDS = ["added", "changed", "deprecated", "fixed", "removed", "security"];
-
-/** The archive files. `.toml` or '.yml'. */
-const ARCHIVE_FILES = ["archive.toml", "archive.yml"];
-
-/**
- * Utility function that determines if the file is a `TOML` or `YAML` file.
- *
- * @param file - the file name you are checking.
- */
-function isTomlOrYamlFile(file: string) {
-  return isTomlFile(file) || isYamlFile(file);
-}
 
 /**
  * Parse the changes from a `yaml` or `toml` file.
@@ -46,51 +77,10 @@ function parseChanges<T = Changes>(file: string): T {
   throw new Error(`The file does not exist\n\n${file}`);
 }
 
-/**
- * Get the data from the changelog archive.
- */
-function getChangelogArchive(): Version[] {
-  if (existsSync(changelogArchive)) {
-    return parseChanges<{ changelog: Version[] }>(changelogArchive)?.changelog ?? [];
-  }
-
-  return [];
-}
-
-/**
- * Write the changelog to the archive.
- *
- * @param changelog - the changelog to write
- * @param archiveFile - where we will write the changelog archive.
- */
-function writeChangelogToArchive(changelog: Version[], archiveFile = changelogArchive, prefers: "toml" | "yaml") {
-  const parser = getParser(prefers);
-  const archive = parser.stringify({ changelog } as unknown as JsonMap);
-  writeFileSync(archiveFile, archive, { encoding: "utf8" });
-}
-
-/**
- * Remove all `yaml` or `toml` files from the changelog directory.
- */
-function cleanUpChangelog() {
-  log("Cleaning up files.");
-  // Clean up the changelog directory after we have finished updating the CHANGELOG.
-  readdirSync(changelogDir, { recursive: true, encoding: "utf8" }).forEach(file => {
-    if (isTomlOrYamlFile(file) && !ARCHIVE_FILES.includes(file)) {
-      rmSync(path.join(changelogDir, file as string), { recursive: true, force: true });
-    }
-  });
-  log("Finished cleaing. ");
-}
-
 const LINK_TYPE = {
   pull_request: "pull",
   issue: "issues",
 };
-
-interface LinkReference extends Omit<Reference, "type"> {
-  type: "pull_request" | "issue";
-}
 
 /**
  * Generate the link of the change.
@@ -99,12 +89,12 @@ interface LinkReference extends Omit<Reference, "type"> {
  */
 function generateLink(reference: LinkReference) {
   if (config.repo_url) {
-    return `[#${reference.reference}](${config.repo_url}/${LINK_TYPE[reference.type]}/${reference.reference})`;
+    return `[#${reference.number}](${config.repo_url}/${LINK_TYPE[reference.type]}/${reference.number})`;
   }
 
-  return `[#${reference.reference}](${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/${
+  return `[#${reference.number}](${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/${
     LINK_TYPE[reference.type]
-  }/${reference.reference})`;
+  }/${reference.number})`;
 }
 
 /**
@@ -115,10 +105,6 @@ function generateLink(reference: LinkReference) {
 function generateReferences(references: Reference[]): string {
   if (references.length) {
     return references.map((reference) => {
-      if (reference.type === "commit") {
-        return `\`${reference.reference}\``;
-      }
-
       return generateLink(reference as LinkReference);
     }).join(", ");
   }
@@ -136,6 +122,56 @@ function generateAuthorLink(author: string) {
 }
 
 /**
+ * Generate the change entry in the changelog.
+ *
+ * @param change - the change message
+ * @param references - any references to create link.
+ * @param config - the configuration
+ * @param author - the author
+ * @param [flag] - optional flag that can be used.
+ * @param [prNumber] - pr number to auto reference.
+ */
+function generateChange(
+  change: string,
+  references: Reference[],
+  config: Omit<Config, "repo_url" | "release_url" | "prefers">,
+  author: string,
+  flag?: string,
+  prNumber?: number,
+) {
+  let renderedChange = change;
+
+  // Generate the links for the change.
+  if (references.length && GITHUB_REPOSITORY) {
+    renderedChange = `${change} (${
+      generateReferences([
+        ...((config?.reference_pull_requests && prNumber)
+          ? [{ type: "pull_request", number: prNumber.toString() }] as Reference[]
+          : []),
+        ...references,
+      ])
+    })`;
+  }
+
+  // Add author to the change.
+  if (config.show_author) {
+    if (GITHUB_ACTOR) {
+      renderedChange = `${renderedChange} (${
+        generateAuthorLink(config.show_author_full_name ? author : GITHUB_ACTOR)
+      })`;
+    } else {
+      renderedChange = `${renderedChange} (${author})`;
+    }
+  }
+
+  if (flag && config.flags?.[flag]) {
+    return `${config.flags?.[flag]} - ${renderedChange}`;
+  }
+
+  return renderedChange;
+}
+
+/**
  *  The generate command will read the existing `yaml|yml` files in the
  *  `changelogDir`, write them to the `CHANGELOG.md`, and will remove the
  *  files when done.
@@ -146,24 +182,24 @@ function generateCommand(
   author = "bcl-bot",
   prNumber?: number,
   releaseVersion?: string,
-  actionConfig = config as Omit<Config, "repo_url" | "release_url" | "changelog_archive" | "prefers">,
+  actionConfig = config as Omit<Config, "repo_url" | "release_url" | "prefers">,
 ) {
   log("generate command parameters", { author, prNumber, releaseVersion });
 
   log("Generating changelog.");
 
-  let changelogArchive: Version[] = [];
+  let changelog: Version[] = [];
 
   if (existsSync(changelogPath)) {
     const changelogFile = readFileSync(changelogPath, { encoding: "utf8" });
-    changelogArchive = parseChangelog(changelogFile, releaseVersion);
+    changelog = parseChangelog(changelogFile, releaseVersion);
   }
 
   const files = readdirSync(changelogDir, { recursive: true, encoding: "utf8" });
 
-  const changelog = files.reduce((acc: Version[], file) => {
-    if (isTomlOrYamlFile(file) && !ARCHIVE_FILES.includes(file)) {
-      const parsedChanges = parseChanges(path.join(changelogDir, file));
+  const parsedChangelog = files.reduce((acc: Version[], file) => {
+    if (isTomlOrYamlFile(file)) {
+      const parsedChanges = parseChanges<ParsedChanges>(path.join(changelogDir, file));
 
       // Set fallback values for release_date and Version
       let version = parsedChanges.version || "Unreleased";
@@ -201,7 +237,7 @@ function generateCommand(
       if (parsedChanges) {
         for (const changes in parsedChanges) {
           // Filter out the non keyword properties.
-          if (YAML_KEY_FILTER.includes(changes)) {
+          if (KEY_FILTER.includes(changes)) {
             continue;
           }
           const keyword = changes as Keywords;
@@ -220,43 +256,38 @@ function generateCommand(
           }
 
           if (parsedChanges[keyword]) {
-            for (const flag in parsedChanges[keyword]) {
-              // Add the change to the current version. If the change flag has
-              // a prefix we will add the prefix. Else we will return the string.
-              currentVersion[keyword]?.push(
-                ...parsedChanges[keyword]?.[flag]?.map((change: string) => {
-                  let renderedChange = change;
+            if (Array.isArray(parsedChanges[keyword]) && parsedChanges[keyword].length) {
+              parsedChanges[keyword]?.map(item => {
+                if (typeof item === "string") {
+                  currentVersion[keyword]?.push(
+                    generateChange(item, references, actionConfig, author, undefined, prNumber),
+                  );
+                }
 
-                  // Generate the links for the change.
-                  if (references.length && GITHUB_REPOSITORY) {
-                    renderedChange = `${change} (${
-                      generateReferences([
-                        ...((actionConfig?.reference_pull_requests && prNumber)
-                          ? [{ type: "pull_request", reference: prNumber.toString() }] as Reference[]
-                          : []),
-                        ...references,
-                      ])
-                    })`;
-                  }
+                if (
+                  typeof item === "object" && !Array.isArray(item)
+                  && item !== null
+                ) {
+                  currentVersion[keyword]?.push(
+                    generateChange(item.message, item?.references || [], actionConfig, author, item.flag, prNumber),
+                  );
+                }
+              });
+            }
 
-                  // Add author to the change.
-                  if (actionConfig.show_author) {
-                    if (GITHUB_ACTOR) {
-                      renderedChange = `${renderedChange} (${
-                        generateAuthorLink(actionConfig.show_author_full_name ? author : GITHUB_ACTOR)
-                      })`;
-                    } else {
-                      renderedChange = `${renderedChange} (${author})`;
-                    }
-                  }
-
-                  if (actionConfig.flags?.[flag]) {
-                    return `${actionConfig.flags?.[flag]} - ${renderedChange}`;
-                  }
-
-                  return renderedChange;
-                })!,
-              );
+            if (
+              typeof parsedChanges[keyword] === "object" && !Array.isArray(parsedChanges[keyword])
+              && parsedChanges[keyword] !== null
+            ) {
+              for (const flag in parsedChanges[keyword]) {
+                // Add the change to the current version. If the change flag has
+                // a prefix we will add the prefix. Else we will return the string.
+                currentVersion[keyword]?.push(
+                  ...parsedChanges[keyword]?.[flag]?.map((change: string) => {
+                    return generateChange(change, references, actionConfig, author, flag, prNumber);
+                  }),
+                );
+              }
             }
           }
         }
@@ -269,23 +300,16 @@ function generateCommand(
 
     // Sort the changelog by the version.
     return acc.sort((a, b) => b.version.localeCompare(a.version, "en-US", { ignorePunctuation: true, numeric: true }));
-  }, changelogArchive);
+  }, changelog);
 
-  const renderedChangelog = generateChangelog(changelog, actionConfig);
+  const renderedChangelog = generateChangelog(parsedChangelog, actionConfig);
   writeFileSync(changelogPath, renderedChangelog, { encoding: "utf8" });
 
   log("CHANGELOG.md finished writing.");
 
-  cleanUpChangelog();
+  cleanUpChangelog(actionConfig.dir);
 
   rl.close();
 }
 
-export {
-  cleanUpChangelog,
-  generateCommand,
-  getChangelogArchive,
-  isTomlOrYamlFile,
-  parseChanges,
-  writeChangelogToArchive,
-};
+export { generateCommand, parseChanges };

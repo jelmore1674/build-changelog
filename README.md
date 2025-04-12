@@ -40,8 +40,7 @@ To begin using `build-changelog` first create a `changelog` directory.
 ```yaml
 # changelog/<issue-or-unique-file-name>.yml
 changed:
-  feature:
-    - This is an example commit message.
+  - This is an example commit message.
 ```
 
 > [!NOTE]
@@ -49,8 +48,7 @@ changed:
 
 ```toml
 # changelog/<issue-or-unique-file-name>.toml
-[changed]
-feature = [
+changed = [
   "This is an example change."
 ]
 ```
@@ -78,9 +76,12 @@ changed:
   breaking:
     - This is a breaking change.
 
-references:
-  - type: 'issue'
-    reference: 1
+removed:
+  - message: Removed this breaking item.
+    flag: breaking
+    references:
+      - type: issue
+        number: 1
 ```
 
 > [!NOTE]
@@ -96,9 +97,13 @@ breaking = [
   "This is a breaking change."
 ]
 
-[[references]]
-type = "issue"
-reference = "1"
+[[removed]]
+message = "Removed this breaking item."
+flag = "breaking"
+
+  [[removed.references]]
+  type = "issue"
+  number = 1
 ```
 
 The output of that file would be something like this.
@@ -178,6 +183,10 @@ inputs:
   show_author_full_name:
     description: Show the authors name instead of the authors username.
     default: 'false'
+    required: false
+
+  name_override:
+    description: If you have a naming that you want to use that is not the github username, then you can override the github username. Must use a `key=value` pair comma separated.
     required: false
 
   git_tag_prefix:
