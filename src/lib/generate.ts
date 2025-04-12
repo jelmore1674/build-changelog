@@ -143,7 +143,7 @@ function generateChange(
   let renderedChange = change;
 
   // Generate the links for the change.
-  if (references.length && GITHUB_REPOSITORY) {
+  if (GITHUB_REPOSITORY) {
     renderedChange = `${change} (${
       generateReferences([
         ...((config?.reference_pull_requests && prNumber)
