@@ -15,6 +15,10 @@ _Read the [README.md](./README.md#complex-example) how to add changes._
 - Sort breaking changes to the top of the change section. ([#71](https://github.com/jelmore1674/build-changelog/pull/71), [#31](https://github.com/jelmore1674/build-changelog/issues/31)) ([Justin Elmore](https://github.com/jelmore1674))
 - Support for 3 different type of entries into the changelog. ([#71](https://github.com/jelmore1674/build-changelog/pull/71), [#69](https://github.com/jelmore1674/build-changelog/issues/69)) ([Justin Elmore](https://github.com/jelmore1674))
 
+### Fixed
+
+- Auto referencing prs in changelog entry. ([#75](https://github.com/jelmore1674/build-changelog/pull/75)) ([Justin Elmore](https://github.com/jelmore1674))
+
 ### Security
 
 - Update dependency `@jelmore1674/changelog` to `0.3.0`. ([Justin Elmore](https://github.com/jelmore1674))
