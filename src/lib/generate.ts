@@ -299,9 +299,10 @@ function generateCommand(
         }
 
         if (!foundRelease) {
-          log("currentVersion", currentVersion);
           acc.push(currentVersion);
         }
+
+        log("currentVersion", currentVersion);
       }
     }
 
