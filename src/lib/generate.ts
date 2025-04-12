@@ -103,6 +103,7 @@ function generateLink(reference: LinkReference) {
  * @param references - the references we are adding to the change.
  */
 function generateReferences(references: Reference[]): string {
+  log(`References Found: ${references.length}`);
   if (references.length) {
     return references.map((reference) => {
       return generateLink(reference as LinkReference);
@@ -142,7 +143,7 @@ function generateChange(
   let renderedChange = change;
 
   // Generate the links for the change.
-  if (references.length && GITHUB_REPOSITORY) {
+  if ((references.length || prNumber) && GITHUB_REPOSITORY) {
     renderedChange = `${change} (${
       generateReferences([
         ...((config?.reference_pull_requests && prNumber)
@@ -168,6 +169,8 @@ function generateChange(
     return `${config.flags?.[flag]} - ${renderedChange}`;
   }
 
+  log(`Change: ${renderedChange}`);
+
   return renderedChange;
 }
 
@@ -186,6 +189,8 @@ function generateCommand(
 ) {
   log("generate command parameters", { author, prNumber, releaseVersion });
 
+  log("actionConfig", JSON.stringify(actionConfig, null, 2));
+
   log("Generating changelog.");
 
   let changelog: Version[] = [];
@@ -199,6 +204,7 @@ function generateCommand(
 
   const parsedChangelog = files.reduce((acc: Version[], file) => {
     if (isTomlOrYamlFile(file)) {
+      log(`Parsing ${file} file now.`);
       const parsedChanges = parseChanges<ParsedChanges>(path.join(changelogDir, file));
 
       // Set fallback values for release_date and Version
@@ -295,6 +301,8 @@ function generateCommand(
         if (!foundRelease) {
           acc.push(currentVersion);
         }
+
+        log("currentVersion", currentVersion);
       }
     }
 
