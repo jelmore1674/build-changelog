@@ -36,6 +36,7 @@ interface ParsedChanges
   /**
    * The release date of the version
    */
+  // biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
   release_date?: string;
   /**
    * A notice for the version entry.
