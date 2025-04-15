@@ -1,61 +1,23 @@
-import { parseChangelog } from "@jelmore1674/changelog";
+import {
+  type KeepAChangelogKeywords,
+  parseChangelog,
+  type Reference as ReferenceLink,
+  Version,
+  writeChangelog,
+} from "@jelmore1674/changelog";
 import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
+import { ParsedChanges, Reference } from "../types";
 import { cleanUpChangelog } from "../utils/cleanUpChangelog";
 import { getParser } from "../utils/getParser";
 import { isTomlOrYamlFile } from "../utils/isTomlOrYamlFile";
 import { log } from "../utils/log";
 import { changelogDir, changelogPath, Config, config } from "./config";
-import { Changes, generateChangelog, Keywords, Reference, Version } from "./mustache";
 import { rl } from "./readline";
 
 const GITHUB_SERVER_URL = process.env.GITHUB_SERVER_URL ?? "https://api.github.com";
 const GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY ?? "jelmore1674/build-changelog";
 const GITHUB_ACTOR = process.env.GITHUB_ACTOR ?? "bcl-bot";
-
-/**
- * Complex changelog entry
- */
-type ComplexChange = {
-  /**
-   * Any custom flags with prefixes.
-   */
-  flag?: string;
-  /**
-   * The changelog message.
-   */
-  message: string;
-  /**
-   * References
-   */
-  references?: Reference[];
-};
-
-/**
- * The parsed changed from the changelog file.
- */
-interface ParsedChanges extends Partial<Record<Keywords, string[] | Record<string, string[]> | ComplexChange[]>> {
-  /**
-   * The version of the change
-   */
-  version: string;
-  /**
-   * The release date of the version
-   */
-  release_date?: string;
-  /**
-   * A notice for the version entry.
-   */
-  notice?: string;
-  /**
-   * References to a issue or pull request.
-   */
-  references?: Reference[];
-}
-
-interface LinkReference extends Omit<Reference, "type"> {
-  type: "pull_request" | "issue";
-}
 
 /** Properties we will not use when adding changes to the changelog */
 const KEY_FILTER = ["release_date", "version", "notice", "references", "author"];
@@ -68,7 +30,7 @@ const VALID_KEYWORDS = ["added", "changed", "deprecated", "fixed", "removed", "s
  *
  * @param file - the file you are getting the changes from.
  */
-function parseChanges<T = Changes>(file: string): T {
+function parseChanges<T = Record<KeepAChangelogKeywords, Partial<Record<string, string[]>>>>(file: string): T {
   if (existsSync(file)) {
     const parser = getParser(file);
     return parser.parse(readFileSync(file, { encoding: "utf8" })) as unknown as T;
@@ -83,30 +45,26 @@ const LINK_TYPE = {
 };
 
 /**
- * Generate the link of the change.
- *
- * @param reference - the reference we are creating a link for.
- */
-function generateLink(reference: LinkReference) {
-  if (config.repo_url) {
-    return `[#${reference.number}](${config.repo_url}/${LINK_TYPE[reference.type]}/${reference.number})`;
-  }
-
-  return `[#${reference.number}](${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/${
-    LINK_TYPE[reference.type]
-  }/${reference.number})`;
-}
-
-/**
  * Generate References of the change.
  *
+ * @param changelogLinks - the links from the changelog
  * @param references - the references we are adding to the change.
  */
-function generateReferences(references: Reference[]): string {
+function generateReferences(changelogLinks: ReferenceLink[], references: Reference[]): string {
   log(`References Found: ${references.length}`);
   if (references.length) {
     return references.map((reference) => {
-      return generateLink(reference as LinkReference);
+      if (changelogLinks.find(i => i.reference === `#${reference.number}`)) {
+        log("Found existing reference");
+      } else {
+        log(`Add reference to ${reference.type} #${reference.number}`);
+        changelogLinks.push({
+          url: `${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/${LINK_TYPE[reference.type]}/${reference.number}`,
+          reference: `#${reference.number}`,
+        });
+      }
+
+      return `[#${reference.number}]`;
     }).join(", ");
   }
 
@@ -116,16 +74,28 @@ function generateReferences(references: Reference[]): string {
 /**
  * Generate the link for the author.
  *
+ * @param changelogLinks - the links from the changelog
  * @param author - author name.
  */
-function generateAuthorLink(author: string) {
-  return `[${author}](${GITHUB_SERVER_URL}/${GITHUB_ACTOR})`;
+function generateAuthorLink(changelogLinks: ReferenceLink[], author: string) {
+  if (changelogLinks.find(i => i.reference === author)) {
+    log(`Found reference to ${author}`);
+  } else {
+    log(`Creating reference link for ${author}`);
+    changelogLinks.push({
+      url: `${GITHUB_SERVER_URL}/${GITHUB_ACTOR}`,
+      reference: author,
+    });
+  }
+
+  return `[${author}]`;
 }
 
 /**
  * Generate the change entry in the changelog.
  *
  * @param change - the change message
+ * @param changelogLinks - the links from the changelog
  * @param references - any references to create link.
  * @param config - the configuration
  * @param author - the author
@@ -134,6 +104,7 @@ function generateAuthorLink(author: string) {
  */
 function generateChange(
   change: string,
+  changelogLinks: ReferenceLink[],
   references: Reference[],
   config: Omit<Config, "repo_url" | "release_url" | "prefers">,
   author: string,
@@ -145,7 +116,7 @@ function generateChange(
   // Generate the links for the change.
   if ((references.length || prNumber) && GITHUB_REPOSITORY) {
     renderedChange = `${change} (${
-      generateReferences([
+      generateReferences(changelogLinks, [
         ...((config?.reference_pull_requests && prNumber)
           ? [{ type: "pull_request", number: prNumber.toString() }] as Reference[]
           : []),
@@ -158,7 +129,7 @@ function generateChange(
   if (config.show_author) {
     if (GITHUB_ACTOR) {
       renderedChange = `${renderedChange} (${
-        generateAuthorLink(config.show_author_full_name ? author : GITHUB_ACTOR)
+        generateAuthorLink(changelogLinks, config.show_author_full_name ? author : GITHUB_ACTOR)
       })`;
     } else {
       renderedChange = `${renderedChange} (${author})`;
@@ -172,6 +143,41 @@ function generateChange(
   log(`Change: ${renderedChange}`);
 
   return renderedChange;
+}
+
+/**
+ * Sort the breaking changes and put them at the top of the change section.
+ *
+ * @param version - the version with the changes to sort.
+ */
+function sortBreakingChanges(version: Version<Version<Partial<Record<KeepAChangelogKeywords, string[]>>>>) {
+  for (const changes in version) {
+    if (KEY_FILTER.includes(changes)) {
+      continue;
+    }
+    const keyword = changes as KeepAChangelogKeywords;
+
+    if (version[keyword]) {
+      version?.[keyword].sort((a, b) => {
+        if (config.flags?.breaking) {
+          const isPrefixedA = a.startsWith(config.flags?.breaking);
+          const isPrefixedB = b.startsWith(config.flags?.breaking);
+
+          if (isPrefixedA && !isPrefixedB) {
+            return -1;
+          }
+
+          if (!isPrefixedA && isPrefixedB) {
+            return 1;
+          }
+        }
+
+        return a.localeCompare(b);
+      });
+    }
+  }
+
+  return version;
 }
 
 /**
@@ -193,16 +199,19 @@ function generateCommand(
 
   log("Generating changelog.");
 
-  let changelog: Version[] = [];
+  let changelogVersions: Version<Partial<Record<KeepAChangelogKeywords, string[]>>>[] = [];
+  let changelogLinks: ReferenceLink[] = [];
 
   if (existsSync(changelogPath)) {
     const changelogFile = readFileSync(changelogPath, { encoding: "utf8" });
-    changelog = parseChangelog(changelogFile, releaseVersion);
+    const changelog = parseChangelog(changelogFile, releaseVersion);
+    changelogVersions = changelog.versions;
+    changelogLinks = changelog.links;
   }
 
   const files = readdirSync(changelogDir, { recursive: true, encoding: "utf8" });
 
-  const parsedChangelog = files.reduce((acc: Version[], file) => {
+  const parsedChangelog = files.reduce((acc: Version<Partial<Record<KeepAChangelogKeywords, string[]>>>[], file) => {
     if (isTomlOrYamlFile(file)) {
       log(`Parsing ${file} file now.`);
       const parsedChanges = parseChanges<ParsedChanges>(path.join(changelogDir, file));
@@ -218,7 +227,8 @@ function generateCommand(
 
       //
       // The currentVersion to add changes to.
-      const currentVersion: Version = foundRelease ?? { version, release_date };
+      const currentVersion: Version<Partial<Record<KeepAChangelogKeywords, string[]>>> = foundRelease
+        ?? { version, release_date };
 
       if (
         releaseVersion && releaseVersion.toLowerCase() !== "unreleased"
@@ -227,6 +237,13 @@ function generateCommand(
         const today = new Date().toISOString().split("T")[0];
         currentVersion.version = releaseVersion;
         currentVersion.release_date = today;
+
+        changelogLinks.unshift({
+          reference: releaseVersion,
+          url: `${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/releases/tag/${
+            actionConfig.git_tag_prefix || "v"
+          }${releaseVersion}`,
+        });
       }
 
       if (notice) {
@@ -246,7 +263,7 @@ function generateCommand(
           if (KEY_FILTER.includes(changes)) {
             continue;
           }
-          const keyword = changes as Keywords;
+          const keyword = changes as KeepAChangelogKeywords;
 
           if (!VALID_KEYWORDS.includes(keyword)) {
             console.error(`\nINVALID_KEYWORD: The keyword "${keyword}" is invalid.\n`);
@@ -266,7 +283,7 @@ function generateCommand(
               parsedChanges[keyword]?.map(item => {
                 if (typeof item === "string") {
                   currentVersion[keyword]?.push(
-                    generateChange(item, references, actionConfig, author, undefined, prNumber),
+                    generateChange(item, changelogLinks, references, actionConfig, author, undefined, prNumber),
                   );
                 }
 
@@ -275,7 +292,15 @@ function generateCommand(
                   && item !== null
                 ) {
                   currentVersion[keyword]?.push(
-                    generateChange(item.message, item?.references || [], actionConfig, author, item.flag, prNumber),
+                    generateChange(
+                      item.message,
+                      changelogLinks,
+                      item?.references || [],
+                      actionConfig,
+                      author,
+                      item.flag,
+                      prNumber,
+                    ),
                   );
                 }
               });
@@ -290,7 +315,7 @@ function generateCommand(
                 // a prefix we will add the prefix. Else we will return the string.
                 currentVersion[keyword]?.push(
                   ...parsedChanges[keyword]?.[flag]?.map((change: string) => {
-                    return generateChange(change, references, actionConfig, author, flag, prNumber);
+                    return generateChange(change, changelogLinks, references, actionConfig, author, flag, prNumber);
                   }),
                 );
               }
@@ -301,16 +326,17 @@ function generateCommand(
         if (!foundRelease) {
           acc.push(currentVersion);
         }
-
-        log("currentVersion", currentVersion);
       }
     }
 
     // Sort the changelog by the version.
     return acc.sort((a, b) => b.version.localeCompare(a.version, "en-US", { ignorePunctuation: true, numeric: true }));
-  }, changelog);
+  }, changelogVersions);
 
-  const renderedChangelog = generateChangelog(parsedChangelog, actionConfig);
+  const sortedVersions = parsedChangelog.map(sortBreakingChanges);
+
+  const renderedChangelog = writeChangelog({ versions: sortedVersions, links: changelogLinks });
+
   writeFileSync(changelogPath, renderedChangelog, { encoding: "utf8" });
 
   log("CHANGELOG.md finished writing.");

@@ -8,7 +8,6 @@ import { vi } from "vitest";
 import YAML from "yaml";
 import { changelogPath, configPath } from "./config.ts";
 import * as generate from "./generate.ts";
-import * as mustache from "./mustache.ts";
 import type { Changes } from "./mustache.ts";
 
 const TEST_DIR = path.join(__dirname, "../../test");
@@ -65,7 +64,6 @@ describe("generateCommand", () => {
   test("successfully runs the generate command", () => {
     setupChanges();
 
-    vi.spyOn(mustache, "generateChangelog").mockReturnValue("# Changelog");
     const generateCommand = vi.spyOn(generate, "generateCommand");
 
     generate.generateCommand();
@@ -83,8 +81,6 @@ describe("generateCommand", () => {
     outputFileSync(YAML_CHANGE, YAML.stringify(change));
     outputFileSync(TOML_CHANGE, TOML.stringify(change as unknown as JsonMap));
 
-    vi.spyOn(mustache, "generateChangelog").mockReturnValue("# Changelog");
-
     expect(() => generate.generateCommand()).toThrowError();
   });
 
@@ -97,8 +93,6 @@ describe("generateCommand", () => {
     };
     outputFileSync(YAML_CHANGE, YAML.stringify(change));
     outputFileSync(TOML_CHANGE, TOML.stringify(change as unknown as JsonMap));
-
-    vi.spyOn(mustache, "generateChangelog").mockReturnValue("# Changelog");
 
     expect(() => generate.generateCommand()).toThrowError();
   });
