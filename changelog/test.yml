@@ -1,0 +1,13 @@
+# yaml-language-server: $schema=../schemas/changlelog.json
+
+added:
+  - message: Use markdown reference links instead of inline links to link author and pull requests.
+    references:
+      - type: issue
+        number: 66
+
+changed:
+  - Use `@jelmore1674/changelog` to write the changelog file.
+
+removed:
+  - The `mustache` package, since `@jelmore1674/changelog` is now writing the changelog.
