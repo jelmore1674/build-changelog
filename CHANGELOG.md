@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased] - TBD
+
+### Changed
+
+- Use `@jelmore1674/changelog` to write the changelog file. ([#79]) ([Justin Elmore])
+
+### Added
+
+- Use markdown reference links instead of inline links to link author and pull requests. ([#79], [#66]) ([Justin Elmore])
+
+### Removed
+
+- The `mustache` package, since `@jelmore1674/changelog` is now writing the changelog. ([#79]) ([Justin Elmore])
+
 ## [1.4.0] - 2025-04-12
 
 _Read the [README.md](./README.md#complex-example) how to add changes._
@@ -128,7 +142,6 @@ _Read the [README.md](./README.md#complex-example) how to add changes._
 
 _Initial Release_
 
-
 [1.4.0]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.4.0
 [1.3.3]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.3.3
 [1.3.2]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.3.2
@@ -140,3 +153,6 @@ _Initial Release_
 [1.1.1]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.1.1
 [1.1.0]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.1.0
 [1.0.0]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.0.0
+[#79]: https://github.com/jelmore1674/build-changelog/pull/79
+[#66]: https://github.com/jelmore1674/build-changelog/issues/66
+[Justin Elmore]: https://github.com/jelmore1674
