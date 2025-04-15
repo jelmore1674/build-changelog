@@ -7,11 +7,11 @@
     "dist"
   ],
   "scripts": {
-    "build": "ncc build src/index.ts -m && cp -R templates dist/",
+    "build": "ncc build src/index.ts -m",
     "build:actions": "pnpm build:enforcer && pnpm build:generate && pnpm build:notes",
-    "build:enforcer": "ncc build src/enforcer.ts -m -o enforcer && cp -R templates enforcer/",
-    "build:generate": "ncc build src/generate.ts -m -o generate && cp -R templates generate/",
-    "build:notes": "ncc build src/notes.ts -m -o notes && cp -R templates notes/",
+    "build:enforcer": "ncc build src/enforcer.ts -m -o enforcer",
+    "build:generate": "ncc build src/generate.ts -m -o generate",
+    "build:notes": "ncc build src/notes.ts -m -o notes",
     "lint": "biome lint --error-on-warnings",
     "test": "vitest",
     "test:coverage": "vitest run --coverage"
@@ -25,10 +25,9 @@
     "@actions/exec": "^1.1.1",
     "@actions/github": "^6.0.0",
     "@iarna/toml": "2.2.5",
-    "@jelmore1674/changelog": "^0.3.0",
+    "@jelmore1674/changelog": "^1.0.0",
     "fs-extra": "11.3.0",
     "latest-semver": "^4.0.0",
-    "mustache": "4.2.0",
     "semver": "^7.7.1",
     "yaml": "2.7.1"
   },
@@ -36,7 +35,6 @@
     "@biomejs/biome": "1.9.4",
     "@types/fs-extra": "11.0.4",
     "@types/iarna__toml": "2.0.5",
-    "@types/mustache": "4.2.5",
     "@types/node": "22.13.9",
     "@types/semver": "7.7.0",
     "@vercel/ncc": "0.38.3",

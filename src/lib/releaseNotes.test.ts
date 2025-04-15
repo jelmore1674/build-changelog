@@ -4,7 +4,6 @@ import { existsSync, mkdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { expect, test, vitest } from "vitest";
 import { changelogArchive, changelogDir, configPath } from "./config";
-import * as mustache from "./mustache";
 import * as releaseNotes from "./releaseNotes";
 
 const TEST_DIR = path.join(__dirname, "../../test");
@@ -53,7 +52,6 @@ test("should read match version from archive.", async () => {
     mkdirSync(changelogDir);
     writeFileSync(changelogArchive, TOML.stringify(archive), { encoding: "utf8" });
   }
-  vitest.spyOn(mustache, "generateReleaseNotes").mockReturnValue("Test");
 
   const notesCommand = vitest.spyOn(releaseNotes, "notesCommand");
   releaseNotes.notesCommand("1.0.0");
