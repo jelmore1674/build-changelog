@@ -1,14 +1,53 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "build-changelog",
-  "description": "Schema for changelog files",
+  "description": "Schema for changelog files.",
+  "type": "object",
+  "properties": {
+    "added": {
+      "$ref": "#/definitions/change_entry",
+      "description": "Changes where you add to the project."
+    },
+    "changed": {
+      "$ref": "#/definitions/change_entry",
+      "description": "Changes where you changed functionality."
+    },
+    "removed": {
+      "$ref": "#/definitions/change_entry",
+      "description": "Changes where you removed a feature or something else."
+    },
+    "fixed": {
+      "$ref": "#/definitions/change_entry",
+      "description": "Changes where you fixed a bug."
+    },
+    "security": {
+      "$ref": "#/definitions/change_entry",
+      "description": "Changes where you made an update for security reasons."
+    },
+    "deprecated": {
+      "$ref": "#/definitions/change_entry",
+      "description": "Changes where you plan on removing something, but are waiting to do so."
+    },
+    "version": {
+      "type": "string",
+      "description": "The current version of the project. If left off this will fallback to being `Unreleased`."
+    },
+    "release_date": {
+      "type": "string",
+      "description": "The release date of the current version. If this is property is not defined this will fall back to `TBD`."
+    },
+    "notice": {
+      "type": "string",
+      "description": "A notice for the current release."
+    }
+  },
   "definitions": {
     "simple_change_entry": {
       "type": "array",
-      "description": "This is a simple change entry",
+      "description": "This is a simple change entry.",
       "items": {
         "type": "string",
-        "description": "Simple change entry"
+        "description": "Simple change entry."
       }
     },
     "breaking_change_entry": {
@@ -17,11 +56,12 @@
       "properties": {
         "breaking": {
           "type": "array",
-          "description": "The change entry messages",
+          "description": "The change entry messages.",
           "items": {
             "type": "string",
-            "description": "The change entry message"
-          }
+            "description": "The change entry message."
+          },
+          "additionalProperties": false
         }
       }
     },
@@ -31,16 +71,16 @@
         "type": "object",
         "properties": {
           "message": {
-            "description": "The change entry message",
+            "description": "The change entry message.",
             "type": "string"
           },
           "flag": {
-            "description": "The flag to add a prefix to the changes",
+            "description": "The flag to add a prefix to the changes.",
             "type": "string"
           },
           "references": {
             "type": "array",
-            "description": "List of references to this current change",
+            "description": "List of references to this current change.",
             "items": {
               "type": "object",
               "properties": {
@@ -69,44 +109,6 @@
         },
         { "$ref": "#/definitions/breaking_change_entry" }
       ]
-    }
-  },
-  "properties": {
-    "added": {
-      "$ref": "#/definitions/change_entry",
-      "description": "Changes where you add to the project"
-    },
-    "changed": {
-      "$ref": "#/definitions/change_entry",
-      "description": "Changes where you changed functionality"
-    },
-    "removed": {
-      "$ref": "#/definitions/change_entry",
-      "description": "Changes where you removed a feature or something else"
-    },
-    "fixed": {
-      "$ref": "#/definitions/change_entry",
-      "description": "Changes where you fixed a bug"
-    },
-    "security": {
-      "$ref": "#/definitions/change_entry",
-      "description": "Changes where you made an update for security reasons"
-    },
-    "deprecated": {
-      "$ref": "#/definitions/change_entry",
-      "description": "Changes where you plan on removing something, but are waiting to do so"
-    },
-    "version": {
-      "type": "string",
-      "description": "The current version of the project. If left off this will fallback to being `Unreleased`"
-    },
-    "release_date": {
-      "type": "string",
-      "description": "The release date of the current version. If this is property is not defined this will fall back to `TBD`"
-    },
-    "notice": {
-      "type": "string",
-      "description": "A notice for the current release"
     }
   }
 }
