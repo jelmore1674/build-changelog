@@ -185,7 +185,7 @@ function addVersionReferenceLinks(
   changelogLinks: ReferenceLink[],
   config: Omit<Config, "repo_url" | "release_url" | "prefers">,
 ) {
-  if (changelogLinks.find(v => v.reference === version.version)) {
+  if (changelogLinks.find(v => v.reference === version.version) || version.version.toLowerCase() === "unreleased") {
     return;
   }
 
@@ -355,7 +355,6 @@ function generateCommand(
   });
 
   const renderedChangelog = writeChangelog({ versions: sortedVersions, links: changelogLinks });
-  console.log({ renderedChangelog });
 
   writeFileSync(changelogPath, renderedChangelog, { encoding: "utf8" });
 
