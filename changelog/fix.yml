@@ -1,5 +1,0 @@
-fixed:
-  - message: Reference link not being created when creating a release.
-    references:
-      - type: issue
-        reference: 80
