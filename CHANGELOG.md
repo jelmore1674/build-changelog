@@ -153,7 +153,6 @@ _Read the [README.md](./README.md#complex-example) how to add changes._
 _Initial Release_
 
 [1.5.0]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.5.0
-[Unreleased]: https://github.com/jelmore1674/build-changelog/releases/tag/vUnreleased
 [1.4.0]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.4.0
 [1.3.3]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.3.3
 [1.3.2]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.3.2
