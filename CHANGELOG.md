@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased] - TBD
 
+### Added
+
+- Commit hash reference links. ([`ee1e40c`]) ([#82], [#77]) ([Justin Elmore])
+
 ### Fixed
 
 - Reference link not being created when creating a release. ([#81], [#80]) ([Justin Elmore])
@@ -166,3 +170,6 @@ _Initial Release_
 [Justin Elmore]: https://github.com/jelmore1674
 [#81]: https://github.com/jelmore1674/build-changelog/pull/81
 [#80]: https://github.com/jelmore1674/build-changelog/issues/80
+[`ee1e40c`]: https://github.com/jelmore1674/build-changelog/commit/ee1e40ce40a53b0a792208afc5bc8b1582e06709
+[#82]: https://github.com/jelmore1674/build-changelog/pull/82
+[#77]: https://github.com/jelmore1674/build-changelog/issues/77
