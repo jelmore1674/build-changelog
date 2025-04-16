@@ -150,7 +150,7 @@ function generateChange(
  *
  * @param version - the version with the changes to sort.
  */
-function sortBreakingChanges(version: Version<Version<Partial<Record<KeepAChangelogKeywords, string[]>>>>) {
+function sortBreakingChanges(version: Version<Partial<Record<KeepAChangelogKeywords, string[]>>>) {
   for (const changes in version) {
     if (KEY_FILTER.includes(changes)) {
       continue;
@@ -178,6 +178,21 @@ function sortBreakingChanges(version: Version<Version<Partial<Record<KeepAChange
   }
 
   return version;
+}
+
+function addVersionReferenceLinks(
+  version: Version<Partial<Record<KeepAChangelogKeywords, string[]>>>,
+  changelogLinks: ReferenceLink[],
+  config: Omit<Config, "repo_url" | "release_url" | "prefers">,
+) {
+  if (changelogLinks.find(v => v.reference === version.version)) {
+    return;
+  }
+
+  changelogLinks.unshift({
+    reference: version.version,
+    url: `${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/releases/tag/${config.git_tag_prefix || "v"}${version.version}`,
+  });
 }
 
 /**
@@ -333,15 +348,20 @@ function generateCommand(
     return acc.sort((a, b) => b.version.localeCompare(a.version, "en-US", { ignorePunctuation: true, numeric: true }));
   }, changelogVersions);
 
-  const sortedVersions = parsedChangelog.map(sortBreakingChanges);
+  const sortedVersions = parsedChangelog.map((version) => {
+    addVersionReferenceLinks(version, changelogLinks, actionConfig);
+
+    return sortBreakingChanges(version);
+  });
 
   const renderedChangelog = writeChangelog({ versions: sortedVersions, links: changelogLinks });
+  console.log({ renderedChangelog });
 
-  writeFileSync(changelogPath, renderedChangelog, { encoding: "utf8" });
+  // writeFileSync(changelogPath, renderedChangelog, { encoding: "utf8" });
 
   log("CHANGELOG.md finished writing.");
 
-  cleanUpChangelog(actionConfig.dir);
+  // cleanUpChangelog(actionConfig.dir);
 
   rl.close();
 }
