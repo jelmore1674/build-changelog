@@ -19,7 +19,7 @@ async function enforceChangelogAction() {
     exit(0);
   }
 
-  generateCommand("BCL_Bot", context.payload.pull_request?.number);
+  generateCommand("BCL_Bot", context.sha, context.payload.pull_request?.number);
   const { stdout } = await getExecOutput("git", ["status", "--porcelain"]);
 
   if (!stdout.match(/CHANGELOG\.md/gi)) {

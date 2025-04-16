@@ -1,5 +1,6 @@
 import { endGroup, getInput, setFailed, setOutput, startGroup } from "@actions/core";
 import { exec, getExecOutput } from "@actions/exec";
+import { context } from "@actions/github";
 import { getLatestRelease } from "@jelmore1674/changelog";
 import { readFileSync } from "node:fs";
 import { exit } from "node:process";
@@ -37,6 +38,8 @@ const isApiCommit = stringToBoolean(getInput("commit_with_api"));
 const skipCommit = stringToBoolean(getInput("skip_commit"));
 const rawFlags = getInput("flags", { required: false });
 const version = getInput("version", { required: false });
+// biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
+const reference_sha = stringToBoolean(getInput("reference_sha", { required: false }));
 
 // biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
 const git_tag_prefix = getInput("git_tag_prefix", { required: false });
@@ -67,6 +70,7 @@ async function generateChangelogAction() {
     reference_pull_requests,
     show_author,
     show_author_full_name,
+    reference_sha,
   };
 
   let releaseVersion: string | null = "Unreleased";
@@ -98,7 +102,7 @@ async function generateChangelogAction() {
   const prNumber = await getPrNumber();
 
   startGroup("Generate Changelog");
-  generateCommand(author, prNumber, releaseVersion, config);
+  generateCommand(author, context.sha, prNumber, releaseVersion, config);
   endGroup();
 
   if (!skipCommit) {

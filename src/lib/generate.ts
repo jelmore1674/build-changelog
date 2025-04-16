@@ -15,7 +15,7 @@ import { log } from "../utils/log";
 import { changelogDir, changelogPath, Config, config } from "./config";
 import { rl } from "./readline";
 
-const GITHUB_SERVER_URL = process.env.GITHUB_SERVER_URL ?? "https://api.github.com";
+const GITHUB_SERVER_URL = process.env.GITHUB_SERVER_URL ?? "https://github.com";
 const GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY ?? "jelmore1674/build-changelog";
 const GITHUB_ACTOR = process.env.GITHUB_ACTOR ?? "bcl-bot";
 
@@ -108,6 +108,7 @@ function generateChange(
   references: Reference[],
   config: Omit<Config, "repo_url" | "release_url" | "prefers">,
   author: string,
+  sha: string,
   flag?: string,
   prNumber?: number,
 ) {
@@ -115,7 +116,14 @@ function generateChange(
 
   // Generate the links for the change.
   if ((references.length || prNumber) && GITHUB_REPOSITORY) {
-    renderedChange = `${change} (${
+    if (config.reference_sha) {
+      changelogLinks.push({
+        url: `${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/commit/${sha}`,
+        reference: `\`${sha.substring(0, 7)}\``,
+      });
+    }
+
+    renderedChange = `${change} ${config.reference_sha ? `([\`${sha?.substring(0, 7)}\`]) ` : ""}(${
       generateReferences(changelogLinks, [
         ...((config?.reference_pull_requests && prNumber)
           ? [{ type: "pull_request", number: prNumber.toString() }] as Reference[]
@@ -204,6 +212,7 @@ function addVersionReferenceLinks(
  */
 function generateCommand(
   author = "bcl-bot",
+  sha: string,
   prNumber?: number,
   releaseVersion?: string,
   actionConfig = config as Omit<Config, "repo_url" | "release_url" | "prefers">,
@@ -298,7 +307,7 @@ function generateCommand(
               parsedChanges[keyword]?.map(item => {
                 if (typeof item === "string") {
                   currentVersion[keyword]?.push(
-                    generateChange(item, changelogLinks, references, actionConfig, author, undefined, prNumber),
+                    generateChange(item, changelogLinks, references, actionConfig, author, sha, undefined, prNumber),
                   );
                 }
 
@@ -313,6 +322,7 @@ function generateCommand(
                       item?.references || [],
                       actionConfig,
                       author,
+                      sha,
                       item.flag,
                       prNumber,
                     ),
@@ -330,7 +340,16 @@ function generateCommand(
                 // a prefix we will add the prefix. Else we will return the string.
                 currentVersion[keyword]?.push(
                   ...parsedChanges[keyword]?.[flag]?.map((change: string) => {
-                    return generateChange(change, changelogLinks, references, actionConfig, author, flag, prNumber);
+                    return generateChange(
+                      change,
+                      changelogLinks,
+                      references,
+                      actionConfig,
+                      sha,
+                      author,
+                      flag,
+                      prNumber,
+                    );
                   }),
                 );
               }

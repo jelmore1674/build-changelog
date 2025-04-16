@@ -62,6 +62,13 @@ type Config = {
    * @default true
    */
   reference_pull_requests: boolean;
+
+  /**
+   * Reference commit shas by default
+   *
+   * @default true
+   */
+  reference_sha: boolean;
 };
 
 /**
@@ -85,6 +92,7 @@ const initialConfig: Config = {
   show_author: true,
   show_author_full_name: false,
   reference_pull_requests: true,
+  reference_sha: true,
   git_tag_prefix: "v",
 };
 
