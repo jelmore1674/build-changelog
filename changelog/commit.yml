@@ -1,0 +1,5 @@
+added:
+  - message: Commit hash reference links.
+    references:
+      - type: issue
+        number: 77

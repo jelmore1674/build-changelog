@@ -199,6 +199,11 @@ inputs:
     default: 'true'
     required: false
 
+  reference_sha:
+    description: Automatically reference commit hashes when you merge changes in.
+    default: 'true'
+    required: false
+
   version:
     description: Set the version of the unreleased changes.
     default: 'Unreleased'

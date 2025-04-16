@@ -1,10 +1,13 @@
 #!/usr/bin/env node
 
 import { Command } from "commander";
+import { execSync } from "node:child_process";
 import { generateCommand } from "./lib/generate";
 import { notesCommand } from "./lib/releaseNotes";
 
 const program = new Command();
+
+const sha = execSync("git rev-parse HEAD", { encoding: "utf8" });
 
 program
   .name("build-changelog")
@@ -15,7 +18,7 @@ program
   .command("generate")
   .description("generate the changelog")
   .option("--require-changelog", "require that changes have been made to the changelog.")
-  .action(() => generateCommand("bcl-bot", 1, "1.0.1"));
+  .action(() => generateCommand("bcl-bot", sha, 1, "1.0.1"));
 
 program
   .command("notes [version]")
