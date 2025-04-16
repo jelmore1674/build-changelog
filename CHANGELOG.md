@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Reference link not being created when creating a release. ([#81], [#undefined]) ([Justin Elmore])
+- Reference link not being created when creating a release. ([#81], [#80]) ([Justin Elmore])
 
 ## [1.5.0] - 2025-04-15
 
@@ -165,4 +165,4 @@ _Initial Release_
 [#66]: https://github.com/jelmore1674/build-changelog/issues/66
 [Justin Elmore]: https://github.com/jelmore1674
 [#81]: https://github.com/jelmore1674/build-changelog/pull/81
-[#undefined]: https://github.com/jelmore1674/build-changelog/issues/undefined
+[#80]: https://github.com/jelmore1674/build-changelog/issues/80
