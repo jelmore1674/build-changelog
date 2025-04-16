@@ -357,11 +357,11 @@ function generateCommand(
   const renderedChangelog = writeChangelog({ versions: sortedVersions, links: changelogLinks });
   console.log({ renderedChangelog });
 
-  // writeFileSync(changelogPath, renderedChangelog, { encoding: "utf8" });
+  writeFileSync(changelogPath, renderedChangelog, { encoding: "utf8" });
 
   log("CHANGELOG.md finished writing.");
 
-  // cleanUpChangelog(actionConfig.dir);
+  cleanUpChangelog(actionConfig.dir);
 
   rl.close();
 }
