@@ -22,6 +22,7 @@ async function enforceChangelogAction() {
     const matches = pullRequest.body.match(depbendabotRegex);
 
     const depbendabotUpdates = {
+      author: "depbendabot",
       security: matches,
     };
 

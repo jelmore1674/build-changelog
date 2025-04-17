@@ -67,6 +67,9 @@ function generateReferences(references: Reference[]): string {
  * @param author - author name.
  */
 function generateAuthorLink(author: string) {
+  if (author === "dependabot" || author === "renovate") {
+    return `[${author}](${GITHUB_SERVER_URL}/app/${author})`;
+  }
   return `[${author}](${GITHUB_SERVER_URL}/${GITHUB_ACTOR})`;
 }
 
@@ -121,9 +124,7 @@ function generateChange(
   // Add author to the change.
   if (config.show_author) {
     if (GITHUB_ACTOR) {
-      renderedChange = `${renderedChange} (${
-        generateAuthorLink(config.show_author_full_name ? author : GITHUB_ACTOR)
-      })`;
+      renderedChange = `${renderedChange} (${generateAuthorLink(author || GITHUB_ACTOR)})`;
     } else {
       renderedChange = `${renderedChange} (${author})`;
     }
@@ -230,6 +231,7 @@ function generateCommand(
       let release_date = parsedChanges.release_date || "TBD";
       let notice = parsedChanges.notice;
       const references = parsedChanges.references || [];
+      const botAuthor = parsedChanges.author;
 
       // Find a matching release.
       const foundRelease = acc.find((release) => release.version === version);
@@ -292,7 +294,7 @@ function generateCommand(
               parsedChanges[keyword]?.map(item => {
                 if (typeof item === "string") {
                   currentVersion[keyword]?.push(
-                    generateChange(item, references, actionConfig, author, sha, undefined, prNumber),
+                    generateChange(item, references, actionConfig, botAuthor || author, sha, undefined, prNumber),
                   );
                 }
 
@@ -305,7 +307,7 @@ function generateCommand(
                       item.message,
                       item?.references || [],
                       actionConfig,
-                      author,
+                      botAuthor || author,
                       sha,
                       item.flag,
                       prNumber,
@@ -328,7 +330,7 @@ function generateCommand(
                       change,
                       references,
                       actionConfig,
-                      author,
+                      botAuthor || author,
                       sha,
                       flag,
                       prNumber,
@@ -358,9 +360,11 @@ function generateCommand(
 
   const renderedChangelog = writeChangelog({ versions: sortedVersions, links: changelogLinks });
 
+  console.log(renderedChangelog);
+
   writeFileSync(changelogPath, renderedChangelog, { encoding: "utf8" });
 
-  log("CHANGELOG.md finished writing.");
+  log("\nCHANGELOG.md finished writing.");
 
   cleanUpChangelog(actionConfig.dir);
 
