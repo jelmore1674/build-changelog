@@ -9,21 +9,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Commit hash reference links. ([`ee1e40c`]) ([#82], [#77]) ([Justin Elmore])
+- Commit hash reference links. ([`ee1e40c`](https://github.com/jelmore1674/build-changelog/commit/ee1e40ce40a53b0a792208afc5bc8b1582e06709)) ([#82](https://github.com/jelmore1674/build-changelog/pull/82), [#77](https://github.com/jelmore1674/build-changelog/issues/77)) ([Justin Elmore](https://github.com/jelmore1674))
 
 ### Fixed
 
-- Reference link not being created when creating a release. ([#81], [#80]) ([Justin Elmore])
+- Reference link not being created when creating a release. ([#81](https://github.com/jelmore1674/build-changelog/pull/81), [#80](https://github.com/jelmore1674/build-changelog/issues/80)) ([Justin Elmore])
 
 ## [1.5.0] - 2025-04-15
 
 ### Changed
 
-- Use `@jelmore1674/changelog` to write the changelog file. ([#79]) ([Justin Elmore])
+- Use `@jelmore1674/changelog` to write the changelog file. ([#79](https://github.com/jelmore1674/build-changelog/pull/79)) ([Justin Elmore])
 
 ### Added
 
-- Use markdown reference links instead of inline links to link author and pull requests. ([#79], [#66]) ([Justin Elmore])
+- Use markdown reference links instead of inline links to link author and pull requests. ([#79], [#66](https://github.com/jelmore1674/build-changelog/issues/66)) ([Justin Elmore])
 
 ### Removed
 
@@ -165,11 +165,3 @@ _Initial Release_
 [1.1.1]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.1.1
 [1.1.0]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.1.0
 [1.0.0]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.0.0
-[#79]: https://github.com/jelmore1674/build-changelog/pull/79
-[#66]: https://github.com/jelmore1674/build-changelog/issues/66
-[Justin Elmore]: https://github.com/jelmore1674
-[#81]: https://github.com/jelmore1674/build-changelog/pull/81
-[#80]: https://github.com/jelmore1674/build-changelog/issues/80
-[`ee1e40c`]: https://github.com/jelmore1674/build-changelog/commit/ee1e40ce40a53b0a792208afc5bc8b1582e06709
-[#82]: https://github.com/jelmore1674/build-changelog/pull/82
-[#77]: https://github.com/jelmore1674/build-changelog/issues/77

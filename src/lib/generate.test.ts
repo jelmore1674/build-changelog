@@ -66,7 +66,7 @@ describe("generateCommand", () => {
 
     const generateCommand = vi.spyOn(generate, "generateCommand");
 
-    generate.generateCommand();
+    generate.generateCommand("bcl-bot", "a1a1a1aa1a11a1");
 
     expect(generateCommand).toReturn();
   });
@@ -81,7 +81,7 @@ describe("generateCommand", () => {
     outputFileSync(YAML_CHANGE, YAML.stringify(change));
     outputFileSync(TOML_CHANGE, TOML.stringify(change as unknown as JsonMap));
 
-    expect(() => generate.generateCommand()).toThrowError();
+    expect(() => generate.generateCommand("bcl-bot", "a1a1a1a", 1)).toThrowError();
   });
 
   test("successfully runs the generate command", () => {
@@ -94,6 +94,6 @@ describe("generateCommand", () => {
     outputFileSync(YAML_CHANGE, YAML.stringify(change));
     outputFileSync(TOML_CHANGE, TOML.stringify(change as unknown as JsonMap));
 
-    expect(() => generate.generateCommand()).toThrowError();
+    expect(() => generate.generateCommand("bcl-bot", "a1a1a1a", 1)).toThrowError();
   });
 });
