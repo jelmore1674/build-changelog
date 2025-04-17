@@ -3,6 +3,7 @@ import { getExecOutput } from "@actions/exec";
 import { context } from "@actions/github";
 import { writeFileSync } from "node:fs";
 import { exit } from "node:process";
+import YAML from "yaml";
 import { generateCommand } from "../lib/generate";
 
 const depbendabotRegex = /^(?!<li\>).*(?:(?:U|u)pdate|(?:B|b)ump)s? (\S+?) (?:requirement )?from (\S*) to (\S*)/gm;
@@ -24,9 +25,11 @@ async function enforceChangelogAction() {
       security: matches,
     };
 
-    console.log({ context });
+    const ymlFile = YAML.stringify(JSON.stringify(depbendabotUpdates));
 
-    // writeFileSync("")
+    console.log({ ymlFile });
+
+    writeFileSync(`./changelog/${context.sha}-${context.runId}.yml`, ymlFile, { encoding: "utf8" });
   }
 
   if (skipLabels.some(label => set.has(label))) {
