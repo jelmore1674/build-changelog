@@ -54,6 +54,16 @@ inputs:
     default: "true"
     required: false
 
+  enable_dependabot:
+    description: Allow creation of changelog file when dependabot creates a pull request.
+    default: "false"
+    required: false
+
+  dependabot_labels:
+    description: The labels you to activate dependabot changelog updates.
+    default: ""
+    required: false
+
   version:
     description: Set the version of the unreleased changes.
     required: false
