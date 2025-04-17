@@ -400,6 +400,10 @@ jobs:
           # If you want to skip enforcing the changelog you can use a comma
           # separated list of labels. Make sure there are no spaces.
           skipLabels: ops,maintenance,docs
+          ## Optionally you can allow dependabot to add a changelog file.
+          enable_dependabot: true
+          ## Then you can set the labels for dependabot
+          dependabot_labels: 'dependencies'
 ```
 
 The input for `Enforce Changelog`
@@ -408,4 +412,14 @@ The input for `Enforce Changelog`
 skip_labels:
   default: 'ops'
   description: 'Comma separated list of labels to skip enforcing changelog changes.'
+
+enable_dependabot:
+  description: Allow creation of changelog file when dependabot creates a pull request.
+  default: 'false'
+  required: false
+
+dependabot_labels:
+  description: The labels you to activate dependabot changelog updates.
+  default: ''
+  required: false
 ```

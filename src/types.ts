@@ -46,6 +46,12 @@ interface ParsedChanges
    * References to a issue or pull request.
    */
   references?: Reference[];
+
+  /**
+   * Author only will be set using the enforcer action, and will be set to
+   * `dependabot`.
+   */
+  author?: "dependabot";
 }
 
 interface LinkReference extends Omit<Reference, "type"> {
