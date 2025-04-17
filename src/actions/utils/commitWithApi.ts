@@ -1,5 +1,5 @@
 import { getInput, setFailed } from "@actions/core";
-import { getExecOutput } from "@actions/exec";
+import { exec, getExecOutput } from "@actions/exec";
 import { context, getOctokit } from "@actions/github";
 import { readFileSync } from "node:fs";
 import { exit } from "node:process";
@@ -7,8 +7,8 @@ import { log } from "../../utils/log";
 
 const GITHUB_TOKEN = getInput("token");
 
-const ADDITION_REGEX = /^1 (M|A)\./;
-const DELETION_REGEX = /^1 D\./;
+const ADDITION_REGEX = /^1 \.?(M|A)\.?/;
+const DELETION_REGEX = /^1 \.?D\.?/;
 
 /**
  * This is used for creating the type that will be sent to GitHub for file changes.
@@ -96,6 +96,7 @@ async function commitWithApi(commitMessage: string) {
 
   const expectedHeadOid = await getExpectedHeadOid(branch);
 
+  await exec("git", ["add", "."]);
   const { fileAdditions, fileDeletions } = await gitDiff();
 
   try {
