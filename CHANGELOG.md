@@ -24,21 +24,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Reference link not being created when creating a release. ([#81](https://github.com/jelmore1674/build-changelog/pull/81), [#80](https://github.com/jelmore1674/build-changelog/issues/80)) ([Justin Elmore])
+- Reference link not being created when creating a release. ([#81](https://github.com/jelmore1674/build-changelog/pull/81), [#80](https://github.com/jelmore1674/build-changelog/issues/80)) ([Justin Elmore](https://github.com/jelmore1674))
 
 ## [1.5.0] - 2025-04-15
 
 ### Changed
 
-- Use `@jelmore1674/changelog` to write the changelog file. ([#79](https://github.com/jelmore1674/build-changelog/pull/79)) ([Justin Elmore])
+- Use `@jelmore1674/changelog` to write the changelog file. ([#79](https://github.com/jelmore1674/build-changelog/pull/79)) ([Justin Elmore](https://github.com/jelmore1674))
 
 ### Added
 
-- Use markdown reference links instead of inline links to link author and pull requests. ([#79], [#66](https://github.com/jelmore1674/build-changelog/issues/66)) ([Justin Elmore])
+- Use markdown reference links instead of inline links to link author and pull requests. ([#79](https://github.com/jelmore1674/build-changelog/pull/79), [#66](https://github.com/jelmore1674/build-changelog/issues/66)) ([Justin Elmore](https://github.com/jelmore1674))
 
 ### Removed
 
-- The `mustache` package, since `@jelmore1674/changelog` is now writing the changelog. ([#79]) ([Justin Elmore])
+- The `mustache` package, since `@jelmore1674/changelog` is now writing the changelog. ([#79](https://github.com/jelmore1674/build-changelog/pull/79)) ([Justin Elmore](https://github.com/jelmore1674))
 
 ## [1.4.0] - 2025-04-12
 
