@@ -94,6 +94,8 @@ async function commitWithApi(commitMessage: string) {
 
   const expectedHeadOid = await getExpectedHeadOid(branch);
 
+  console.log({ expectedHeadOid });
+
   const { fileAdditions, fileDeletions } = await gitDiff();
 
   try {
