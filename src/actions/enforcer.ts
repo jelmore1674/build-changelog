@@ -14,6 +14,8 @@ async function enforceChangelogAction() {
   const pullRequestLabels = pullRequest?.labels?.map((label: { name: string }) => label.name) || [];
   const set = new Set(pullRequestLabels);
 
+  console.log({ pullRequest });
+
   if (skipLabels.some(label => set.has(label))) {
     debug("Skip Enforcing Changelog.");
     exit(0);
