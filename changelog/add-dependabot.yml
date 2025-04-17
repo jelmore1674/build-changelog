@@ -1,5 +1,0 @@
-added:
-  - message: Support for dependabot making changelog entries.
-    references:
-      - type: issue
-        number: 65
