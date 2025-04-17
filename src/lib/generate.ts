@@ -47,24 +47,14 @@ const LINK_TYPE = {
 /**
  * Generate References of the change.
  *
- * @param changelogLinks - the links from the changelog
  * @param references - the references we are adding to the change.
  */
-function generateReferences(changelogLinks: ReferenceLink[], references: Reference[]): string {
-  log(`References Found: ${references.length}`);
+function generateReferences(references: Reference[]): string {
   if (references.length) {
-    return references.map((reference) => {
-      if (changelogLinks.find(i => i.reference === `#${reference.number}`)) {
-        log("Found existing reference");
-      } else {
-        log(`Add reference to ${reference.type} #${reference.number}`);
-        changelogLinks.push({
-          url: `${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/${LINK_TYPE[reference.type]}/${reference.number}`,
-          reference: `#${reference.number}`,
-        });
-      }
-
-      return `[#${reference.number}]`;
+    return references.sort((a, b) => a.number - b.number).map((reference) => {
+      return `[#${reference.number}](${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/${
+        LINK_TYPE[reference.type]
+      }/${reference.number})`;
     }).join(", ");
   }
 
@@ -74,21 +64,24 @@ function generateReferences(changelogLinks: ReferenceLink[], references: Referen
 /**
  * Generate the link for the author.
  *
- * @param changelogLinks - the links from the changelog
  * @param author - author name.
  */
-function generateAuthorLink(changelogLinks: ReferenceLink[], author: string) {
-  if (changelogLinks.find(i => i.reference === author)) {
-    log(`Found reference to ${author}`);
-  } else {
-    log(`Creating reference link for ${author}`);
-    changelogLinks.push({
-      url: `${GITHUB_SERVER_URL}/${GITHUB_ACTOR}`,
-      reference: author,
-    });
+function generateAuthorLink(author: string) {
+  return `[${author}](${GITHUB_SERVER_URL}/${GITHUB_ACTOR})`;
+}
+
+/**
+ * Generate the link for commit shas
+ *
+ * @param sha - the commit sha
+ * @param showReferenceSha - Whether or not we will show this link.
+ */
+function generateCommitShaLink(sha: string, showReferenceSha: boolean) {
+  if (showReferenceSha) {
+    return `([\`${sha?.substring(0, 7)}\`](${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/commit/${sha})) `;
   }
 
-  return `[${author}]`;
+  return "";
 }
 
 /**
@@ -104,7 +97,6 @@ function generateAuthorLink(changelogLinks: ReferenceLink[], author: string) {
  */
 function generateChange(
   change: string,
-  changelogLinks: ReferenceLink[],
   references: Reference[],
   config: Omit<Config, "repo_url" | "release_url" | "prefers">,
   author: string,
@@ -116,17 +108,10 @@ function generateChange(
 
   // Generate the links for the change.
   if ((references.length || prNumber) && GITHUB_REPOSITORY) {
-    if (config.reference_sha) {
-      changelogLinks.push({
-        url: `${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/commit/${sha}`,
-        reference: `\`${sha.substring(0, 7)}\``,
-      });
-    }
-
-    renderedChange = `${change} ${config.reference_sha ? `([\`${sha?.substring(0, 7)}\`]) ` : ""}(${
-      generateReferences(changelogLinks, [
+    renderedChange = `${change} ${generateCommitShaLink(sha, config.reference_sha)}(${
+      generateReferences([
         ...((config?.reference_pull_requests && prNumber)
-          ? [{ type: "pull_request", number: prNumber.toString() }] as Reference[]
+          ? [{ type: "pull_request", number: prNumber }] as Reference[]
           : []),
         ...references,
       ])
@@ -137,7 +122,7 @@ function generateChange(
   if (config.show_author) {
     if (GITHUB_ACTOR) {
       renderedChange = `${renderedChange} (${
-        generateAuthorLink(changelogLinks, config.show_author_full_name ? author : GITHUB_ACTOR)
+        generateAuthorLink(config.show_author_full_name ? author : GITHUB_ACTOR)
       })`;
     } else {
       renderedChange = `${renderedChange} (${author})`;
@@ -307,7 +292,7 @@ function generateCommand(
               parsedChanges[keyword]?.map(item => {
                 if (typeof item === "string") {
                   currentVersion[keyword]?.push(
-                    generateChange(item, changelogLinks, references, actionConfig, author, sha, undefined, prNumber),
+                    generateChange(item, references, actionConfig, author, sha, undefined, prNumber),
                   );
                 }
 
@@ -318,7 +303,6 @@ function generateCommand(
                   currentVersion[keyword]?.push(
                     generateChange(
                       item.message,
-                      changelogLinks,
                       item?.references || [],
                       actionConfig,
                       author,
@@ -342,11 +326,10 @@ function generateCommand(
                   ...parsedChanges[keyword]?.[flag]?.map((change: string) => {
                     return generateChange(
                       change,
-                      changelogLinks,
                       references,
                       actionConfig,
-                      sha,
                       author,
+                      sha,
                       flag,
                       prNumber,
                     );

@@ -2,7 +2,7 @@ import type { KeepAChangelogKeywords } from "@jelmore1674/changelog";
 
 interface Reference {
   type: "issue" | "pull_request";
-  number: string | number;
+  number: number;
 }
 
 /**
