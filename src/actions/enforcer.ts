@@ -25,7 +25,7 @@ async function enforceChangelogAction() {
       security: matches,
     };
 
-    const ymlFile = YAML.stringify(JSON.stringify(depbendabotUpdates));
+    const ymlFile = YAML.stringify(depbendabotUpdates);
 
     console.log({ ymlFile });
 
