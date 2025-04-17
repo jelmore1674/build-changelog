@@ -5,6 +5,7 @@ import { writeFileSync } from "node:fs";
 import { exit } from "node:process";
 import YAML from "yaml";
 import { generateCommand } from "../lib/generate";
+import { commitWithApi } from "./utils/commitWithApi";
 import { stringToBoolean } from "./utils/stringToBoolean";
 
 /**
@@ -39,6 +40,7 @@ async function enforceChangelogAction() {
       const ymlFile = YAML.stringify(dependabotUpdates);
 
       writeFileSync(`./changelog/${context.sha}-${context.runId}.yml`, ymlFile, { encoding: "utf8" });
+      await commitWithApi("Add changelog file for dependabot.");
     }
   }
 
