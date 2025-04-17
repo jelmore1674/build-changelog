@@ -3,6 +3,7 @@ import { getExecOutput } from "@actions/exec";
 import { context, getOctokit } from "@actions/github";
 import { readFileSync } from "node:fs";
 import { exit } from "node:process";
+import { log } from "../../utils/log";
 
 const GITHUB_TOKEN = getInput("token");
 
@@ -98,8 +99,9 @@ async function commitWithApi(commitMessage: string) {
   const { fileAdditions, fileDeletions } = await gitDiff();
 
   try {
-    await getOctokit(GITHUB_TOKEN).graphql(
-      `mutation($expectedHeadOid: GitObjectID!, $fileAdditions: [FileAddition!]!, $fileDeletions: [FileDeletion!]!) {
+    if (fileAdditions.length > 0 || fileDeletions.length > 0) {
+      await getOctokit(GITHUB_TOKEN).graphql(
+        `mutation($expectedHeadOid: GitObjectID!, $fileAdditions: [FileAddition!]!, $fileDeletions: [FileDeletion!]!) {
           createCommitOnBranch(
             input: {
               branch: {
@@ -120,12 +122,15 @@ async function commitWithApi(commitMessage: string) {
             }
           }
         }`,
-      {
-        expectedHeadOid,
-        fileAdditions,
-        fileDeletions,
-      },
-    );
+        {
+          expectedHeadOid,
+          fileAdditions,
+          fileDeletions,
+        },
+      );
+    } else {
+      log("Nothing to commit.");
+    }
   } catch (error) {
     let errorMessage = "Unable to create commit.";
 
