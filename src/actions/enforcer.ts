@@ -44,10 +44,10 @@ async function enforceChangelogAction() {
 
       const ymlFile = YAML.stringify(dependabotUpdates);
 
-      execSync("git add .");
-
       writeFileSync(`./changelog/${context.sha}-${context.runId}.yml`, ymlFile, { encoding: "utf8" });
-      await commitWithApi("Add changelog file for dependabot.");
+      execSync("ls");
+
+      // await commitWithApi("Add changelog file for dependabot.");
     }
   }
 
