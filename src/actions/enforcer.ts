@@ -41,10 +41,10 @@ async function enforceChangelogAction() {
 
       console.log({ existing });
 
-      // const ymlFile = YAML.stringify(dependabotUpdates);
+      const ymlFile = YAML.stringify(dependabotUpdates);
 
-      // writeFileSync(`./changelog/${context.sha}-${context.runId}.yml`, ymlFile, { encoding: "utf8" });
-      // await commitWithApi("Add changelog file for dependabot.");
+      writeFileSync(`${process.cwd()}/changelog/${context.sha}-${context.runId}.yml`, ymlFile, { encoding: "utf8" });
+      await commitWithApi("Add changelog file for dependabot.");
     }
   }
 
