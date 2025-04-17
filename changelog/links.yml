@@ -1,6 +1,0 @@
-changed:
-  - Revert to using inline links instead of markdown reference links.
-  - Sort order of `issues/pr` references in order of the number.
-
-removed:
-  - Markdown reference links when creating links in the changelog entry.

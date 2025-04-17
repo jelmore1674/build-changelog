@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased] - TBD
+
+### Changed
+
+- Revert to using inline links instead of markdown reference links. ([`5304352`](https://github.com/jelmore1674/build-changelog/commit/5304352e4f8f3a65b52b019744c0f343ce0ec298)) ([#83](https://github.com/jelmore1674/build-changelog/pull/83)) ([Justin Elmore](https://github.com/jelmore1674))
+- Sort order of `issues/pr` references in order of the number. ([`5304352`](https://github.com/jelmore1674/build-changelog/commit/5304352e4f8f3a65b52b019744c0f343ce0ec298)) ([#83](https://github.com/jelmore1674/build-changelog/pull/83)) ([Justin Elmore](https://github.com/jelmore1674))
+
+### Removed
+
+- Markdown reference links when creating links in the changelog entry. ([`5304352`](https://github.com/jelmore1674/build-changelog/commit/5304352e4f8f3a65b52b019744c0f343ce0ec298)) ([#83](https://github.com/jelmore1674/build-changelog/pull/83)) ([Justin Elmore](https://github.com/jelmore1674))
+
 ## [1.6.0] - 2025-04-16
 
 ### Added
