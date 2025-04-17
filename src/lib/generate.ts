@@ -67,7 +67,7 @@ function generateReferences(references: Reference[]): string {
  * @param author - author name.
  */
 function generateAuthorLink(author: string) {
-  if (author === "depbendabot" || author === "renovate") {
+  if (author === "dependabot" || author === "renovate") {
     return `[${author}](${GITHUB_SERVER_URL}/apps/${author})`;
   }
   return `[${author}](${GITHUB_SERVER_URL}/${GITHUB_ACTOR})`;

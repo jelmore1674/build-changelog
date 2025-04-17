@@ -6,7 +6,7 @@ import { exit } from "node:process";
 import YAML from "yaml";
 import { generateCommand } from "../lib/generate";
 
-const depbendabotRegex = /^(?!<li\>).*(?:(?:U|u)pdate|(?:B|b)ump)s? (\S+?) (?:requirement )?from (\S*) to (\S*)/gm;
+const dependabotRegex = /^(?!<li\>).*(?:(?:U|u)pdate|(?:B|b)ump)s? (\S+?) (?:requirement )?from (\S*) to (\S*)/gm;
 
 /**
  * Run the generate command and check the git diff to see if there are changes
@@ -19,14 +19,14 @@ async function enforceChangelogAction() {
   const set = new Set(pullRequestLabels);
 
   if (pullRequest?.body) {
-    const matches = pullRequest.body.match(depbendabotRegex);
+    const matches = pullRequest.body.match(dependabotRegex);
 
-    const depbendabotUpdates = {
-      author: "depbendabot",
+    const dependabotUpdates = {
+      author: "dependabot",
       security: matches,
     };
 
-    const ymlFile = YAML.stringify(depbendabotUpdates);
+    const ymlFile = YAML.stringify(dependabotUpdates);
 
     console.log({ ymlFile });
 
