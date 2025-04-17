@@ -96,7 +96,6 @@ async function commitWithApi(commitMessage: string) {
 
   const expectedHeadOid = await getExpectedHeadOid(branch);
 
-  await exec("git", ["add", "."]);
   const { fileAdditions, fileDeletions } = await gitDiff();
 
   try {
