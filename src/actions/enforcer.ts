@@ -1,6 +1,7 @@
 import { debug, getInput, setFailed } from "@actions/core";
 import { getExecOutput } from "@actions/exec";
 import { context } from "@actions/github";
+import { execSync } from "node:child_process";
 import { readdirSync, writeFileSync } from "node:fs";
 import { exit } from "node:process";
 import YAML from "yaml";
@@ -43,7 +44,9 @@ async function enforceChangelogAction() {
 
       const ymlFile = YAML.stringify(dependabotUpdates);
 
-      writeFileSync(`${process.cwd()}/changelog/${context.sha}-${context.runId}.yml`, ymlFile, { encoding: "utf8" });
+      execSync("git add .");
+
+      writeFileSync(`./changelog/${context.sha}-${context.runId}.yml`, ymlFile, { encoding: "utf8" });
       await commitWithApi("Add changelog file for dependabot.");
     }
   }
