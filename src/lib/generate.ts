@@ -1,3 +1,4 @@
+import { debug } from "@actions/core";
 import {
   type KeepAChangelogKeywords,
   parseChangelog,
@@ -67,7 +68,7 @@ function generateReferences(references: Reference[]): string {
  * @param author - author name.
  */
 function generateAuthorLink(author: string) {
-  if (author === "dependabot" || author === "renovate") {
+  if (author === "dependabot") {
     return `[${author}](${GITHUB_SERVER_URL}/apps/${author})`;
   }
   return `[${author}](${GITHUB_SERVER_URL}/${GITHUB_ACTOR})`;
@@ -360,11 +361,11 @@ function generateCommand(
 
   const renderedChangelog = writeChangelog({ versions: sortedVersions, links: changelogLinks });
 
-  console.log(renderedChangelog);
+  debug(renderedChangelog);
 
   writeFileSync(changelogPath, renderedChangelog, { encoding: "utf8" });
 
-  log("\nCHANGELOG.md finished writing.");
+  log("CHANGELOG.md finished writing.");
 
   cleanUpChangelog(actionConfig.dir);
 
