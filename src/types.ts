@@ -51,7 +51,7 @@ interface ParsedChanges
    * Author only will be set using the enforcer action, and will be set to
    * `dependabot` or `renovate`.
    */
-  author?: "dependabot" | "renovate";
+  author?: "depbendabot" | "renovate";
 }
 
 interface LinkReference extends Omit<Reference, "type"> {
