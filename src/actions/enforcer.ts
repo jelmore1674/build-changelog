@@ -1,6 +1,7 @@
 import { debug, getInput, setFailed } from "@actions/core";
 import { getExecOutput } from "@actions/exec";
 import { context } from "@actions/github";
+import { writeFileSync } from "node:fs";
 import { exit } from "node:process";
 import { generateCommand } from "../lib/generate";
 
@@ -19,7 +20,13 @@ async function enforceChangelogAction() {
   if (pullRequest?.body) {
     const matches = pullRequest.body.match(depbendabotRegex);
 
-    console.log({ matches });
+    const depbendabotUpdates = {
+      security: matches,
+    };
+
+    console.log({ context });
+
+    // writeFileSync("")
   }
 
   if (skipLabels.some(label => set.has(label))) {
