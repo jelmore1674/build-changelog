@@ -89,12 +89,15 @@ async function gitBranch() {
  * @param commitMessage - the commit message.
  */
 async function commitWithApi(commitMessage: string) {
-  const branch = await gitBranch();
+  let branch = await gitBranch();
+
+  if (!branch && context.payload.pull_request) {
+    branch = context.payload.pull_request.head.ref;
+  }
+
   const repo = `${context.repo.owner}/${context.repo.repo}`;
 
   const expectedHeadOid = await getExpectedHeadOid(branch);
-
-  console.log({ expectedHeadOid });
 
   const { fileAdditions, fileDeletions } = await gitDiff();
 
