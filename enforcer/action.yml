@@ -5,6 +5,17 @@ inputs:
   skip_labels:
     default: "ops"
     description: "Comma separated list of labels to skip enforcing changelog changes."
+
+  enable_dependabot:
+    description: Allow creation of changelog file when dependabot creates a pull request.
+    default: "false"
+    required: false
+
+  dependabot_labels:
+    description: The labels you to activate dependabot changelog updates.
+    default: ""
+    required: false
+
   token:
     description: "The secret value from your GITHUB_TOKEN or another token to access the GitHub API. Defaults to the token at `github.token`"
     required: true
