@@ -1,5 +1,5 @@
 import { getInput, setFailed } from "@actions/core";
-import { exec, getExecOutput } from "@actions/exec";
+import { getExecOutput } from "@actions/exec";
 import { context, getOctokit } from "@actions/github";
 import { readFileSync } from "node:fs";
 import { exit } from "node:process";
