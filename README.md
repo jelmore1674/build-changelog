@@ -6,18 +6,25 @@
 
 > Simplify managing changelog files.
 
-The aim of `build-changelog` is to simplify changelogs, by letting contributors
-add a separate file to put their changes, then generating the changelog.
+The aim of `build-changelog` is to simplify changelogs, by letting contributors add a separate file
+to put their changes, then generating the changelog.
 
-Inspiration from [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and [Common Changelog](https://common-changelog.org/)
+Inspiration from [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and
+[Common Changelog](https://common-changelog.org/)
+
+<!--toc:start-->
 
 ## Table of Contents
 
 - [Changelog](#changelog)
   - [Simple Example](#simple-example)
-- [Actions Usage](#actions)
+  - [Complex Example](#complex-example)
+- [Actions](#actions)
   - [Release Notes](#release-notes)
+    - [Notes Simple Example](#notes-simple-example)
   - [Enforce Changelog](#enforce-changelog)
+
+<!--toc:end-->
 
 ## Changelog
 
@@ -33,7 +40,7 @@ To begin using `build-changelog` first create a `changelog` directory.
 >   - `deprecated`
 >   - `fixed`
 >   - `removed`
->   - `sercurity`
+>   - `security`
 
 ### Simple Example
 
@@ -162,27 +169,27 @@ Here is a list of all of the inputs for the action.
 inputs:
   commit_with_api:
     description: Use the GitHub api to generate a signed commit. However, you cannot force push and this will be a new commit.
-    default: 'true'
+    default: "true"
     required: false
 
   dir:
     description: The directory to keep your changelog files. Defaults to the `changelog` directory.
-    default: 'changelog'
+    default: "changelog"
     required: true
 
   flags:
     description: Any custom flags with prefixes. Ex. `[Breaking 🧨]` for breaking changes. Must use a key=value pair comma separated list no spaces.
-    default: 'breaking=[Breaking 🧨]'
+    default: "breaking=[Breaking 🧨]"
     required: false
 
   show_author:
     description: Reference the author in the changelog entry.
-    default: 'true'
+    default: "true"
     required: false
 
   show_author_full_name:
     description: Show the authors name instead of the authors username.
-    default: 'false'
+    default: "false"
     required: false
 
   name_override:
@@ -191,22 +198,22 @@ inputs:
 
   git_tag_prefix:
     description: The prefix for your git tags.
-    default: 'v'
+    default: "v"
     required: true
 
   reference_pull_requests:
     description: Automatically reference pull requests when you merge changes in.
-    default: 'true'
+    default: "true"
     required: false
 
   reference_sha:
     description: Automatically reference commit hashes when you merge changes in.
-    default: 'true'
+    default: "true"
     required: false
 
   version:
     description: Set the version of the unreleased changes.
-    default: 'Unreleased'
+    default: "Unreleased"
     required: false
 
   commit_user_name:
@@ -232,17 +239,17 @@ inputs:
   commit_options:
     description: Commit options (ex. --amend)
     required: false
-    default: ''
+    default: ""
 
   push_options:
     description: Push options (ex. --force)
     required: false
-    default: ''
+    default: ""
 
   skip_commit:
     description: Opt out of committing change. (Ex. You can defer the commit until a later step.)
     required: false
-    default: 'false'
+    default: "false"
 
   token:
     description: The secret value from your GITHUB_TOKEN or another token to access the GitHub API. Defaults to the token at `github.token`
@@ -277,7 +284,7 @@ jobs:
       - uses: jelmore1674/build-changelog@v1
         with:
           # Disable using the api to make a commit.
-          commit_with_api: 'false'
+          commit_with_api: "false"
 
           # This will use the last author as the commit author.
           commit_author: ${{ steps.last-commit.outputs.author }}
@@ -286,13 +293,14 @@ jobs:
           commit_message: ${{ steps.last-commit.outputs.message }}
 
           # Amend and force push.
-          commit_options: '--amend'
-          push_options: '--force'
+          commit_options: "--amend"
+          push_options: "--force"
 ```
 
 > [!WARNING]
-> If you want to sign an amended commit you must use something like [crazy-max/ghaction-import-gpg](https://github.com/crazy-max/ghaction-import-gpg).
-> To be able to use a gpg key.
+> If you want to sign an amended commit you must use something like
+> [crazy-max/ghaction-import-gpg](https://github.com/crazy-max/ghaction-import-gpg). To be able to
+> use a gpg key.
 
 ```yaml
 name: Build Changelog
@@ -310,12 +318,12 @@ jobs:
         with:
           fetch-depth: 2
 
-      - name: 'Import GPG key'
+      - name: "Import GPG key"
         id: import-gpg
         uses: crazy-max/ghaction-import-gpg@v6
         with:
           gpg_private_key: ${{ secrets.GPG_KEY }}
-          passphrase: '${{ secrets.GPG_PASSPHRASE }}'
+          passphrase: "${{ secrets.GPG_PASSPHRASE }}"
           git_user_signingkey: true
           git_commit_gpgsign: true
 
@@ -327,15 +335,15 @@ jobs:
 
       - uses: jelmore1674/build-changelog@v1
         with:
-          commit_with_api: 'false'
-          commit_author: '${{ steps.import-gpg.outputs.name }} <${{ steps.import-gpg.outputs.email }}>'
+          commit_with_api: "false"
+          commit_author: "${{ steps.import-gpg.outputs.name }} <${{ steps.import-gpg.outputs.email }}>"
           commit_user_name: ${{ steps.import-gpg.outputs.name }}
           commit_user_email: ${{ steps.import-gpg.outputs.email }}
           # This will use the last message as the commit message.
           commit_message: ${{ steps.last-commit.outputs.message }}
           # Amend and force push.
-          commit_options: '--amend'
-          push_options: '--force'
+          commit_options: "--amend"
+          push_options: "--force"
 ```
 
 ### Release Notes
@@ -348,7 +356,7 @@ uses: jelmore1674/build-changelog/notes@v1
 
 The `notes` action has an output that can be read to send to your release action.
 
-#### Simple Example:
+#### Notes Simple Example
 
 ```yaml
 name: release
@@ -377,7 +385,8 @@ jobs:
 
 ### Enforce Changelog
 
-This actions will check if there are changes to the changelog. If there are no changes, it will fail.
+This actions will check if there are changes to the changelog. If there are no changes, it will
+fail.
 
 ```yaml
 name: Enforce Changelog
@@ -403,23 +412,23 @@ jobs:
           ## Optionally you can allow dependabot to add a changelog file.
           enable_dependabot: true
           ## Then you can set the labels for dependabot
-          dependabot_labels: 'dependencies'
+          dependabot_labels: "dependencies"
 ```
 
 The input for `Enforce Changelog`
 
 ```yaml
 skip_labels:
-  default: 'ops'
-  description: 'Comma separated list of labels to skip enforcing changelog changes.'
+  default: "ops"
+  description: "Comma separated list of labels to skip enforcing changelog changes."
 
 enable_dependabot:
   description: Allow creation of changelog file when dependabot creates a pull request.
-  default: 'false'
+  default: "false"
   required: false
 
 dependabot_labels:
   description: The labels you to activate dependabot changelog updates.
-  default: ''
+  default: ""
   required: false
 ```

@@ -1,12 +1,17 @@
 {
   "indentWidth": 2,
+  "lineWidth": 100,
   "typescript": {},
   "json": {},
   "yaml": {},
+  "markdown": {
+    "textWrap": "always"
+  },
   "excludes": ["**/node_modules", "**/*-lock.json"],
   "plugins": [
     "https://plugins.dprint.dev/typescript-0.93.2.wasm",
     "https://plugins.dprint.dev/json-0.19.4.wasm",
-    "https://plugins.dprint.dev/g-plane/pretty_yaml-v0.5.0.wasm"
+    "https://plugins.dprint.dev/g-plane/pretty_yaml-v0.5.0.wasm",
+    "https://plugins.dprint.dev/markdown-0.18.0.wasm"
   ]
 }
