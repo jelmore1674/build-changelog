@@ -5,12 +5,23 @@ on:
     branches: [main]
     types: [opened, synchronize, reopened, ready_for_review, labeled, unlabeled]
 
+permissions:
+  # Give the default GITHUB_TOKEN write permission to commit and push the
+  # added or changed files to the repository.
+  contents: write
+  pull-requests: read
+
 jobs:
   enforce-changelog:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 2
 
       - uses: ./enforcer
         with:
           skip_labels: ops,maintenance,docs
+          enable_dependabot: true
+          dependabot_labels: dependencies
