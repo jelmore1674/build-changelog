@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased] - TBD
+
+### Fixed
+
+- Issue where dependabot was creating duplicate changelog entries. ([`d041208`](https://github.com/jelmore1674/build-changelog/commit/d0412082fb87292fc8ca05ea1de470c1c6f4b4cb)) ([#90](https://github.com/jelmore1674/build-changelog/pull/90)) ([Justin Elmore](https://github.com/jelmore1674))
+
 ## [1.6.1] - 2025-04-17
 
 ### Changed
