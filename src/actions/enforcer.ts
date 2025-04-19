@@ -1,10 +1,12 @@
 import { debug, getInput, setFailed } from "@actions/core";
 import { exec, getExecOutput } from "@actions/exec";
 import { context } from "@actions/github";
-import { writeFileSync } from "node:fs";
+import { readdirSync, rmSync, writeFileSync } from "node:fs";
 import { exit } from "node:process";
 import YAML from "yaml";
-import { generateCommand } from "../lib/generate";
+import { generateCommand, parseChanges } from "../lib/generate";
+import { isYamlFile } from "../utils/isYamlFile";
+import { log } from "../utils/log";
 import { commitWithApi } from "./utils/commitWithApi";
 import { stringToBoolean } from "./utils/stringToBoolean";
 
@@ -12,6 +14,11 @@ import { stringToBoolean } from "./utils/stringToBoolean";
  * Regex used to get the changes from the pr body.
  */
 const dependabotRegex = /^(?:(?:U|u)pdate|(?:B|b)ump)s? (.*?) (?:requirement )?from (.*) to (.*)/gm;
+
+interface DependabotChangeFile {
+  author: string;
+  security?: string[];
+}
 
 /**
  * Run the generate command and check the git diff to see if there are changes
@@ -37,9 +44,34 @@ async function enforceChangelogAction() {
         security: matches,
       };
 
-      const ymlFile = YAML.stringify(dependabotUpdates);
+      const changelogFiles = readdirSync("./changelog", { recursive: true, encoding: "utf8" });
 
-      writeFileSync(`./changelog/${context.sha}-${context.runId}.yml`, ymlFile, { encoding: "utf8" });
+      for (const file of changelogFiles) {
+        if (isYamlFile(file)) {
+          const filePath = `./changelog/${file}`;
+          const parsedFile = parseChanges<DependabotChangeFile>(filePath);
+
+          if (parsedFile.author === "dependabot") {
+            if (parsedFile.security) {
+              const allChangesMatch = parsedFile.security.every(change => matches.includes(change));
+
+              if (allChangesMatch) {
+                log("No new changes. Closing action.");
+                exit(0);
+              }
+
+              // Remove the file and continue.
+              log("Removing the previous change file.");
+              rmSync(filePath, { force: true });
+            }
+          }
+        }
+      }
+
+      const ymlFile = YAML.stringify(dependabotUpdates);
+      writeFileSync(`./changelog/${context.sha}-${context.runId}.yml`, ymlFile, {
+        encoding: "utf8",
+      });
 
       await exec("git", ["add", "."]);
       await commitWithApi("Add changelog file for dependabot.");
