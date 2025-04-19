@@ -17,7 +17,7 @@ const dependabotRegex = /^(?:(?:U|u)pdate|(?:B|b)ump)s? (.*?) (?:requirement )?f
 
 interface DependabotChangeFile {
   author: string;
-  security?: string[];
+  security: string[];
 }
 
 /**
@@ -39,6 +39,8 @@ async function enforceChangelogAction() {
     const matches = pullRequest.body.match(dependabotRegex);
 
     if (matches && matches.length > 0) {
+      debug(`matches found\n${matches}`);
+
       const dependabotUpdates = {
         author: "dependabot",
         security: matches,
@@ -46,24 +48,24 @@ async function enforceChangelogAction() {
 
       const changelogFiles = readdirSync("./changelog", { recursive: true, encoding: "utf8" });
 
+      debug(`Files found:\n${changelogFiles}`);
+
       for (const file of changelogFiles) {
         if (isYamlFile(file)) {
           const filePath = `./changelog/${file}`;
           const parsedFile = parseChanges<DependabotChangeFile>(filePath);
 
+          debug(`File: ${file}\n\n${JSON.stringify(parsedFile, null, 2)}`);
+
           if (parsedFile.author === "dependabot") {
-            if (parsedFile.security) {
-              const allChangesMatch = parsedFile.security.every(change => matches.includes(change));
-
-              if (allChangesMatch) {
-                log("No new changes. Closing action.");
-                exit(0);
-              }
-
-              // Remove the file and continue.
-              log("Removing the previous change file.");
-              rmSync(filePath, { force: true });
+            if (matches.every(change => parsedFile.security.includes(change))) {
+              log("No new changes. Stopping action.");
+              exit(0);
             }
+
+            // Remove the file and continue.
+            log("Removing the previous change file.");
+            rmSync(filePath, { force: true });
           }
         }
       }
