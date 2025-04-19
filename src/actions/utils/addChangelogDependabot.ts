@@ -19,8 +19,15 @@ interface DependabotChangeFile {
   security: string[];
 }
 
-async function addChangelogDependabot(pullRequestBody: string) {
-  const matches = pullRequestBody.match(dependabotRegex);
+/**
+ * Add a changelog file when dependabot creates an update.
+ */
+async function addChangelogDependabot() {
+  if (!context.payload.pull_request?.body) {
+    return;
+  }
+
+  const matches = context.payload.pull_request.body.match(dependabotRegex);
 
   if (!matches) {
     debug("No changes found.");
@@ -42,7 +49,6 @@ async function addChangelogDependabot(pullRequestBody: string) {
     if (isYamlFile(file)) {
       const filePath = `./changelog/${file}`;
       const parsedFile = parseChanges<DependabotChangeFile>(filePath);
-
       debug(`File: ${file}\n\n${JSON.stringify(parsedFile, null, 2)}`);
 
       if (parsedFile.author !== "dependabot") {

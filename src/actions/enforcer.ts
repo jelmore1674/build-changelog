@@ -22,7 +22,7 @@ async function enforceChangelogAction() {
     enableDependabot && dependabotLabels.some(label => set.has(label))
     && pullRequest?.body && pullRequest?.user.login === "dependabot[bot]"
   ) {
-    await addChangelogDependabot(pullRequest.body);
+    await addChangelogDependabot();
   }
 
   if (skipLabels.some(label => set.has(label))) {
