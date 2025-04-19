@@ -19,5 +19,5 @@ updates:
         versions: [">20"]
         # Ignore patch updates for Node
         update-types: [
-          "version-update:semver-patch",
+          "version-update:semver-major",
         ]
