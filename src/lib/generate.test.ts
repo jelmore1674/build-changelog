@@ -57,7 +57,9 @@ describe("generateCommand", () => {
   test("parseChanges throws when file is not found", () => {
     const parseChanges = vitest.spyOn(generate, "parseChanges");
 
-    expect(() => generate.parseChanges("notfound.yml")).toThrowError(`The file does not exist\n\nnotfound.yml`);
+    expect(() => generate.parseChanges("notfound.yml")).toThrowError(
+      `The file does not exist\n\nnotfound.yml`,
+    );
     expect(parseChanges).toHaveBeenCalledOnce();
   });
 

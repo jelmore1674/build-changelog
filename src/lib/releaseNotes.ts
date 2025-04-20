@@ -9,7 +9,8 @@ function notesCommand(version: string = "Unreleased") {
     const changelogFile = readFileSync(changelogPath, { encoding: "utf8" });
 
     const changelog = parseChangelog(changelogFile);
-    const release = changelog.versions.find(i => version?.includes(i.version)) || changelog.versions[0];
+    const release = changelog.versions.find(i => version?.includes(i.version))
+      || changelog.versions[0];
 
     if (release) {
       const releaseNotes = getReleaseNotes(changelogFile, version);

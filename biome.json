@@ -15,7 +15,7 @@
     "indentStyle": "space"
   },
   "organizeImports": {
-    "enabled": true
+    "enabled": false
   },
   "linter": {
     "enabled": true,
@@ -27,6 +27,7 @@
       },
       "suspicious": {
         "noConsole": {
+          "level": "error",
           "options": {
             "allow": ["assert", "error", "info", "warn"]
           }

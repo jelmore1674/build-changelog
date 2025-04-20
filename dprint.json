@@ -7,7 +7,15 @@
   "markdown": {
     "textWrap": "always"
   },
-  "excludes": ["**/node_modules", "**/*-lock.json"],
+  "excludes": [
+    "**/node_modules",
+    "pnpm-*.yaml",
+    "**/dist",
+    "**/notes",
+    "**/generate",
+    "**/enforcer",
+    "CHANGELOG.md"
+  ],
   "plugins": [
     "https://plugins.dprint.dev/typescript-0.93.2.wasm",
     "https://plugins.dprint.dev/json-0.19.4.wasm",

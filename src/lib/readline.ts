@@ -14,7 +14,9 @@ async function prompt(question: string, expectedResponse?: string[]) {
     }
 
     if (!expectedResponse.includes(response)) {
-      console.error(`You must enter one of the following respones (${expectedResponse.join(", ")})`);
+      console.error(
+        `You must enter one of the following respones (${expectedResponse.join(", ")})`,
+      );
       return await prompt(question, expectedResponse);
     }
   }
