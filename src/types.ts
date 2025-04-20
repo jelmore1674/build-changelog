@@ -6,6 +6,11 @@ interface Reference {
 }
 
 /**
+ * The changelog style.
+ */
+type ChangelogStyle = "common-changelog" | "keep-a-changelog" | "custom";
+
+/**
  * Complex changelog entry
  */
 type ComplexChange = {
@@ -27,7 +32,8 @@ type ComplexChange = {
  * The parsed changed from the changelog file.
  */
 interface ParsedChanges
-  extends Partial<Record<KeepAChangelogKeywords, string[] | Record<string, string[]> | ComplexChange[]>>
+  extends
+    Partial<Record<KeepAChangelogKeywords, string[] | Record<string, string[]> | ComplexChange[]>>
 {
   /**
    * The version of the change
@@ -58,4 +64,4 @@ interface LinkReference extends Omit<Reference, "type"> {
   type: "pull_request" | "issue";
 }
 
-export type { ComplexChange, LinkReference, ParsedChanges, Reference };
+export type { ChangelogStyle, ComplexChange, LinkReference, ParsedChanges, Reference };

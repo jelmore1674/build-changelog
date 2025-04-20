@@ -7,12 +7,26 @@ branding:
 
 inputs:
   commit_with_api:
-    description: Use the GitHub api to generate a signed commit. However, you cannot force push and this will be a new commit.
+    description: |
+      Use the GitHub api to generate a signed commit. However, you cannot force push
+      and this will be a new commit.
     default: "true"
     required: false
 
   release_type:
     description: The semantic version change type. Accepted values are major, minor, patch
+    required: false
+
+  changelog_style:
+    description: |
+      Set whether you are following the standard set by keep-a-changelog, common-changelog, or a
+      custom changelog format. Can only be one of `keep-a-changelog`, `common-changelog`, or `custom`.
+    required: false
+    default: keep-a-changelog
+
+  changelog_heading:
+    description: |
+      Set a custom heading for your changelog. This can only be set if `changelog_style` is set to `custom`
     required: false
 
   dir:
@@ -21,7 +35,9 @@ inputs:
     required: true
 
   flags:
-    description: Any custom flags with prefixes. Ex. `[Breaking 🧨]` for breaking changes. Must use a key=value pair comma separated list no spaces.
+    description: |
+      Any custom flags with prefixes. Ex. `[Breaking 🧨]` for breaking changes. Must use a key=value
+      pair comma separated list no spaces.
     default: "breaking=[Breaking 🧨]"
     required: false
 
@@ -36,7 +52,9 @@ inputs:
     required: false
 
   name_override:
-    description: If you have a naming that you want to use that is not the github username, then you can override the github username. Must use a `key=value` pair comma separated.
+    description: |
+      If you have a naming that you want to use that is not the github username, then you can
+      override the github username. Must use a `key=value` pair comma separated.
     required: false
 
   git_tag_prefix:
@@ -94,7 +112,9 @@ inputs:
     default: "false"
 
   token:
-    description: The secret value from your GITHUB_TOKEN or another token to access the GitHub API. Defaults to the token at `github.token`
+    description: |
+      The secret value from your GITHUB_TOKEN or another token to access the GitHub API. Defaults
+      to the token at `github.token`
     required: true
     default: ${{ github.token }}
 

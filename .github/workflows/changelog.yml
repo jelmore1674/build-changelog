@@ -3,8 +3,6 @@ name: Changelog
 on:
   workflow_dispatch:
   push:
-    branches:
-      - main
     paths:
       - "changelog/*"
       - "bcl.toml"
@@ -30,3 +28,5 @@ jobs:
         uses: ./
         with:
           show_author_full_name: true
+          skip_commit: true
+          changelog_style: common-changelog

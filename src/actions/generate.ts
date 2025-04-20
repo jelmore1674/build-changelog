@@ -8,12 +8,14 @@ import { clean, inc, type ReleaseType } from "semver";
 import { changelogPath, type Config } from "../lib/config";
 import { generateCommand } from "../lib/generate";
 import { notesCommand } from "../lib/releaseNotes";
+import type { ChangelogStyle } from "../types";
 import { log } from "../utils/log";
 import { commitAndPush } from "./utils/commitAndPush";
 import { commitWithApi } from "./utils/commitWithApi";
 import { getAuthorName } from "./utils/getAuthorName";
 import { getPrNumber } from "./utils/getPrNumber";
 import { stringToBoolean } from "./utils/stringToBoolean";
+import { validateInput } from "./utils/validateInput";
 
 /**
  * Format a key value pair to an object.
@@ -31,7 +33,9 @@ function formatKeyValuePairToObject(pair: string) {
   }, {} as Record<string, string>);
 }
 
-const releaseType = getInput("release_type", { required: false }) as ReleaseType;
+const releaseType = validateInput<ReleaseType>("release_type", validateReleaseTypes);
+const changelogStyle = validateInput<ChangelogStyle>("changelog_style", validateChangelogStyle);
+const changelogHeading = getInput("changelog_heading", { required: false });
 const commitMessage = getInput("commit_message");
 const dir = getInput("dir", { required: true });
 const isApiCommit = stringToBoolean(getInput("commit_with_api"));
@@ -44,11 +48,15 @@ const reference_sha = stringToBoolean(getInput("reference_sha", { required: fals
 // biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
 const git_tag_prefix = getInput("git_tag_prefix", { required: false });
 // biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
-const reference_pull_requests = stringToBoolean(getInput("reference_pull_requests", { required: false }));
+const reference_pull_requests = stringToBoolean(
+  getInput("reference_pull_requests", { required: false }),
+);
 // biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
 const show_author = stringToBoolean(getInput("show_author", { required: false }));
 // biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
-const show_author_full_name = stringToBoolean(getInput("show_author_full_name", { required: false }));
+const show_author_full_name = stringToBoolean(
+  getInput("show_author_full_name", { required: false }),
+);
 const nameOverrideInput = getInput("name_override", { required: false });
 
 const flags = formatKeyValuePairToObject(rawFlags);
@@ -102,7 +110,10 @@ async function generateChangelogAction() {
   const prNumber = await getPrNumber();
 
   startGroup("Generate Changelog");
-  generateCommand(author, context.sha, prNumber, releaseVersion, config);
+  generateCommand(author, context.sha, prNumber, releaseVersion, {
+    changelogStyle,
+    changelogHeading,
+  }, config);
   endGroup();
 
   if (!skipCommit) {
