@@ -219,7 +219,7 @@ function generateCommand(
   changelogOptions?: ChangelogOptions,
   actionConfig = config as Omit<Config, "repo_url" | "release_url" | "prefers">,
 ) {
-  log("generate command parameters", { author, prNumber, releaseVersion });
+  log("generate command parameters", { author, prNumber, releaseVersion, changelogOptions });
 
   log("actionConfig", JSON.stringify(actionConfig, null, 2));
 
