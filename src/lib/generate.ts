@@ -395,7 +395,7 @@ function generateCommand(
     changelogOptions,
   );
 
-  log(renderedChangelog);
+  debug(renderedChangelog);
 
   writeFileSync(changelogPath, renderedChangelog, { encoding: "utf8" });
 

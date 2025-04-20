@@ -30,3 +30,4 @@ jobs:
         uses: ./
         with:
           show_author_full_name: true
+          changelog_style: common-changelog

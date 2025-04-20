@@ -425,6 +425,8 @@ jobs:
           enable_dependabot: true
           ## Then you can set the labels for dependabot
           dependabot_labels: "dependencies"
+          ## Optionally you can set the section to either `security` or `changed`.
+          dependabot_section: "changed"
 ```
 
 The input for `Enforce Changelog`
@@ -442,5 +444,10 @@ enable_dependabot:
 dependabot_labels:
   description: The labels you to activate dependabot changelog updates.
   default: ""
+  required: false
+
+dependabot_section:
+  description: The section to put the dependabot changes in. Can be either `security` or `changed`.
+  default: "security"
   required: false
 ```

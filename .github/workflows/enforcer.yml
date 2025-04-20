@@ -25,3 +25,4 @@ jobs:
           skip_labels: ops,maintenance,docs
           enable_dependabot: true
           dependabot_labels: dependencies
+          dependabot_section: changed

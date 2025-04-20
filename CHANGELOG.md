@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Issue where dependabot was creating duplicate changelog entries. ([`d041208`](https://github.com/jelmore1674/build-changelog/commit/d0412082fb87292fc8ca05ea1de470c1c6f4b4cb)) ([#90](https://github.com/jelmore1674/build-changelog/pull/90)) ([Justin Elmore](https://github.com/jelmore1674))
 
-### Security
+### Changed
 
 - Updates `@jelmore1674/changelog` from 1.0.0 to 1.1.1 ([`0dc658b`](https://github.com/jelmore1674/build-changelog/commit/0dc658b7d4949c0801868f656b842538445ed2d2)) ([#89](https://github.com/jelmore1674/build-changelog/pull/89)) ([dependabot](https://github.com/apps/dependabot))
 
