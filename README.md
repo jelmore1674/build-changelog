@@ -211,6 +211,18 @@ inputs:
     default: "true"
     required: false
 
+  changelog_style:
+    description: |
+      Set whether you are following the standard set by keep-a-changelog, common-changelog, or a
+      custom changelog format. Can only be one of `keep-a-changelog`, `common-changelog`, or `custom`.
+    required: false
+    default: keep-a-changelog
+
+  changelog_heading:
+    description: |
+      Set a custom heading for your changelog. This can only be set if `changelog_style` is set to `custom`
+    required: false
+
   version:
     description: Set the version of the unreleased changes.
     default: "Unreleased"
