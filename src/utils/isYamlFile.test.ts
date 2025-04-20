@@ -1,7 +1,10 @@
 import { expect, test } from "vitest";
 import { isYamlFile } from "./isYamlFile";
 
-const testStrings = [["test.yml", "true"], ["test.toml", "false"], ["hi.md", "false"], ["index.js", "false"], [
+const testStrings = [["test.yml", "true"], ["test.toml", "false"], ["hi.md", "false"], [
+  "index.js",
+  "false",
+], [
   "index.ts",
   "false",
 ]];

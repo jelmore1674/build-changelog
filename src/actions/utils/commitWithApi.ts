@@ -29,7 +29,12 @@ interface Addition {
  * object to send to the GitHub api.
  */
 async function gitDiff() {
-  const { stdout: diff } = await getExecOutput("git", ["status", "--porcelain=v2", "--branch", "--untracked-files=no"]);
+  const { stdout: diff } = await getExecOutput("git", [
+    "status",
+    "--porcelain=v2",
+    "--branch",
+    "--untracked-files=no",
+  ]);
 
   const stagedAdditionFilePaths: string[] = [];
   const stagedDeletionFilePaths: string[] = [];
@@ -69,8 +74,16 @@ async function gitDiff() {
  * @param branch - the branch we are currently on.
  */
 async function getExpectedHeadOid(branch: string) {
-  const { stdout: branchOid } = await getExecOutput("git", ["ls-remote", "origin", `refs/heads/${branch}`]);
-  const { stdout: headOid } = await getExecOutput("git", ["ls-remote", "origin", "refs/heads/HEAD"]);
+  const { stdout: branchOid } = await getExecOutput("git", [
+    "ls-remote",
+    "origin",
+    `refs/heads/${branch}`,
+  ]);
+  const { stdout: headOid } = await getExecOutput("git", [
+    "ls-remote",
+    "origin",
+    "refs/heads/HEAD",
+  ]);
 
   // Fallback to the HEAD oid.
   return branchOid.split("\t")[0] || headOid.split("\t")[0];

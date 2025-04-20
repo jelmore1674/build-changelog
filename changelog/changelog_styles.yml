@@ -1,0 +1,7 @@
+added:
+  - message: Support for `changelog_styles` input to set the changelog format you are following.
+    references:
+      - type: issue
+        number: 85
+  - message: Support for `changelog_heading` input to set custom changelog headings.
+  - message: Support to customize dependabot changes section.

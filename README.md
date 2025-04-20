@@ -211,6 +211,18 @@ inputs:
     default: "true"
     required: false
 
+  changelog_style:
+    description: |
+      Set whether you are following the standard set by keep-a-changelog, common-changelog, or a
+      custom changelog format. Can only be one of `keep-a-changelog`, `common-changelog`, or `custom`.
+    required: false
+    default: keep-a-changelog
+
+  changelog_heading:
+    description: |
+      Set a custom heading for your changelog. This can only be set if `changelog_style` is set to `custom`
+    required: false
+
   version:
     description: Set the version of the unreleased changes.
     default: "Unreleased"
@@ -413,6 +425,8 @@ jobs:
           enable_dependabot: true
           ## Then you can set the labels for dependabot
           dependabot_labels: "dependencies"
+          ## Optionally you can set the section to either `security` or `changed`.
+          dependabot_section: "changed"
 ```
 
 The input for `Enforce Changelog`
@@ -430,5 +444,10 @@ enable_dependabot:
 dependabot_labels:
   description: The labels you to activate dependabot changelog updates.
   default: ""
+  required: false
+
+dependabot_section:
+  description: The section to put the dependabot changes in. Can be either `security` or `changed`.
+  default: "security"
   required: false
 ```

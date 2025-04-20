@@ -16,6 +16,11 @@ inputs:
     default: ""
     required: false
 
+  dependabot_section:
+    description: The section to put the dependabot changes in. Can be either `security` or `changed`.
+    default: "security"
+    required: false
+
   token:
     description: "The secret value from your GITHUB_TOKEN or another token to access the GitHub API. Defaults to the token at `github.token`"
     required: true

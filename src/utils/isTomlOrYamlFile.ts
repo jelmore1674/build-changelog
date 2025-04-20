@@ -10,4 +10,4 @@ function isTomlOrYamlFile(file: string) {
   return isTomlFile(file) || isYamlFile(file);
 }
 
-export {isTomlOrYamlFile}
+export { isTomlOrYamlFile };

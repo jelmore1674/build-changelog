@@ -24,7 +24,8 @@ test("Prompt returns default response on enter.", async () => {
 });
 
 test("Prompt returns with valid response", async () => {
-  vi.spyOn(rl, "question").mockResolvedValueOnce("no").mockResolvedValueOnce("no").mockResolvedValue("yes");
+  vi.spyOn(rl, "question").mockResolvedValueOnce("no").mockResolvedValueOnce("no")
+    .mockResolvedValue("yes");
   const errors = vi.spyOn(console, "error");
   const response = await prompt("This is a test prompt", ["yes"]);
 

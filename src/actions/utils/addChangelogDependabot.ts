@@ -8,15 +8,23 @@ import { parseChanges } from "../../lib/generate";
 import { isYamlFile } from "../../utils/isYamlFile";
 import { log } from "../../utils/log";
 import { commitWithApi } from "./commitWithApi";
+import { validateInput } from "./validateInput";
+import { validateDependabotSection } from "./validations/validateDependabotSection";
 
 /**
  * Regex used to get the changes from the pr body.
  */
 const dependabotRegex = /^(?:(?:U|u)pdate|(?:B|b)ump)s? (.*?) (?:requirement )?from (.*) to (.*)/gm;
 
+/**
+ * Supported Change Sections for dependabot.
+ */
+type DependabotChangeSection = "changed" | "security";
+
 interface DependabotChangeFile {
   author: string;
-  security: string[];
+  changed?: string[];
+  security?: string[];
 }
 
 /**
@@ -26,6 +34,14 @@ async function addChangelogDependabot() {
   if (!context.payload.pull_request?.body) {
     return;
   }
+
+  const dependabotChangeSection = validateInput<DependabotChangeSection>(
+    "dependabot_section",
+    validateDependabotSection,
+    {
+      required: true,
+    },
+  );
 
   const matches = context.payload.pull_request.body.match(dependabotRegex);
 
@@ -38,7 +54,7 @@ async function addChangelogDependabot() {
 
   const dependabotUpdates = {
     author: "dependabot",
-    security: matches,
+    [dependabotChangeSection]: matches,
   };
 
   const changelogFiles = readdirSync("./changelog", { recursive: true, encoding: "utf8" });
@@ -55,7 +71,11 @@ async function addChangelogDependabot() {
         return;
       }
 
-      if (matches.every(change => parsedFile.security.includes(change))) {
+      const changeSection = parsedFile?.[dependabotChangeSection];
+
+      if (
+        changeSection && matches.every(change => changeSection.includes(change))
+      ) {
         log("No new changes. Stopping action.");
         exit(0);
       }

@@ -199,6 +199,11 @@ function addVersionReferenceLinks(
   });
 }
 
+interface ChangelogOptions {
+  changelogStyle?: "keep-a-changelog" | "common-changelog" | "custom";
+  customHeading?: string;
+}
+
 /**
  *  The generate command will read the existing `yaml|yml` files in the
  *  `changelogDir`, write them to the `CHANGELOG.md`, and will remove the
@@ -211,9 +216,10 @@ function generateCommand(
   sha: string,
   prNumber?: number,
   releaseVersion?: string,
+  changelogOptions?: ChangelogOptions,
   actionConfig = config as Omit<Config, "repo_url" | "release_url" | "prefers">,
 ) {
-  log("generate command parameters", { author, prNumber, releaseVersion });
+  log("generate command parameters", { author, prNumber, releaseVersion, changelogOptions });
 
   log("actionConfig", JSON.stringify(actionConfig, null, 2));
 
@@ -384,7 +390,10 @@ function generateCommand(
     return sortBreakingChanges(version);
   });
 
-  const renderedChangelog = writeChangelog({ versions: sortedVersions, links: changelogLinks });
+  const renderedChangelog = writeChangelog(
+    { versions: sortedVersions, links: changelogLinks },
+    changelogOptions,
+  );
 
   debug(renderedChangelog);
 
