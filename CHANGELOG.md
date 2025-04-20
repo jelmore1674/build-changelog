@@ -2,18 +2,24 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+The format is based on [Common Changelog](https://common-changelog.org),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased] - TBD
 
-### Fixed
-
-- Issue where dependabot was creating duplicate changelog entries. ([`d041208`](https://github.com/jelmore1674/build-changelog/commit/d0412082fb87292fc8ca05ea1de470c1c6f4b4cb)) ([#90](https://github.com/jelmore1674/build-changelog/pull/90)) ([Justin Elmore](https://github.com/jelmore1674))
-
 ### Changed
 
 - Updates `@jelmore1674/changelog` from 1.0.0 to 1.1.1 ([`0dc658b`](https://github.com/jelmore1674/build-changelog/commit/0dc658b7d4949c0801868f656b842538445ed2d2)) ([#89](https://github.com/jelmore1674/build-changelog/pull/89)) ([dependabot](https://github.com/apps/dependabot))
+
+### Added
+
+- Support for `changelog_heading` input to set custom changelog headings. ([`6d3515a`](https://github.com/jelmore1674/build-changelog/commit/6d3515a1331d4b9a9775639525101bc16ce70a7d)) ([#91](https://github.com/jelmore1674/build-changelog/pull/91)) ([Justin Elmore](https://github.com/jelmore1674))
+- Support for `changelog_styles` input to set the changelog format you are following. ([`6d3515a`](https://github.com/jelmore1674/build-changelog/commit/6d3515a1331d4b9a9775639525101bc16ce70a7d)) ([#85](https://github.com/jelmore1674/build-changelog/issues/85), [#91](https://github.com/jelmore1674/build-changelog/pull/91)) ([Justin Elmore](https://github.com/jelmore1674))
+- Support to customize dependabot changes section. ([`6d3515a`](https://github.com/jelmore1674/build-changelog/commit/6d3515a1331d4b9a9775639525101bc16ce70a7d)) ([#91](https://github.com/jelmore1674/build-changelog/pull/91)) ([Justin Elmore](https://github.com/jelmore1674))
+
+### Fixed
+
+- Issue where dependabot was creating duplicate changelog entries. ([`d041208`](https://github.com/jelmore1674/build-changelog/commit/d0412082fb87292fc8ca05ea1de470c1c6f4b4cb)) ([#90](https://github.com/jelmore1674/build-changelog/pull/90)) ([Justin Elmore](https://github.com/jelmore1674))
 
 ## [1.6.1] - 2025-04-17
 
