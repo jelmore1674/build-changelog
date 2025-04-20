@@ -41,6 +41,7 @@ jobs:
         run: |
           if [[ -n $(git status --porcelain) ]]; then
             echo "changes=true" >> $GITHUB_OUTPUT
+            git pull
           else
             echo "changes=false" >> $GITHUB_OUTPUT
           fi
