@@ -3,6 +3,13 @@ name: Changelog
 on:
   workflow_dispatch:
   push:
+    branches:
+      - main
+    paths:
+      - "changelog/*"
+      - "bcl.toml"
+      - "**/changelog.yml"
+      - "CHANGELOG.md"
 
 permissions:
   # Give the default GITHUB_TOKEN write permission to commit and push the
@@ -23,9 +30,3 @@ jobs:
         uses: ./
         with:
           show_author_full_name: true
-          skip_commit: true
-          changelog_style: custom
-          changelog_heading: |
-            This is a custom heading.
-
-            Actually this is a multi line heading
