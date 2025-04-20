@@ -16,6 +16,8 @@ import { getAuthorName } from "./utils/getAuthorName";
 import { getPrNumber } from "./utils/getPrNumber";
 import { stringToBoolean } from "./utils/stringToBoolean";
 import { validateInput } from "./utils/validateInput";
+import { validateChangelogStyle } from "./utils/validations/validateChangelogStyle";
+import { validateReleaseTypes } from "./utils/validations/validateReleaseTypes";
 
 /**
  * Format a key value pair to an object.

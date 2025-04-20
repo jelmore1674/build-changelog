@@ -10,3 +10,5 @@ function validateChangelogStyle(input: string) {
     error: `Expected on of the following inputs: ${validChangelogStyle.join(", ")}`,
   };
 }
+
+export { validateChangelogStyle };
