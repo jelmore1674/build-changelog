@@ -46,7 +46,6 @@ const rawFlags = getInput("flags", { required: false });
 const version = getInput("version", { required: false });
 // biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
 const reference_sha = stringToBoolean(getInput("reference_sha", { required: false }));
-
 // biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
 const git_tag_prefix = getInput("git_tag_prefix", { required: false });
 // biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
