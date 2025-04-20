@@ -201,7 +201,7 @@ function addVersionReferenceLinks(
 
 interface ChangelogOptions {
   changelogStyle?: "keep-a-changelog" | "common-changelog" | "custom";
-  changelogHeading?: string;
+  customHeading?: string;
 }
 
 /**

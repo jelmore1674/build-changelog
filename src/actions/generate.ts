@@ -37,7 +37,7 @@ function formatKeyValuePairToObject(pair: string) {
 
 const releaseType = validateInput<ReleaseType>("release_type", validateReleaseTypes);
 const changelogStyle = validateInput<ChangelogStyle>("changelog_style", validateChangelogStyle);
-const changelogHeading = getInput("changelog_heading", { required: false });
+const customHeading = getInput("changelog_heading", { required: false });
 const commitMessage = getInput("commit_message");
 const dir = getInput("dir", { required: true });
 const isApiCommit = stringToBoolean(getInput("commit_with_api"));
@@ -114,7 +114,7 @@ async function generateChangelogAction() {
   startGroup("Generate Changelog");
   generateCommand(author, context.sha, prNumber, releaseVersion, {
     changelogStyle,
-    changelogHeading,
+    customHeading,
   }, config);
   endGroup();
 
