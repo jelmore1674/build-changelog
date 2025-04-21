@@ -1,0 +1,4 @@
+author: dependabot
+changed:
+  - Updates `@vitest/coverage-v8` from 3.1.1 to 3.1.2
+  - Updates `vitest` from 3.1.1 to 3.1.2
