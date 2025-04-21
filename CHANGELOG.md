@@ -2,8 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+The format is based on [Common Changelog](https://common-changelog.org),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased] - TBD
+
+### Changed
+
+- Updates `@vitest/coverage-v8` from 3.1.1 to 3.1.2 ([`791b55f`](https://github.com/jelmore1674/build-changelog/commit/791b55ffcfff000efbd9e3d493937fee1eaa2483)) ([#92](https://github.com/jelmore1674/build-changelog/pull/92)) ([dependabot](https://github.com/apps/dependabot))
+- Updates `vitest` from 3.1.1 to 3.1.2 ([`791b55f`](https://github.com/jelmore1674/build-changelog/commit/791b55ffcfff000efbd9e3d493937fee1eaa2483)) ([#92](https://github.com/jelmore1674/build-changelog/pull/92)) ([dependabot](https://github.com/apps/dependabot))
 
 ## [1.7.0] - 2025-04-20
 
