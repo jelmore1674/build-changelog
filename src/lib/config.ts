@@ -57,6 +57,13 @@ type Config = {
   git_tag_prefix: string;
 
   /**
+   * Show the git_tag_prefix in your version.
+   *
+   * @default false
+   */
+  show_git_tag_prefix: boolean;
+
+  /**
    * Reference Pull Requests by default
    *
    * @default true
@@ -94,6 +101,7 @@ const initialConfig: Config = {
   reference_pull_requests: true,
   reference_sha: true,
   git_tag_prefix: "v",
+  show_git_tag_prefix: false,
 };
 
 /**

@@ -199,6 +199,13 @@ function addVersionReferenceLinks(
   });
 }
 
+function addGitTagPrefix(
+  version: Version<Partial<Record<KeepAChangelogKeywords, string[]>>>,
+  config: Omit<Config, "repo_url" | "release_url" | "prefers">,
+) {
+  version.version = `${config.git_tag_prefix}${version.version}`;
+}
+
 interface ChangelogOptions {
   changelogStyle?: "keep-a-changelog" | "common-changelog" | "custom";
   customHeading?: string;
@@ -244,7 +251,9 @@ function generateCommand(
         const parsedChanges = parseChanges<ParsedChanges>(path.join(changelogDir, file));
 
         // Set fallback values for release_date and Version
-        let version = parsedChanges.version || "Unreleased";
+        let version = parsedChanges.version
+          ? `${config.show_git_tag_prefix ? config.git_tag_prefix : ""}${parsedChanges.version}`
+          : "Unreleased";
         let release_date = parsedChanges.release_date || "TBD";
         let notice = parsedChanges.notice;
         const references = parsedChanges.references || [];
@@ -387,11 +396,22 @@ function generateCommand(
   const sortedVersions = parsedChangelog.map((version) => {
     addVersionReferenceLinks(version, changelogLinks, actionConfig);
 
+    if (config.show_git_tag_prefix) {
+      addGitTagPrefix(version, actionConfig);
+    }
+
     return sortBreakingChanges(version);
   });
 
+  const referenceLinks = sortedVersions.map(v => ({
+    reference: v.version,
+    url: `${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/releases/tag/${
+      config.show_git_tag_prefix ? "" : config.git_tag_prefix
+    }${v.version}`,
+  }));
+
   const renderedChangelog = writeChangelog(
-    { versions: sortedVersions, links: changelogLinks },
+    { versions: sortedVersions, links: referenceLinks },
     changelogOptions,
   );
 
