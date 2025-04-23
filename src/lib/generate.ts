@@ -199,6 +199,14 @@ function addVersionReferenceLinks(
   });
 }
 
+function addGitTagPrefix(
+  version: Version<Partial<Record<KeepAChangelogKeywords, string[]>>>,
+  config: Omit<Config, "repo_url" | "release_url" | "prefers">,
+) {
+  version.version = `${config.git_tag_prefix}${version.version}`;
+  return version;
+}
+
 interface ChangelogOptions {
   changelogStyle?: "keep-a-changelog" | "common-changelog" | "custom";
   customHeading?: string;
@@ -243,8 +251,16 @@ function generateCommand(
         log(`Parsing ${file} file now.`);
         const parsedChanges = parseChanges<ParsedChanges>(path.join(changelogDir, file));
 
+        debug(`parsedChanges: ${parsedChanges}`);
+
         // Set fallback values for release_date and Version
-        let version = parsedChanges.version || "Unreleased";
+        let version = parsedChanges.version
+          ? `${
+            actionConfig.show_git_tag_prefix && parsedChanges.version.toLowerCase() !== "unreleased"
+              ? actionConfig.git_tag_prefix
+              : ""
+          }${parsedChanges.version}`
+          : "Unreleased";
         let release_date = parsedChanges.release_date || "TBD";
         let notice = parsedChanges.notice;
         const references = parsedChanges.references || [];
@@ -264,7 +280,9 @@ function generateCommand(
           && currentVersion.version.toLowerCase() === "unreleased"
         ) {
           const today = new Date().toISOString().split("T")[0];
-          currentVersion.version = releaseVersion;
+          currentVersion.version = `${
+            actionConfig.show_git_tag_prefix ? actionConfig.git_tag_prefix : ""
+          }${releaseVersion}`;
           currentVersion.release_date = today;
 
           changelogLinks.unshift({
@@ -387,11 +405,28 @@ function generateCommand(
   const sortedVersions = parsedChangelog.map((version) => {
     addVersionReferenceLinks(version, changelogLinks, actionConfig);
 
+    if (actionConfig.show_git_tag_prefix && version.version.toLowerCase() !== "unreleased") {
+      return sortBreakingChanges(addGitTagPrefix(version, actionConfig));
+    }
+
     return sortBreakingChanges(version);
   });
 
+  const referenceLinks = sortedVersions.map(v => {
+    if (v.version.toLowerCase() === "unreleased") {
+      return;
+    }
+
+    return {
+      reference: v.version,
+      url: `${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/releases/tag/${
+        actionConfig.show_git_tag_prefix ? "" : actionConfig.git_tag_prefix
+      }${v.version}`,
+    };
+  }).filter(Boolean) as ReferenceLink[];
+
   const renderedChangelog = writeChangelog(
-    { versions: sortedVersions, links: changelogLinks },
+    { versions: sortedVersions, links: referenceLinks },
     changelogOptions,
   );
 
