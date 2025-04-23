@@ -21,7 +21,6 @@ import { commitAndPush } from "./utils/commitAndPush";
 import { commitWithApi } from "./utils/commitWithApi";
 import { getAuthorName } from "./utils/getAuthorName";
 import { getPrNumber } from "./utils/getPrNumber";
-import { stringToBoolean } from "./utils/stringToBoolean";
 import { validateInput } from "./utils/validateInput";
 import { validateChangelogStyle } from "./utils/validations/validateChangelogStyle";
 import { validateReleaseTypes } from "./utils/validations/validateReleaseTypes";
@@ -62,6 +61,7 @@ const show_author = getBooleanInput("show_author", { required: false });
 // biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
 const show_author_full_name = getBooleanInput("show_author_full_name", { required: false });
 const nameOverrideInput = getInput("name_override", { required: false });
+// biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
 const show_git_tag_prefix = getBooleanInput("show_git_tag_prefix", { required: false });
 
 const flags = formatKeyValuePairToObject(rawFlags);

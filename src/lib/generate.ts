@@ -251,6 +251,8 @@ function generateCommand(
         log(`Parsing ${file} file now.`);
         const parsedChanges = parseChanges<ParsedChanges>(path.join(changelogDir, file));
 
+        debug(`parsedChanges: ${parsedChanges}`);
+
         // Set fallback values for release_date and Version
         let version = parsedChanges.version
           ? `${
@@ -426,7 +428,7 @@ function generateCommand(
     changelogOptions,
   );
 
-  log(renderedChangelog);
+  debug(renderedChangelog);
 
   writeFileSync(changelogPath, renderedChangelog, { encoding: "utf8" });
 
