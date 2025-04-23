@@ -116,10 +116,17 @@ async function generateChangelogAction() {
   const prNumber = await getPrNumber();
 
   startGroup("Generate Changelog");
-  generateCommand(author, context.sha, prNumber, releaseVersion, {
-    changelogStyle,
-    customHeading,
-  }, config);
+  generateCommand(
+    author,
+    context.sha,
+    prNumber,
+    `${show_git_tag_prefix ? git_tag_prefix : ""}${releaseVersion}`,
+    {
+      changelogStyle,
+      customHeading,
+    },
+    config,
+  );
   endGroup();
 
   if (!skipCommit) {
