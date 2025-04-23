@@ -204,6 +204,7 @@ function addGitTagPrefix(
   config: Omit<Config, "repo_url" | "release_url" | "prefers">,
 ) {
   version.version = `${config.git_tag_prefix}${version.version}`;
+  return version;
 }
 
 interface ChangelogOptions {
@@ -401,7 +402,7 @@ function generateCommand(
     addVersionReferenceLinks(version, changelogLinks, actionConfig);
 
     if (config.show_git_tag_prefix && version.version.toLowerCase() !== "unreleased") {
-      addGitTagPrefix(version, actionConfig);
+      return sortBreakingChanges(addGitTagPrefix(version, actionConfig));
     }
 
     return sortBreakingChanges(version);
@@ -425,7 +426,7 @@ function generateCommand(
     changelogOptions,
   );
 
-  debug(renderedChangelog);
+  log(renderedChangelog);
 
   writeFileSync(changelogPath, renderedChangelog, { encoding: "utf8" });
 
