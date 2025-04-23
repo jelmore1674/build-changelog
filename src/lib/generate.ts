@@ -280,7 +280,9 @@ function generateCommand(
           && currentVersion.version.toLowerCase() === "unreleased"
         ) {
           const today = new Date().toISOString().split("T")[0];
-          currentVersion.version = releaseVersion;
+          currentVersion.version = `${
+            actionConfig.show_git_tag_prefix ? actionConfig.git_tag_prefix : ""
+          }${releaseVersion}`;
           currentVersion.release_date = today;
 
           changelogLinks.unshift({

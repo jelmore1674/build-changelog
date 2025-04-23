@@ -120,7 +120,7 @@ async function generateChangelogAction() {
     author,
     context.sha,
     prNumber,
-    `${show_git_tag_prefix ? git_tag_prefix : ""}${releaseVersion}`,
+    releaseVersion,
     {
       changelogStyle,
       customHeading,
