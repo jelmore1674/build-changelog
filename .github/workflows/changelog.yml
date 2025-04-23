@@ -28,6 +28,6 @@ jobs:
         uses: ./
         with:
           show_author_full_name: true
-          changelog_style: common-changelog
+          changelog_style: keep-a-changelog
           show_git_tag_prefix: true
           skip_commit: true
