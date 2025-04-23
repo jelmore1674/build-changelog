@@ -12,6 +12,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updates `@vitest/coverage-v8` from 3.1.1 to 3.1.2 ([`791b55f`](https://github.com/jelmore1674/build-changelog/commit/791b55ffcfff000efbd9e3d493937fee1eaa2483)) ([#92](https://github.com/jelmore1674/build-changelog/pull/92)) ([dependabot](https://github.com/apps/dependabot))
 - Updates `vitest` from 3.1.1 to 3.1.2 ([`791b55f`](https://github.com/jelmore1674/build-changelog/commit/791b55ffcfff000efbd9e3d493937fee1eaa2483)) ([#92](https://github.com/jelmore1674/build-changelog/pull/92)) ([dependabot](https://github.com/apps/dependabot))
 
+### Added
+
+- Support to show full tag for the release the the `git_tag_prefix`. ([`f02846a`](https://github.com/jelmore1674/build-changelog/commit/f02846a0cb0d865aa27fc5248f62ef4a15a14bf3)) ([#93](https://github.com/jelmore1674/build-changelog/pull/93)) ([Justin Elmore](https://github.com/jelmore1674))
+
 ## [1.7.0] - 2025-04-20
 
 ### Changed
