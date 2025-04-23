@@ -255,8 +255,8 @@ function generateCommand(
         // Set fallback values for release_date and Version
         let version = parsedChanges.version
           ? `${
-            config.show_git_tag_prefix && parsedChanges.version.toLowerCase() !== "unreleased"
-              ? config.git_tag_prefix
+            actionConfig.show_git_tag_prefix && parsedChanges.version.toLowerCase() !== "unreleased"
+              ? actionConfig.git_tag_prefix
               : ""
           }${parsedChanges.version}`
           : "Unreleased";
@@ -402,7 +402,7 @@ function generateCommand(
   const sortedVersions = parsedChangelog.map((version) => {
     addVersionReferenceLinks(version, changelogLinks, actionConfig);
 
-    if (config.show_git_tag_prefix && version.version.toLowerCase() !== "unreleased") {
+    if (actionConfig.show_git_tag_prefix && version.version.toLowerCase() !== "unreleased") {
       return sortBreakingChanges(addGitTagPrefix(version, actionConfig));
     }
 
@@ -417,13 +417,10 @@ function generateCommand(
     return {
       reference: v.version,
       url: `${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/releases/tag/${
-        config.show_git_tag_prefix ? "" : config.git_tag_prefix
+        actionConfig.show_git_tag_prefix ? "" : actionConfig.git_tag_prefix
       }${v.version}`,
     };
   }).filter(Boolean) as ReferenceLink[];
-
-  console.log(JSON.stringify({ sortedVersions }, null, 2));
-  console.log(JSON.stringify({ referenceLinks }, null, 2));
 
   const renderedChangelog = writeChangelog(
     { versions: sortedVersions, links: referenceLinks },
