@@ -204,7 +204,6 @@ function addGitTagPrefix(
   config: Omit<Config, "repo_url" | "release_url" | "prefers">,
 ) {
   version.version = `${config.git_tag_prefix}${version.version}`;
-  console.log({ version });
   return version;
 }
 
