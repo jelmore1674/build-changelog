@@ -3,11 +3,6 @@ name: Changelog
 on:
   workflow_dispatch:
   push:
-    paths:
-      - "changelog/*"
-      - "bcl.toml"
-      - "**/changelog.yml"
-      - "CHANGELOG.md"
 
 permissions:
   # Give the default GITHUB_TOKEN write permission to commit and push the

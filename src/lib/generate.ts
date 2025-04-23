@@ -204,6 +204,7 @@ function addGitTagPrefix(
   config: Omit<Config, "repo_url" | "release_url" | "prefers">,
 ) {
   version.version = `${config.git_tag_prefix}${version.version}`;
+  console.log({ version });
   return version;
 }
 
@@ -420,6 +421,9 @@ function generateCommand(
       }${v.version}`,
     };
   }).filter(Boolean) as ReferenceLink[];
+
+  console.log(JSON.stringify({ sortedVersions }, null, 2));
+  console.log(JSON.stringify({ referenceLinks }, null, 2));
 
   const renderedChangelog = writeChangelog(
     { versions: sortedVersions, links: referenceLinks },
