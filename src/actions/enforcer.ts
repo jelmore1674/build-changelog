@@ -70,15 +70,15 @@ async function enforceChangelogAction() {
         await getOctokit(token).rest.issues.updateComment({
           ...context.repo,
           comment_id: exitsingCommentId,
-          body: "This is an updated comment",
+          body: `@${context.actor} Please update your changelog.`,
         });
       } else {
-        // await getOctokit(token).rest.issues.createComment({
-        //  issue_number: prNumber,
-        //  owner: context.repo.owner,
-        //  repo: context.repo.repo,
-        //  body: "This is a comment",
-        // });
+        await getOctokit(token).rest.issues.createComment({
+          issue_number: prNumber,
+          owner: context.repo.owner,
+          repo: context.repo.repo,
+          body: `@${context.actor} Please update your changelog.`,
+        });
       }
     } catch (e) {
       console.info({ e });
