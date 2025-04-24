@@ -42,6 +42,15 @@ async function enforceChangelogAction() {
   const changelog = readFileSync("CHANGELOG.md", "utf8");
   const existingChangelog = getChangeCount(parseChangelog(changelog).versions);
   const newChangelog = generateCommand(context.actor, context.sha, prNumber);
+  const currentChanges = generateCommand(
+    context.actor,
+    context.sha,
+    prNumber,
+    undefined,
+    undefined,
+    undefined,
+    true,
+  );
   const { stdout } = await getExecOutput("git", ["status", "--porcelain"]);
 
   console.info(stdout);
@@ -65,7 +74,7 @@ async function enforceChangelogAction() {
   } catch (_e) {
   }
 
-  if (existingChangelog === newChangelog) {
+  if (existingChangelog === newChangelog.count) {
     try {
       if (exitsingCommentId) {
         await getOctokit(token).rest.issues.updateComment({
@@ -85,6 +94,25 @@ async function enforceChangelogAction() {
       console.info({ e });
     }
     setFailed("Changelog changes not found.");
+  } else {
+    try {
+      if (exitsingCommentId) {
+        await getOctokit(token).rest.issues.updateComment({
+          ...context.repo,
+          comment_id: exitsingCommentId,
+          body: `\`\`\`md\n${currentChanges.latestChanges}\n\`\`\``,
+        });
+      } else {
+        await getOctokit(token).rest.issues.createComment({
+          issue_number: prNumber,
+          owner: context.repo.owner,
+          repo: context.repo.repo,
+          body: `\`\`\`md\n${currentChanges.latestChanges}\n\`\`\``,
+        });
+      }
+    } catch (e) {
+      console.info({ e });
+    }
   }
 }
 

@@ -1,5 +1,6 @@
 import { debug } from "@actions/core";
 import {
+  getReleaseNotes,
   type KeepAChangelogKeywords,
   parseChangelog,
   type Reference as ReferenceLink,
@@ -227,6 +228,7 @@ function generateCommand(
   releaseVersion?: string,
   changelogOptions?: ChangelogOptions,
   actionConfig = config as Omit<Config, "repo_url" | "release_url" | "prefers">,
+  skip_changelog = false,
 ) {
   log("generate command parameters", { author, prNumber, releaseVersion, changelogOptions });
 
@@ -237,7 +239,7 @@ function generateCommand(
   let changelogVersions: Version<Partial<Record<KeepAChangelogKeywords, string[]>>>[] = [];
   let changelogLinks: ReferenceLink[] = [];
 
-  if (existsSync(changelogPath)) {
+  if (!skip_changelog && existsSync(changelogPath)) {
     const changelogFile = readFileSync(changelogPath, { encoding: "utf8" });
     const changelog = parseChangelog(changelogFile, releaseVersion);
     changelogVersions = changelog.versions;
@@ -431,18 +433,23 @@ function generateCommand(
     changelogOptions,
   );
 
-  // debug(renderedChangelog);
+  const latestChanges = getReleaseNotes(renderedChangelog).replace("# What's Changed\n\n", "");
 
-  // writeFileSync(changelogPath, renderedChangelog, { encoding: "utf8" });
+  debug(renderedChangelog);
+
+  writeFileSync(changelogPath, renderedChangelog, { encoding: "utf8" });
 
   log("CHANGELOG.md finished writing.");
 
-  // cleanUpChangelog(actionConfig.dir);
+  cleanUpChangelog(actionConfig.dir);
 
-  const totalChanges = getChangeCount(sortedVersions);
+  const count = getChangeCount(sortedVersions);
 
   rl.close();
-  return totalChanges;
+  return {
+    count,
+    latestChanges,
+  };
 }
 
 export { generateCommand, parseChanges };
