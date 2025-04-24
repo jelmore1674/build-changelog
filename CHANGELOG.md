@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Common Changelog](https://common-changelog.org),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased] - TBD
+
+### Changed
+
+- Instead of grouping inline references in a parenthesis, they are now separated by `|` character. [`801493f`](https://github.com/jelmore1674/build-changelog/commit/801493f4d1554fd767a39d31fcb17acd5c392fa1) | [#100](https://github.com/jelmore1674/build-changelog/pull/100) | [Justin Elmore](https://github.com/jelmore1674)
+
 ## [1.8.1] - 2025-04-24
 
 ### Fixed
