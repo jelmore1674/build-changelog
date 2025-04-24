@@ -73,6 +73,8 @@ async function enforceChangelogAction() {
   } catch (_e) {
   }
 
+  console.info({ currentChanges: currentChanges.latestChanges });
+
   if (existingChangelog === newChangelog.count) {
     try {
       if (exitsingCommentId) {
