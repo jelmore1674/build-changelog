@@ -50,7 +50,7 @@ async function enforceChangelogAction() {
       const response = await getOctokit(token).rest.issues.createComment({
         issue_number: prNumber,
         owner: context.repo.owner,
-        repo: context.repo.owner,
+        repo: context.repo.repo,
         body: "This is a comment",
       });
 
