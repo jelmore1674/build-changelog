@@ -1,5 +1,6 @@
 import { debug } from "@actions/core";
 import {
+  getReleaseNotes,
   type KeepAChangelogKeywords,
   parseChangelog,
   type Reference as ReferenceLink,
@@ -10,6 +11,7 @@ import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { ParsedChanges, Reference } from "../types";
 import { cleanUpChangelog } from "../utils/cleanUpChangelog";
+import { getChangeCount } from "../utils/getChangeCount";
 import { getParser } from "../utils/getParser";
 import { isTomlOrYamlFile } from "../utils/isTomlOrYamlFile";
 import { log } from "../utils/log";
@@ -226,6 +228,7 @@ function generateCommand(
   releaseVersion?: string,
   changelogOptions?: ChangelogOptions,
   actionConfig = config as Omit<Config, "repo_url" | "release_url" | "prefers">,
+  skip_changelog = false,
 ) {
   log("generate command parameters", { author, prNumber, releaseVersion, changelogOptions });
 
@@ -236,7 +239,7 @@ function generateCommand(
   let changelogVersions: Version<Partial<Record<KeepAChangelogKeywords, string[]>>>[] = [];
   let changelogLinks: ReferenceLink[] = [];
 
-  if (existsSync(changelogPath)) {
+  if (!skip_changelog && existsSync(changelogPath)) {
     const changelogFile = readFileSync(changelogPath, { encoding: "utf8" });
     const changelog = parseChangelog(changelogFile, releaseVersion);
     changelogVersions = changelog.versions;
@@ -430,15 +433,25 @@ function generateCommand(
     changelogOptions,
   );
 
+  const latestChanges = getReleaseNotes(renderedChangelog).replace("# What's Changed\n\n", "");
+
   debug(renderedChangelog);
 
-  writeFileSync(changelogPath, renderedChangelog, { encoding: "utf8" });
+  if (!skip_changelog) {
+    writeFileSync(changelogPath, renderedChangelog, { encoding: "utf8" });
+
+    cleanUpChangelog(actionConfig.dir);
+  }
 
   log("CHANGELOG.md finished writing.");
 
-  cleanUpChangelog(actionConfig.dir);
+  const count = getChangeCount(sortedVersions);
 
   rl.close();
+  return {
+    count,
+    latestChanges,
+  };
 }
 
 export { generateCommand, parseChanges };
