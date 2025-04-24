@@ -455,4 +455,22 @@ dependabot_section:
   description: The section to put the dependabot changes in. Can be either `security` or `changed`.
   default: "security"
   required: false
+
+comment_on_pr:
+  description: |
+    The bot will leave a comment with a preview of the changes, if the enforce action fails it
+    will tag the user and let them know the action failed
+  default: "false"
+  required: false
+
+show_author_full_name:
+  description: Show the authors name instead of the authors username.
+  default: "false"
+  required: false
+
+name_override:
+  description: |
+    If you have a naming that you want to use that is not the github username, then you can
+    override the github username. Must use a `key=value` pair comma separated.
+  required: false
 ```

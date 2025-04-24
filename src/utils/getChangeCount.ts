@@ -13,7 +13,7 @@ function getChangeCount(changelog: Version<Partial<Record<KeepAChangelogKeywords
     const changes = Object.keys(version).filter(k => !KEY_FILTER.includes(k)).reduce((acc, k) => {
       const keyword = k as KeepAChangelogKeywords;
 
-      if (version[keyword]?.length) {
+      if (version[keyword] && version[keyword]?.length > 0) {
         return acc + version[keyword].length;
       }
 
