@@ -40,7 +40,6 @@ async function enforceChangelogAction() {
 
   const changelog = readFileSync("CHANGELOG.md", "utf8");
   const existingChangelog = getChangeCount(parseChangelog(changelog).versions);
-  const newChangelog = generateCommand(context.actor, context.sha, prNumber);
   const currentChanges = generateCommand(
     context.actor,
     context.sha,
@@ -50,9 +49,7 @@ async function enforceChangelogAction() {
     undefined,
     true,
   );
-  const { stdout } = await getExecOutput("git", ["status", "--porcelain"]);
-
-  console.info(stdout);
+  const newChangelog = generateCommand(context.actor, context.sha, prNumber);
 
   const botNames = ["github-actions[bot]", "build-changelog[bot]"];
 
@@ -66,7 +63,6 @@ async function enforceChangelogAction() {
     });
 
     const foundComment = data.find(i => i?.user?.type === "Bot" && botNames.includes(i.user.login));
-    console.info(foundComment);
     if (foundComment) {
       exitsingCommentId = foundComment.id;
     }
@@ -101,7 +97,7 @@ async function enforceChangelogAction() {
         await getOctokit(token).rest.issues.updateComment({
           ...context.repo,
           comment_id: exitsingCommentId,
-          body: currentChanges.latestChanges,
+          body: `\`\`\`md\n${currentChanges.latestChanges}\n\`\`\``,
         });
       } else {
         await getOctokit(token).rest.issues.createComment({

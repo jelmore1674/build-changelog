@@ -435,15 +435,15 @@ function generateCommand(
 
   const latestChanges = getReleaseNotes(renderedChangelog).replace("# What's Changed\n\n", "");
 
-  console.info(latestChanges);
-
   debug(renderedChangelog);
 
-  writeFileSync(changelogPath, renderedChangelog, { encoding: "utf8" });
+  if (!skip_changelog) {
+    writeFileSync(changelogPath, renderedChangelog, { encoding: "utf8" });
+
+    cleanUpChangelog(actionConfig.dir);
+  }
 
   log("CHANGELOG.md finished writing.");
-
-  cleanUpChangelog(actionConfig.dir);
 
   const count = getChangeCount(sortedVersions);
 
