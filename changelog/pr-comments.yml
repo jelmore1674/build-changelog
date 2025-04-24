@@ -1,5 +1,0 @@
-added:
-  - message: "Support to add pr comments to preview changes. To enable set `comment_on_pr: true`."
-    references:
-      - type: issue
-        number: 96

@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Common Changelog](https://common-changelog.org),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased] - TBD
+
+### Added
+
+- Support to add pr comments to preview changes. To enable set `comment_on_pr: true`. ([`1766830`](https://github.com/jelmore1674/build-changelog/commit/17668301dd2c15dfb33d37a67df1c5bd9d18dfe0)) ([#95](https://github.com/jelmore1674/build-changelog/pull/95), [#96](https://github.com/jelmore1674/build-changelog/issues/96)) ([Justin Elmore](https://github.com/jelmore1674))
+
 ## [1.7.1] - 2025-04-23
 
 ### Changed
