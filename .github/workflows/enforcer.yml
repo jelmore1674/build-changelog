@@ -26,3 +26,5 @@ jobs:
           enable_dependabot: true
           dependabot_labels: dependencies
           dependabot_section: changed
+          comment_on_pr: true
+          show_full_name: true
