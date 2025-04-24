@@ -9,6 +9,7 @@ const GITHUB_TOKEN = getInput("token");
  */
 async function getPrNumber() {
   if (context.payload.pull_request) {
+    console.info({ prBody: context.payload.pull_request.body });
     return context.payload.pull_request.number;
   }
 
