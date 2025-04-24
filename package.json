@@ -1,6 +1,6 @@
 {
   "name": "@jelmore1674/build-changelog",
-  "version": "1.8.0",
+  "version": "1.8.1",
   "description": "",
   "main": "dist/index.js",
   "files": [
