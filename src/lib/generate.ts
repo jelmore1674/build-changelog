@@ -117,15 +117,19 @@ function generateChange(
   let renderedChange = change;
 
   // Generate the links for the change.
-  if ((references.length || prNumber) && GITHUB_REPOSITORY) {
-    renderedChange = `${change} ${generateCommitShaLink(sha, config.reference_sha)}(${
-      generateReferences([
-        ...((config?.reference_pull_requests && prNumber)
-          ? [{ type: "pull_request", number: prNumber }] as Reference[]
-          : []),
-        ...references,
-      ])
-    })`;
+  if (GITHUB_REPOSITORY) {
+    renderedChange = `${change} ${generateCommitShaLink(sha, config.reference_sha)}${
+      (references.length || prNumber)
+        ? `(${
+          generateReferences([
+            ...((config?.reference_pull_requests && prNumber)
+              ? [{ type: "pull_request", number: prNumber }] as Reference[]
+              : []),
+            ...references,
+          ])
+        })`
+        : ""
+    }`;
   }
 
   // Add author to the change.
