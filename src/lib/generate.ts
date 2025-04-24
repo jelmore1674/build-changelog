@@ -435,6 +435,8 @@ function generateCommand(
 
   const latestChanges = getReleaseNotes(renderedChangelog).replace("# What's Changed\n\n", "");
 
+  console.info(latestChanges);
+
   debug(renderedChangelog);
 
   writeFileSync(changelogPath, renderedChangelog, { encoding: "utf8" });
