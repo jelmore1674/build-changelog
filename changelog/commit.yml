@@ -1,2 +1,0 @@
-fixed:
-  - Issue where commit hash was ignored if there was no other references in the changelog entry.

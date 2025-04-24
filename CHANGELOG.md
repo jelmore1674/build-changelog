@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Common Changelog](https://common-changelog.org),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased] - TBD
+
+### Fixed
+
+- Issue where commit hash was ignored if there was no other references in the changelog entry. ([`8f1f505`](https://github.com/jelmore1674/build-changelog/commit/8f1f50596f11f71cf4a0562a22526c6f2df5cb7e)) ([#98](https://github.com/jelmore1674/build-changelog/pull/98)) ([Justin Elmore](https://github.com/jelmore1674))
+
 ## [1.8.0] - 2025-04-24
 
 ### Added
