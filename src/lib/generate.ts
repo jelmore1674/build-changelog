@@ -10,10 +10,12 @@ import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { ParsedChanges, Reference } from "../types";
 import { cleanUpChangelog } from "../utils/cleanUpChangelog";
+import { getChangeCount } from "../utils/getChangeCount";
 import { getParser } from "../utils/getParser";
 import { isTomlOrYamlFile } from "../utils/isTomlOrYamlFile";
 import { log } from "../utils/log";
 import { changelogDir, changelogPath, Config, config } from "./config";
+import { rl } from "./readline";
 
 const GITHUB_SERVER_URL = process.env.GITHUB_SERVER_URL ?? "https://github.com";
 const GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY ?? "jelmore1674/build-changelog";
@@ -429,15 +431,18 @@ function generateCommand(
     changelogOptions,
   );
 
-  debug(renderedChangelog);
+  // debug(renderedChangelog);
 
-  writeFileSync(changelogPath, renderedChangelog, { encoding: "utf8" });
+  // writeFileSync(changelogPath, renderedChangelog, { encoding: "utf8" });
 
   log("CHANGELOG.md finished writing.");
 
-  cleanUpChangelog(actionConfig.dir);
+  // cleanUpChangelog(actionConfig.dir);
 
-  return sortedVersions.length;
+  const totalChanges = getChangeCount(sortedVersions);
+
+  rl.close();
+  return totalChanges;
 }
 
 export { generateCommand, parseChanges };

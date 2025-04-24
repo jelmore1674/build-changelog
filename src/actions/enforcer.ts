@@ -5,6 +5,7 @@ import { parseChangelog } from "@jelmore1674/changelog";
 import { readFileSync } from "node:fs";
 import { exit } from "node:process";
 import { generateCommand } from "../lib/generate";
+import { getChangeCount } from "../utils/getChangeCount";
 import { addChangelogDependabot } from "./utils/addChangelogDependabot";
 import { getPrNumber } from "./utils/getPrNumber";
 
@@ -39,8 +40,8 @@ async function enforceChangelogAction() {
   const prNumber = await getPrNumber();
 
   const changelog = readFileSync("CHANGELOG.md", "utf8");
-  const existingChangelog = parseChangelog(changelog).versions.length;
-  const newChangelog = generateCommand("BCL_Bot", context.sha, prNumber);
+  const existingChangelog = getChangeCount(parseChangelog(changelog).versions);
+  const newChangelog = generateCommand(context.actor, context.sha, prNumber);
   const { stdout } = await getExecOutput("git", ["status", "--porcelain"]);
 
   console.info(stdout);
@@ -64,20 +65,20 @@ async function enforceChangelogAction() {
   } catch (_e) {
   }
 
-  if (existingChangelog <= newChangelog) {
+  if (existingChangelog === newChangelog) {
     try {
       if (exitsingCommentId) {
         await getOctokit(token).rest.issues.updateComment({
           ...context.repo,
           comment_id: exitsingCommentId,
-          body: `@${context.actor} Please update your changelog.`,
+          body: `@${context.actor} Don't forget to update your changelog.`,
         });
       } else {
         await getOctokit(token).rest.issues.createComment({
           issue_number: prNumber,
           owner: context.repo.owner,
           repo: context.repo.repo,
-          body: `@${context.actor} Please update your changelog.`,
+          body: `@${context.actor} Don't forget to update your changelog.`,
         });
       }
     } catch (e) {
