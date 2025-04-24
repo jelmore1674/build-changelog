@@ -45,19 +45,30 @@ async function enforceChangelogAction() {
 
   console.info(stdout);
 
-  if (existingChangelog <= newChangelog) {
-    try {
-      const response = await getOctokit(token).rest.issues.createComment({
-        issue_number: prNumber,
-        owner: context.repo.owner,
-        repo: context.repo.repo,
-        body: "This is a comment",
-      });
+  try {
+    const comments = await getOctokit(token).rest.issues.listComments({
+      issue_number: prNumber,
+      owner: context.repo.owner,
+      repo: context.repo.repo,
+    });
 
-      console.info({ response });
-    } catch (e) {
-      console.info({ e });
-    }
+    console.info({ comments });
+  } catch (_e) {
+  }
+
+  if (existingChangelog <= newChangelog) {
+    // try {
+    //  const response = await getOctokit(token).rest.issues.createComment({
+    //    issue_number: prNumber,
+    //    owner: context.repo.owner,
+    //    repo: context.repo.repo,
+    //    body: "This is a comment",
+    //  });
+    //
+    //  console.info({ response });
+    // } catch (e) {
+    //  console.info({ e });
+    // }
     setFailed("Changelog changes not found.");
   }
 }
