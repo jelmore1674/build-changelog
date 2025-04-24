@@ -59,6 +59,7 @@ async function enforceChangelogAction() {
     const foundComment = data.find(i =>
       i?.user?.type === "Bot" && botNames.includes(i.user.name as string)
     );
+    console.info(foundComment);
     if (foundComment) {
       exitsingCommentId = foundComment.id;
     }
@@ -74,14 +75,12 @@ async function enforceChangelogAction() {
           body: "This is an updated comment",
         });
       } else {
-        const response = await getOctokit(token).rest.issues.createComment({
-          issue_number: prNumber,
-          owner: context.repo.owner,
-          repo: context.repo.repo,
-          body: "This is a comment",
-        });
-
-        console.info({ response });
+        // await getOctokit(token).rest.issues.createComment({
+        //  issue_number: prNumber,
+        //  owner: context.repo.owner,
+        //  repo: context.repo.repo,
+        //  body: "This is a comment",
+        // });
       }
     } catch (e) {
       console.info({ e });
