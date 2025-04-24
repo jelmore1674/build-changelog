@@ -463,6 +463,13 @@ comment_on_pr:
   default: "false"
   required: false
 
+custom_bot_name:
+  description: |
+    If you have to use a different token other than the default, pass in the name of bot to be
+    able to find existing comments. Example. `github-actions[bot]`. Currently this only looks for
+    a bot user type.
+  required: false
+
 show_author_full_name:
   description: Show the authors name instead of the authors username.
   default: "false"
