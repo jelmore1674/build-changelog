@@ -32,6 +32,13 @@ inputs:
       override the github username. Must use a `key=value` pair comma separated.
     required: false
 
+  custom_bot_name:
+    description: |
+      If you have to use a different token other than the default, pass in the name of bot to be
+      able to find existing comments. Example. `github-actions[bot]`. Currently this only looks for
+      a bot user type.
+    required: false
+
   comment_on_pr:
     description: |
       The bot will leave a comment with a preview of the changes, if the enforce action fails it
