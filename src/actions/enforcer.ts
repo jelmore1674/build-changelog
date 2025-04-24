@@ -45,30 +45,47 @@ async function enforceChangelogAction() {
 
   console.info(stdout);
 
+  const botNames = ["github-actions[bot]", "build-changelog[bot]"];
+
+  let exitsingCommentId: number | undefined;
+
   try {
-    const comments = await getOctokit(token).rest.issues.listComments({
+    const { data } = await getOctokit(token).rest.issues.listComments({
       issue_number: prNumber,
       owner: context.repo.owner,
       repo: context.repo.repo,
     });
 
-    console.info(comments.data);
+    const foundComment = data.find(i =>
+      i?.user?.type === "Bot" && botNames.includes(i.user.name as string)
+    );
+    if (foundComment) {
+      exitsingCommentId = foundComment.id;
+    }
   } catch (_e) {
   }
 
   if (existingChangelog <= newChangelog) {
-    // try {
-    //  const response = await getOctokit(token).rest.issues.createComment({
-    //    issue_number: prNumber,
-    //    owner: context.repo.owner,
-    //    repo: context.repo.repo,
-    //    body: "This is a comment",
-    //  });
-    //
-    //  console.info({ response });
-    // } catch (e) {
-    //  console.info({ e });
-    // }
+    try {
+      if (exitsingCommentId) {
+        await getOctokit(token).rest.issues.updateComment({
+          ...context.repo,
+          comment_id: exitsingCommentId,
+          body: "This is an updated comment",
+        });
+      } else {
+        const response = await getOctokit(token).rest.issues.createComment({
+          issue_number: prNumber,
+          owner: context.repo.owner,
+          repo: context.repo.repo,
+          body: "This is a comment",
+        });
+
+        console.info({ response });
+      }
+    } catch (e) {
+      console.info({ e });
+    }
     setFailed("Changelog changes not found.");
   }
 }
