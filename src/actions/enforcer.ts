@@ -56,9 +56,7 @@ async function enforceChangelogAction() {
       repo: context.repo.repo,
     });
 
-    const foundComment = data.find(i =>
-      i?.user?.type === "Bot" && botNames.includes(i.user.name as string)
-    );
+    const foundComment = data.find(i => i?.user?.type === "Bot" && botNames.includes(i.user.login));
     console.info(foundComment);
     if (foundComment) {
       exitsingCommentId = foundComment.id;
