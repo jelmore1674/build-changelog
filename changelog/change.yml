@@ -1,5 +1,2 @@
 changed:
   - message: Instead of grouping inline references in a parenthesis, they are now separated by `|` character.
-    references:
-      - type: issue
-        number: 95
