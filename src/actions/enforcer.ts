@@ -19,7 +19,6 @@ async function enforceChangelogAction() {
   const skipLabels = getInput("skip_labels").split(",");
   const pullRequest = context.payload.pull_request;
   const pullRequestLabels = pullRequest?.labels?.map((label: { name: string }) => label.name) || [];
-  const changelogStyle = getInput("changelogStyle", { required: false });
   const set = new Set(pullRequestLabels);
   const token = getInput("token");
 
@@ -100,7 +99,7 @@ async function enforceChangelogAction() {
         await getOctokit(token).rest.issues.updateComment({
           ...context.repo,
           comment_id: exitsingCommentId,
-          body: `\`\`\`md\n${currentChanges.latestChanges}\n\`\`\``,
+          body: currentChanges.latestChanges,
         });
       } else {
         await getOctokit(token).rest.issues.createComment({
