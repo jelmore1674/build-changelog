@@ -1,2 +1,2 @@
 changed:
-  - Instead of grouping inline references in a parenthesis, they are now separated by `|`.
+  - Instead of grouping inline references in a parenthesis, they are now separated by `|` character.
