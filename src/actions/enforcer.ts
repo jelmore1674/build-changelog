@@ -97,7 +97,7 @@ async function enforceChangelogAction() {
         await getOctokit(token).rest.issues.updateComment({
           ...context.repo,
           comment_id: exitsingCommentId,
-          body: `\`\`\`md\n${currentChanges.latestChanges}\n\`\`\``,
+          body: currentChanges.latestChanges,
         });
       } else {
         await getOctokit(token).rest.issues.createComment({
