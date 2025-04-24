@@ -86,9 +86,9 @@ function generateAuthorLink(author: string) {
  */
 function generateCommitShaLink(sha: string, showReferenceSha: boolean) {
   if (showReferenceSha) {
-    return `([\`${
+    return `[\`${
       sha?.substring(0, 7)
-    }\`](${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/commit/${sha})) `;
+    }\`](${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/commit/${sha}) |`;
   }
 
   return "";
@@ -120,14 +120,14 @@ function generateChange(
   if (GITHUB_REPOSITORY) {
     renderedChange = `${change} ${generateCommitShaLink(sha, config.reference_sha)}${
       (references.length || prNumber)
-        ? `(${
+        ? ` ${
           generateReferences([
             ...((config?.reference_pull_requests && prNumber)
               ? [{ type: "pull_request", number: prNumber }] as Reference[]
               : []),
             ...references,
           ])
-        })`
+        }`
         : ""
     }`;
   }
@@ -135,9 +135,9 @@ function generateChange(
   // Add author to the change.
   if (config.show_author) {
     if (GITHUB_ACTOR) {
-      renderedChange = `${renderedChange} (${generateAuthorLink(author || GITHUB_ACTOR)})`;
+      renderedChange = `${renderedChange} | ${generateAuthorLink(author || GITHUB_ACTOR)}`;
     } else {
-      renderedChange = `${renderedChange} (${author})`;
+      renderedChange = `${renderedChange} | ${author}`;
     }
   }
 
