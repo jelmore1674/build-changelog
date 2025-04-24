@@ -16,6 +16,9 @@ async function enforceChangelogAction() {
   const pullRequest = context.payload.pull_request;
   const pullRequestLabels = pullRequest?.labels?.map((label: { name: string }) => label.name) || [];
   const set = new Set(pullRequestLabels);
+  const token = getInput("token");
+
+  console.info(token);
 
   if (
     enableDependabot && dependabotLabels.some(label => set.has(label))
