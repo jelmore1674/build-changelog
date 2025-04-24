@@ -52,7 +52,7 @@ async function enforceChangelogAction() {
       repo: context.repo.repo,
     });
 
-    console.info({ comments });
+    console.info(comments.data);
   } catch (_e) {
   }
 
