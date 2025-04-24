@@ -1,6 +1,8 @@
 import { debug, getBooleanInput, getInput, setFailed } from "@actions/core";
 import { getExecOutput } from "@actions/exec";
 import { context, getOctokit } from "@actions/github";
+import { parseChangelog } from "@jelmore1674/changelog";
+import { readFileSync } from "node:fs";
 import { exit } from "node:process";
 import { generateCommand } from "../lib/generate";
 import { addChangelogDependabot } from "./utils/addChangelogDependabot";
@@ -16,6 +18,7 @@ async function enforceChangelogAction() {
   const skipLabels = getInput("skip_labels").split(",");
   const pullRequest = context.payload.pull_request;
   const pullRequestLabels = pullRequest?.labels?.map((label: { name: string }) => label.name) || [];
+  const changelogStyle = getInput("changelogStyle", { required: false });
   const set = new Set(pullRequestLabels);
   const token = getInput("token");
 
@@ -35,19 +38,23 @@ async function enforceChangelogAction() {
 
   const prNumber = await getPrNumber();
 
-  generateCommand("BCL_Bot", context.sha, prNumber);
+  const changelog = readFileSync("CHANGELOG.md", "utf8");
+  const existingChangelog = parseChangelog(changelog).versions.length;
+  const newChangelog = generateCommand("BCL_Bot", context.sha, prNumber);
   const { stdout } = await getExecOutput("git", ["status", "--porcelain"]);
 
   console.info(stdout);
 
-  if (!stdout.match(/CHANGELOG\.md/gi)) {
+  if (existingChangelog <= newChangelog) {
     try {
-      await getOctokit(token).rest.issues.createComment({
+      const response = await getOctokit(token).rest.issues.createComment({
         issue_number: prNumber,
         owner: context.repo.owner,
         repo: context.repo.owner,
         body: "This is a comment",
       });
+
+      console.info({ response });
     } catch (e) {
       console.info({ e });
     }

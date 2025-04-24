@@ -18,7 +18,9 @@ program
   .command("generate")
   .description("generate the changelog")
   .option("--require-changelog", "require that changes have been made to the changelog.")
-  .action(() => generateCommand("bcl-bot", sha, 1));
+  .action(() => {
+    generateCommand("bcl-bot", sha, 1);
+  });
 
 program
   .command("notes [version]")

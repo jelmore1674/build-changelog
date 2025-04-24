@@ -14,7 +14,6 @@ import { getParser } from "../utils/getParser";
 import { isTomlOrYamlFile } from "../utils/isTomlOrYamlFile";
 import { log } from "../utils/log";
 import { changelogDir, changelogPath, Config, config } from "./config";
-import { rl } from "./readline";
 
 const GITHUB_SERVER_URL = process.env.GITHUB_SERVER_URL ?? "https://github.com";
 const GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY ?? "jelmore1674/build-changelog";
@@ -438,7 +437,7 @@ function generateCommand(
 
   cleanUpChangelog(actionConfig.dir);
 
-  rl.close();
+  return sortedVersions.length;
 }
 
 export { generateCommand, parseChanges };
