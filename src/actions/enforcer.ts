@@ -1,9 +1,10 @@
 import { debug, getBooleanInput, getInput, setFailed } from "@actions/core";
 import { getExecOutput } from "@actions/exec";
-import { context } from "@actions/github";
+import { context, getOctokit } from "@actions/github";
 import { exit } from "node:process";
 import { generateCommand } from "../lib/generate";
 import { addChangelogDependabot } from "./utils/addChangelogDependabot";
+import { getPrNumber } from "./utils/getPrNumber";
 
 /**
  * Run the generate command and check the git diff to see if there are changes
@@ -32,10 +33,24 @@ async function enforceChangelogAction() {
     exit(0);
   }
 
-  generateCommand("BCL_Bot", context.sha, context.payload.pull_request?.number);
+  const prNumber = await getPrNumber();
+
+  generateCommand("BCL_Bot", context.sha, prNumber);
   const { stdout } = await getExecOutput("git", ["status", "--porcelain"]);
 
+  console.info(stdout);
+
   if (!stdout.match(/CHANGELOG\.md/gi)) {
+    try {
+      await getOctokit(token).rest.issues.createComment({
+        issue_number: prNumber,
+        owner: context.repo.owner,
+        repo: context.repo.owner,
+        body: "This is a comment",
+      });
+    } catch (e) {
+      console.info({ e });
+    }
     setFailed("Changelog changes not found.");
   }
 }
