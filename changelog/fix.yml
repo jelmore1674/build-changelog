@@ -1,2 +1,0 @@
-fixed:
-  - Add missing `custom_bot_name` input to the `enforcer` action.
