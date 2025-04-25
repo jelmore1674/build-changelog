@@ -4,11 +4,18 @@ import { log } from "../../utils/log";
 
 const GITHUB_TOKEN = getInput("token");
 
+const issueRegex = /(?:fixe?|close|resolve)(?:s?d?) (?<issue>\#[0-9]+)/gi;
+
 /**
  * Get the pr number for this commit hash
  */
 async function getPrNumber() {
   if (context.payload.pull_request) {
+    const match = context.payload.pull_request.body?.match(
+      issueRegex,
+    );
+    console.info({ match, groups: match?.groups });
+
     return context.payload.pull_request.number;
   }
 
