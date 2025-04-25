@@ -8,6 +8,7 @@ import { generateCommand } from "../../lib/generate";
 import { getChangeCount } from "../../utils/getChangeCount";
 import { getAuthorName } from "./getAuthorName";
 import { getPrNumber } from "./getPrNumber";
+import { getPrReferences } from "./getPrReferences";
 
 const token = getInput("token", { required: false });
 
@@ -41,6 +42,7 @@ async function compareChangelogs(
 ) {
   const author = await getAuthorName(nameOverrides);
   const prNumber = await getPrNumber();
+  const prReferences = await getPrReferences() || [];
 
   const changelog = readFileSync("CHANGELOG.md", "utf8");
   const existingChangelog = getChangeCount(parseChangelog(changelog).versions);
@@ -49,6 +51,7 @@ async function compareChangelogs(
     author,
     context.sha,
     prNumber,
+    prReferences,
     undefined,
     undefined,
     config,

@@ -11,10 +11,10 @@ const issueRegex = /(?:fixe?|close|resolve)(?:s?d?) (?<issue>\#[0-9]+)/gi;
  */
 async function getPrNumber() {
   if (context.payload.pull_request) {
-    if (context.payload.pull_request.body) {
-      const match = issueRegex.exec(context.payload.pull_request.body);
-      console.info({ match, groups: match?.groups });
-    }
+    const match = context.payload.pull_request.body?.match(
+      issueRegex,
+    );
+    console.info({ match, groups: match?.groups });
 
     return context.payload.pull_request.number;
   }

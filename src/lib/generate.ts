@@ -56,7 +56,11 @@ const LINK_TYPE = {
  */
 function generateReferences(references: Reference[]): string {
   if (references.length) {
-    return references.sort((a, b) => a.number - b.number).map((reference) => {
+    const cleanedReferences = [
+      ...references.reduce((map, reference) => map.set(reference.number, reference), new Map())
+        .values(),
+    ] as Reference[];
+    return cleanedReferences.sort((a, b) => a.number - b.number).map((reference) => {
       return `[#${reference.number}](${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/${
         LINK_TYPE[reference.type]
       }/${reference.number})`;
@@ -229,6 +233,7 @@ function generateCommand(
   author = "bcl-bot",
   sha: string,
   prNumber?: number,
+  prReferences = [] as Reference[],
   releaseVersion?: string,
   changelogOptions?: ChangelogOptions,
   actionConfig = config as Omit<Config, "repo_url" | "release_url" | "prefers">,
@@ -341,7 +346,7 @@ function generateCommand(
                     currentVersion[keyword]?.push(
                       generateChange(
                         item,
-                        references,
+                        [...references, ...prReferences],
                         actionConfig,
                         botAuthor || author,
                         sha,
@@ -358,7 +363,7 @@ function generateCommand(
                     currentVersion[keyword]?.push(
                       generateChange(
                         item.message,
-                        item?.references || [],
+                        [...(item?.references || []), ...prReferences],
                         actionConfig,
                         botAuthor || author,
                         sha,
@@ -381,7 +386,7 @@ function generateCommand(
                     ...parsedChanges[keyword]?.[flag]?.map((change: string) => {
                       return generateChange(
                         change,
-                        references,
+                        [...references, ...prReferences],
                         actionConfig,
                         botAuthor || author,
                         sha,

@@ -21,6 +21,7 @@ import { commitAndPush } from "./utils/commitAndPush";
 import { commitWithApi } from "./utils/commitWithApi";
 import { getAuthorName } from "./utils/getAuthorName";
 import { getPrNumber } from "./utils/getPrNumber";
+import { getPrReferences } from "./utils/getPrReferences";
 import { validateInput } from "./utils/validateInput";
 import { validateChangelogStyle } from "./utils/validations/validateChangelogStyle";
 import { validateReleaseTypes } from "./utils/validations/validateReleaseTypes";
@@ -114,12 +115,14 @@ async function generateChangelogAction() {
 
   const author = await getAuthorName(nameOverrides);
   const prNumber = await getPrNumber();
+  const prReferences = await getPrReferences();
 
   startGroup("Generate Changelog");
   generateCommand(
     author,
     context.sha,
     prNumber,
+    prReferences,
     releaseVersion,
     {
       changelogStyle,
