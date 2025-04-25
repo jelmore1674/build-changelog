@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { isTomlOrYamlFile } from "./isTomlOrYamlFile";
+import { isTomlOrYamlFile } from "./";
 
 test.each([
   ["test.toml", "true"],

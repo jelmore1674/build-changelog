@@ -1,7 +1,7 @@
 import { readdirSync, rmSync } from "node:fs";
 import path from "node:path";
-import { isTomlOrYamlFile } from "./isTomlOrYamlFile";
-import { log } from "./log";
+import { isTomlOrYamlFile } from "../isTomlOrYamlFile";
+import { log } from "../log";
 
 /**
  * Remove all `yaml` or `toml` files from the changelog directory.
