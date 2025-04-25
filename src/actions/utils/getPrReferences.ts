@@ -9,29 +9,35 @@ const issueRegex = /(?:fixe?|close|resolve)(?:s?d?) (\#[0-9]+)/gi;
 async function getReferncesFromBody(body: string) {
   const match = body.match(issueRegex);
   if (match && match?.length > 0) {
-    const result = await Promise.all(match.map(async (i) => {
-      const number = +i.split(" ")[1].replace("#", "");
-      const res = await getOctokit(GITHUB_TOKEN).rest.issues.get({
-        repo: "build-changelog",
-        owner: "jelmore1674",
-        // biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
-        issue_number: number,
-      });
+    const result = await Promise.all(
+      match.map(async (i) => {
+        const number = +i.split(" ")[1].replace("#", "");
+        try {
+          const res = await getOctokit(GITHUB_TOKEN).rest.issues.get({
+            repo: "build-changelog",
+            owner: "jelmore1674",
+            // biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
+            issue_number: number,
+          });
 
-      if (res.data.pull_request) {
-        return {
-          number,
-          type: "pull_request",
-        } as Reference;
-      }
+          if (res.data.pull_request) {
+            return {
+              number,
+              type: "pull_request",
+            } as Reference;
+          }
 
-      return {
-        number,
-        type: "issue",
-      } as Reference;
-    }));
+          return {
+            number,
+            type: "issue",
+          } as Reference;
+        } catch (error) {
+          console.info(error);
+        }
+      }),
+    );
 
-    return result;
+    return result as Reference[] || [];
   }
 
   return [];
@@ -50,8 +56,8 @@ async function getPrReferences() {
     q: encodeURIComponent(`${context.sha} type:pr is:merged`),
   });
 
-  if (pulls.data.items[0].body) {
-    const references = await getReferncesFromBody(pulls.data.items[0]?.body);
+  if (pulls.data.items?.[0]?.body) {
+    const references = await getReferncesFromBody(pulls.data.items[0].body);
     return references;
   }
 
