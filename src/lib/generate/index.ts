@@ -4,19 +4,18 @@ import {
   type KeepAChangelogKeywords,
   parseChangelog,
   type Reference as ReferenceLink,
-  Version,
   writeChangelog,
 } from "@jelmore1674/changelog";
 import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
-import { ParsedChanges, Reference } from "../types";
-import { cleanUpChangelog } from "../utils/cleanUpChangelog";
-import { getChangeCount } from "../utils/getChangeCount";
-import { getParser } from "../utils/getParser";
-import { isTomlOrYamlFile } from "../utils/isTomlOrYamlFile";
-import { log } from "../utils/log";
-import { changelogDir, changelogPath, Config, config } from "./config";
-import { rl } from "./readline";
+import { ParsedChanges, Reference, Version } from "../../types";
+import { cleanUpChangelog } from "../../utils/cleanUpChangelog";
+import { getChangeCount } from "../../utils/getChangeCount";
+import { isTomlOrYamlFile } from "../../utils/isTomlOrYamlFile";
+import { log } from "../../utils/log";
+import { parseChanges } from "../../utils/parseChanges";
+import { changelogDir, changelogPath, Config, config } from "../config";
+import { rl } from "../readline";
 
 const GITHUB_SERVER_URL = process.env.GITHUB_SERVER_URL ?? "https://github.com";
 const GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY ?? "jelmore1674/build-changelog";
@@ -27,22 +26,6 @@ const KEY_FILTER = ["release_date", "version", "notice", "references", "author"]
 
 /** The valid keywords that are used for the sections in the changelog */
 const VALID_KEYWORDS = ["added", "changed", "deprecated", "fixed", "removed", "security"];
-
-/**
- * Parse the changes from a `yaml` or `toml` file.
- *
- * @param file - the file you are getting the changes from.
- */
-function parseChanges<
-  T = Record<KeepAChangelogKeywords, Partial<Record<string, string[]> | string[]>>,
->(file: string): T {
-  if (existsSync(file)) {
-    const parser = getParser(file);
-    return parser.parse(readFileSync(file, { encoding: "utf8" })) as unknown as T;
-  }
-
-  throw new Error(`The file does not exist\n\n${file}`);
-}
 
 const LINK_TYPE = {
   pull_request: "pull",
@@ -159,7 +142,7 @@ function generateChange(
  *
  * @param version - the version with the changes to sort.
  */
-function sortBreakingChanges(version: Version<Partial<Record<KeepAChangelogKeywords, string[]>>>) {
+function sortBreakingChanges(version: Version) {
   for (const changes in version) {
     if (KEY_FILTER.includes(changes)) {
       continue;
@@ -190,7 +173,7 @@ function sortBreakingChanges(version: Version<Partial<Record<KeepAChangelogKeywo
 }
 
 function addVersionReferenceLinks(
-  version: Version<Partial<Record<KeepAChangelogKeywords, string[]>>>,
+  version: Version,
   changelogLinks: ReferenceLink[],
   config: Omit<Config, "repo_url" | "release_url" | "prefers">,
 ) {
@@ -210,7 +193,7 @@ function addVersionReferenceLinks(
 }
 
 function addGitTagPrefix(
-  version: Version<Partial<Record<KeepAChangelogKeywords, string[]>>>,
+  version: Version,
   config: Omit<Config, "repo_url" | "release_url" | "prefers">,
 ) {
   version.version = `${config.git_tag_prefix}${version.version}`;
@@ -245,7 +228,7 @@ function generateCommand(
 
   log("Generating changelog.");
 
-  let changelogVersions: Version<Partial<Record<KeepAChangelogKeywords, string[]>>>[] = [];
+  let changelogVersions: Version[] = [];
   let changelogLinks: ReferenceLink[] = [];
 
   if (!skip_changelog && existsSync(changelogPath)) {
@@ -258,7 +241,7 @@ function generateCommand(
   const files = readdirSync(changelogDir, { recursive: true, encoding: "utf8" });
 
   const parsedChangelog = files.reduce(
-    (acc: Version<Partial<Record<KeepAChangelogKeywords, string[]>>>[], file) => {
+    (acc: Version[], file) => {
       if (isTomlOrYamlFile(file)) {
         log(`Parsing ${file} file now.`);
         const parsedChanges = parseChanges<ParsedChanges>(path.join(changelogDir, file));
@@ -283,9 +266,8 @@ function generateCommand(
 
         //
         // The currentVersion to add changes to.
-        const currentVersion: Version<Partial<Record<KeepAChangelogKeywords, string[]>>> =
-          foundRelease
-            ?? { version, release_date };
+        const currentVersion: Version = foundRelease
+          ?? { version, release_date };
 
         if (
           releaseVersion && releaseVersion.toLowerCase() !== "unreleased"
