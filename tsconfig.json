@@ -7,22 +7,22 @@
     "forceConsistentCasingInFileNames": true, /* Ensure that casing is correct in imports. */
     "strict": true, /* Enable all strict type-checking options. */
     "skipLibCheck": true, /* Skip type checking all .d.ts files. */
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "paths": {
-      "@actions/*": [
-        "src/actions/*"
-      ],
       "@lib/*": [
-        "src/lib/*"
+        "./lib/*"
+      ],
+      "@types": [
+        "./types.ts"
       ],
       "@utils/*": [
-        "src/utils/*"
+        "./utils/*"
       ]
     }
   },
   "include": [
     "./templates/*.md",
-    "./src/**/*"
+    "src"
   ],
   "exclude": [
     "node_modules",
