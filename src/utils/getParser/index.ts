@@ -1,6 +1,6 @@
 import TOML from "@iarna/toml";
 import YAML from "yaml";
-import { isTomlFile } from "./isTomlFile";
+import { isTomlFile } from "../isTomlFile";
 
 /**
  * Get the parser to be used to generate or read the changelogs files.

@@ -1,5 +1,5 @@
 import { afterEach, expect, test, vi } from "vitest";
-import { prompt, rl } from "./readline";
+import { prompt, rl } from "./";
 
 afterEach(() => {
   vi.resetAllMocks();

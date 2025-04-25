@@ -1,7 +1,7 @@
 import type { KeepAChangelogKeywords } from "@jelmore1674/changelog";
+import type { Changes } from "@types";
 import { existsSync, readFileSync } from "node:fs";
-import type { Changes } from "../types";
-import { getParser } from "./getParser";
+import { getParser } from "../getParser";
 
 /**
  * Parse the changes from a `yaml` or `toml` file.

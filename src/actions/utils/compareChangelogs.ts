@@ -1,11 +1,11 @@
 import { getInput, setFailed } from "@actions/core";
 import { context, getOctokit } from "@actions/github";
 import { parseChangelog } from "@jelmore1674/changelog";
+import type { Config } from "@lib/config";
+import { generateCommand } from "@lib/generate";
+import { getChangeCount } from "@utils/getChangeCount";
 import { readFileSync } from "node:fs";
 import { exit } from "node:process";
-import type { Config } from "../../lib/config";
-import { generateCommand } from "../../lib/generate";
-import { getChangeCount } from "../../utils/getChangeCount";
 import { getAuthorName } from "./getAuthorName";
 import { getPrNumber } from "./getPrNumber";
 import { getPrReferences } from "./getPrReferences";

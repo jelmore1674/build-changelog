@@ -1,5 +1,5 @@
-import { isTomlFile } from "./isTomlFile";
-import { isYamlFile } from "./isYamlFile";
+import { isTomlFile } from "../isTomlFile";
+import { isYamlFile } from "../isYamlFile";
 
 /**
  * Utility function that determines if the file is a `TOML` or `YAML` file.

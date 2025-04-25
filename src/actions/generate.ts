@@ -15,7 +15,7 @@ import { clean, inc, type ReleaseType } from "semver";
 import { changelogPath, type Config } from "../lib/config";
 import { generateCommand } from "../lib/generate";
 import { notesCommand } from "../lib/releaseNotes";
-import type { ChangelogStyle, Reference } from "../types";
+import type { ChangelogStyle } from "../types";
 import { log } from "../utils/log";
 import { commitAndPush } from "./utils/commitAndPush";
 import { commitWithApi } from "./utils/commitWithApi";
@@ -115,12 +115,7 @@ async function generateChangelogAction() {
 
   const author = await getAuthorName(nameOverrides);
   const prNumber = await getPrNumber();
-  let prReferences = [] as Reference[];
-  try {
-    prReferences = await getPrReferences();
-  } catch (error) {
-    console.info(error);
-  }
+  const prReferences = await getPrReferences();
 
   startGroup("Generate Changelog");
   generateCommand(
