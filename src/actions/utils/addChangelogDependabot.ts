@@ -1,12 +1,12 @@
 import { debug } from "@actions/core";
 import { exec } from "@actions/exec";
 import { context } from "@actions/github";
+import { parseChanges } from "@lib/generate";
+import { isYamlFile } from "@utils/isYamlFile";
+import { log } from "@utils/log";
 import { readdirSync, rmSync, writeFileSync } from "node:fs";
 import { exit } from "node:process";
 import YAML from "yaml";
-import { parseChanges } from "../../lib/generate";
-import { isYamlFile } from "../../utils/isYamlFile";
-import { log } from "../../utils/log";
 import { commitWithApi } from "./commitWithApi";
 import { validateInput } from "./validateInput";
 import { validateDependabotSection } from "./validations/validateDependabotSection";

@@ -1,7 +1,7 @@
 import { debug, getBooleanInput, getInput } from "@actions/core";
 import { context } from "@actions/github";
+import { type Config, config as baseConfig } from "@lib/config";
 import { exit } from "node:process";
-import { type Config, config as baseConfig } from "../lib/config";
 import { addChangelogDependabot } from "./utils/addChangelogDependabot";
 import { compareChangelogs } from "./utils/compareChangelogs";
 
