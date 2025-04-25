@@ -1,4 +1,4 @@
-import type { KeepAChangelogKeywords } from "@jelmore1674/changelog";
+import type { KeepAChangelogKeywords, Version as BaseVersion } from "@jelmore1674/changelog";
 
 interface Reference {
   type: "issue" | "pull_request";
@@ -29,12 +29,26 @@ type ComplexChange = {
 };
 
 /**
+ * Changes from a change object
+ */
+type Changes = Record<string, string[]>;
+
+/**
+ * The version type used in generate changelog
+ */
+type Version = BaseVersion<Partial<Record<KeepAChangelogKeywords, string[]>>>;
+
+/**
+ * The type of changes parsed from a changelog
+ */
+type ChangelogChanges = Partial<
+  Record<KeepAChangelogKeywords, string[] | Changes | ComplexChange[]>
+>;
+
+/**
  * The parsed changed from the changelog file.
  */
-interface ParsedChanges
-  extends
-    Partial<Record<KeepAChangelogKeywords, string[] | Record<string, string[]> | ComplexChange[]>>
-{
+interface ParsedChanges extends ChangelogChanges {
   /**
    * The version of the change
    */
@@ -64,4 +78,13 @@ interface LinkReference extends Omit<Reference, "type"> {
   type: "pull_request" | "issue";
 }
 
-export type { ChangelogStyle, ComplexChange, LinkReference, ParsedChanges, Reference };
+export type {
+  ChangelogChanges,
+  ChangelogStyle,
+  Changes,
+  ComplexChange,
+  LinkReference,
+  ParsedChanges,
+  Reference,
+  Version,
+};
