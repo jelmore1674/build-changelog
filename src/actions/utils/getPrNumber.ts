@@ -4,15 +4,17 @@ import { log } from "../../utils/log";
 
 const GITHUB_TOKEN = getInput("token");
 
+const issueRegex = /(?:fixe?|close|resolve)(?:s?d?) (?<issue>\#[0-9]+)/gi;
+
 /**
  * Get the pr number for this commit hash
  */
 async function getPrNumber() {
   if (context.payload.pull_request) {
-    const match = context.payload.pull_request.body?.match(
-      /(?:fixe?|close|resolve)(?:s?d?) (?<issue>\#[0-9]+)/gi,
-    );
-    console.info({ match, groups: match?.groups });
+    if (context.payload.pull_request.body) {
+      const match = issueRegex.exec(context.payload.pull_request.body);
+      console.info({ match, groups: match?.groups });
+    }
 
     return context.payload.pull_request.number;
   }
