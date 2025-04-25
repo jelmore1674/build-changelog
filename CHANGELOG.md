@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Support to link auto issues from pull request body. [`e774e6f`](https://github.com/jelmore1674/build-changelog/commit/e774e6fc36a152a582195e25e0de9a45d64e56d8) | [#94](https://github.com/jelmore1674/build-changelog/issues/94), [#99](https://github.com/jelmore1674/build-changelog/pull/99) | [Justin Elmore](https://github.com/jelmore1674)
+- Support to auto link issues from pull request body. [`e774e6f`](https://github.com/jelmore1674/build-changelog/commit/e774e6fc36a152a582195e25e0de9a45d64e56d8) | [#94](https://github.com/jelmore1674/build-changelog/issues/94), [#99](https://github.com/jelmore1674/build-changelog/pull/99) | [Justin Elmore](https://github.com/jelmore1674)
 
 ## [1.8.2] - 2025-04-24
 
