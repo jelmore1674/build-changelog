@@ -10,7 +10,7 @@ const GITHUB_TOKEN = getInput("token");
 async function getPrNumber() {
   if (context.payload.pull_request) {
     const match = context.payload.pull_request.body?.match(
-      /(?:fixe?|close|resolve)(?:s?d?) (\#[0-9]+)/i,
+      /(?:fixe?|close|resolve)(?:s?d?) (?<issue>\#[0-9]+)/gi,
     );
     console.info({ match, groups: match?.groups });
 
