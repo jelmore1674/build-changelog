@@ -1,7 +1,7 @@
 import TOML from "@iarna/toml";
 import { expect, test } from "vitest";
 import YAML from "yaml";
-import { getParser } from "./getParser";
+import { getParser } from "./";
 
 test("yaml files gets the yaml parser", () => {
   expect(getParser("test.yml")).toBe(YAML);

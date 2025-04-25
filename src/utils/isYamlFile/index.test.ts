@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { isYamlFile } from "./isYamlFile";
+import { isYamlFile } from "./";
 
 const testStrings = [["test.yml", "true"], ["test.toml", "false"], ["hi.md", "false"], [
   "index.js",

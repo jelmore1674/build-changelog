@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { isTomlFile } from "./isTomlFile";
+import { isTomlFile } from "./";
 
 const testStrings = [
   ["test.toml", "true"],
