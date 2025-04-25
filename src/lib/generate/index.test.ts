@@ -9,7 +9,7 @@ import YAML from "yaml";
 import { changelogPath, configPath } from "../config";
 import * as generate from "./";
 
-const TEST_DIR = path.join(__dirname, "../test");
+const TEST_DIR = path.join(__dirname, "../../test");
 const YAML_CHANGE = path.join(TEST_DIR, "testchange.yml");
 const TOML_CHANGE = path.join(TEST_DIR, "testchange.toml");
 
