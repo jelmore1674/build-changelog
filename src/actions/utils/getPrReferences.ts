@@ -6,7 +6,7 @@ const GITHUB_TOKEN = getInput("token");
 
 const issueRegex = /(?:fixe?|close|resolve)(?:s?d?) (\#[0-9]+)/gi;
 
-async function getReferncesFromBody(body: string) {
+async function getReferencesFromBody(body: string) {
   try {
     const match = body.match(issueRegex);
     if (match && match?.length > 0) {
@@ -47,7 +47,7 @@ async function getReferncesFromBody(body: string) {
  */
 async function getPrReferences() {
   if (context.payload.pull_request?.body) {
-    const references = await getReferncesFromBody(context.payload.pull_request.body);
+    const references = await getReferencesFromBody(context.payload.pull_request.body);
     return references;
   }
 
@@ -55,8 +55,8 @@ async function getPrReferences() {
     q: encodeURIComponent(`${context.sha} type:pr is:merged`),
   });
 
-  if (pulls.data.items[0].body) {
-    const references = await getReferncesFromBody(pulls.data.items[0]?.body);
+  if (pulls.data.items?.[0].body) {
+    const references = await getReferencesFromBody(pulls.data.items[0]?.body);
     return references;
   }
 
