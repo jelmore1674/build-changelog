@@ -1,8 +1,8 @@
 import { setOutput } from "@actions/core";
 import { getReleaseNotes, parseChangelog } from "@jelmore1674/changelog";
 import { existsSync, readFileSync } from "node:fs";
-import { changelogPath } from "./config";
-import { rl } from "./readline";
+import { changelogPath } from "../config";
+import { rl } from "../readline";
 
 function notesCommand(version: string = "Unreleased") {
   if (existsSync(changelogPath)) {
