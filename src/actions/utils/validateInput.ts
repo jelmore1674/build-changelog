@@ -1,6 +1,6 @@
 import { getInput } from "@actions/core";
+import { log } from "@utils/log";
 import { exit } from "node:process";
-import { log } from "../../utils/log";
 
 /**
  * Helper function used to validate inputs that have specific requirements.

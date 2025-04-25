@@ -1,6 +1,6 @@
 import { getInput } from "@actions/core";
 import { context, getOctokit } from "@actions/github";
-import type { Reference } from "../../types";
+import type { Reference } from "@types";
 
 const GITHUB_TOKEN = getInput("token");
 

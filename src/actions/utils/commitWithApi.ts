@@ -1,9 +1,9 @@
 import { getInput, setFailed } from "@actions/core";
 import { getExecOutput } from "@actions/exec";
 import { context, getOctokit } from "@actions/github";
+import { log } from "@utils/log";
 import { readFileSync } from "node:fs";
 import { exit } from "node:process";
-import { log } from "../../utils/log";
 
 const GITHUB_TOKEN = getInput("token");
 
