@@ -3,10 +3,10 @@ import { removeSync } from "fs-extra";
 import { existsSync, mkdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { expect, test, vitest } from "vitest";
-import { changelogArchive, changelogDir, configPath } from "./config";
-import * as releaseNotes from "./releaseNotes";
+import { changelogArchive, changelogDir, configPath } from "../config";
+import * as releaseNotes from "./";
 
-const TEST_DIR = path.join(__dirname, "../../test");
+const TEST_DIR = path.join(__dirname, "../../../test");
 
 function teardown() {
   // Remove test dir that is generated.
