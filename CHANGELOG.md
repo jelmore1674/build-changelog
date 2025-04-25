@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Support to auto link issues from pull request body. [`e774e6f`](https://github.com/jelmore1674/build-changelog/commit/e774e6fc36a152a582195e25e0de9a45d64e56d8) | [#94](https://github.com/jelmore1674/build-changelog/issues/94), [#99](https://github.com/jelmore1674/build-changelog/pull/99) | [Justin Elmore](https://github.com/jelmore1674)
 
+### Fixed
+
+- Action failing when not triggered through pull request. [`7850d7b`](https://github.com/jelmore1674/build-changelog/commit/7850d7bb80275bfcfa952e7ea2c89293852d29d6) | [#106](https://github.com/jelmore1674/build-changelog/pull/106) | [Justin Elmore](https://github.com/jelmore1674)
+
 ## [1.8.2] - 2025-04-24
 
 ### Changed
