@@ -7,31 +7,36 @@ const GITHUB_TOKEN = getInput("token");
 const issueRegex = /(?:fixe?|close|resolve)(?:s?d?) (\#[0-9]+)/gi;
 
 async function getReferncesFromBody(body: string) {
-  const match = body.match(issueRegex);
-  if (match && match?.length > 0) {
-    const result = await Promise.all(match.map(async (i) => {
-      const number = +i.split(" ")[1].replace("#", "");
-      const res = await getOctokit(GITHUB_TOKEN).rest.issues.get({
-        repo: "build-changelog",
-        owner: "jelmore1674",
-        // biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
-        issue_number: number,
-      });
+  try {
+    const match = body.match(issueRegex);
+    if (match && match?.length > 0) {
+      const result = await Promise.all(match.map(async (i) => {
+        const number = +i.split(" ")[1].replace("#", "");
+        const res = await getOctokit(GITHUB_TOKEN).rest.issues.get({
+          repo: "build-changelog",
+          owner: "jelmore1674",
+          // biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
+          issue_number: number,
+        });
 
-      if (res.data.pull_request) {
+        if (res.data.pull_request) {
+          return {
+            number,
+            type: "pull_request",
+          } as Reference;
+        }
+
         return {
           number,
-          type: "pull_request",
+          type: "issue",
         } as Reference;
-      }
+      }));
 
-      return {
-        number,
-        type: "issue",
-      } as Reference;
-    }));
-
-    return result;
+      return result;
+    }
+  } catch (error) {
+    console.info(error);
+    return [];
   }
 
   return [];
