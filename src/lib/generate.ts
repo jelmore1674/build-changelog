@@ -8,14 +8,14 @@ import {
 } from "@jelmore1674/changelog";
 import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
-import { ParsedChanges, Reference, Version } from "../../types";
-import { cleanUpChangelog } from "../../utils/cleanUpChangelog";
-import { getChangeCount } from "../../utils/getChangeCount";
-import { isTomlOrYamlFile } from "../../utils/isTomlOrYamlFile";
-import { log } from "../../utils/log";
-import { parseChanges } from "../../utils/parseChanges";
-import { changelogDir, changelogPath, Config, config } from "../config";
-import { rl } from "../readline";
+import { ParsedChanges, Reference, Version } from "../types";
+import { cleanUpChangelog } from "../utils/cleanUpChangelog";
+import { getChangeCount } from "../utils/getChangeCount";
+import { isTomlOrYamlFile } from "../utils/isTomlOrYamlFile";
+import { log } from "../utils/log";
+import { parseChanges } from "../utils/parseChanges";
+import { changelogDir, changelogPath, Config, config } from "./config";
+import { rl } from "./readline";
 
 const GITHUB_SERVER_URL = process.env.GITHUB_SERVER_URL ?? "https://github.com";
 const GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY ?? "jelmore1674/build-changelog";
