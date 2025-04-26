@@ -51,7 +51,7 @@ async function compareChangelogs() {
   endGroup();
 
   log(
-    `changelog count:\nPrevious Changes: ${existingChangelog}\nCurrent Changes: ${newChangelog.count}`,
+    `\nPrevious Changes: ${existingChangelog}\nCurrent Changes: ${newChangelog.count}`,
   );
 
   if (number && commentOnPr) {
