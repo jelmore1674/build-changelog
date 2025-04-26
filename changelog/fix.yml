@@ -1,0 +1,9 @@
+added:
+  - NPM package `@jelmore1674/github-action-helpers`.
+  - "`tryCatch` util to have better error handling."
+
+changed:
+  - Restructured some of the action utils during the refactor to implement helper package.
+
+fixed:
+  - Issue where the repo was hard coded for issue linking.
