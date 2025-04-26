@@ -9,47 +9,35 @@ import {
 import { exec, getExecOutput } from "@actions/exec";
 import { context } from "@actions/github";
 import { getLatestRelease } from "@jelmore1674/changelog";
+import {
+  checkIfGitExists,
+  commit,
+  getKeyValuePairInput,
+  getValidStringInput,
+} from "@jelmore1674/github-action-helpers";
+import { changelogPath, type Config } from "@lib/config";
+import { generateCommand } from "@lib/generate";
+import { notesCommand } from "@lib/releaseNotes";
+import type { ChangelogStyle } from "@types";
+import { log } from "@utils/log";
 import { readFileSync } from "node:fs";
 import { exit } from "node:process";
 import { clean, inc, type ReleaseType } from "semver";
-import { changelogPath, type Config } from "../lib/config";
-import { generateCommand } from "../lib/generate";
-import { notesCommand } from "../lib/releaseNotes";
-import type { ChangelogStyle } from "../types";
-import { log } from "../utils/log";
 import { commitAndPush } from "./utils/commitAndPush";
-import { commitWithApi } from "./utils/commitWithApi";
 import { getAuthorName } from "./utils/getAuthorName";
-import { getPrNumber } from "./utils/getPrNumber";
-import { getPrReferences } from "./utils/getPrReferences";
-import { validateInput } from "./utils/validateInput";
-import { validateChangelogStyle } from "./utils/validations/validateChangelogStyle";
-import { validateReleaseTypes } from "./utils/validations/validateReleaseTypes";
+import { getPullRequestInfo } from "./utils/getPullRequestInfo";
 
-/**
- * Format a key value pair to an object.
- *
- * @param pair the key value pair to turn into an object.
- */
-function formatKeyValuePairToObject(pair: string) {
-  if (!pair) {
-    return undefined;
-  }
-
-  return pair.split(",").reduce((acc, value) => {
-    acc[value.split("=")[0]] = value.split("=")[1];
-    return acc;
-  }, {} as Record<string, string>);
-}
-
-const releaseType = validateInput<ReleaseType>("release_type", validateReleaseTypes);
-const changelogStyle = validateInput<ChangelogStyle>("changelog_style", validateChangelogStyle);
+const releaseType = getValidStringInput<ReleaseType>("release_type", {
+  validInputs: ["patch", "minor", "major"],
+});
+const changelogStyle = getValidStringInput<ChangelogStyle>("changelog_style", {
+  validInputs: ["keep-a-changelog", "common-changelog", "custom"],
+});
 const customHeading = getInput("changelog_heading", { required: false });
 const commitMessage = getInput("commit_message");
 const dir = getInput("dir", { required: true });
 const isApiCommit = getBooleanInput("commit_with_api");
 const skipCommit = getBooleanInput("skip_commit");
-const rawFlags = getInput("flags", { required: false });
 const version = getInput("version", { required: false });
 // biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
 const reference_sha = getBooleanInput("reference_sha", { required: false });
@@ -61,19 +49,17 @@ const reference_pull_requests = getBooleanInput("reference_pull_requests", { req
 const show_author = getBooleanInput("show_author", { required: false });
 // biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
 const show_author_full_name = getBooleanInput("show_author_full_name", { required: false });
-const nameOverrideInput = getInput("name_override", { required: false });
 // biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
 const show_git_tag_prefix = getBooleanInput("show_git_tag_prefix", { required: false });
 
-const flags = formatKeyValuePairToObject(rawFlags);
-const nameOverrides = formatKeyValuePairToObject(nameOverrideInput);
+const flags = getKeyValuePairInput("flags");
+const nameOverrides = getKeyValuePairInput("name_override");
 
 async function generateChangelogAction() {
   // Check to make sure git exists.
-  try {
-    await exec("git", ["--version"]);
-  } catch (_error) {
-    setFailed("Git binary not found.");
+  const { error } = await checkIfGitExists();
+  if (error) {
+    setFailed(error);
     exit(1);
   }
 
@@ -114,15 +100,14 @@ async function generateChangelogAction() {
   }
 
   const author = await getAuthorName(nameOverrides);
-  const prNumber = await getPrNumber();
-  const prReferences = await getPrReferences();
+  const { number, references } = await getPullRequestInfo();
 
   startGroup("Generate Changelog");
   generateCommand(
     author,
     context.sha,
-    prNumber,
-    prReferences,
+    number,
+    references,
     releaseVersion,
     {
       changelogStyle,
@@ -144,7 +129,8 @@ async function generateChangelogAction() {
 
     startGroup("Commit changes.");
     if (isApiCommit) {
-      await commitWithApi(commitMessage);
+      const token = getInput("token", { required: true });
+      await commit(token, commitMessage);
     } else {
       await commitAndPush(commitMessage);
     }

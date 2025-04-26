@@ -1,15 +1,13 @@
-import { debug } from "@actions/core";
+import { debug, getInput } from "@actions/core";
 import { exec } from "@actions/exec";
 import { context } from "@actions/github";
+import { commit, getValidStringInput } from "@jelmore1674/github-action-helpers";
 import { parseChanges } from "@lib/generate";
 import { isYamlFile } from "@utils/isYamlFile";
 import { log } from "@utils/log";
 import { readdirSync, rmSync, writeFileSync } from "node:fs";
 import { exit } from "node:process";
 import YAML from "yaml";
-import { commitWithApi } from "./commitWithApi";
-import { validateInput } from "./validateInput";
-import { validateDependabotSection } from "./validations/validateDependabotSection";
 
 /**
  * Regex used to get the changes from the pr body.
@@ -35,13 +33,15 @@ async function addChangelogDependabot() {
     return;
   }
 
-  const dependabotChangeSection = validateInput<DependabotChangeSection>(
+  const dependabotChangeSection = getValidStringInput<DependabotChangeSection>(
     "dependabot_section",
-    validateDependabotSection,
     {
       required: true,
+      validInputs: ["changed", "security"],
     },
   );
+
+  const token = getInput("token", { required: true });
 
   const matches = context.payload.pull_request.body.match(dependabotRegex);
 
@@ -92,7 +92,7 @@ async function addChangelogDependabot() {
   });
 
   await exec("git", ["add", "."]);
-  await commitWithApi("Add changelog file for dependabot.");
+  await commit(token, "Add changelog file for dependabot.");
 }
 
 export { addChangelogDependabot };
