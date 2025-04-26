@@ -6,6 +6,7 @@ import { config as baseConfig } from "@lib/config";
 import { generateCommand } from "@lib/generate";
 import type { GenerateConfig } from "@types";
 import { getChangeCount } from "@utils/getChangeCount";
+import { log } from "@utils/log";
 import { tryCatch } from "@utils/tryCatch";
 import { readFileSync } from "node:fs";
 import { exit } from "node:process";
@@ -49,8 +50,11 @@ async function compareChangelogs() {
   const newChangelog = generateCommand(author, context.sha, number);
   endGroup();
 
+  log(
+    `changelog count:\nPrevious Changes: ${existingChangelog}\nCurrent Changes: ${newChangelog.count}`,
+  );
+
   if (number && commentOnPr) {
-    startGroup("Comment On PR");
     const token = getInput("token", { required: true });
 
     const botNames = ["github-actions[bot]", "build-changelog[bot]"];
@@ -91,7 +95,6 @@ async function compareChangelogs() {
 
     await botCommentOnPr(currentChanges.latestChanges, number, exitsingCommentId);
 
-    endGroup();
     exit(0);
   }
 
