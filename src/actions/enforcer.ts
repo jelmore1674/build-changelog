@@ -1,4 +1,4 @@
-import { debug, getBooleanInput } from "@actions/core";
+import { debug, endGroup, getBooleanInput, startGroup } from "@actions/core";
 import { context } from "@actions/github";
 import { getArrayInput } from "@jelmore1674/github-action-helpers";
 import { exit } from "node:process";
@@ -22,7 +22,9 @@ async function enforceChangelogAction() {
     enableDependabot && dependabotLabels.some(label => set.has(label))
     && pullRequest?.body && pullRequest?.user.login === "dependabot[bot]"
   ) {
+    startGroup("Dependabot Changelog Update.");
     await addChangelogDependabot();
+    endGroup();
   }
 
   if (skipLabels.some(label => set.has(label))) {

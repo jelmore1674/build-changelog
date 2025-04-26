@@ -27,4 +27,4 @@ jobs:
           dependabot_labels: dependencies
           dependabot_section: changed
           comment_on_pr: true
-          show_full_name: true
+          show_author_full_name: true

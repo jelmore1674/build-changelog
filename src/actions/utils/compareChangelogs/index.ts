@@ -1,4 +1,4 @@
-import { getBooleanInput, getInput, setFailed } from "@actions/core";
+import { endGroup, getBooleanInput, getInput, setFailed, startGroup } from "@actions/core";
 import { context, getOctokit } from "@actions/github";
 import { parseChangelog } from "@jelmore1674/changelog";
 import { getKeyValuePairInput } from "@jelmore1674/github-action-helpers";
@@ -32,6 +32,7 @@ async function compareChangelogs() {
     show_author_full_name,
   };
 
+  startGroup("Get Current Changelog changes.");
   const currentChanges = generateCommand(
     author,
     context.sha,
@@ -42,10 +43,14 @@ async function compareChangelogs() {
     config,
     true,
   );
+  endGroup();
 
+  startGroup("Get Latest Changes.");
   const newChangelog = generateCommand(author, context.sha, number);
+  endGroup();
 
   if (number && commentOnPr) {
+    startGroup("Comment On PR");
     const token = getInput("token", { required: true });
 
     const botNames = ["github-actions[bot]", "build-changelog[bot]"];
@@ -86,6 +91,7 @@ async function compareChangelogs() {
 
     await botCommentOnPr(currentChanges.latestChanges, number, exitsingCommentId);
 
+    endGroup();
     exit(0);
   }
 
