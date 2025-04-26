@@ -27,6 +27,8 @@ async function botCommentOnPr(message: string, prNumber: number, commentId?: num
       setFailed(`botCommentOnPr.updateComment\n\n${error.message}`);
       exit(1);
     }
+
+    return;
   }
 
   const { error } = await tryCatch(
