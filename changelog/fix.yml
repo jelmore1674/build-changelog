@@ -1,13 +1,34 @@
 added:
-  - NPM package `@jelmore1674/github-action-helpers`.
-  - "`tryCatch` util to have better error handling."
+  - message: NPM package `@jelmore1674/github-action-helpers`.
+    references:
+      - type: pull_request
+        number: 108
+      - type: issue
+        number: 107
+
+  - message: "`tryCatch` util to have better error handling."
+    references:
+      - type: pull_request
+        number: 108
 
 changed:
-  - Restructured some of the action utils during the refactor to implement helper package.
+  - message: Restructured some of the action utils during the refactor to implement helper package.
+    references:
+      - type: pull_request
+        number: 108
 
 fixed:
-  - Issue where the repo was hard coded for issue linking.
+  - message: Issue where the repo was hard coded for issue linking.
+    references:
+      - type: pull_request
+        number: 108
 
 removed:
-  - "`commitWithApi` helper function and replace with `commit` from helpers package."
-  - "`validateInput` helper function and replace with `getValidStringInput` from helpers package."
+  - message: "`commitWithApi` helper function and replace with `commit` from helpers package."
+    references:
+      - type: pull_request
+        number: 108
+  - message: "`validateInput` helper function and replace with `getValidStringInput` from helpers package."
+    references:
+      - type: pull_request
+        number: 108
