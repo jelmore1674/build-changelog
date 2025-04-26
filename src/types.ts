@@ -1,4 +1,5 @@
 import type { KeepAChangelogKeywords, Version as BaseVersion } from "@jelmore1674/changelog";
+import type { Config } from "@lib/config";
 
 interface Reference {
   type: "issue" | "pull_request";
@@ -78,11 +79,17 @@ interface LinkReference extends Omit<Reference, "type"> {
   type: "pull_request" | "issue";
 }
 
+/**
+ * The configuration used that is passed into `generateCommand`.
+ */
+type GenerateConfig = Omit<Config, "repo_url" | "release_url" | "changelog_archive" | "prefers">;
+
 export type {
   ChangelogChanges,
   ChangelogStyle,
   Changes,
   ComplexChange,
+  GenerateConfig,
   LinkReference,
   ParsedChanges,
   Reference,
