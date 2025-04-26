@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Common Changelog](https://common-changelog.org),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased] - TBD
+
+### Changed
+
+- Restructured some of the action utils during the refactor to implement helper package. [`ac7838c`](https://github.com/jelmore1674/build-changelog/commit/ac7838cd121cdd033fb51f4e54b121f8e337efef) | [#108](https://github.com/jelmore1674/build-changelog/pull/108) | [Justin Elmore](https://github.com/jelmore1674)
+
+### Added
+
+- `tryCatch` util to have better error handling. [`ac7838c`](https://github.com/jelmore1674/build-changelog/commit/ac7838cd121cdd033fb51f4e54b121f8e337efef) | [#108](https://github.com/jelmore1674/build-changelog/pull/108) | [Justin Elmore](https://github.com/jelmore1674)
+- NPM package `@jelmore1674/github-action-helpers`. [`ac7838c`](https://github.com/jelmore1674/build-changelog/commit/ac7838cd121cdd033fb51f4e54b121f8e337efef) | [#107](https://github.com/jelmore1674/build-changelog/issues/107), [#108](https://github.com/jelmore1674/build-changelog/pull/108) | [Justin Elmore](https://github.com/jelmore1674)
+
+### Removed
+
+- `commitWithApi` helper function and replace with `commit` from helpers package. [`ac7838c`](https://github.com/jelmore1674/build-changelog/commit/ac7838cd121cdd033fb51f4e54b121f8e337efef) | [#108](https://github.com/jelmore1674/build-changelog/pull/108) | [Justin Elmore](https://github.com/jelmore1674)
+- `validateInput` helper function and replace with `getValidStringInput` from helpers package. [`ac7838c`](https://github.com/jelmore1674/build-changelog/commit/ac7838cd121cdd033fb51f4e54b121f8e337efef) | [#108](https://github.com/jelmore1674/build-changelog/pull/108) | [Justin Elmore](https://github.com/jelmore1674)
+
+### Fixed
+
+- Issue where the repo was hard coded for issue linking. [`ac7838c`](https://github.com/jelmore1674/build-changelog/commit/ac7838cd121cdd033fb51f4e54b121f8e337efef) | [#108](https://github.com/jelmore1674/build-changelog/pull/108) | [Justin Elmore](https://github.com/jelmore1674)
+
 ## [1.9.0] - 2025-04-25
 
 ### Added
