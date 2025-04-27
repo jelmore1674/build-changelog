@@ -31,12 +31,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     });
 
     const notesCommand = vitest.spyOn(releaseNotes, "notesCommand");
-    const result = releaseNotes.notesCommand();
+    releaseNotes.notesCommand();
 
     expect(notesCommand).toHaveBeenCalledOnce();
     expect(notesCommand).toReturn();
-    expect(result).toBe(`# What's Changed\n\n## Fixed
-
-- This test issue [\`abcdef3\`](https://github.com/jelmore1674/build-changelog/commit/abcdef3149d) | [bcl-bot](https://github.com/jelmore1674)\n\n`);
   });
 });

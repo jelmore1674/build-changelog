@@ -19,7 +19,6 @@ function notesCommand(version: string = "Unreleased") {
         setOutput("notes", releaseNotes);
       }
       log(releaseNotes);
-      return releaseNotes;
     }
 
     rl.close();
