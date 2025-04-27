@@ -84,8 +84,17 @@ interface LinkReference extends Omit<Reference, "type"> {
  */
 type GenerateConfig = Omit<Config, "repo_url" | "release_url" | "changelog_archive" | "prefers">;
 
+/**
+ * The changelog optiosn for the heading.
+ */
+interface ChangelogOptions {
+  changelogStyle?: "keep-a-changelog" | "common-changelog" | "custom";
+  customHeading?: string;
+}
+
 export type {
   ChangelogChanges,
+  ChangelogOptions,
   ChangelogStyle,
   Changes,
   ComplexChange,
