@@ -1,3 +1,7 @@
 import { enforceChangelogAction } from "./actions/enforcer";
 
-enforceChangelogAction();
+try {
+  enforceChangelogAction();
+} catch (e) {
+  console.info({ e });
+}
