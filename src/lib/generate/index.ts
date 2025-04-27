@@ -1,4 +1,5 @@
 import { debug } from "@actions/core";
+import { KEY_FILTER, VALID_KEYWORDS } from "@consts";
 import {
   getReleaseNotes,
   type KeepAChangelogKeywords,
@@ -7,7 +8,8 @@ import {
   writeChangelog,
 } from "@jelmore1674/changelog";
 import { formatChangeMessage } from "@lib/format/formatChangeMessage";
-import type { GenerateConfig, ParsedChanges, Reference, Version } from "@types";
+import type { ChangelogOptions, GenerateConfig, ParsedChanges, Reference, Version } from "@types";
+import { addGitTagPrefix } from "@utils/addGitTagPrefix";
 import { cleanUpChangelog } from "@utils/cleanUpChangelog";
 import { getChangeCount } from "@utils/getChangeCount";
 import { isTomlOrYamlFile } from "@utils/isTomlOrYamlFile";
@@ -19,30 +21,19 @@ import path from "node:path";
 import { changelogDir, changelogPath, config } from "../config";
 import { rl } from "../readline";
 
-const GITHUB_SERVER_URL = process.env.GITHUB_SERVER_URL ?? "https://github.com";
-const GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY ?? "jelmore1674/build-changelog";
-
-/** Properties we will not use when adding changes to the changelog */
-const KEY_FILTER = ["release_date", "version", "notice", "references", "author"];
-
-/** The valid keywords that are used for the sections in the changelog */
-const VALID_KEYWORDS = ["added", "changed", "deprecated", "fixed", "removed", "security"];
-
-function addGitTagPrefix(
-  version: Version,
-  config: GenerateConfig,
-) {
-  version.version = `${config.git_tag_prefix}${version.version}`;
-  return version;
-}
-
-interface ChangelogOptions {
-  changelogStyle?: "keep-a-changelog" | "common-changelog" | "custom";
-  customHeading?: string;
-}
+const GITHUB_SERVER_URL = process.env.GITHUB_SERVER_URL;
+const GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY;
 
 interface ChangeFields {
+  /**
+   * The author to reference
+   *
+   * @defaults "bcl-bot"
+   */
   author?: string;
+  /**
+   * The commit sha
+   */
   sha: string;
   prNumber?: number;
   prReferences?: Reference[];
@@ -55,7 +46,9 @@ interface ChangeFields {
  *  `changelogDir`, write them to the `CHANGELOG.md`, and will remove the
  *  files when done.
  *
- *  @param author - the name of the author.
+ *  @param changeFields - the fields used to add references to change.
+ *  @param [actionConfig=config as GenerateConfig] - the configuration to generate the changelog
+ *  @param [skip_changelog=false] - Used to disable parsing existing changelog.
  */
 function generateCommand(
   { author = "bcl-bot", sha, prNumber, prReferences = [], releaseVersion, changelogOptions }:
@@ -63,7 +56,13 @@ function generateCommand(
   actionConfig = config as GenerateConfig,
   skip_changelog = false,
 ) {
-  log("generate command parameters", { author, prNumber, releaseVersion, changelogOptions });
+  log("generate command parameters", {
+    author,
+    prNumber,
+    prReferences,
+    releaseVersion,
+    changelogOptions,
+  });
 
   log("actionConfig", JSON.stringify(actionConfig, null, 2));
 
@@ -90,13 +89,7 @@ function generateCommand(
         debug(`parsedChanges:\n${JSON.stringify(parsedChanges, null, 2)}`);
 
         // Set fallback values for release_date and Version
-        let version = parsedChanges.version
-          ? `${
-            actionConfig.show_git_tag_prefix && parsedChanges.version.toLowerCase() !== "unreleased"
-              ? actionConfig.git_tag_prefix
-              : ""
-          }${parsedChanges.version}`
-          : "Unreleased";
+        let version = parsedChanges.version || "Unreleased";
         let release_date = parsedChanges.release_date || "TBD";
         let notice = parsedChanges.notice;
         const references = parsedChanges.references || [];
@@ -115,9 +108,7 @@ function generateCommand(
           && currentVersion.version.toLowerCase() === "unreleased"
         ) {
           const today = new Date().toISOString().split("T")[0];
-          currentVersion.version = `${
-            actionConfig.show_git_tag_prefix ? actionConfig.git_tag_prefix : ""
-          }${releaseVersion}`;
+          currentVersion.version = `${releaseVersion}`;
           currentVersion.release_date = today;
         }
 
@@ -244,11 +235,17 @@ function generateCommand(
   });
 
   const referenceLinks = sortedVersions.map((v): ReferenceLink => {
+    if (actionConfig.show_git_tag_prefix) {
+      return {
+        reference: v.version,
+        url: `${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/releases/tag/${v.version}`,
+      };
+    }
+
     return {
       reference: v.version,
-      url: `${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/releases/tag/${
-        actionConfig.show_git_tag_prefix ? "" : actionConfig.git_tag_prefix
-      }${v.version}`,
+      url:
+        `${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/releases/tag/${actionConfig.git_tag_prefix}${v.version}`,
     };
   }).filter(ref => ref.reference.toLowerCase() !== "unreleased");
 
