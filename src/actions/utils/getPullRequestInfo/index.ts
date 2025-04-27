@@ -14,7 +14,7 @@ async function getPullRequestInfo() {
   if (context.payload.pull_request?.number) {
     log(`Detected a pr: ${context.payload.pull_request.number}`);
 
-    const references = await getReferencesFromBody(context.payload.pull_request?.body);
+    const references = await getReferencesFromBody(context.payload.pull_request?.body ?? "");
 
     return { number: context.payload.pull_request.number, references };
   }
