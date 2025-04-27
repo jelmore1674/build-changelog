@@ -1,6 +1,7 @@
 import { debug, endGroup, getBooleanInput, startGroup } from "@actions/core";
 import { context } from "@actions/github";
 import { getArrayInput } from "@jelmore1674/github-action-helpers";
+import { tryCatch } from "@utils/tryCatch";
 import { exit } from "node:process";
 import { addChangelogDependabot } from "./utils/addChangelogDependabot";
 import { compareChangelogs } from "./utils/compareChangelogs";
@@ -32,7 +33,9 @@ async function enforceChangelogAction() {
     exit(0);
   }
 
-  await compareChangelogs();
+  const { error } = await tryCatch(compareChangelogs());
+
+  console.info(error);
 }
 
 export { enforceChangelogAction };
