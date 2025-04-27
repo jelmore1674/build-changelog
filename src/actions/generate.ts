@@ -15,10 +15,10 @@ import {
   getKeyValuePairInput,
   getValidStringInput,
 } from "@jelmore1674/github-action-helpers";
-import { changelogPath, type Config } from "@lib/config";
+import { changelogPath } from "@lib/config";
 import { generateCommand } from "@lib/generate";
 import { notesCommand } from "@lib/releaseNotes";
-import type { ChangelogStyle } from "@types";
+import type { ChangelogStyle, GenerateConfig } from "@types";
 import { log } from "@utils/log";
 import { readFileSync } from "node:fs";
 import { exit } from "node:process";
@@ -63,7 +63,7 @@ async function generateChangelogAction() {
     exit(1);
   }
 
-  const config: Omit<Config, "repo_url" | "release_url" | "changelog_archive" | "prefers"> = {
+  const config: GenerateConfig = {
     dir,
     flags,
     git_tag_prefix,
@@ -104,14 +104,16 @@ async function generateChangelogAction() {
 
   startGroup("Generate Changelog");
   generateCommand(
-    author,
-    context.sha,
-    number,
-    references,
-    releaseVersion,
     {
-      changelogStyle,
-      customHeading,
+      author,
+      sha: context.sha,
+      prNumber: number,
+      prReferences: references,
+      releaseVersion,
+      changelogOptions: {
+        changelogStyle,
+        customHeading,
+      },
     },
     config,
   );

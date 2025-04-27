@@ -15,9 +15,8 @@ import { getAuthorName } from "../getAuthorName";
 import { getPullRequestInfo } from "../getPullRequestInfo";
 
 async function compareChangelogs() {
-  const nameOverrideInput = getInput("name_override", { required: false });
   const customBotName = getInput("custom_bot_name", { required: false });
-  const nameOverrides = getKeyValuePairInput(nameOverrideInput);
+  const nameOverrides = getKeyValuePairInput("name_override");
   const commentOnPr = getBooleanInput("comment_on_pr", { required: false });
   // biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
   const show_author_full_name = getBooleanInput("show_author_full_name", { required: false });
@@ -35,19 +34,24 @@ async function compareChangelogs() {
 
   startGroup("Get Current Changelog changes.");
   const currentChanges = generateCommand(
-    author,
-    context.sha,
-    number,
-    references,
-    undefined,
-    undefined,
+    {
+      author,
+      sha: context.sha,
+      prNumber: number,
+      prReferences: references,
+    },
     config,
     true,
   );
   endGroup();
 
   startGroup("Get Latest Changes.");
-  const newChangelog = generateCommand(author, context.sha, number);
+  const newChangelog = generateCommand({
+    author,
+    sha: context.sha,
+    prNumber: number,
+    prReferences: [],
+  });
   endGroup();
 
   log(

@@ -19,7 +19,7 @@ program
   .description("generate the changelog")
   .option("--require-changelog", "require that changes have been made to the changelog.")
   .action(() => {
-    generateCommand("bcl-bot", sha, 1, undefined, undefined, undefined, undefined, true);
+    generateCommand({ sha, prNumber: 1 }, undefined, true);
   });
 
 program

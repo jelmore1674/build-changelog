@@ -1,83 +1,166 @@
-import TOML, { JsonMap } from "@iarna/toml";
-import { outputFileSync, removeSync } from "fs-extra";
-import { existsSync, rmSync } from "node:fs";
-import path from "node:path";
-import { describe, expect, test, vitest } from "vitest";
-import { afterEach } from "vitest";
-import { vi } from "vitest";
-import YAML from "yaml";
-import { changelogPath, configPath } from "../config";
+import { fs, vol } from "memfs";
+import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
+import { config } from "../config";
 import * as generate from "./";
+import {
+  fileSystem,
+  fileSystemBumpVersion,
+  fileSystemChange,
+  fileSystemChangelogWithTagPrefix,
+} from "./test";
 
-const TEST_DIR = path.join(__dirname, "../../test");
-const YAML_CHANGE = path.join(TEST_DIR, "testchange.yml");
-const TOML_CHANGE = path.join(TEST_DIR, "testchange.toml");
+vi.mock("node:fs", async () => {
+  const memfs: { fs: typeof fs } = await vi.importActual("memfs");
 
-function setupChanges() {
-  // Setup test changes files.
-  const change = {
-    version: "1.0.0",
-    release_date: "2024-1-1",
-    badkeyword: { breaking: ["this is a breaking change"], changes: ["this is a test change"] },
-  };
-  outputFileSync(YAML_CHANGE, YAML.stringify(change));
-  outputFileSync(TOML_CHANGE, TOML.stringify(change as unknown as JsonMap));
-}
+  return memfs.fs;
+});
 
-function teardown() {
-  if (existsSync(TEST_DIR)) {
-    removeSync(TEST_DIR);
-  }
-
-  if (existsSync(configPath)) {
-    rmSync(configPath);
-  }
-
-  if (changelogPath.includes("TEST.md")) {
-    if (existsSync(changelogPath)) {
-      rmSync(changelogPath);
-    }
-  }
-}
+const today = new Date().toISOString().split("T")[0];
 
 describe("generateCommand", () => {
+  beforeEach(() => {
+    vol.fromJSON(fileSystem, process.cwd());
+  });
   afterEach(async () => {
     vi.restoreAllMocks();
-    teardown();
+    vol.reset();
   });
 
-  test("parseChanges throws when file is not found", () => {
-    const parseChanges = vitest.spyOn(generate, "parseChanges");
-
-    expect(() => generate.parseChanges("notfound.yml")).toThrowError(
-      `The file does not exist\n\nnotfound.yml`,
+  test("Can create changelog when no changelog exists.", () => {
+    const response = generate.generateCommand(
+      { sha: "abcdef3149d", prReferences: [] },
+      undefined,
     );
-    expect(parseChanges).toHaveBeenCalledOnce();
+
+    const changelog = fs.readFileSync("./CHANGELOG.md", { encoding: "utf8" });
+
+    expect(response.count).toBe(1);
+    expect(response.latestChanges).toBe(
+      "## Fixed\n\n- This test issue [`abcdef3`](https://github.com/jelmore1674/build-changelog/commit/abcdef3149d) | [bcl-bot](https://github.com/jelmore1674)\n\n",
+    );
+
+    expect(changelog).toBe(`# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased] - TBD
+
+### Fixed
+
+- This test issue [\`abcdef3\`](https://github.com/jelmore1674/build-changelog/commit/abcdef3149d) | [bcl-bot](https://github.com/jelmore1674)\n\n`);
   });
 
-  test.skip("successfully runs the generate command", () => {
-    setupChanges();
-    // Setup test changes files.
-    const change = {
-      version: "1.0.0",
-      release_date: "2024-1-1",
-      added: { breaking: ["this is a breaking change", "this is a test change"] },
-    };
-    outputFileSync(YAML_CHANGE, YAML.stringify(change));
-    outputFileSync(TOML_CHANGE, TOML.stringify(change as unknown as JsonMap));
+  test("Can add changes to existing version.", () => {
+    vol.fromJSON(fileSystemChange, process.cwd());
+    const response = generate.generateCommand(
+      { sha: "abcdef3149d", prReferences: [] },
+      undefined,
+    );
 
-    expect(() => generate.generateCommand("bcl-bot", "a1a1a1aa1a11a1")).toHaveReturned();
+    const changelog = fs.readFileSync("./CHANGELOG.md", { encoding: "utf8" });
+
+    expect(response.count).toBe(2);
+    expect(response.latestChanges).toBe(
+      "## Added\n\n- This test issue [`abcdef3`](https://github.com/jelmore1674/build-changelog/commit/abcdef3149d) | [bcl-bot](https://github.com/jelmore1674)\n\n## Fixed\n\n- This test issue [`abcdef3`](https://github.com/jelmore1674/build-changelog/commit/abcdef3149d) | [bcl-bot](https://github.com/jelmore1674)\n\n",
+    );
+
+    expect(changelog).toBe(`# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased] - TBD
+
+### Added
+
+- This test issue [\`abcdef3\`](https://github.com/jelmore1674/build-changelog/commit/abcdef3149d) | [bcl-bot](https://github.com/jelmore1674)
+
+### Fixed
+
+- This test issue [\`abcdef3\`](https://github.com/jelmore1674/build-changelog/commit/abcdef3149d) | [bcl-bot](https://github.com/jelmore1674)\n\n`);
   });
 
-  test("successfully runs the generate command", () => {
-    setupChanges();
+  test("Can add changes to existing version.", () => {
+    vol.fromJSON(fileSystemBumpVersion, process.cwd());
+    vol.rm("/src/test/change.yml", () => {});
+    const response = generate.generateCommand(
+      { sha: "abcdef3149d", prReferences: [], releaseVersion: "0.1.1" },
+      undefined,
+    );
 
-    expect(() => generate.generateCommand("bcl-bot", "a1a1a1a", 1)).toThrowError();
+    const changelog = fs.readFileSync("./CHANGELOG.md", { encoding: "utf8" });
+
+    expect(response.count).toBe(2);
+    expect(response.latestChanges).toBe(
+      "## Added\n\n- This test issue [`abcdef3`](https://github.com/jelmore1674/build-changelog/commit/abcdef3149d) | [bcl-bot](https://github.com/jelmore1674)\n\n",
+    );
+
+    expect(changelog).toBe(`# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [0.1.1] - ${today}
+
+### Added
+
+- This test issue [\`abcdef3\`](https://github.com/jelmore1674/build-changelog/commit/abcdef3149d) | [bcl-bot](https://github.com/jelmore1674)
+
+## [0.1.0] - 2025-01-01
+
+### Fixed
+
+- This test issue [\`abcdef3\`](https://github.com/jelmore1674/build-changelog/commit/abcdef3149d) | [bcl-bot](https://github.com/jelmore1674)
+
+[0.1.1]: https://github.com/jelmore1674/build-changelog/releases/tag/v0.1.1
+[0.1.0]: https://github.com/jelmore1674/build-changelog/releases/tag/v0.1.0\n`);
   });
 
-  test("successfully runs the generate command", () => {
-    setupChanges();
+  test("Can handle versions with git_tag_prefix.", () => {
+    vol.fromJSON(fileSystemChangelogWithTagPrefix, process.cwd());
+    vol.rm("/src/test/change.yml", () => {});
+    const response = generate.generateCommand(
+      { sha: "abcdef3149d", prReferences: [], releaseVersion: "0.1.1" },
+      {
+        ...config,
+        show_git_tag_prefix: true,
+      },
+    );
 
-    expect(() => generate.generateCommand("bcl-bot", "a1a1a1a", 1)).toThrowError();
+    const changelog = fs.readFileSync("./CHANGELOG.md", { encoding: "utf8" });
+
+    expect(response.count).toBe(2);
+    expect(response.latestChanges).toBe(
+      "## Added\n\n- This test issue [`abcdef3`](https://github.com/jelmore1674/build-changelog/commit/abcdef3149d) | [bcl-bot](https://github.com/jelmore1674)\n\n",
+    );
+
+    expect(changelog).toBe(`# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [v0.1.1] - ${today}
+
+### Added
+
+- This test issue [\`abcdef3\`](https://github.com/jelmore1674/build-changelog/commit/abcdef3149d) | [bcl-bot](https://github.com/jelmore1674)
+
+## [v0.1.0] - 2025-01-01
+
+### Fixed
+
+- This test issue [\`abcdef3\`](https://github.com/jelmore1674/build-changelog/commit/abcdef3149d) | [bcl-bot](https://github.com/jelmore1674)
+
+[v0.1.1]: https://github.com/jelmore1674/build-changelog/releases/tag/v0.1.1
+[v0.1.0]: https://github.com/jelmore1674/build-changelog/releases/tag/v0.1.0\n`);
   });
 });

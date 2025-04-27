@@ -1,5 +1,6 @@
 import { setOutput } from "@actions/core";
 import { getReleaseNotes, parseChangelog } from "@jelmore1674/changelog";
+import { log } from "@utils/log";
 import { existsSync, readFileSync } from "node:fs";
 import { changelogPath } from "../config";
 import { rl } from "../readline";
@@ -17,7 +18,7 @@ function notesCommand(version: string = "Unreleased") {
       if (process.env.GITHUB_ACTIONS) {
         setOutput("notes", releaseNotes);
       }
-      console.info(releaseNotes);
+      log(releaseNotes);
     }
 
     rl.close();

@@ -14,7 +14,7 @@ async function getPullRequestInfo() {
   if (context.payload.pull_request?.number) {
     log(`Detected a pr: ${context.payload.pull_request.number}`);
 
-    const references = await getReferencesFromBody(context.payload.pull_request.body);
+    const references = await getReferencesFromBody(context.payload.pull_request?.body ?? "");
 
     return { number: context.payload.pull_request.number, references };
   }
@@ -34,7 +34,7 @@ async function getPullRequestInfo() {
   log(`Detected a pr: ${pulls.data.items[0]?.number}`);
 
   if (pulls.data.items?.[0]?.number) {
-    const references = await getReferencesFromBody(pulls.data.items[0]?.body);
+    const references = await getReferencesFromBody(pulls.data.items[0]?.body ?? "");
     return { number: pulls.data.items[0].number, references };
   }
 

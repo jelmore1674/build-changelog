@@ -1,6 +1,7 @@
-import { debug, endGroup, getBooleanInput, startGroup } from "@actions/core";
+import { endGroup, getBooleanInput, startGroup } from "@actions/core";
 import { context } from "@actions/github";
 import { getArrayInput } from "@jelmore1674/github-action-helpers";
+import { log } from "@utils/log";
 import { exit } from "node:process";
 import { addChangelogDependabot } from "./utils/addChangelogDependabot";
 import { compareChangelogs } from "./utils/compareChangelogs";
@@ -28,7 +29,7 @@ async function enforceChangelogAction() {
   }
 
   if (skipLabels.some(label => set.has(label))) {
-    debug("Skip Enforcing Changelog.");
+    log("Skip Enforcing Changelog.");
     exit(0);
   }
 

@@ -1,63 +1,39 @@
-import TOML, { JsonMap } from "@iarna/toml";
-import { removeSync } from "fs-extra";
-import { existsSync, mkdirSync, writeFileSync } from "node:fs";
-import path from "node:path";
-import { expect, test, vitest } from "vitest";
-import { changelogArchive, changelogDir, configPath } from "../config";
+import { fs, vol } from "memfs";
+import { afterEach, describe, expect, test, vi, vitest } from "vitest";
 import * as releaseNotes from "./";
 
-const TEST_DIR = path.join(__dirname, "../../../test");
+vi.mock("node:fs", async () => {
+  const memfs: { fs: typeof fs } = await vi.importActual("memfs");
 
-function teardown() {
-  // Remove test dir that is generated.
-  if (existsSync(TEST_DIR)) {
-    removeSync(TEST_DIR);
-  }
-
-  // Remove test config that is generated
-  if (existsSync(configPath)) {
-    removeSync(configPath);
-  }
-}
-
-test("should run successful", async () => {
-  const notesCommand = vitest.spyOn(releaseNotes, "notesCommand");
-  releaseNotes.notesCommand();
-
-  expect(notesCommand).toHaveBeenCalledOnce();
-  expect(notesCommand).toReturn();
+  return memfs.fs;
 });
 
-const archive = {
-  changelog: [
-    {
-      version: "1.0.0",
-      release_date: "2024-11-29",
-      fixed: [
-        "this is a test fix",
-      ],
-    },
-    {
-      version: "0.9.9",
-      release_date: "2024-11-29",
-      fixed: [
-        "this is a test fix",
-      ],
-    },
-  ],
-} as unknown as JsonMap;
+describe("releaseNotes", () => {
+  afterEach(() => {
+    vi.resetAllMocks();
+    vol.reset();
+  });
 
-test("should read match version from archive.", async () => {
-  if (!existsSync(changelogDir)) {
-    mkdirSync(changelogDir);
-    writeFileSync(changelogArchive, TOML.stringify(archive), { encoding: "utf8" });
-  }
+  test("should run successful", async () => {
+    vol.fromJSON({
+      "./CHANGELOG.md": `# Changelog
 
-  const notesCommand = vitest.spyOn(releaseNotes, "notesCommand");
-  releaseNotes.notesCommand("1.0.0");
+All notable changes to this project will be documented in this file.
 
-  expect(notesCommand).toHaveBeenCalledOnce();
-  expect(notesCommand).toReturn();
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-  teardown();
+## [v0.1.0] - 2025-01-01
+
+### Fixed
+
+- This test issue [\`abcdef3\`](https://github.com/jelmore1674/build-changelog/commit/abcdef3149d) | [bcl-bot](https://github.com/jelmore1674)\n\n`,
+    });
+
+    const notesCommand = vitest.spyOn(releaseNotes, "notesCommand");
+    releaseNotes.notesCommand();
+
+    expect(notesCommand).toHaveBeenCalledOnce();
+    expect(notesCommand).toReturn();
+  });
 });

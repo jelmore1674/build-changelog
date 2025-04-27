@@ -1,0 +1,8 @@
+added:
+  - NPM package `memfs` for mocking the file system for unit tests.
+
+fixed:
+  - Issue where all changes were sorted alphabetically instead of order when change added.
+
+changed:
+  - Refactored `generateCommand` to improve the code.

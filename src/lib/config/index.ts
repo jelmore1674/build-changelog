@@ -113,7 +113,6 @@ let tomlConfigFile = "bcl.toml";
 let configFile = yamlConfigFile;
 let changelogFileName = "CHANGELOG.md";
 let parser: typeof YAML | typeof TOML = YAML;
-let archiveFile = "archive.yml";
 
 /**
  * The path to our config. `bcl.yml`.
@@ -124,7 +123,6 @@ if (config.prefers === "toml" || existsSync(path.join(process.cwd(), tomlConfigF
   configPath = path.join(process.cwd(), tomlConfigFile);
   configFile = tomlConfigFile;
   parser = TOML;
-  archiveFile = "archive.toml";
 }
 
 // Use the initial config if we do not have a config file.
@@ -140,27 +138,10 @@ if (existsSync(configPath)) {
 let changelogDir = path.join(process.cwd(), config.dir);
 
 /**
- * The path to the archive file of the changelog.
- */
-let changelogArchive = path.join(changelogDir, archiveFile);
-
-/**
- * The config used for testing.
- */
-if (process.env.NODE_ENV === "test") {
-  configFile = config.prefers === "yaml" ? "test.yml" : "test.toml";
-  configPath = path.join(process.cwd(), config.prefers === "yaml" ? "test.yml" : "test.toml");
-  changelogFileName = "TEST.md";
-  config = { ...config, dir: "test" };
-  changelogDir = path.join(__dirname, "../../test");
-  changelogArchive = path.join(__dirname, "../../test", archiveFile);
-}
-
-/**
  * The path to the CHANGELOG.md file
  */
-const changelogPath = path.join(process.cwd(), changelogFileName);
+let changelogPath = path.join(process.cwd(), changelogFileName);
 
-export { changelogArchive, changelogDir, changelogPath, config, configPath, initialConfig };
+export { changelogDir, changelogPath, config, configPath, initialConfig };
 
 export type { Config };
