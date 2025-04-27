@@ -6,20 +6,21 @@ import {
   type Reference as ReferenceLink,
   writeChangelog,
 } from "@jelmore1674/changelog";
-import { ParsedChanges, Reference, Version } from "@types";
+import { formatChangeMessage } from "@lib/format/formatChangeMessage";
+import type { GenerateConfig, ParsedChanges, Reference, Version } from "@types";
 import { cleanUpChangelog } from "@utils/cleanUpChangelog";
 import { getChangeCount } from "@utils/getChangeCount";
 import { isTomlOrYamlFile } from "@utils/isTomlOrYamlFile";
 import { log } from "@utils/log";
 import { parseChanges } from "@utils/parseChanges";
+import { sortBreakingChanges } from "@utils/sortBreakingChanges";
 import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
-import { changelogDir, changelogPath, Config, config } from "../config";
+import { changelogDir, changelogPath, config } from "../config";
 import { rl } from "../readline";
 
 const GITHUB_SERVER_URL = process.env.GITHUB_SERVER_URL ?? "https://github.com";
 const GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY ?? "jelmore1674/build-changelog";
-const GITHUB_ACTOR = process.env.GITHUB_ACTOR ?? "bcl-bot";
 
 /** Properties we will not use when adding changes to the changelog */
 const KEY_FILTER = ["release_date", "version", "notice", "references", "author"];
@@ -27,174 +28,9 @@ const KEY_FILTER = ["release_date", "version", "notice", "references", "author"]
 /** The valid keywords that are used for the sections in the changelog */
 const VALID_KEYWORDS = ["added", "changed", "deprecated", "fixed", "removed", "security"];
 
-const LINK_TYPE = {
-  pull_request: "pull",
-  issue: "issues",
-};
-
-/**
- * Generate References of the change.
- *
- * @param references - the references we are adding to the change.
- */
-function generateReferences(references: Reference[]): string {
-  if (references.length) {
-    const cleanedReferences = [
-      ...references.reduce((map, reference) => map.set(reference.number, reference), new Map())
-        .values(),
-    ] as Reference[];
-    return cleanedReferences.sort((a, b) => a.number - b.number).map((reference) => {
-      return `[#${reference.number}](${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/${
-        LINK_TYPE[reference.type]
-      }/${reference.number})`;
-    }).join(", ");
-  }
-
-  return "";
-}
-
-/**
- * Generate the link for the author.
- *
- * @param author - author name.
- */
-function generateAuthorLink(author: string) {
-  if (author === "dependabot") {
-    return `[${author}](${GITHUB_SERVER_URL}/apps/${author})`;
-  }
-  return `[${author}](${GITHUB_SERVER_URL}/${GITHUB_ACTOR})`;
-}
-
-/**
- * Generate the link for commit shas
- *
- * @param sha - the commit sha
- * @param showReferenceSha - Whether or not we will show this link.
- */
-function generateCommitShaLink(sha: string, showReferenceSha: boolean) {
-  if (showReferenceSha) {
-    return `[\`${
-      sha?.substring(0, 7)
-    }\`](${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/commit/${sha}) |`;
-  }
-
-  return "";
-}
-
-/**
- * Generate the change entry in the changelog.
- *
- * @param change - the change message
- * @param changelogLinks - the links from the changelog
- * @param references - any references to create link.
- * @param config - the configuration
- * @param author - the author
- * @param [flag] - optional flag that can be used.
- * @param [prNumber] - pr number to auto reference.
- */
-function generateChange(
-  change: string,
-  references: Reference[],
-  config: Omit<Config, "repo_url" | "release_url" | "prefers">,
-  author: string,
-  sha: string,
-  flag?: string,
-  prNumber?: number,
-) {
-  let renderedChange = change;
-
-  // Generate the links for the change.
-  if (GITHUB_REPOSITORY) {
-    renderedChange = `${change} ${generateCommitShaLink(sha, config.reference_sha)}${
-      (references.length || prNumber)
-        ? ` ${
-          generateReferences([
-            ...((config?.reference_pull_requests && prNumber)
-              ? [{ type: "pull_request", number: prNumber }] as Reference[]
-              : []),
-            ...references,
-          ])
-        }`
-        : ""
-    }`;
-  }
-
-  // Add author to the change.
-  if (config.show_author) {
-    if (GITHUB_ACTOR) {
-      renderedChange = `${renderedChange} | ${generateAuthorLink(author || GITHUB_ACTOR)}`;
-    } else {
-      renderedChange = `${renderedChange} | ${author}`;
-    }
-  }
-
-  if (flag && config.flags?.[flag]) {
-    return `${config.flags?.[flag]} - ${renderedChange}`;
-  }
-
-  log(`Change: ${renderedChange}`);
-
-  return renderedChange;
-}
-
-/**
- * Sort the breaking changes and put them at the top of the change section.
- *
- * @param version - the version with the changes to sort.
- */
-function sortBreakingChanges(version: Version) {
-  for (const changes in version) {
-    if (KEY_FILTER.includes(changes)) {
-      continue;
-    }
-    const keyword = changes as KeepAChangelogKeywords;
-
-    if (version[keyword]) {
-      version?.[keyword].sort((a, b) => {
-        if (config.flags?.breaking) {
-          const isPrefixedA = a.startsWith(config.flags?.breaking);
-          const isPrefixedB = b.startsWith(config.flags?.breaking);
-
-          if (isPrefixedA && !isPrefixedB) {
-            return -1;
-          }
-
-          if (!isPrefixedA && isPrefixedB) {
-            return 1;
-          }
-        }
-
-        return a.localeCompare(b);
-      });
-    }
-  }
-
-  return version;
-}
-
-function addVersionReferenceLinks(
-  version: Version,
-  changelogLinks: ReferenceLink[],
-  config: Omit<Config, "repo_url" | "release_url" | "prefers">,
-) {
-  if (
-    changelogLinks.find(v => v.reference === version.version)
-    || version.version.toLowerCase() === "unreleased"
-  ) {
-    return;
-  }
-
-  changelogLinks.unshift({
-    reference: version.version,
-    url: `${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/releases/tag/${
-      config.git_tag_prefix || "v"
-    }${version.version}`,
-  });
-}
-
 function addGitTagPrefix(
   version: Version,
-  config: Omit<Config, "repo_url" | "release_url" | "prefers">,
+  config: GenerateConfig,
 ) {
   version.version = `${config.git_tag_prefix}${version.version}`;
   return version;
@@ -205,6 +41,15 @@ interface ChangelogOptions {
   customHeading?: string;
 }
 
+interface ChangeFields {
+  author?: string;
+  sha: string;
+  prNumber?: number;
+  prReferences: Reference[];
+  releaseVersion?: string;
+  changelogOptions?: ChangelogOptions;
+}
+
 /**
  *  The generate command will read the existing `yaml|yml` files in the
  *  `changelogDir`, write them to the `CHANGELOG.md`, and will remove the
@@ -213,13 +58,9 @@ interface ChangelogOptions {
  *  @param author - the name of the author.
  */
 function generateCommand(
-  author = "bcl-bot",
-  sha: string,
-  prNumber?: number,
-  prReferences = [] as Reference[],
-  releaseVersion?: string,
-  changelogOptions?: ChangelogOptions,
-  actionConfig = config as Omit<Config, "repo_url" | "release_url" | "prefers">,
+  { author = "bcl-bot", sha, prNumber, prReferences = [], releaseVersion, changelogOptions }:
+    ChangeFields,
+  actionConfig = config as GenerateConfig,
   skip_changelog = false,
 ) {
   log("generate command parameters", { author, prNumber, releaseVersion, changelogOptions });
@@ -246,7 +87,7 @@ function generateCommand(
         log(`Parsing ${file} file now.`);
         const parsedChanges = parseChanges<ParsedChanges>(path.join(changelogDir, file));
 
-        debug(`parsedChanges: ${parsedChanges}`);
+        debug(`parsedChanges:\n${JSON.stringify(parsedChanges, null, 2)}`);
 
         // Set fallback values for release_date and Version
         let version = parsedChanges.version
@@ -278,13 +119,6 @@ function generateCommand(
             actionConfig.show_git_tag_prefix ? actionConfig.git_tag_prefix : ""
           }${releaseVersion}`;
           currentVersion.release_date = today;
-
-          changelogLinks.unshift({
-            reference: releaseVersion,
-            url: `${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/releases/tag/${
-              actionConfig.git_tag_prefix || "v"
-            }${releaseVersion}`,
-          });
         }
 
         if (notice) {
@@ -326,14 +160,15 @@ function generateCommand(
                 parsedChanges[keyword]?.map(item => {
                   if (typeof item === "string") {
                     currentVersion[keyword]?.push(
-                      generateChange(
-                        item,
-                        [...references, ...prReferences],
+                      formatChangeMessage(
+                        {
+                          message: item,
+                          author: botAuthor || author,
+                          sha,
+                          references: [...references, ...prReferences],
+                          prNumber,
+                        },
                         actionConfig,
-                        botAuthor || author,
-                        sha,
-                        undefined,
-                        prNumber,
                       ),
                     );
                   }
@@ -343,14 +178,16 @@ function generateCommand(
                     && item !== null
                   ) {
                     currentVersion[keyword]?.push(
-                      generateChange(
-                        item.message,
-                        [...(item?.references || []), ...prReferences],
+                      formatChangeMessage(
+                        {
+                          message: item.message,
+                          author: botAuthor || author,
+                          sha,
+                          references: [...(item?.references || []), ...prReferences],
+                          prNumber,
+                          flag: item.flag,
+                        },
                         actionConfig,
-                        botAuthor || author,
-                        sha,
-                        item.flag,
-                        prNumber,
                       ),
                     );
                   }
@@ -366,14 +203,16 @@ function generateCommand(
                   // a prefix we will add the prefix. Else we will return the string.
                   currentVersion[keyword]?.push(
                     ...parsedChanges[keyword]?.[flag]?.map((change: string) => {
-                      return generateChange(
-                        change,
-                        [...references, ...prReferences],
+                      return formatChangeMessage(
+                        {
+                          message: change,
+                          author: botAuthor || author,
+                          sha,
+                          references: [...references, ...prReferences],
+                          prNumber,
+                          flag,
+                        },
                         actionConfig,
-                        botAuthor || author,
-                        sha,
-                        flag,
-                        prNumber,
                       );
                     }),
                   );
@@ -397,27 +236,21 @@ function generateCommand(
   );
 
   const sortedVersions = parsedChangelog.map((version) => {
-    addVersionReferenceLinks(version, changelogLinks, actionConfig);
-
     if (actionConfig.show_git_tag_prefix && version.version.toLowerCase() !== "unreleased") {
-      return sortBreakingChanges(addGitTagPrefix(version, actionConfig));
+      return sortBreakingChanges(addGitTagPrefix(version, actionConfig), actionConfig);
     }
 
-    return sortBreakingChanges(version);
+    return sortBreakingChanges(version, actionConfig);
   });
 
-  const referenceLinks = sortedVersions.map(v => {
-    if (v.version.toLowerCase() === "unreleased") {
-      return;
-    }
-
+  const referenceLinks = sortedVersions.map((v): ReferenceLink => {
     return {
       reference: v.version,
       url: `${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/releases/tag/${
         actionConfig.show_git_tag_prefix ? "" : actionConfig.git_tag_prefix
       }${v.version}`,
     };
-  }).filter(Boolean) as ReferenceLink[];
+  }).filter(ref => ref.reference.toLowerCase() !== "unreleased");
 
   const renderedChangelog = writeChangelog(
     { versions: sortedVersions, links: referenceLinks },

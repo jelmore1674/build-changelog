@@ -12,6 +12,9 @@
       "@lib/*": [
         "./lib/*"
       ],
+      "@consts": [
+        "./consts.ts"
+      ],
       "@types": [
         "./types.ts"
       ],

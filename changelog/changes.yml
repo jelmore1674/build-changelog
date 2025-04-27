@@ -1,0 +1,2 @@
+fixed:
+  - Issue where all changes were sorted alphabetically instead of order when change added.

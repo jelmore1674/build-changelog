@@ -138,20 +138,21 @@ if (existsSync(configPath)) {
 let changelogDir = path.join(process.cwd(), config.dir);
 
 /**
+ * The path to the CHANGELOG.md file
+ */
+let changelogPath = path.join(process.cwd(), changelogFileName);
+
+/**
  * The config used for testing.
  */
 if (process.env.NODE_ENV === "test") {
   configFile = config.prefers === "yaml" ? "test.yml" : "test.toml";
   configPath = path.join(process.cwd(), config.prefers === "yaml" ? "test.yml" : "test.toml");
   changelogFileName = "TEST.md";
-  config = { ...config, dir: "test" };
-  changelogDir = path.join(__dirname, "../../test");
+  config = { ...config, dir: "/src/test" };
+  changelogDir = "/src/test";
+  changelogPath = "/src/CHANGELOG.md";
 }
-
-/**
- * The path to the CHANGELOG.md file
- */
-const changelogPath = path.join(process.cwd(), changelogFileName);
 
 export { changelogDir, changelogPath, config, configPath, initialConfig };
 

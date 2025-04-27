@@ -35,19 +35,23 @@ async function compareChangelogs() {
 
   startGroup("Get Current Changelog changes.");
   const currentChanges = generateCommand(
-    author,
-    context.sha,
-    number,
-    references,
-    undefined,
-    undefined,
+    {
+      author,
+      sha: context.sha,
+      prNumber: number,
+      prReferences: references,
+    },
     config,
     true,
   );
   endGroup();
 
   startGroup("Get Latest Changes.");
-  const newChangelog = generateCommand(author, context.sha, number);
+  const newChangelog = generateCommand({
+    author,
+    sha: context.sha,
+    prNumber: number,
+  });
   endGroup();
 
   log(

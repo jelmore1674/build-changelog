@@ -3,6 +3,11 @@ import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   test: {
+    env: {
+      GITHUB_SERVER_URL: "https://github.com",
+      GITHUB_REPOSITORY: "jelmore1674/build-changelog",
+      GITHUB_ACTOR: "jelmore1674",
+    },
     environment: "node",
     include: ["./src/**/*.test.ts"],
     exclude: ["dist", "lib"],
@@ -16,7 +21,8 @@ export default defineConfig({
   resolve: {
     alias: {
       "@lib": path.resolve(__dirname, "src/lib"),
-      "@types": path.resolve(__dirname, "src/types/index.ts"),
+      "@types": path.resolve(__dirname, "src/types.ts"),
+      "@consts": path.resolve(__dirname, "src/consts.ts"),
       "@utils": path.resolve(__dirname, "./src/utils"),
     },
   },
