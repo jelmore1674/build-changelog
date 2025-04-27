@@ -51,6 +51,7 @@ async function compareChangelogs() {
     author,
     sha: context.sha,
     prNumber: number,
+    prReferences: [],
   });
   endGroup();
 

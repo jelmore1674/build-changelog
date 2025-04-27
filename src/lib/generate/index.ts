@@ -45,7 +45,7 @@ interface ChangeFields {
   author?: string;
   sha: string;
   prNumber?: number;
-  prReferences: Reference[];
+  prReferences?: Reference[];
   releaseVersion?: string;
   changelogOptions?: ChangelogOptions;
 }
