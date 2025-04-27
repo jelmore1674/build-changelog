@@ -14,24 +14,22 @@ function sortBreakingChanges(version: Version, config: GenerateConfig) {
     }
     const keyword = changes as KeepAChangelogKeywords;
 
-    if (version[keyword]) {
-      version?.[keyword].sort((a, b) => {
-        if (config.flags?.breaking) {
-          const isPrefixedA = a.startsWith(config.flags?.breaking);
-          const isPrefixedB = b.startsWith(config.flags?.breaking);
+    version[keyword]?.sort((a, b) => {
+      if (config.flags?.breaking) {
+        const isPrefixedA = a.startsWith(config.flags.breaking);
+        const isPrefixedB = b.startsWith(config.flags.breaking);
 
-          if (isPrefixedA && !isPrefixedB) {
-            return -1;
-          }
-
-          if (!isPrefixedA && isPrefixedB) {
-            return 1;
-          }
+        if (isPrefixedA && !isPrefixedB) {
+          return -1;
         }
 
-        return 1;
-      });
-    }
+        if (!isPrefixedA && isPrefixedB) {
+          return 1;
+        }
+      }
+
+      return 1;
+    });
   }
 
   return version;

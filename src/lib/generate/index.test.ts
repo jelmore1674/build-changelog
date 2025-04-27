@@ -29,8 +29,6 @@ describe("generateCommand", () => {
 
     const changelog = fs.readFileSync("/src/CHANGELOG.md", { encoding: "utf8" });
 
-    console.log(changelog);
-
     expect(response.count).toBe(1);
     expect(response.latestChanges).toBe(
       "## Fixed\n\n- This test issue [`abcdef3`](https://github.com/jelmore1674/build-changelog/commit/abcdef3149d) | [bcl-bot](https://github.com/jelmore1674)\n\n",
@@ -58,8 +56,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     );
 
     const changelog = fs.readFileSync("/src/CHANGELOG.md", { encoding: "utf8" });
-
-    console.log(changelog);
 
     expect(response.count).toBe(2);
     expect(response.latestChanges).toBe(
@@ -93,8 +89,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     );
 
     const changelog = fs.readFileSync("/src/CHANGELOG.md", { encoding: "utf8" });
-
-    console.log(changelog);
 
     expect(response.count).toBe(2);
     expect(response.latestChanges).toBe(
