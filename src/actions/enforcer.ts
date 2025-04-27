@@ -33,11 +33,7 @@ async function enforceChangelogAction() {
     exit(0);
   }
 
-  try {
-    await compareChangelogs();
-  } catch (error) {
-    console.info({ error });
-  }
+  await compareChangelogs();
 }
 
 export { enforceChangelogAction };

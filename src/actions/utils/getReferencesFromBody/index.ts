@@ -18,39 +18,41 @@ const issueRegex = /(?:fixe?|close|resolve)(?:s?d?) (\#[0-9]+)/gi;
  */
 async function getReferencesFromBody(body = "") {
   const token = getInput("token");
-  const match = body.match(issueRegex);
+  if (body) {
+    const match = body.match(issueRegex);
 
-  if (token && match && match?.length > 0) {
-    const result = await Promise.all(match.map(async (i) => {
-      const number = +i.split(" #")[1];
-      const { error, data: res } = await tryCatch(
-        getOctokit(token).rest.issues.get({
-          repo: context.repo.repo,
-          owner: context.repo.owner,
-          // biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
-          issue_number: number,
-        }),
-      );
+    if (token && match && match?.length > 0) {
+      const result = await Promise.all(match.map(async (i) => {
+        const number = +i.split(" #")[1];
+        const { error, data: res } = await tryCatch(
+          getOctokit(token).rest.issues.get({
+            repo: context.repo.repo,
+            owner: context.repo.owner,
+            // biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
+            issue_number: number,
+          }),
+        );
 
-      if (error) {
-        log(`Cannot find reference: ${number}`);
-        return;
-      }
+        if (error) {
+          log(`Cannot find reference: ${number}`);
+          return;
+        }
 
-      if (res.data.pull_request) {
+        if (res.data.pull_request) {
+          return {
+            number,
+            type: "pull_request",
+          } as Reference;
+        }
+
         return {
           number,
-          type: "pull_request",
+          type: "issue",
         } as Reference;
-      }
+      }));
 
-      return {
-        number,
-        type: "issue",
-      } as Reference;
-    }));
-
-    return result.filter(Boolean) as Reference[];
+      return result.filter(Boolean) as Reference[];
+    }
   }
   return [];
 }
