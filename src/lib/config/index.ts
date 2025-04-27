@@ -142,18 +142,6 @@ let changelogDir = path.join(process.cwd(), config.dir);
  */
 let changelogPath = path.join(process.cwd(), changelogFileName);
 
-/**
- * The config used for testing.
- */
-if (process.env.NODE_ENV === "test") {
-  configFile = config.prefers === "yaml" ? "test.yml" : "test.toml";
-  configPath = path.join(process.cwd(), config.prefers === "yaml" ? "test.yml" : "test.toml");
-  changelogFileName = "TEST.md";
-  config = { ...config, dir: "/src/test" };
-  changelogDir = "/src/test";
-  changelogPath = "/src/CHANGELOG.md";
-}
-
 export { changelogDir, changelogPath, config, configPath, initialConfig };
 
 export type { Config };
