@@ -23,6 +23,7 @@ async function compareChangelogs() {
   const show_author_full_name = getBooleanInput("show_author_full_name", { required: false });
 
   const author = "Justin Elmore";
+  console.info({ author });
   const { number, references } = await getPullRequestInfo();
 
   const changelog = readFileSync("CHANGELOG.md", "utf8");
