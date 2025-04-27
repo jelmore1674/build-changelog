@@ -1,14 +1,13 @@
-import type { KeepAChangelogKeywords, Version } from "@jelmore1674/changelog";
-
-/** Properties we will not use when adding changes to the changelog */
-const KEY_FILTER = ["release_date", "version", "notice", "references", "author"];
+import { KEY_FILTER } from "@consts";
+import type { KeepAChangelogKeywords } from "@jelmore1674/changelog";
+import type { Version } from "@types";
 
 /**
  * Get the total number of changes in your changelog.
  *
  * @param changelog - the version array from your changelog.
  */
-function getChangeCount(changelog: Version<Partial<Record<KeepAChangelogKeywords, string[]>>>[]) {
+function getChangeCount(changelog: Version[]) {
   return changelog.reduce((totalChanges, version) => {
     const changes = Object.keys(version).filter(k => !KEY_FILTER.includes(k)).reduce((acc, k) => {
       const keyword = k as KeepAChangelogKeywords;
