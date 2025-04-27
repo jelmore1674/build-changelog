@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Common Changelog](https://common-changelog.org),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased] - TBD
+
+### Changed
+
+- Refactored `generateCommand` to improve the code. [`8b7e4c0`](https://github.com/jelmore1674/build-changelog/commit/8b7e4c038444c7dc7ac64d6faea97a88c7633324) | [#109](https://github.com/jelmore1674/build-changelog/pull/109) | [Justin Elmore](https://github.com/jelmore1674)
+
+### Added
+
+- NPM package `memfs` for mocking the file system for unit tests. [`8b7e4c0`](https://github.com/jelmore1674/build-changelog/commit/8b7e4c038444c7dc7ac64d6faea97a88c7633324) | [#109](https://github.com/jelmore1674/build-changelog/pull/109) | [Justin Elmore](https://github.com/jelmore1674)
+
+### Fixed
+
+- Issue where all changes were sorted alphabetically instead of order when change added. [`8b7e4c0`](https://github.com/jelmore1674/build-changelog/commit/8b7e4c038444c7dc7ac64d6faea97a88c7633324) | [#109](https://github.com/jelmore1674/build-changelog/pull/109) | [Justin Elmore](https://github.com/jelmore1674)
+
 ## [1.9.1] - 2025-04-26
 
 ### Changed
