@@ -7,14 +7,17 @@
     "dist"
   ],
   "scripts": {
+    "__BUILD__": "################################################################################",
     "build": "ncc build src/index.ts -m",
     "build:actions": "pnpm build:enforcer && pnpm build:generate && pnpm build:notes",
     "build:enforcer": "ncc build src/enforcer.ts -m -o enforcer",
     "build:generate": "ncc build src/generate.ts -m -o generate",
     "build:notes": "ncc build src/notes.ts -m -o notes",
+    "__LINT__": "#################################################################################",
     "lint": "pnpm lint:biome && pnpm lint:dprint ",
     "lint:biome": "biome lint --error-on-warnings",
     "lint:dprint": "dprint check",
+    "__TEST__": "#################################################################################",
     "test": "vitest",
     "test:coverage": "vitest run --coverage"
   },
