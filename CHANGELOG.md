@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Updates `vite` from 6.3.2 to 6.3.4 [`6519106`](https://github.com/jelmore1674/build-changelog/commit/6519106e44162b4e844b5c447646bc43d98e5f35) | [#111](https://github.com/jelmore1674/build-changelog/pull/111) | [dependabot](https://github.com/apps/dependabot)
+- Updates `@jelmore1674/changelog` from 1.1.1 to 1.2.0 [`818e29e`](https://github.com/jelmore1674/build-changelog/commit/818e29ef930ac19acf33e2ce406e556cf262001f) | [#110](https://github.com/jelmore1674/build-changelog/pull/110) | [dependabot](https://github.com/apps/dependabot)
 
 ## [1.9.2] - 2025-04-27
 
