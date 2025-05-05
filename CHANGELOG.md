@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Common Changelog](https://common-changelog.org),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased] - TBD
+
+### Changed
+
+- Updates `vite` from 6.3.2 to 6.3.4 [`6519106`](https://github.com/jelmore1674/build-changelog/commit/6519106e44162b4e844b5c447646bc43d98e5f35) | [#111](https://github.com/jelmore1674/build-changelog/pull/111) | [dependabot](https://github.com/apps/dependabot)
+
 ## [1.9.2] - 2025-04-27
 
 ### Changed
