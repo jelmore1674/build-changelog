@@ -250,7 +250,7 @@ function generateCommand(
   }).filter(ref => ref.reference.toLowerCase() !== "unreleased");
 
   const renderedChangelog = writeChangelog(
-    { versions: sortedVersions, links: referenceLinks },
+    { heading: "", versions: sortedVersions, links: referenceLinks },
     changelogOptions,
   );
 
