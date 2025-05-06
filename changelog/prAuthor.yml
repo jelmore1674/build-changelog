@@ -1,2 +1,0 @@
-changed:
-  - Use `pull request` author instead of `context.actor` for pull request triggered changelog entries.
