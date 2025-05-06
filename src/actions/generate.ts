@@ -99,8 +99,8 @@ async function generateChangelogAction() {
     }
   }
 
-  const author = await getAuthorName(nameOverrides);
   const { number, references } = await getPullRequestInfo();
+  const author = await getAuthorName(nameOverrides, number);
 
   startGroup("Generate Changelog");
   generateCommand(

@@ -3,11 +3,8 @@
  *
  * @param author - author name.
  */
-function formatAuthor(author: string) {
-  if (author === "dependabot") {
-    return `[${author}](${process.env.GITHUB_SERVER_URL}/apps/${author})`;
-  }
-  return `[${author}](${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_ACTOR})`;
+function formatAuthor(author: { name: string; url: string }) {
+  return `[${author.name}](${author.url})`;
 }
 
 export { formatAuthor };
