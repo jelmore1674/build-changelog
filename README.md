@@ -172,6 +172,11 @@ inputs:
     default: "true"
     required: false
 
+  auto_versioning:
+    description: Automatically handle the semantic versioning based on the changelog file.
+    required: false
+    default: "false"
+
   dir:
     description: The directory to keep your changelog files. Defaults to the `changelog` directory.
     default: "changelog"
