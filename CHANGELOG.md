@@ -12,6 +12,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updates `vite` from 6.3.2 to 6.3.4 [`6519106`](https://github.com/jelmore1674/build-changelog/commit/6519106e44162b4e844b5c447646bc43d98e5f35) | [#111](https://github.com/jelmore1674/build-changelog/pull/111) | [dependabot](https://github.com/apps/dependabot)
 - Updates `@jelmore1674/changelog` from 1.1.1 to 1.2.0 [`818e29e`](https://github.com/jelmore1674/build-changelog/commit/818e29ef930ac19acf33e2ce406e556cf262001f) | [#110](https://github.com/jelmore1674/build-changelog/pull/110) | [dependabot](https://github.com/apps/dependabot)
 - Use `pull request` author instead of `context.actor` for pull request triggered changelog entries. [`3506bea`](https://github.com/jelmore1674/build-changelog/commit/3506beabc35b0e8020bb75e85dd97f00b8047b0a) | [#102](https://github.com/jelmore1674/build-changelog/issues/102), [#115](https://github.com/jelmore1674/build-changelog/pull/115) | [jelmore1674](https://github.com/jelmore1674)
+- Updates `@vitest/coverage-v8` from 3.1.2 to 3.1.3 [`de10ce2`](https://github.com/jelmore1674/build-changelog/commit/de10ce2b2bb4f9c97b40dcdee4f8b8de681d26a2) | [#114](https://github.com/jelmore1674/build-changelog/pull/114) | [dependabot](https://github.com/apps/dependabot)
+- Updates `memfs` from 4.17.0 to 4.17.1 [`de10ce2`](https://github.com/jelmore1674/build-changelog/commit/de10ce2b2bb4f9c97b40dcdee4f8b8de681d26a2) | [#114](https://github.com/jelmore1674/build-changelog/pull/114) | [dependabot](https://github.com/apps/dependabot)
+- Updates `vitest` from 3.1.2 to 3.1.3 [`de10ce2`](https://github.com/jelmore1674/build-changelog/commit/de10ce2b2bb4f9c97b40dcdee4f8b8de681d26a2) | [#114](https://github.com/jelmore1674/build-changelog/pull/114) | [dependabot](https://github.com/apps/dependabot)
 
 ## [1.9.2] - 2025-04-27
 
