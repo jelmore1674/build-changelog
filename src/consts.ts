@@ -1,5 +1,5 @@
 /** Properties we will not use when adding changes to the changelog */
-const KEY_FILTER = ["release_date", "version", "notice", "references", "author"];
+const KEY_FILTER = ["release_date", "version", "notice", "references", "author", "change"];
 
 /** The valid keywords that are used for the sections in the changelog */
 const VALID_KEYWORDS = ["added", "changed", "deprecated", "fixed", "removed", "security"];
