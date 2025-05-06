@@ -10,14 +10,17 @@ import {
 import { formatChangeMessage } from "@lib/format/formatChangeMessage";
 import type { ChangelogOptions, GenerateConfig, ParsedChanges, Reference, Version } from "@types";
 import { addGitTagPrefix } from "@utils/addGitTagPrefix";
+import { autoIncrementUnreleasedChanges } from "@utils/autoIncrementUnreleasedChanges";
 import { cleanUpChangelog } from "@utils/cleanUpChangelog";
 import { getChangeCount } from "@utils/getChangeCount";
 import { isTomlOrYamlFile } from "@utils/isTomlOrYamlFile";
 import { log } from "@utils/log";
 import { parseChanges } from "@utils/parseChanges";
 import { sortBreakingChanges } from "@utils/sortBreakingChanges";
+import latestSemver from "latest-semver";
 import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
+import { inc } from "semver";
 import { changelogDir, changelogPath, config } from "../config";
 import { rl } from "../readline";
 
@@ -107,9 +110,12 @@ function generateCommand(
           name: parsedChanges.author as string,
           url: "https://github.com/apps/dependabot",
         };
+        let changeType = parsedChanges.change ?? "patch";
 
         // Find a matching release.
-        const foundRelease = acc.find((release) => release.version === version);
+        const foundRelease = acc.find((release) =>
+          release.version === version || release.release_date === release_date
+        );
 
         //
         // The currentVersion to add changes to.
@@ -181,6 +187,7 @@ function generateCommand(
                     typeof item === "object" && !Array.isArray(item)
                     && item !== null
                   ) {
+                    changeType = item.flag === "breaking" ? "major" : changeType;
                     currentVersion[keyword]?.push(
                       formatChangeMessage(
                         {
@@ -207,6 +214,7 @@ function generateCommand(
                   // a prefix we will add the prefix. Else we will return the string.
                   currentVersion[keyword]?.push(
                     ...parsedChanges[keyword]?.[flag]?.map((change: string) => {
+                      changeType = flag === "breaking" ? "major" : changeType;
                       return formatChangeMessage(
                         {
                           message: change,
@@ -223,6 +231,14 @@ function generateCommand(
                 }
               }
             }
+          }
+
+          if (actionConfig.auto_versioning) {
+            currentVersion.version = autoIncrementUnreleasedChanges(
+              changeType,
+              currentVersion,
+              acc,
+            );
           }
 
           if (!foundRelease) {
