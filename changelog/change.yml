@@ -1,0 +1,5 @@
+# yaml-language-server: $schema=../schemas/changlelog.json
+
+added:
+  - Support for `auto_versioning` to use the changelog file to manage the semantic version.
+  - Support for a `change` property in the changelog file valid values `major`,`minor`,`patch`.
