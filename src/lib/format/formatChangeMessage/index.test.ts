@@ -1,7 +1,10 @@
 import { describe, expect, test } from "vitest";
 import { formatChangeMessage } from "./";
 
-const author = "justin";
+const author = {
+  name: "justin",
+  url: "https://github.com/jelmore1674",
+};
 const message = "This is a change.";
 const sha = "3c20f6dc679fbece838d9828bd8391d5d371ac63";
 

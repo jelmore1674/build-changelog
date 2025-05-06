@@ -30,7 +30,10 @@ interface ChangeFields {
    *
    * @defaults "bcl-bot"
    */
-  author?: string;
+  author?: {
+    name: string;
+    url: string;
+  };
   /**
    * The commit sha
    */
@@ -51,8 +54,14 @@ interface ChangeFields {
  *  @param [skip_changelog=false] - Used to disable parsing existing changelog.
  */
 function generateCommand(
-  { author = "bcl-bot", sha, prNumber, prReferences = [], releaseVersion, changelogOptions }:
-    ChangeFields,
+  {
+    author = { name: "bcl-bot", url: "https://github.com/bcl-bot" },
+    sha,
+    prNumber,
+    prReferences = [],
+    releaseVersion,
+    changelogOptions,
+  }: ChangeFields,
   actionConfig = config as GenerateConfig,
   skip_changelog = false,
 ) {
@@ -93,7 +102,11 @@ function generateCommand(
         let release_date = parsedChanges.release_date || "TBD";
         let notice = parsedChanges.notice;
         const references = parsedChanges.references || [];
-        const botAuthor = parsedChanges.author;
+        // Dependabot is the only bot that is supported currently.
+        const botAuthor = {
+          name: parsedChanges.author as string,
+          url: "https://github.com/apps/dependabot",
+        };
 
         // Find a matching release.
         const foundRelease = acc.find((release) => release.version === version);
@@ -154,7 +167,7 @@ function generateCommand(
                       formatChangeMessage(
                         {
                           message: item,
-                          author: botAuthor || author,
+                          author: parsedChanges.author ? botAuthor : author,
                           sha,
                           references: [...references, ...prReferences],
                           prNumber,
@@ -172,7 +185,7 @@ function generateCommand(
                       formatChangeMessage(
                         {
                           message: item.message,
-                          author: botAuthor || author,
+                          author: parsedChanges.author ? botAuthor : author,
                           sha,
                           references: [...(item?.references || []), ...prReferences],
                           prNumber,
@@ -197,7 +210,7 @@ function generateCommand(
                       return formatChangeMessage(
                         {
                           message: change,
-                          author: botAuthor || author,
+                          author: parsedChanges.author ? botAuthor : author,
                           sha,
                           references: [...references, ...prReferences],
                           prNumber,

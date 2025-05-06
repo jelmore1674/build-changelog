@@ -7,6 +7,8 @@ export default defineConfig({
       GITHUB_SERVER_URL: "https://github.com",
       GITHUB_REPOSITORY: "jelmore1674/build-changelog",
       GITHUB_ACTOR: "jelmore1674",
+      INPUT_TOKEN: "token",
+      INPUT_GIT_TAG_PREFIX: "v",
     },
     environment: "node",
     include: ["./src/**/*.test.ts"],

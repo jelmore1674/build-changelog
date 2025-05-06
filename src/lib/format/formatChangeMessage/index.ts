@@ -7,7 +7,10 @@ import { formatReferences } from "../formatReferences";
 interface ChangeMessage {
   message: string;
   references: Reference[];
-  author: string;
+  author: {
+    name: string;
+    url: string;
+  };
   sha: string;
   prNumber?: number;
   flag?: string;

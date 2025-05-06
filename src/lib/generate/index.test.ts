@@ -36,7 +36,7 @@ describe("generateCommand", () => {
 
     expect(response.count).toBe(1);
     expect(response.latestChanges).toBe(
-      "## Fixed\n\n- This test issue [`abcdef3`](https://github.com/jelmore1674/build-changelog/commit/abcdef3149d) | [bcl-bot](https://github.com/jelmore1674)\n\n",
+      "## Fixed\n\n- This test issue [`abcdef3`](https://github.com/jelmore1674/build-changelog/commit/abcdef3149d) | [bcl-bot](https://github.com/bcl-bot)\n\n",
     );
 
     expect(changelog).toBe(`# Changelog
@@ -50,7 +50,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- This test issue [\`abcdef3\`](https://github.com/jelmore1674/build-changelog/commit/abcdef3149d) | [bcl-bot](https://github.com/jelmore1674)\n\n`);
+- This test issue [\`abcdef3\`](https://github.com/jelmore1674/build-changelog/commit/abcdef3149d) | [bcl-bot](https://github.com/bcl-bot)\n\n`);
   });
 
   test("Can add changes to existing version.", () => {
@@ -64,7 +64,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
     expect(response.count).toBe(2);
     expect(response.latestChanges).toBe(
-      "## Added\n\n- This test issue [`abcdef3`](https://github.com/jelmore1674/build-changelog/commit/abcdef3149d) | [bcl-bot](https://github.com/jelmore1674)\n\n## Fixed\n\n- This test issue [`abcdef3`](https://github.com/jelmore1674/build-changelog/commit/abcdef3149d) | [bcl-bot](https://github.com/jelmore1674)\n\n",
+      "## Added\n\n- This test issue [`abcdef3`](https://github.com/jelmore1674/build-changelog/commit/abcdef3149d) | [bcl-bot](https://github.com/bcl-bot)\n\n## Fixed\n\n- This test issue [`abcdef3`](https://github.com/jelmore1674/build-changelog/commit/abcdef3149d) | [bcl-bot](https://github.com/jelmore1674)\n\n",
     );
 
     expect(changelog).toBe(`# Changelog
@@ -78,7 +78,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- This test issue [\`abcdef3\`](https://github.com/jelmore1674/build-changelog/commit/abcdef3149d) | [bcl-bot](https://github.com/jelmore1674)
+- This test issue [\`abcdef3\`](https://github.com/jelmore1674/build-changelog/commit/abcdef3149d) | [bcl-bot](https://github.com/bcl-bot)
 
 ### Fixed
 
@@ -97,7 +97,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
     expect(response.count).toBe(2);
     expect(response.latestChanges).toBe(
-      "## Added\n\n- This test issue [`abcdef3`](https://github.com/jelmore1674/build-changelog/commit/abcdef3149d) | [bcl-bot](https://github.com/jelmore1674)\n\n",
+      "## Added\n\n- This test issue [`abcdef3`](https://github.com/jelmore1674/build-changelog/commit/abcdef3149d) | [bcl-bot](https://github.com/bcl-bot)\n\n",
     );
 
     expect(changelog).toBe(`# Changelog
@@ -111,7 +111,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- This test issue [\`abcdef3\`](https://github.com/jelmore1674/build-changelog/commit/abcdef3149d) | [bcl-bot](https://github.com/jelmore1674)
+- This test issue [\`abcdef3\`](https://github.com/jelmore1674/build-changelog/commit/abcdef3149d) | [bcl-bot](https://github.com/bcl-bot)
 
 ## [0.1.0] - 2025-01-01
 
@@ -138,7 +138,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
     expect(response.count).toBe(2);
     expect(response.latestChanges).toBe(
-      "## Added\n\n- This test issue [`abcdef3`](https://github.com/jelmore1674/build-changelog/commit/abcdef3149d) | [bcl-bot](https://github.com/jelmore1674)\n\n",
+      "## Added\n\n- This test issue [`abcdef3`](https://github.com/jelmore1674/build-changelog/commit/abcdef3149d) | [bcl-bot](https://github.com/bcl-bot)\n\n",
     );
 
     expect(changelog).toBe(`# Changelog
@@ -152,7 +152,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- This test issue [\`abcdef3\`](https://github.com/jelmore1674/build-changelog/commit/abcdef3149d) | [bcl-bot](https://github.com/jelmore1674)
+- This test issue [\`abcdef3\`](https://github.com/jelmore1674/build-changelog/commit/abcdef3149d) | [bcl-bot](https://github.com/bcl-bot)
 
 ## [v0.1.0] - 2025-01-01
 
