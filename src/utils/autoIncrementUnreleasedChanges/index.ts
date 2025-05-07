@@ -1,6 +1,6 @@
 import type { ParsedChanges, Version } from "@types";
 import latestSemver from "latest-semver";
-import { compare, inc } from "semver";
+import { inc } from "semver";
 
 /**
  * Check if the date is an unreleased date.
