@@ -147,3 +147,49 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - This test issue [\`abcdef3\`](https://github.com/jelmore1674/build-changelog/commit/abcdef3149d) | [bcl-bot](https://github.com/jelmore1674)\n\n`,
 };
+
+export const autoVersioningExistingUnreleasedChangesMinor = {
+  "./changelog/change.yml": "added:\n  - This test issue",
+
+  "./CHANGELOG.md": `# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [v0.2.0] - TBD
+
+### Changed
+
+- This is an existing change. [\`abcdef3\`](https://github.com/jelmore1674/build-changelog/commit/abcdef3149d) | [bcl-bot](https://github.com/jelmore1674)
+
+## [v0.1.0] - 2025-01-01
+
+### Fixed
+
+- This test issue [\`abcdef3\`](https://github.com/jelmore1674/build-changelog/commit/abcdef3149d) | [bcl-bot](https://github.com/jelmore1674)\n\n`,
+};
+
+export const autoVersioningExistingUnreleasedChangesMajor = {
+  "./changelog/change.yml": "added:\n  - This test issue",
+
+  "./CHANGELOG.md": `# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [v1.0.0] - TBD
+
+### Changed
+
+- This is an existing change. [\`abcdef3\`](https://github.com/jelmore1674/build-changelog/commit/abcdef3149d) | [bcl-bot](https://github.com/jelmore1674)
+
+## [v0.1.0] - 2025-01-01
+
+### Fixed
+
+- This test issue [\`abcdef3\`](https://github.com/jelmore1674/build-changelog/commit/abcdef3149d) | [bcl-bot](https://github.com/jelmore1674)\n\n`,
+};

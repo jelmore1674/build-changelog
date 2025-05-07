@@ -3,7 +3,7 @@ import { autoIncrementUnreleasedChanges } from "./";
 
 const existingChanges = [
   // biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
-  { version: "0.1.2", release_date: "2025-1-1" },
+  { version: "0.1.2", release_date: "2025-01-01" },
   // biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
   { version: "0.1.1", release_date: "2025-1-1" },
   // biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
@@ -21,5 +21,53 @@ describe("autoIncrementUnreleasedChanges", () => {
     const result = autoIncrementUnreleasedChanges("minor", current, existingChanges);
 
     expect(result).toBe("0.2.0");
+  });
+
+  test("Can return the expected version", () => {
+    const current = {
+      version: "0.2.0",
+      // biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
+      release_date: "TBD",
+    };
+
+    const result = autoIncrementUnreleasedChanges("patch", current, existingChanges);
+
+    expect(result).toBe("0.2.0");
+  });
+
+  test("Can return the expected version", () => {
+    const current = {
+      version: "1.0.0",
+      // biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
+      release_date: "TBD",
+    };
+
+    const result = autoIncrementUnreleasedChanges("patch", current, existingChanges);
+
+    expect(result).toBe("1.0.0");
+  });
+
+  test("Can return the expected version", () => {
+    const current = {
+      version: "0.2.0",
+      // biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
+      release_date: "TBD",
+    };
+
+    const result = autoIncrementUnreleasedChanges("minor", current, existingChanges);
+
+    expect(result).toBe("0.2.0");
+  });
+
+  test("Can return the expected version", () => {
+    const current = {
+      version: "1.0.0",
+      // biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
+      release_date: "TBD",
+    };
+
+    const result = autoIncrementUnreleasedChanges("minor", current, existingChanges);
+
+    expect(result).toBe("1.0.0");
   });
 });

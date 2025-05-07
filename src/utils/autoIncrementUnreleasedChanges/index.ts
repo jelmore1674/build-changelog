@@ -1,6 +1,6 @@
 import type { ParsedChanges, Version } from "@types";
 import latestSemver from "latest-semver";
-import { inc } from "semver";
+import { compare, inc } from "semver";
 
 /**
  * Check if the date is an unreleased date.
@@ -34,6 +34,12 @@ function autoIncrementUnreleasedChanges(
 
     if (latest) {
       const newVersion = inc(latest, changeType);
+
+      if (newVersion) {
+        const latestVersion = latestSemver([newVersion, currentVersion.version]);
+        return latestVersion;
+      }
+
       return newVersion ?? currentVersion.version;
     }
   }
