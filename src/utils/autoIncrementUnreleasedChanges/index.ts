@@ -37,7 +37,7 @@ function autoIncrementUnreleasedChanges(
 
       if (newVersion) {
         const latestVersion = latestSemver([newVersion, currentVersion.version]);
-        return latestVersion;
+        return latestVersion ?? currentVersion.version;
       }
 
       return newVersion ?? currentVersion.version;
