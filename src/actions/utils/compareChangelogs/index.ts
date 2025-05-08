@@ -24,8 +24,6 @@ async function compareChangelogs() {
   const { number, references } = await getPullRequestInfo();
   const author = await getAuthorName(nameOverrides, number);
 
-  console.info({ author });
-
   let existingChangelog = 0;
 
   if (existsSync(changelogPath)) {
