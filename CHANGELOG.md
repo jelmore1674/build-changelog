@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Common Changelog](https://common-changelog.org),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased] - TBD
+
+### Fixed
+
+- Users full name not being pulled from a pull request. [`07dd622`](https://github.com/jelmore1674/build-changelog/commit/07dd62259bdc0913920e103bf975a8aac8a3934d) | [#119](https://github.com/jelmore1674/build-changelog/pull/119) | [Justin Elmore](https://github.com/jelmore1674)
+
 ## [1.10.0] - 2025-05-08
 
 ### Changed
