@@ -13,9 +13,9 @@ async function getPrAuthorName(
     pull_number: pullRequestNumber,
   });
 
-  console.info({ pr });
+  console.info({ author: pr.data.user });
 
-  console.info({ pullRequestNumber, nameOverrides, showAuthorFullName });
+  console.info({ showAuthorFullName });
 
   if (nameOverrides) {
     if (nameOverrides[pr.data.user.login]) {
