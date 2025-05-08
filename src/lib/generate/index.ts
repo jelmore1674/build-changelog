@@ -122,9 +122,15 @@ function generateCommand(
         const currentVersion: Version = foundRelease
           ?? { version, release_date };
 
+        if (release_date !== "TBD") {
+          currentVersion.release_date === release_date;
+        }
+
         if (
           releaseVersion && releaseVersion.toLowerCase() !== "unreleased"
-          && currentVersion.version.toLowerCase() === "unreleased"
+          && (currentVersion.version.toLowerCase() === "unreleased"
+            || currentVersion.release_date === "TBD" || !currentVersion.release_date
+            || currentVersion.release_date?.toLowerCase() === "unreleased")
         ) {
           const today = new Date().toISOString().split("T")[0];
           currentVersion.version = `${releaseVersion}`;
