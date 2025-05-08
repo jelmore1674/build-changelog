@@ -17,15 +17,23 @@ import { isTomlOrYamlFile } from "@utils/isTomlOrYamlFile";
 import { log } from "@utils/log";
 import { parseChanges } from "@utils/parseChanges";
 import { sortBreakingChanges } from "@utils/sortBreakingChanges";
-import latestSemver from "latest-semver";
 import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
-import { inc } from "semver";
 import { changelogDir, changelogPath, config } from "../config";
 import { rl } from "../readline";
 
 const GITHUB_SERVER_URL = process.env.GITHUB_SERVER_URL;
 const GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY;
+
+/**
+ * Regex used to get the date of the release.
+ *
+ * This will match the date if it is formatted:
+ * yyyy-mm-dd
+ *
+ * @link [regex101](https://regex101.com/r/IP7HY7/2)
+ */
+const dateRegex = /\d{4}(-|\/)\d{2}(-|\/)\d{2}/g;
 
 interface ChangeFields {
   /**
@@ -112,8 +120,6 @@ function generateCommand(
         };
         let changeType = parsedChanges.change ?? "patch";
 
-        console.info({ release_date });
-
         // Find a matching release.
         const foundRelease = acc.find((release) =>
           release.version === version || release.release_date === release_date
@@ -124,19 +130,17 @@ function generateCommand(
         const currentVersion: Version = foundRelease
           ?? { version, release_date };
 
-        if (release_date !== "TBD") {
+        if (!dateRegex.test(release_date)) {
           currentVersion.release_date = release_date;
         }
 
-        console.info({ currentVersion });
         if (
           releaseVersion && releaseVersion.toLowerCase() !== "unreleased"
           && (currentVersion.version.toLowerCase() === "unreleased"
-            || currentVersion.release_date === "TBD" || !currentVersion.release_date
-            || currentVersion.release_date?.toLowerCase() === "unreleased")
+            || !dateRegex.test(currentVersion.release_date || ""))
         ) {
           const today = new Date().toISOString().split("T")[0];
-          currentVersion.version = `${releaseVersion}`;
+          currentVersion.version = releaseVersion;
           currentVersion.release_date = today;
         }
 

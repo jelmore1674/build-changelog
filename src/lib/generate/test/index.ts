@@ -1,7 +1,3 @@
-import { on } from "node:events";
-
-const today = new Date().toISOString().split("T")[0];
-
 export const fileSystem = {
   "./changelog/change.yml": "fixed:\n  - This test issue",
 };
