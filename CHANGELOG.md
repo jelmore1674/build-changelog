@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Common Changelog](https://common-changelog.org),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - TBD
+## [1.10.0] - 2025-05-08
 
 ### Changed
 
@@ -280,6 +280,7 @@ _Read the [README.md](./README.md#complex-example) how to add changes._
 
 _Initial Release_
 
+[1.10.0]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.0
 [1.9.2]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.9.2
 [1.9.1]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.9.1
 [1.9.0]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.9.0
