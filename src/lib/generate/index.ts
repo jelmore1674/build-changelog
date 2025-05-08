@@ -112,6 +112,8 @@ function generateCommand(
         };
         let changeType = parsedChanges.change ?? "patch";
 
+        console.info({ release_date });
+
         // Find a matching release.
         const foundRelease = acc.find((release) =>
           release.version === version || release.release_date === release_date
@@ -126,6 +128,7 @@ function generateCommand(
           currentVersion.release_date === release_date;
         }
 
+        console.info({ currentVersion });
         if (
           releaseVersion && releaseVersion.toLowerCase() !== "unreleased"
           && (currentVersion.version.toLowerCase() === "unreleased"
