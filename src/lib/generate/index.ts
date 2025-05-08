@@ -125,7 +125,7 @@ function generateCommand(
           ?? { version, release_date };
 
         if (release_date !== "TBD") {
-          currentVersion.release_date === release_date;
+          currentVersion.release_date = release_date;
         }
 
         console.info({ currentVersion });
