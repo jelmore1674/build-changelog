@@ -2,13 +2,13 @@ import { endGroup, getBooleanInput, getInput, setFailed, startGroup } from "@act
 import { context, getOctokit } from "@actions/github";
 import { parseChangelog } from "@jelmore1674/changelog";
 import { getKeyValuePairInput } from "@jelmore1674/github-action-helpers";
-import { config as baseConfig } from "@lib/config";
+import { changelogPath, config as baseConfig } from "@lib/config";
 import { generateCommand } from "@lib/generate";
 import type { GenerateConfig } from "@types";
 import { getChangeCount } from "@utils/getChangeCount";
 import { log } from "@utils/log";
 import { tryCatch } from "@utils/tryCatch";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { exit } from "node:process";
 import { botCommentOnPr } from "../botCommentOnPr";
 import { getAuthorName } from "../getAuthorName";
@@ -24,9 +24,12 @@ async function compareChangelogs() {
   const author = await getAuthorName(nameOverrides);
   const { number, references } = await getPullRequestInfo();
 
-  const changelog = readFileSync("CHANGELOG.md", "utf8");
-  const existingChangelog = getChangeCount(parseChangelog(changelog).versions);
+  let existingChangelog = 0;
 
+  if (existsSync(changelogPath)) {
+    const changelog = readFileSync("CHANGELOG.md", "utf8");
+    existingChangelog = getChangeCount(parseChangelog(changelog).versions);
+  }
   const config: GenerateConfig = {
     ...baseConfig,
     show_author_full_name,
