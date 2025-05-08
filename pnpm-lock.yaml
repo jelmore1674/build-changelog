@@ -15,14 +15,14 @@ importers:
         specifier: ^1.1.1
         version: 1.1.1
       '@actions/github':
-        specifier: ^6.0.0
-        version: 6.0.0
+        specifier: ^6.0.1
+        version: 6.0.1
       '@iarna/toml':
         specifier: 2.2.5
         version: 2.2.5
       '@jelmore1674/changelog':
-        specifier: ^1.2.0
-        version: 1.2.0
+        specifier: ^1.3.0
+        version: 1.3.0
       '@jelmore1674/github-action-helpers':
         specifier: ^0.2.1
         version: 0.2.1
@@ -90,8 +90,8 @@ packages:
   '@actions/exec@1.1.1':
     resolution: {integrity: sha512-+sCcHHbVdk93a0XT19ECtO/gIXoxvdsgQLzb2fE2/5sIZmWQuluYyjPQtrtTHdU1YzTZ7bAPN4sITq2xi1679w==}
 
-  '@actions/github@6.0.0':
-    resolution: {integrity: sha512-alScpSVnYmjNEXboZjarjukQEzgCRmjMv6Xj47fsdnqGS73bjJNDpiiXmp8jr0UZLdUB6d9jW63IcmddUP+l0g==}
+  '@actions/github@6.0.1':
+    resolution: {integrity: sha512-xbZVcaqD4XnQAe35qSQqskb3SqIAfRyLBrHMd/8TuL7hJSz2QtbDwnNM8zWx4zO5l2fnGtseNE3MbEvD7BxVMw==}
 
   '@actions/http-client@2.2.3':
     resolution: {integrity: sha512-mx8hyJi/hjFvbPokCg4uRd4ZX78t+YyRPtnKWwIl+RzNaVuFpQHfmlGVfsKEJN8LwTCvL+DfVgAM04XaHkm6bA==}
@@ -387,8 +387,8 @@ packages:
     resolution: {integrity: sha512-ZXRY4jNvVgSVQ8DL3LTcakaAtXwTVUxE81hslsyD2AtoXW/wVob10HkOJ1X/pAlcI7D+2YoZKg5do8G/w6RYgA==}
     engines: {node: '>=8'}
 
-  '@jelmore1674/changelog@1.2.0':
-    resolution: {integrity: sha512-9R7PSKzok7eIdVP4gwjzN/ANLWBKt4/yB253sArNqdMau+U4IUJHdTT5jop3gN7fSxpCek2AMoCp2l3n0GxV3w==}
+  '@jelmore1674/changelog@1.3.0':
+    resolution: {integrity: sha512-CYmlvXiuGqK9pmj8ok2NDlaxv5ra3Ulf9sDtj97+TwWzj2eJzb6mbkrFwiB5YmIaE9qoZ1/o0+ITjDZvSm1hHw==}
 
   '@jelmore1674/github-action-helpers@0.2.1':
     resolution: {integrity: sha512-cYttCY+8sFHeWDa/rAn2mkYr8NBYl7u8jxD8Bf/4Ztd2UtKihRXnxkEnbjDaagMaQrwX+LPKhLQj9KKsH3Eirw==}
@@ -1195,12 +1195,15 @@ snapshots:
     dependencies:
       '@actions/io': 1.1.3
 
-  '@actions/github@6.0.0':
+  '@actions/github@6.0.1':
     dependencies:
       '@actions/http-client': 2.2.3
       '@octokit/core': 5.2.1
       '@octokit/plugin-paginate-rest': 9.2.2(@octokit/core@5.2.1)
       '@octokit/plugin-rest-endpoint-methods': 10.4.1(@octokit/core@5.2.1)
+      '@octokit/request': 8.4.1
+      '@octokit/request-error': 5.1.1
+      undici: 5.29.0
 
   '@actions/http-client@2.2.3':
     dependencies:
@@ -1381,7 +1384,7 @@ snapshots:
 
   '@istanbuljs/schema@0.1.3': {}
 
-  '@jelmore1674/changelog@1.2.0':
+  '@jelmore1674/changelog@1.3.0':
     dependencies:
       handlebars: 4.7.8
       latest-semver: 4.0.0
@@ -1391,7 +1394,7 @@ snapshots:
     dependencies:
       '@actions/core': 1.11.1
       '@actions/exec': 1.1.1
-      '@actions/github': 6.0.0
+      '@actions/github': 6.0.1
 
   '@jridgewell/gen-mapping@0.3.8':
     dependencies:
