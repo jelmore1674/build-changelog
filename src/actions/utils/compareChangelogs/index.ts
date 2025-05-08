@@ -21,8 +21,8 @@ async function compareChangelogs() {
   // biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
   const show_author_full_name = getBooleanInput("show_author_full_name", { required: false });
 
-  const author = await getAuthorName(nameOverrides);
   const { number, references } = await getPullRequestInfo();
+  const author = await getAuthorName(nameOverrides, number);
 
   let existingChangelog = 0;
 

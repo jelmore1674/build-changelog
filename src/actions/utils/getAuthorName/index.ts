@@ -23,11 +23,17 @@ async function getPrAuthorName(
   }
 
   if (showAuthorFullName) {
-    if (pr.data.user.name) {
-      return {
-        name: pr.data.user.name,
-        url: pr.data.user.html_url,
-      };
+    if (pr.data.user.login) {
+      const user = await restClient.users.getByUsername({
+        username: pr.data.user.login,
+      });
+
+      if (user?.data?.name) {
+        return {
+          name: user.data.name,
+          url: user.data.html_url,
+        };
+      }
     }
   }
 
@@ -44,7 +50,7 @@ async function getAuthorName(nameOverrides?: Record<string, string>, pullRequest
   const showAuthorFullName = getBooleanInput("show_author_full_name", { required: false });
 
   if (pullRequestNumber) {
-    return await getPrAuthorName(pullRequestNumber, nameOverrides, showAuthorFullName);
+    return getPrAuthorName(pullRequestNumber, nameOverrides, showAuthorFullName);
   }
 
   const url = `${context.serverUrl}/${context.actor}`;

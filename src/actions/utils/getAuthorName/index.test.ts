@@ -67,7 +67,6 @@ describe("getAuthorName", () => {
       .reply(200, {
         user: {
           login: "jelmore1674",
-          name: "Justin Elmore",
           // biome-ignore lint/style/useNamingConvention: api
           html_url: "https://github.com/jelmore1674",
         },
@@ -79,7 +78,7 @@ describe("getAuthorName", () => {
   });
 
   test("Can return the users full name from a pr", async () => {
-    process.env.INPUT_SHOW_AUTHOR_FULL_NAME = "True";
+    process.env.INPUT_SHOW_AUTHOR_FULL_NAME = "true";
 
     nock("https://api.github.com")
       .persist()
@@ -89,11 +88,18 @@ describe("getAuthorName", () => {
       .reply(200, {
         user: {
           login: "jelmore1674",
-          name: "Justin Elmore",
           // biome-ignore lint/style/useNamingConvention: api
           html_url: "https://github.com/jelmore1674",
         },
       });
+
+    nock("https://api.github.com")
+      .persist()
+      .get(
+        "/users/jelmore1674",
+      )
+      // biome-ignore lint/style/useNamingConvention: api
+      .reply(200, { name: "Justin Elmore", html_url: "https://github.com/jelmore1674" });
 
     const result = await getAuthorName(undefined, 1);
 
@@ -111,11 +117,18 @@ describe("getAuthorName", () => {
       .reply(200, {
         user: {
           login: "jelmore1674",
-          name: "",
           // biome-ignore lint/style/useNamingConvention: api
           html_url: "https://github.com/jelmore1674",
         },
       });
+
+    nock("https://api.github.com")
+      .persist()
+      .get(
+        "/users/jelmore1674",
+      )
+      // biome-ignore lint/style/useNamingConvention: api
+      .reply(200, { name: "", html_url: "https://github.com/jelmore1674" });
 
     const result = await getAuthorName(undefined, 1);
 
@@ -123,7 +136,7 @@ describe("getAuthorName", () => {
   });
 
   test("Can override the users full name from a pr", async () => {
-    process.env.INPUT_SHOW_AUTHOR_FULL_NAME = "True";
+    process.env.INPUT_SHOW_AUTHOR_FULL_NAME = "true";
 
     nock("https://api.github.com")
       .persist()
@@ -133,11 +146,18 @@ describe("getAuthorName", () => {
       .reply(200, {
         user: {
           login: "jelmore1674",
-          name: "Justin Elmore",
           // biome-ignore lint/style/useNamingConvention: api
           html_url: "https://github.com/jelmore1674",
         },
       });
+
+    nock("https://api.github.com")
+      .persist()
+      .get(
+        "/users/jelmore1674",
+      )
+      // biome-ignore lint/style/useNamingConvention: api
+      .reply(200, { name: "", html_url: "https://github.com/jelmore1674" });
 
     const result = await getAuthorName({ jelmore1674: "Bob" }, 1);
 
