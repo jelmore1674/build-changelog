@@ -44,7 +44,7 @@ async function getAuthorName(nameOverrides?: Record<string, string>, pullRequest
   const showAuthorFullName = getBooleanInput("show_author_full_name", { required: false });
 
   if (pullRequestNumber) {
-    return await getPrAuthorName(pullRequestNumber, nameOverrides, showAuthorFullName);
+    return getPrAuthorName(pullRequestNumber, nameOverrides, showAuthorFullName);
   }
 
   const url = `${context.serverUrl}/${context.actor}`;

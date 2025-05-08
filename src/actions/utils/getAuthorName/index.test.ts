@@ -79,7 +79,7 @@ describe("getAuthorName", () => {
   });
 
   test("Can return the users full name from a pr", async () => {
-    process.env.INPUT_SHOW_AUTHOR_FULL_NAME = "True";
+    process.env.INPUT_SHOW_AUTHOR_FULL_NAME = "true";
 
     nock("https://api.github.com")
       .persist()
@@ -123,7 +123,7 @@ describe("getAuthorName", () => {
   });
 
   test("Can override the users full name from a pr", async () => {
-    process.env.INPUT_SHOW_AUTHOR_FULL_NAME = "True";
+    process.env.INPUT_SHOW_AUTHOR_FULL_NAME = "true";
 
     nock("https://api.github.com")
       .persist()
