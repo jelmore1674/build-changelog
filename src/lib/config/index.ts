@@ -76,6 +76,13 @@ type Config = {
    * @default true
    */
   reference_sha: boolean;
+
+  /**
+   * Automatically handle the version based on the semantic values passed into the file.
+   *
+   * @default false
+   */
+  auto_versioning?: boolean;
 };
 
 /**

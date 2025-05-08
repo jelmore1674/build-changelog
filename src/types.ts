@@ -73,6 +73,13 @@ interface ParsedChanges extends ChangelogChanges {
    * `dependabot`.
    */
   author?: "dependabot";
+
+  /**
+   * The type of semantic change of this changelog file.
+   *
+   * @default "patch"
+   */
+  change: "major" | "minor" | "patch";
 }
 
 interface LinkReference extends Omit<Reference, "type"> {

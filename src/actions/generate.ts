@@ -51,6 +51,8 @@ const show_author = getBooleanInput("show_author", { required: false });
 const show_author_full_name = getBooleanInput("show_author_full_name", { required: false });
 // biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
 const show_git_tag_prefix = getBooleanInput("show_git_tag_prefix", { required: false });
+// biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
+const auto_versioning = getBooleanInput("auto_versioning", { required: false });
 
 const flags = getKeyValuePairInput("flags");
 const nameOverrides = getKeyValuePairInput("name_override");
@@ -72,6 +74,7 @@ async function generateChangelogAction() {
     show_author_full_name,
     reference_sha,
     show_git_tag_prefix,
+    auto_versioning,
   };
 
   let releaseVersion: string | null = "Unreleased";

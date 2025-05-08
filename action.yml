@@ -17,6 +17,11 @@ inputs:
     description: The semantic version change type. Accepted values are major, minor, patch
     required: false
 
+  auto_versioning:
+    description: Automatically handle the semantic versioning based on the changelog file.
+    required: false
+    default: "false"
+
   changelog_style:
     description: |
       Set whether you are following the standard set by keep-a-changelog, common-changelog, or a

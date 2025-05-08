@@ -39,6 +39,11 @@
     "notice": {
       "type": "string",
       "description": "A notice for the current release."
+    },
+    "change": {
+      "type": "string",
+      "enum": ["major", "minor", "patch"],
+      "description": "The type of change you are creating. Valid values are `major` | `minor` | `patch`"
     }
   },
   "definitions": {

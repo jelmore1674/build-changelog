@@ -10,6 +10,7 @@ import {
 import { formatChangeMessage } from "@lib/format/formatChangeMessage";
 import type { ChangelogOptions, GenerateConfig, ParsedChanges, Reference, Version } from "@types";
 import { addGitTagPrefix } from "@utils/addGitTagPrefix";
+import { autoIncrementUnreleasedChanges } from "@utils/autoIncrementUnreleasedChanges";
 import { cleanUpChangelog } from "@utils/cleanUpChangelog";
 import { getChangeCount } from "@utils/getChangeCount";
 import { isTomlOrYamlFile } from "@utils/isTomlOrYamlFile";
@@ -23,6 +24,16 @@ import { rl } from "../readline";
 
 const GITHUB_SERVER_URL = process.env.GITHUB_SERVER_URL;
 const GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY;
+
+/**
+ * Regex used to get the date of the release.
+ *
+ * This will match the date if it is formatted:
+ * yyyy-mm-dd
+ *
+ * @link [regex101](https://regex101.com/r/IP7HY7/2)
+ */
+const dateRegex = /\d{4}(-|\/)\d{2}(-|\/)\d{2}/g;
 
 interface ChangeFields {
   /**
@@ -107,21 +118,29 @@ function generateCommand(
           name: parsedChanges.author as string,
           url: "https://github.com/apps/dependabot",
         };
+        let changeType = parsedChanges.change ?? "patch";
 
         // Find a matching release.
-        const foundRelease = acc.find((release) => release.version === version);
+        const foundRelease = acc.find((release) =>
+          release.version === version || release.release_date === release_date
+        );
 
         //
         // The currentVersion to add changes to.
         const currentVersion: Version = foundRelease
           ?? { version, release_date };
 
+        if (!dateRegex.test(release_date)) {
+          currentVersion.release_date = release_date;
+        }
+
         if (
           releaseVersion && releaseVersion.toLowerCase() !== "unreleased"
-          && currentVersion.version.toLowerCase() === "unreleased"
+          && (currentVersion.version.toLowerCase() === "unreleased"
+            || !dateRegex.test(currentVersion.release_date || ""))
         ) {
           const today = new Date().toISOString().split("T")[0];
-          currentVersion.version = `${releaseVersion}`;
+          currentVersion.version = releaseVersion;
           currentVersion.release_date = today;
         }
 
@@ -181,6 +200,7 @@ function generateCommand(
                     typeof item === "object" && !Array.isArray(item)
                     && item !== null
                   ) {
+                    changeType = item.flag === "breaking" ? "major" : changeType;
                     currentVersion[keyword]?.push(
                       formatChangeMessage(
                         {
@@ -207,6 +227,7 @@ function generateCommand(
                   // a prefix we will add the prefix. Else we will return the string.
                   currentVersion[keyword]?.push(
                     ...parsedChanges[keyword]?.[flag]?.map((change: string) => {
+                      changeType = flag === "breaking" ? "major" : changeType;
                       return formatChangeMessage(
                         {
                           message: change,
@@ -223,6 +244,14 @@ function generateCommand(
                 }
               }
             }
+          }
+
+          if (actionConfig.auto_versioning) {
+            currentVersion.version = autoIncrementUnreleasedChanges(
+              changeType,
+              currentVersion,
+              acc,
+            );
           }
 
           if (!foundRelease) {
