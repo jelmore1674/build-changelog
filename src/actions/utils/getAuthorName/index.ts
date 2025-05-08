@@ -13,10 +13,6 @@ async function getPrAuthorName(
     pull_number: pullRequestNumber,
   });
 
-  console.info({ author: pr.data.user });
-
-  console.info({ showAuthorFullName });
-
   if (nameOverrides) {
     if (nameOverrides[pr.data.user.login]) {
       return {
@@ -27,11 +23,17 @@ async function getPrAuthorName(
   }
 
   if (showAuthorFullName) {
-    if (pr.data.user.name) {
-      return {
-        name: pr.data.user.name,
-        url: pr.data.user.html_url,
-      };
+    if (pr.data.user.login) {
+      const user = await restClient.users.getByUsername({
+        username: pr.data.user.login,
+      });
+
+      if (user?.data?.name) {
+        return {
+          name: user.data.name,
+          url: user.data.html_url,
+        };
+      }
     }
   }
 

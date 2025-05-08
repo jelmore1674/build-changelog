@@ -67,7 +67,6 @@ describe("getAuthorName", () => {
       .reply(200, {
         user: {
           login: "jelmore1674",
-          name: "Justin Elmore",
           // biome-ignore lint/style/useNamingConvention: api
           html_url: "https://github.com/jelmore1674",
         },
@@ -89,11 +88,18 @@ describe("getAuthorName", () => {
       .reply(200, {
         user: {
           login: "jelmore1674",
-          name: "Justin Elmore",
           // biome-ignore lint/style/useNamingConvention: api
           html_url: "https://github.com/jelmore1674",
         },
       });
+
+    nock("https://api.github.com")
+      .persist()
+      .get(
+        "/users/jelmore1674",
+      )
+      // biome-ignore lint/style/useNamingConvention: api
+      .reply(200, { name: "Justin Elmore", html_url: "https://github.com/jelmore1674" });
 
     const result = await getAuthorName(undefined, 1);
 
@@ -111,11 +117,18 @@ describe("getAuthorName", () => {
       .reply(200, {
         user: {
           login: "jelmore1674",
-          name: "",
           // biome-ignore lint/style/useNamingConvention: api
           html_url: "https://github.com/jelmore1674",
         },
       });
+
+    nock("https://api.github.com")
+      .persist()
+      .get(
+        "/users/jelmore1674",
+      )
+      // biome-ignore lint/style/useNamingConvention: api
+      .reply(200, { name: "", html_url: "https://github.com/jelmore1674" });
 
     const result = await getAuthorName(undefined, 1);
 
@@ -133,11 +146,18 @@ describe("getAuthorName", () => {
       .reply(200, {
         user: {
           login: "jelmore1674",
-          name: "Justin Elmore",
           // biome-ignore lint/style/useNamingConvention: api
           html_url: "https://github.com/jelmore1674",
         },
       });
+
+    nock("https://api.github.com")
+      .persist()
+      .get(
+        "/users/jelmore1674",
+      )
+      // biome-ignore lint/style/useNamingConvention: api
+      .reply(200, { name: "", html_url: "https://github.com/jelmore1674" });
 
     const result = await getAuthorName({ jelmore1674: "Bob" }, 1);
 
