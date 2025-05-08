@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Common Changelog](https://common-changelog.org),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased] - TBD
+
+### Changed
+
+- Updates `@actions/github` from 6.0.0 to 6.0.1 [`b20a58c`](https://github.com/jelmore1674/build-changelog/commit/b20a58ce616e6653e54952378155c95817f19ef6) | [#120](https://github.com/jelmore1674/build-changelog/pull/120) | [dependabot](https://github.com/apps/dependabot)
+- Updates `@jelmore1674/changelog` from 1.2.0 to 1.3.0 [`b20a58c`](https://github.com/jelmore1674/build-changelog/commit/b20a58ce616e6653e54952378155c95817f19ef6) | [#120](https://github.com/jelmore1674/build-changelog/pull/120) | [dependabot](https://github.com/apps/dependabot)
+
 ## [1.10.1] - 2025-05-08
 
 ### Fixed
