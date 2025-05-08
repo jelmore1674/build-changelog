@@ -1,2 +1,0 @@
-fixed:
-  - Prevent enforcer actions crashing when there is no changelog file.

@@ -16,6 +16,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updates `memfs` from 4.17.0 to 4.17.1 [`de10ce2`](https://github.com/jelmore1674/build-changelog/commit/de10ce2b2bb4f9c97b40dcdee4f8b8de681d26a2) | [#114](https://github.com/jelmore1674/build-changelog/pull/114) | [dependabot](https://github.com/apps/dependabot)
 - Updates `vitest` from 3.1.2 to 3.1.3 [`de10ce2`](https://github.com/jelmore1674/build-changelog/commit/de10ce2b2bb4f9c97b40dcdee4f8b8de681d26a2) | [#114](https://github.com/jelmore1674/build-changelog/pull/114) | [dependabot](https://github.com/apps/dependabot)
 
+### Fixed
+
+- Prevent enforcer actions crashing when there is no changelog file. [`e2fb979`](https://github.com/jelmore1674/build-changelog/commit/e2fb979ad49b3a8588c3ab645202a44cfd095e4b) | [#117](https://github.com/jelmore1674/build-changelog/pull/117), [#118](https://github.com/jelmore1674/build-changelog/issues/118) | [jelmore1674](https://github.com/jelmore1674)
+
 ## [1.9.2] - 2025-04-27
 
 ### Changed
