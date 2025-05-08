@@ -10,6 +10,10 @@ on:
       - "**/build.yml"
       - "templates/**"
 
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   # Give the default GITHUB_TOKEN write permission to commit and push the
   # added or changed files to the repository.
