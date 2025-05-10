@@ -23,13 +23,13 @@ async function enforceChangelogAction() {
     enableDependabot && dependabotLabels.some(label => set.has(label))
     && pullRequest?.body && pullRequest?.user.login === "dependabot[bot]"
   ) {
-    startGroup("Dependabot Changelog Update.");
+    startGroup("🤖 Dependabot Changelog Update. 🤖");
     await addChangelogDependabot();
     endGroup();
   }
 
   if (skipLabels.some(label => set.has(label))) {
-    log("Skip Enforcing Changelog.");
+    log("⏩ Skip Enforcing Changelog. ⏩");
     exit(0);
   }
 

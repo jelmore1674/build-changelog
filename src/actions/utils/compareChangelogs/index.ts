@@ -58,7 +58,7 @@ async function compareChangelogs() {
   endGroup();
 
   log(
-    `\nPrevious Changes: ${existingChangelog}\nCurrent Changes: ${newChangelog.count}`,
+    `\n📣 Previous Changes: ${existingChangelog} 📣\n📣 Current Changes: ${newChangelog.count} 📣`,
   );
 
   if (number && commentOnPr) {
@@ -82,7 +82,7 @@ async function compareChangelogs() {
     );
 
     if (error) {
-      setFailed(`compareChangelogs.listComments\n\n${error.message}`);
+      setFailed(`🚨 compareChangelogs.listComments\n\n${error.message} 🚨`);
       exit(1);
     }
 
@@ -94,9 +94,9 @@ async function compareChangelogs() {
     }
 
     if (existingChangelog === newChangelog.count) {
-      const failedCommentMessage = `@${context.actor} Don't forget to update your changelog.`;
+      const failedCommentMessage = `🚨 @${context.actor} Don't forget to update your changelog. 🚨`;
       await botCommentOnPr(failedCommentMessage, number, exitsingCommentId);
-      setFailed("Changelog changes not found.");
+      setFailed("🚨 Changelog changes not found. 🚨");
       exit(1);
     }
 
@@ -106,7 +106,7 @@ async function compareChangelogs() {
   }
 
   if (existingChangelog === newChangelog.count) {
-    setFailed("Changelog changes not found.");
+    setFailed("🚨 Changelog changes not found. 🚨");
   }
 }
 
