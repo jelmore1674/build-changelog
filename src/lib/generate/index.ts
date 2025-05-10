@@ -307,7 +307,7 @@ function generateCommand(
     cleanUpChangelog(actionConfig.dir);
   }
 
-  log("CHANGELOG.md finished writing.");
+  log("\x1b[1;34mCHANGELOG.md finished writing.");
 
   const count = getChangeCount(sortedVersions);
 
