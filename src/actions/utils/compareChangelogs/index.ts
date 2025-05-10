@@ -35,7 +35,7 @@ async function compareChangelogs() {
     show_author_full_name,
   };
 
-  startGroup("Get Current Changelog changes.");
+  startGroup("🎯 Get Current Changelog changes. 🎯");
   const currentChanges = generateCommand(
     {
       author,
@@ -48,7 +48,7 @@ async function compareChangelogs() {
   );
   endGroup();
 
-  startGroup("Get Latest Changes.");
+  startGroup("🎯 Get Latest Changes. 🎯");
   const newChangelog = generateCommand({
     author,
     sha: context.sha,
@@ -57,9 +57,9 @@ async function compareChangelogs() {
   });
   endGroup();
 
-  const hasChanges = existingChangelog === newChangelog.count;
+  const noChanges = existingChangelog === newChangelog.count;
 
-  const status = hasChanges ? "🟢" : "🔴";
+  const status = noChanges ? "🔴" : "🟢";
 
   log(
     `\n${status} Previous Changes: ${existingChangelog} ${status}\n${status} Current Changes: ${newChangelog.count} ${status}`,
@@ -97,7 +97,7 @@ async function compareChangelogs() {
       exitsingCommentId = foundComment.id;
     }
 
-    if (existingChangelog === newChangelog.count) {
+    if (noChanges) {
       const failedCommentMessage = `🚨 @${context.actor} Don't forget to update your changelog. 🚨`;
       await botCommentOnPr(failedCommentMessage, number, exitsingCommentId);
       setFailed("🚨 Changelog changes not found. 🚨");
@@ -109,7 +109,7 @@ async function compareChangelogs() {
     exit(0);
   }
 
-  if (existingChangelog === newChangelog.count) {
+  if (noChanges) {
     setFailed("🚨 Changelog changes not found. 🚨");
   }
 }
