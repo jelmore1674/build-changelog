@@ -72,7 +72,7 @@ async function compareChangelogs() {
 
     let exitsingCommentId: number | undefined;
 
-    const { error, data: response } = await tryCatch(
+    const [error, response] = await tryCatch(
       getOctokit(token).rest.issues.listComments({
         // biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
         issue_number: number,

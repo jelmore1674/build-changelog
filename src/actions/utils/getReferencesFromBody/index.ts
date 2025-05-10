@@ -23,7 +23,7 @@ async function getReferencesFromBody(body = "") {
   if (token && match && match?.length > 0) {
     const result = await Promise.all(match.map(async (i) => {
       const number = +i.split(" #")[1];
-      const { error, data: res } = await tryCatch(
+      const [error, res] = await tryCatch(
         getOctokit(token).rest.issues.get({
           repo: context.repo.repo,
           owner: context.repo.owner,
