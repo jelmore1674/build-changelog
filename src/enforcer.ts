@@ -1,7 +1,7 @@
 import { getState, saveState } from "@actions/core";
 import { enforceChangelogAction } from "./actions/enforcer";
 
-process.env.FORCE_COLOR = "2";
+process.env.FORCE_COLOR = "1";
 
 const isPost = !!getState("isPost");
 
