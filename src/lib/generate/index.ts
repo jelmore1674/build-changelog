@@ -85,7 +85,7 @@ function generateCommand(
     changelogOptions,
   });
 
-  log(chalk.blue(`actionConfig: ${JSON.stringify(actionConfig, null, 2)}`));
+  log(chalk.ansi256(11)(`actionConfig: ${JSON.stringify(actionConfig, null, 2)}`));
 
   log("Generating changelog.");
 
