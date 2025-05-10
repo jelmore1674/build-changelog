@@ -17,6 +17,7 @@ import { isTomlOrYamlFile } from "@utils/isTomlOrYamlFile";
 import { log } from "@utils/log";
 import { parseChanges } from "@utils/parseChanges";
 import { sortBreakingChanges } from "@utils/sortBreakingChanges";
+import chalk from "chalk";
 import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { changelogDir, changelogPath, config } from "../config";
@@ -84,7 +85,7 @@ function generateCommand(
     changelogOptions,
   });
 
-  log("actionConfig", JSON.stringify(actionConfig, null, 2));
+  log(chalk.blue(`actionConfig: ${JSON.stringify(actionConfig, null, 2)}`));
 
   log("Generating changelog.");
 
