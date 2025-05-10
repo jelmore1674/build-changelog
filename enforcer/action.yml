@@ -53,6 +53,5 @@ inputs:
 
 runs:
   using: node20
-  shell: "hi"
   main: index.js
   post: index.js
