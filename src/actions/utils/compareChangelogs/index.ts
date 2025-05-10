@@ -57,8 +57,12 @@ async function compareChangelogs() {
   });
   endGroup();
 
+  const hasChanges = existingChangelog === newChangelog.count;
+
+  const status = hasChanges ? "🟢" : "🔴";
+
   log(
-    `\n📣 Previous Changes: ${existingChangelog} 📣\n📣 Current Changes: ${newChangelog.count} 📣`,
+    `\n${status} Previous Changes: ${existingChangelog} ${status}\n${status} Current Changes: ${newChangelog.count} ${status}`,
   );
 
   if (number && commentOnPr) {
