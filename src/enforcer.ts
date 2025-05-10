@@ -1,6 +1,8 @@
 import { getState, saveState } from "@actions/core";
 import { enforceChangelogAction } from "./actions/enforcer";
 
+process.env.FORCE_COLOR = "2";
+
 const isPost = !!getState("isPost");
 
 // Publish a variable so that when the POST action runs, it can determine it should run the cleanup logic.
