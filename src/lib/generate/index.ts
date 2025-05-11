@@ -1,4 +1,4 @@
-import { debug } from "@actions/core";
+import { debug, endGroup, startGroup } from "@actions/core";
 import { KEY_FILTER, VALID_KEYWORDS } from "@consts";
 import {
   getReleaseNotes,
@@ -77,6 +77,7 @@ function generateCommand(
   actionConfig = config as GenerateConfig,
   skip_changelog = false,
 ) {
+  startGroup("Variable Logs.");
   log("generate command parameters", {
     author,
     prNumber,
@@ -85,7 +86,10 @@ function generateCommand(
     changelogOptions,
   });
 
-  log(chalk.ansi256(11)(`actionConfig: ${JSON.stringify(actionConfig, null, 2)}`));
+  chalk.level = 2;
+
+  log(chalk.blueBright(`actionConfig: ${JSON.stringify(actionConfig, null, 2)}`));
+  endGroup();
 
   log("Generating changelog.");
 
