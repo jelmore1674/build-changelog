@@ -1,4 +1,4 @@
-import { debug, endGroup, startGroup } from "@actions/core";
+import { debug, endGroup, group, startGroup } from "@actions/core";
 import { KEY_FILTER, VALID_KEYWORDS } from "@consts";
 import {
   getReleaseNotes,
@@ -77,19 +77,19 @@ function generateCommand(
   actionConfig = config as GenerateConfig,
   skip_changelog = false,
 ) {
-  startGroup("Variable Logs.");
-  log("generate command parameters", {
-    author,
-    prNumber,
-    prReferences,
-    releaseVersion,
-    changelogOptions,
-  });
-
   chalk.level = 2;
+  group("Log Variables", async () => {
+    log("generate command parameters", {
+      author,
+      prNumber,
+      prReferences,
+      releaseVersion,
+      changelogOptions,
+    });
 
-  log(chalk.blueBright(`actionConfig: ${JSON.stringify(actionConfig, null, 2)}`));
-  endGroup();
+    log(chalk.blueBright(`actionConfig: ${JSON.stringify(actionConfig, null, 2)}`));
+    return "finish";
+  });
 
   log("Generating changelog.");
 
