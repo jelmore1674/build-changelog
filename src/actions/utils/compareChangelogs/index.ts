@@ -35,7 +35,7 @@ async function compareChangelogs() {
     show_author_full_name,
   };
 
-  startGroup("🎯 Get Current Changelog changes. 🎯");
+  startGroup("🎯 Get Current Changelog changes.");
   const currentChanges = generateCommand(
     {
       author,
@@ -48,7 +48,7 @@ async function compareChangelogs() {
   );
   endGroup();
 
-  startGroup("🎯 Get Latest Changes. 🎯");
+  startGroup("🎯 Get Latest Changes.");
   const newChangelog = generateCommand({
     author,
     sha: context.sha,
@@ -62,11 +62,15 @@ async function compareChangelogs() {
   const status = noChanges ? "🔴" : "🟢";
 
   log(
-    `\n${status} Previous Changes: ${existingChangelog} ${status}\n${status} Current Changes: ${newChangelog.count} ${status}`,
+    `\n${status} Previous Changes: ${existingChangelog}\n${status} Current Changes: ${newChangelog.count}`,
   );
 
   if (number && commentOnPr) {
     const token = getInput("token", { required: true });
+
+    const user = await getOctokit(token).rest.users.getAuthenticated();
+
+    log({ user });
 
     const botNames = ["github-actions[bot]", "build-changelog[bot]"];
 
