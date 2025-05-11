@@ -8,7 +8,6 @@ import type { GenerateConfig } from "@types";
 import { getChangeCount } from "@utils/getChangeCount";
 import { log } from "@utils/log";
 import { tryCatch } from "@utils/tryCatch";
-import chalk from "chalk";
 import { existsSync, readFileSync } from "node:fs";
 import { exit } from "node:process";
 import { botCommentOnPr } from "../botCommentOnPr";
@@ -24,8 +23,6 @@ async function compareChangelogs() {
 
   const { number, references } = await getPullRequestInfo();
   const author = await getAuthorName(nameOverrides, number);
-
-  chalk.level = 3;
 
   let existingChangelog = 0;
 
@@ -51,7 +48,7 @@ async function compareChangelogs() {
   );
   endGroup();
 
-  startGroup(chalk.bgWhiteBright.black.dim.bold("🎯 Get Latest Changes. 🎯"));
+  startGroup("🎯 Get Latest Changes. 🎯");
   const newChangelog = generateCommand({
     author,
     sha: context.sha,
@@ -64,12 +61,8 @@ async function compareChangelogs() {
 
   const status = noChanges ? "🔴" : "🟢";
 
-  const logColor = status ? chalk.bgRed.dim.black.bold : chalk.bgGreen.dim.white.bold;
-
   log(
-    logColor(
-      `\n${status} Previous Changes: ${existingChangelog} ${status}\n${status} Current Changes: ${newChangelog.count} ${status}`,
-    ),
+    `\n${status} Previous Changes: ${existingChangelog} ${status}\n${status} Current Changes: ${newChangelog.count} ${status}`,
   );
 
   if (number && commentOnPr) {
