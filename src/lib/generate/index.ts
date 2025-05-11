@@ -1,4 +1,4 @@
-import { debug, group } from "@actions/core";
+import { debug } from "@actions/core";
 import { KEY_FILTER, VALID_KEYWORDS } from "@consts";
 import {
   getReleaseNotes,
