@@ -68,13 +68,19 @@ async function compareChangelogs() {
   if (number && commentOnPr) {
     const token = getInput("token", { required: true });
 
-    const [userError, user] = await tryCatch(getOctokit(token).rest.users.getAuthenticated());
+    const [userError] = await tryCatch(getOctokit(token).rest.users.getAuthenticated());
 
     if (userError) {
       console.error({ userError });
     }
 
-    log({ user });
+    const [appError, app] = await tryCatch(getOctokit(token).rest.apps.getAuthenticated());
+
+    if (appError) {
+      log({ appError });
+    }
+
+    log({ app });
 
     const botNames = ["github-actions[bot]", "build-changelog[bot]"];
 
