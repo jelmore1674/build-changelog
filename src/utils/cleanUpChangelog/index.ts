@@ -9,8 +9,7 @@ import { log } from "../log";
  * @param changelogDir - the directory where changelog files are stored
  */
 function cleanUpChangelog(changelogDir: string) {
-  log("Cleaning up files.");
-
+  log("🗑️ Clean up changelog files.");
   // Clean up the changelog directory after we have finished updating the CHANGELOG.
   const changelogFiles = readdirSync(changelogDir, { recursive: true, encoding: "utf8" });
 
@@ -20,7 +19,7 @@ function cleanUpChangelog(changelogDir: string) {
     }
   }
 
-  log("Finished cleaing. ");
+  log("✅ Finished cleaning.");
 }
 
 export { cleanUpChangelog };
