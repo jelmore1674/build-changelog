@@ -68,7 +68,11 @@ async function compareChangelogs() {
   if (number && commentOnPr) {
     const token = getInput("token", { required: true });
 
-    const user = await getOctokit(token).rest.users.getAuthenticated();
+    const [userError, user] = await tryCatch(getOctokit(token).rest.users.getAuthenticated());
+
+    if (userError) {
+      console.error({ userError });
+    }
 
     log({ user });
 
