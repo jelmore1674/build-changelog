@@ -1,4 +1,4 @@
-import { endGroup, getBooleanInput, getInput, group, setFailed, startGroup } from "@actions/core";
+import { endGroup, getBooleanInput, getInput, setFailed, startGroup } from "@actions/core";
 import { context, getOctokit } from "@actions/github";
 import { parseChangelog } from "@jelmore1674/changelog";
 import { getKeyValuePairInput } from "@jelmore1674/github-action-helpers";
@@ -8,6 +8,7 @@ import type { GenerateConfig } from "@types";
 import { getChangeCount } from "@utils/getChangeCount";
 import { log } from "@utils/log";
 import { tryCatch } from "@utils/tryCatch";
+import chalk from "chalk";
 import { existsSync, readFileSync } from "node:fs";
 import { exit } from "node:process";
 import { botCommentOnPr } from "../botCommentOnPr";
@@ -24,6 +25,8 @@ async function compareChangelogs() {
   const { number, references } = await getPullRequestInfo();
   const author = await getAuthorName(nameOverrides, number);
 
+  chalk.level = 3;
+
   let existingChangelog = 0;
 
   if (existsSync(changelogPath)) {
@@ -35,18 +38,18 @@ async function compareChangelogs() {
     show_author_full_name,
   };
 
-  const currentChanges = await group("🎯 Get Current Changelog changes. 🎯", async () => {
-    return generateCommand(
-      {
-        author,
-        sha: context.sha,
-        prNumber: number,
-        prReferences: references,
-      },
-      config,
-      true,
-    );
-  });
+  startGroup("🎯 Get Current Changelog changes. 🎯");
+  const currentChanges = generateCommand(
+    {
+      author,
+      sha: context.sha,
+      prNumber: number,
+      prReferences: references,
+    },
+    config,
+    true,
+  );
+  endGroup();
 
   startGroup("🎯 Get Latest Changes. 🎯");
   const newChangelog = generateCommand({
@@ -61,8 +64,12 @@ async function compareChangelogs() {
 
   const status = noChanges ? "🔴" : "🟢";
 
+  const logColor = status ? chalk.bgRed.black.bold : chalk.bgGreen.white.bold;
+
   log(
-    `\n${status} Previous Changes: ${existingChangelog} ${status}\n${status} Current Changes: ${newChangelog.count} ${status}`,
+    logColor(
+      `\n${status} Previous Changes: ${existingChangelog} ${status}\n${status} Current Changes: ${newChangelog.count} ${status}`,
+    ),
   );
 
   if (number && commentOnPr) {
