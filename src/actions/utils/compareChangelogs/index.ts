@@ -1,4 +1,4 @@
-import { endGroup, getBooleanInput, getInput, setFailed, startGroup } from "@actions/core";
+import { endGroup, getBooleanInput, getInput, group, setFailed, startGroup } from "@actions/core";
 import { context, getOctokit } from "@actions/github";
 import { parseChangelog } from "@jelmore1674/changelog";
 import { getKeyValuePairInput } from "@jelmore1674/github-action-helpers";
@@ -35,18 +35,18 @@ async function compareChangelogs() {
     show_author_full_name,
   };
 
-  startGroup("🎯 Get Current Changelog changes. 🎯");
-  const currentChanges = generateCommand(
-    {
-      author,
-      sha: context.sha,
-      prNumber: number,
-      prReferences: references,
-    },
-    config,
-    true,
-  );
-  endGroup();
+  const currentChanges = await group("🎯 Get Current Changelog changes. 🎯", async () => {
+    return generateCommand(
+      {
+        author,
+        sha: context.sha,
+        prNumber: number,
+        prReferences: references,
+      },
+      config,
+      true,
+    );
+  });
 
   startGroup("🎯 Get Latest Changes. 🎯");
   const newChangelog = generateCommand({
