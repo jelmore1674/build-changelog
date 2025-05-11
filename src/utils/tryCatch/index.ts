@@ -1,13 +1,7 @@
 // Types for the result object with discriminated union
-type Success<T> = {
-  data: T;
-  error: null;
-};
+type Success<T> = [null, T];
 
-type Failure<E> = {
-  data: null;
-  error: E;
-};
+type Failure<E> = [E, null];
 
 type Result<T, E = Error> = Success<T> | Failure<E>;
 
@@ -17,9 +11,9 @@ async function tryCatch<T, E = Error>(
 ): Promise<Result<T, E>> {
   try {
     const data = await promise;
-    return { data, error: null };
+    return [null, data];
   } catch (error) {
-    return { data: null, error: error as E };
+    return [error as E, null];
   }
 }
 

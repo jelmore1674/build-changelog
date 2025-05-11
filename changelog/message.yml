@@ -1,0 +1,3 @@
+changed:
+  - Update output messages to use emojis in enforcer action.
+  - "`tryCatch` util now uses an tuple instead of an object."

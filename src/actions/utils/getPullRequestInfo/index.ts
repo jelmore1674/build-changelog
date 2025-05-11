@@ -21,7 +21,7 @@ async function getPullRequestInfo() {
 
   const token = getInput("token");
 
-  const { error, data: pulls } = await tryCatch(
+  const [error, pulls] = await tryCatch(
     getOctokit(token).rest.search.issuesAndPullRequests({
       q: encodeURIComponent(`${context.sha} type:pr is:merged`),
     }),

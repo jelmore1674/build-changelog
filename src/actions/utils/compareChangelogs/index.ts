@@ -35,7 +35,7 @@ async function compareChangelogs() {
     show_author_full_name,
   };
 
-  startGroup("Get Current Changelog changes.");
+  startGroup("🎯 Get Current Changelog changes.");
   const currentChanges = generateCommand(
     {
       author,
@@ -48,7 +48,7 @@ async function compareChangelogs() {
   );
   endGroup();
 
-  startGroup("Get Latest Changes.");
+  startGroup("🎯 Get Latest Changes.");
   const newChangelog = generateCommand({
     author,
     sha: context.sha,
@@ -57,8 +57,12 @@ async function compareChangelogs() {
   });
   endGroup();
 
+  const noChanges = existingChangelog === newChangelog.count;
+
+  const status = noChanges ? "🔴" : "🟢";
+
   log(
-    `\nPrevious Changes: ${existingChangelog}\nCurrent Changes: ${newChangelog.count}`,
+    `\n${status} Previous Changes: ${existingChangelog}\n${status} Current Changes: ${newChangelog.count}`,
   );
 
   if (number && commentOnPr) {
@@ -72,7 +76,7 @@ async function compareChangelogs() {
 
     let exitsingCommentId: number | undefined;
 
-    const { error, data: response } = await tryCatch(
+    const [error, response] = await tryCatch(
       getOctokit(token).rest.issues.listComments({
         // biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
         issue_number: number,
@@ -82,7 +86,7 @@ async function compareChangelogs() {
     );
 
     if (error) {
-      setFailed(`compareChangelogs.listComments\n\n${error.message}`);
+      setFailed(`🚨 compareChangelogs.listComments\n\n${error.message} 🚨`);
       exit(1);
     }
 
@@ -93,10 +97,10 @@ async function compareChangelogs() {
       exitsingCommentId = foundComment.id;
     }
 
-    if (existingChangelog === newChangelog.count) {
-      const failedCommentMessage = `@${context.actor} Don't forget to update your changelog.`;
+    if (noChanges) {
+      const failedCommentMessage = `🚨 @${context.actor} Don't forget to update your changelog. 🚨`;
       await botCommentOnPr(failedCommentMessage, number, exitsingCommentId);
-      setFailed("Changelog changes not found.");
+      setFailed("🚨 Changelog changes not found. 🚨");
       exit(1);
     }
 
@@ -105,8 +109,8 @@ async function compareChangelogs() {
     exit(0);
   }
 
-  if (existingChangelog === newChangelog.count) {
-    setFailed("Changelog changes not found.");
+  if (noChanges) {
+    setFailed("🚨 Changelog changes not found. 🚨");
   }
 }
 

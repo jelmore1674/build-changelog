@@ -84,7 +84,7 @@ function generateCommand(
     changelogOptions,
   });
 
-  log("actionConfig", JSON.stringify(actionConfig, null, 2));
+  log(`actionConfig: ${JSON.stringify(actionConfig, null, 2)}`);
 
   log("Generating changelog.");
 
