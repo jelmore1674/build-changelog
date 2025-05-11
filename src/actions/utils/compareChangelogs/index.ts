@@ -51,7 +51,7 @@ async function compareChangelogs() {
   );
   endGroup();
 
-  startGroup("🎯 Get Latest Changes. 🎯");
+  startGroup(chalk.bgWhiteBright.black.dim.bold("🎯 Get Latest Changes. 🎯"));
   const newChangelog = generateCommand({
     author,
     sha: context.sha,
@@ -64,7 +64,7 @@ async function compareChangelogs() {
 
   const status = noChanges ? "🔴" : "🟢";
 
-  const logColor = status ? chalk.bgRed.black.bold : chalk.bgGreen.white.bold;
+  const logColor = status ? chalk.bgRed.dim.black.bold : chalk.bgGreen.dim.white.bold;
 
   log(
     logColor(
