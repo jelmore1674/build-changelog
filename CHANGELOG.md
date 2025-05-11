@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Updates `@actions/github` from 6.0.0 to 6.0.1 [`b20a58c`](https://github.com/jelmore1674/build-changelog/commit/b20a58ce616e6653e54952378155c95817f19ef6) | [#120](https://github.com/jelmore1674/build-changelog/pull/120) | [dependabot](https://github.com/apps/dependabot)
 - Updates `@jelmore1674/changelog` from 1.2.0 to 1.3.0 [`b20a58c`](https://github.com/jelmore1674/build-changelog/commit/b20a58ce616e6653e54952378155c95817f19ef6) | [#120](https://github.com/jelmore1674/build-changelog/pull/120) | [dependabot](https://github.com/apps/dependabot)
+- Update output messages to use emojis in enforcer action. [`0a859cd`](https://github.com/jelmore1674/build-changelog/commit/0a859cdbef914c1a84099ad9d501dc0218a56de7) | [#121](https://github.com/jelmore1674/build-changelog/pull/121) | [Justin Elmore](https://github.com/jelmore1674)
+- `tryCatch` util now uses an tuple instead of an object. [`0a859cd`](https://github.com/jelmore1674/build-changelog/commit/0a859cdbef914c1a84099ad9d501dc0218a56de7) | [#121](https://github.com/jelmore1674/build-changelog/pull/121) | [Justin Elmore](https://github.com/jelmore1674)
 
 ## [1.10.1] - 2025-05-08
 
