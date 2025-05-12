@@ -1,5 +1,0 @@
-changed:
-  - Updated logs and error messages to have emojis in generate action.
-
-fixed:
-  - Typo in `Finished cleaning.` message.
