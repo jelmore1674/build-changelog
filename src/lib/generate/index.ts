@@ -76,17 +76,17 @@ function generateCommand(
   actionConfig = config as GenerateConfig,
   skip_changelog = false,
 ) {
-  log("generate command parameters", {
+  log("ℹ️ generate command parameters", {
     author,
+    sha,
     prNumber,
     prReferences,
     releaseVersion,
     changelogOptions,
+    actionConfig,
   });
 
-  log(`actionConfig: ${JSON.stringify(actionConfig, null, 2)}`);
-
-  log("Generating changelog.");
+  log("🎯 Generating changelog.");
 
   let changelogVersions: Version[] = [];
   let changelogLinks: ReferenceLink[] = [];
@@ -103,7 +103,7 @@ function generateCommand(
   const parsedChangelog = files.reduce(
     (acc: Version[], file) => {
       if (isTomlOrYamlFile(file)) {
-        log(`Parsing ${file} file now.`);
+        log(`ℹ️ Parsing ${file} file now.`);
         const parsedChanges = parseChanges<ParsedChanges>(path.join(changelogDir, file));
 
         debug(`parsedChanges:\n${JSON.stringify(parsedChanges, null, 2)}`);
@@ -147,7 +147,7 @@ function generateCommand(
         if (notice) {
           if (currentVersion.notice) {
             console.error(
-              "A notice already exists. Please look at the existing noice for the current version.\n",
+              "🚨 A notice already exists. Please look at the existing noice for the current version. 🚨\n",
             );
             console.error(`Version: "${currentVersion.version}"\n`);
             console.error(`Notice: "${currentVersion.notice}"`);
@@ -306,7 +306,7 @@ function generateCommand(
     cleanUpChangelog(actionConfig.dir);
   }
 
-  log("CHANGELOG.md finished writing.");
+  log("✅ CHANGELOG.md finished writing.");
 
   const count = getChangeCount(sortedVersions);
 

@@ -12,7 +12,7 @@ const NO_PR_FOUND = { number: undefined, references: [] as Reference[] };
  */
 async function getPullRequestInfo() {
   if (context.payload.pull_request?.number) {
-    log(`Detected a pr: ${context.payload.pull_request.number}`);
+    log(`ℹ️ Detected a pr: ${context.payload.pull_request.number}`);
 
     const references = await getReferencesFromBody(context.payload.pull_request?.body ?? "");
 
@@ -31,7 +31,11 @@ async function getPullRequestInfo() {
     return NO_PR_FOUND;
   }
 
-  log(`Detected a pr: ${pulls.data.items[0]?.number}`);
+  if (pulls.data.items[0]?.number) {
+    log(`ℹ️ Detected a pr: ${pulls.data.items[0]?.number}`);
+  } else {
+    log("ℹ️ No pull request detected.");
+  }
 
   if (pulls.data.items?.[0]?.number) {
     const references = await getReferencesFromBody(pulls.data.items[0]?.body ?? "");

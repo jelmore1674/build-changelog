@@ -80,6 +80,7 @@ async function generateChangelogAction() {
   let releaseVersion: string | null = "Unreleased";
 
   if (releaseType) {
+    startGroup("🎯 Set Unrleased Changes Version");
     let cleanedVersion = clean(version);
 
     if (!cleanedVersion) {
@@ -87,7 +88,7 @@ async function generateChangelogAction() {
       const latestVersion = getLatestRelease(changelogFile);
 
       if (!latestVersion) {
-        setFailed("Unable to find the version.");
+        setFailed("🚨 Unable to find the version. 🚨");
         exit(1);
       }
 
@@ -97,15 +98,19 @@ async function generateChangelogAction() {
     releaseVersion = inc(cleanedVersion, releaseType);
 
     if (!releaseVersion) {
-      setFailed("Unable to increment the version");
+      setFailed("🚨 Unable to increment the version 🚨");
       exit(1);
     }
+
+    endGroup();
   }
 
+  startGroup("🎯 Get actor information.");
   const { number, references } = await getPullRequestInfo();
   const author = await getAuthorName(nameOverrides, number);
+  endGroup();
 
-  startGroup("Generate Changelog");
+  startGroup("🎯 Generate Changelog");
   generateCommand(
     {
       author,
@@ -123,16 +128,16 @@ async function generateChangelogAction() {
   endGroup();
 
   if (!skipCommit) {
+    startGroup("🎯 Commit changes.");
     const { stdout } = await getExecOutput("git", ["status", "--porcelain"]);
 
     if (!stdout.match(/CHANGELOG\.md/gi)) {
-      log("No changes to the changelog");
+      log("⏩ No changes to the changelog");
       exit(0);
     }
 
     await exec("git", ["add", "."]);
 
-    startGroup("Commit changes.");
     if (isApiCommit) {
       const token = getInput("token", { required: true });
       await commit(token, commitMessage);

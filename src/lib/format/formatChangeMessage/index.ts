@@ -65,7 +65,7 @@ function formatChangeMessage(
     return `${config.flags?.[flag]} - ${renderedChange}`;
   }
 
-  log(`Change: ${renderedChange}`);
+  log(`ℹ️ Change: ${renderedChange}`);
 
   return renderedChange;
 }
