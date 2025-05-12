@@ -34,7 +34,7 @@
     "@jelmore1674/github-action-helpers": "^0.2.1",
     "fs-extra": "11.3.0",
     "latest-semver": "^4.0.0",
-    "semver": "^7.7.1",
+    "semver": "^7.7.2",
     "yaml": "2.7.1"
   },
   "devDependencies": {
