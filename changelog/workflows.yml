@@ -1,2 +1,3 @@
 changed:
   - "Updated `dependabot` to enable `GitHub Action` version updates."
+  - "Update release workflow to release on a cron every Saturday."
