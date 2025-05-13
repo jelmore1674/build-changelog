@@ -11,23 +11,40 @@ on:
       - "**/changelog.yml"
       - "CHANGELOG.md"
 
-permissions:
-  # Give the default GITHUB_TOKEN write permission to commit and push the
-  # added or changed files to the repository.
-  contents: write
-  pull-requests: read
-
 jobs:
   generate-changelog:
     runs-on: ubuntu-latest
     steps:
+      - name: Load secret
+        id: load-op
+        uses: 1password/load-secrets-action@v2
+        with:
+          # Export loaded secrets as environment variables
+          export-env: false
+        env:
+          OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+          GH_APP_KEY: "op://Actions/GH_APP_KEY/private key"
+          APP_ID: op://Actions/shared/APP_ID
+
+      - name: Get Token
+        id: get_workflow_token
+        uses: peter-murray/workflow-application-token-action@v4
+        with:
+          application_id: ${{ steps.load-op.outputs.APP_ID}}
+          application_private_key: ${{ steps.load-op.outputs.GH_APP_KEY }}
+          revoke_token: true
+
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.head_ref }}
           fetch-depth: 2
+          token: ${{ steps.get_workflow_token.outputs.token }}
 
       - name: Generate Changelog
         uses: ./
         with:
           show_author_full_name: true
           changelog_style: common-changelog
+          auto_versioning: true
+          commit_message: "Update Changelog [skip ci]"
+          token: ${{ steps.get_workflow_token.outputs.token }}
