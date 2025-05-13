@@ -6,14 +6,14 @@ on:
     types: [opened, synchronize, reopened, ready_for_review, labeled, unlabeled]
 
 concurrency:
-  group: ${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
   cancel-in-progress: true
 
 permissions:
   # Give the default GITHUB_TOKEN write permission to commit and push the
   # added or changed files to the repository.
-  contents: write
-  pull-requests: write
+  contents: read
+  pull-requests: read
 
 jobs:
   enforce-changelog:
