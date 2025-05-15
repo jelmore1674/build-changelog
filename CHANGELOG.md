@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update release workflow to release on a cron every Saturday. [`ad98464`](https://github.com/jelmore1674/build-changelog/commit/ad98464bbb9dec3739580fee8ac51407d7a893ff) | [#124](https://github.com/jelmore1674/build-changelog/pull/124) | [Justin Elmore](https://github.com/jelmore1674)
 - Updates `@jelmore1674/github-action-helpers` from 0.2.1 to 0.2.2 [`573bc66`](https://github.com/jelmore1674/build-changelog/commit/573bc6673663e70fc850223dbd988b25893ec125) | [#125](https://github.com/jelmore1674/build-changelog/pull/125) | [dependabot](https://github.com/apps/dependabot)
 - Updates `semver` from 7.7.1 to 7.7.2 [`573bc66`](https://github.com/jelmore1674/build-changelog/commit/573bc6673663e70fc850223dbd988b25893ec125) | [#125](https://github.com/jelmore1674/build-changelog/pull/125) | [dependabot](https://github.com/apps/dependabot)
+- Updates `@jelmore1674/changelog` from 1.3.0 to 1.3.1 [`0f16cf7`](https://github.com/jelmore1674/build-changelog/commit/0f16cf7501ead86aede11232e431f815f327c743) | [#126](https://github.com/jelmore1674/build-changelog/pull/126) | [dependabot](https://github.com/apps/dependabot)
 
 ## [1.10.2] - 2025-05-12
 
