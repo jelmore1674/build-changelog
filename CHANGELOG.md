@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Common Changelog](https://common-changelog.org),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.10.3] - TBD
+## [1.10.3] - 2025-05-17
 
 ### Changed
 
@@ -29,7 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Typo in `Finished cleaning.` message. [`ef40e46`](https://github.com/jelmore1674/build-changelog/commit/ef40e46533f2982423c99a93770e107f93ed4dbf) | [#122](https://github.com/jelmore1674/build-changelog/pull/122) | [Justin Elmore](https://github.com/jelmore1674)
 
-## [1.10.1] - 2025-05-08
+## [1.10.1] - 2025-05-17
 
 ### Fixed
 
@@ -55,7 +55,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Prevent enforcer actions crashing when there is no changelog file. [`e2fb979`](https://github.com/jelmore1674/build-changelog/commit/e2fb979ad49b3a8588c3ab645202a44cfd095e4b) | [#117](https://github.com/jelmore1674/build-changelog/pull/117), [#118](https://github.com/jelmore1674/build-changelog/issues/118) | [jelmore1674](https://github.com/jelmore1674)
 
-## [1.9.2] - 2025-04-27
+## [1.9.2] - 2025-05-17
 
 ### Changed
 
@@ -89,7 +89,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Issue where the repo was hard coded for issue linking. [`ac7838c`](https://github.com/jelmore1674/build-changelog/commit/ac7838cd121cdd033fb51f4e54b121f8e337efef) | [#108](https://github.com/jelmore1674/build-changelog/pull/108) | [Justin Elmore](https://github.com/jelmore1674)
 
-## [1.9.0] - 2025-04-25
+## [1.9.0] - 2025-05-17
 
 ### Added
 
@@ -105,7 +105,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Instead of grouping inline references in a parenthesis, they are now separated by `|` character. [`801493f`](https://github.com/jelmore1674/build-changelog/commit/801493f4d1554fd767a39d31fcb17acd5c392fa1) | [#100](https://github.com/jelmore1674/build-changelog/pull/100) | [Justin Elmore](https://github.com/jelmore1674)
 
-## [1.8.1] - 2025-04-24
+## [1.8.1] - 2025-05-17
 
 ### Fixed
 
@@ -121,7 +121,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add missing `custom_bot_name` input to the `enforcer` action. ([`32f21c1`](https://github.com/jelmore1674/build-changelog/commit/32f21c142c9e2a044ff4168c414736b4a902cf0b)) ([#97](https://github.com/jelmore1674/build-changelog/pull/97)) ([Justin Elmore](https://github.com/jelmore1674))
 
-## [1.7.1] - 2025-04-23
+## [1.7.1] - 2025-05-17
 
 ### Changed
 
@@ -148,7 +148,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Issue where dependabot was creating duplicate changelog entries. ([`d041208`](https://github.com/jelmore1674/build-changelog/commit/d0412082fb87292fc8ca05ea1de470c1c6f4b4cb)) ([#90](https://github.com/jelmore1674/build-changelog/pull/90)) ([Justin Elmore](https://github.com/jelmore1674))
 
-## [1.6.1] - 2025-04-17
+## [1.6.1] - 2025-05-17
 
 ### Changed
 
@@ -173,7 +173,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Reference link not being created when creating a release. ([#81](https://github.com/jelmore1674/build-changelog/pull/81), [#80](https://github.com/jelmore1674/build-changelog/issues/80)) ([Justin Elmore](https://github.com/jelmore1674))
 
-## [1.5.0] - 2025-04-15
+## [1.5.0] - 2025-05-17
 
 ### Changed
 
@@ -205,7 +205,7 @@ _Read the [README.md](./README.md#complex-example) how to add changes._
 
 - Update dependency `@jelmore1674/changelog` to `0.3.0`. ([Justin Elmore](https://github.com/jelmore1674))
 
-## [1.3.3] - 2025-04-11
+## [1.3.3] - 2025-05-17
 
 ### Fixed
 
@@ -217,7 +217,7 @@ _Read the [README.md](./README.md#complex-example) how to add changes._
 
 - Fix typo in `getInput` for `skip_commit`. ([#64](https://github.com/jelmore1674/build-changelog/pull/64)) ([Justin Elmore](https://github.com/jelmore1674))
 
-## [1.3.1] - 2025-04-11
+## [1.3.1] - 2025-05-17
 
 ### Added
 
@@ -229,7 +229,7 @@ _Read the [README.md](./README.md#complex-example) how to add changes._
 
 - Update `@jelmore1674/changelog` to fix bug where on release version doesn't update. ([Justin Elmore](https://github.com/jelmore1674))
 
-## [1.2.2] - 2025-04-09
+## [1.2.2] - 2025-05-17
 
 ### Added
 
@@ -246,7 +246,7 @@ _Read the [README.md](./README.md#complex-example) how to add changes._
 - Added util `stringToBoolean` to replace `Boolean` to determine if a string is a boolean or not. ([#58](https://github.com/jelmore1674/build-changelog/pull/58)) ([Justin Elmore](https://github.com/jelmore1674))
 - Fixed issue where `Added` was at top of the release notes always. ([#57](https://github.com/jelmore1674/build-changelog/pull/57)) ([Justin Elmore](https://github.com/jelmore1674))
 
-## [1.2.0] - 2025-04-06
+## [1.2.0] - 2025-05-17
 
 ### Changed
 
@@ -277,7 +277,7 @@ _Read the [README.md](./README.md#complex-example) how to add changes._
 - Update `vitest` and `vitest/coverage-v8`to `3.1.1`. ([#43](https://github.com/jelmore1674/build-changelog/pull/43)) ([Justin Elmore](https://github.com/jelmore1674))
 - Update `yaml` to `2.7.1`. ([#40](https://github.com/jelmore1674/build-changelog/pull/40)) ([Justin Elmore](https://github.com/jelmore1674))
 
-## [1.1.0] - 2025-04-02
+## [1.1.0] - 2025-05-17
 
 ### Changed
 
