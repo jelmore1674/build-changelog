@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updates `dprint` from 0.49.1 to 0.50.0 [`fa0d60c`](https://github.com/jelmore1674/build-changelog/commit/fa0d60ccc8864626d87f0b05fda02c9e2ed131b5) | [#128](https://github.com/jelmore1674/build-changelog/pull/128) | [dependabot](https://github.com/apps/dependabot)
 - Updates `memfs` from 4.17.1 to 4.17.2 [`fa0d60c`](https://github.com/jelmore1674/build-changelog/commit/fa0d60ccc8864626d87f0b05fda02c9e2ed131b5) | [#128](https://github.com/jelmore1674/build-changelog/pull/128) | [dependabot](https://github.com/apps/dependabot)
 - Updates `vitest` from 3.1.3 to 3.1.4 [`fa0d60c`](https://github.com/jelmore1674/build-changelog/commit/fa0d60ccc8864626d87f0b05fda02c9e2ed131b5) | [#128](https://github.com/jelmore1674/build-changelog/pull/128) | [dependabot](https://github.com/apps/dependabot)
+- Updates `yaml` from 2.7.1 to 2.8.0 [`1818e04`](https://github.com/jelmore1674/build-changelog/commit/1818e04d2188bd49bdd9c259c1019f3017c1545d) | [#127](https://github.com/jelmore1674/build-changelog/pull/127) | [dependabot](https://github.com/apps/dependabot)
 
 ## [1.10.3] - 2025-05-17
 
