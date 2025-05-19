@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Common Changelog](https://common-changelog.org),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.10.4] - TBD
+
+### Changed
+
+- Updates `@vitest/coverage-v8` from 3.1.3 to 3.1.4 [`fa0d60c`](https://github.com/jelmore1674/build-changelog/commit/fa0d60ccc8864626d87f0b05fda02c9e2ed131b5) | [#128](https://github.com/jelmore1674/build-changelog/pull/128) | [dependabot](https://github.com/apps/dependabot)
+- Updates `commander` from 13.1.0 to 14.0.0 [`fa0d60c`](https://github.com/jelmore1674/build-changelog/commit/fa0d60ccc8864626d87f0b05fda02c9e2ed131b5) | [#128](https://github.com/jelmore1674/build-changelog/pull/128) | [dependabot](https://github.com/apps/dependabot)
+- Updates `dprint` from 0.49.1 to 0.50.0 [`fa0d60c`](https://github.com/jelmore1674/build-changelog/commit/fa0d60ccc8864626d87f0b05fda02c9e2ed131b5) | [#128](https://github.com/jelmore1674/build-changelog/pull/128) | [dependabot](https://github.com/apps/dependabot)
+- Updates `memfs` from 4.17.1 to 4.17.2 [`fa0d60c`](https://github.com/jelmore1674/build-changelog/commit/fa0d60ccc8864626d87f0b05fda02c9e2ed131b5) | [#128](https://github.com/jelmore1674/build-changelog/pull/128) | [dependabot](https://github.com/apps/dependabot)
+- Updates `vitest` from 3.1.3 to 3.1.4 [`fa0d60c`](https://github.com/jelmore1674/build-changelog/commit/fa0d60ccc8864626d87f0b05fda02c9e2ed131b5) | [#128](https://github.com/jelmore1674/build-changelog/pull/128) | [dependabot](https://github.com/apps/dependabot)
+
 ## [1.10.3] - 2025-05-17
 
 ### Changed
@@ -310,6 +320,7 @@ _Read the [README.md](./README.md#complex-example) how to add changes._
 
 _Initial Release_
 
+[1.10.4]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.4
 [1.10.3]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.3
 [1.10.2]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.2
 [1.10.1]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.1
