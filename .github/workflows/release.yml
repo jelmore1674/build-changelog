@@ -12,25 +12,23 @@ on:
         required: false
 
 jobs:
-  get_latest_tag_sha:
+  release:
     runs-on: ubuntu-latest
-    outputs:
-      LATEST_TAG_SHA: ${{ steps.get_tag.outputs.LATEST_TAG_SHA }}
     steps:
       - uses: actions/checkout@v4
       - name: Get tags
         run: git fetch --tags origin
       - name: Get latest tag
         id: get_tag
-        run: echo "LATEST_TAG_SHA=$(git tag --points-at HEAD) >> GITHUB_OUTPUT"
+        run: |
+          if [[ -n $(git tag --points-at HEAD) ]]; then
+            echo "latest_tag=false" >> $GITHUB_OUTPUT
+          else
+            echo "latest_tag=true" >> $GITHUB_OUTPUT
+          fi
 
-  release:
-    needs: get_latest_tag_sha
-    if: ${{ needs.get_latest_tag_sha.outputs.LATEST_TAG_SHA == '' }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
       - name: Load secret
+        if: ${{ steps.get_tag.outputs.latest_tag == 'true' }}
         id: load-op
         uses: 1password/load-secrets-action@v2
         with:
@@ -42,6 +40,7 @@ jobs:
           APP_ID: op://Actions/shared/APP_ID
 
       - name: Get Token
+        if: ${{ steps.get_tag.outputs.latest_tag == 'true' }}
         id: get_workflow_token
         uses: peter-murray/workflow-application-token-action@v4
         with:
@@ -50,12 +49,14 @@ jobs:
           revoke_token: true
 
       - name: Create Release
+        if: ${{ steps.get_tag.outputs.latest_tag == 'true' }}
         id: create_release
-        uses: jelmore1674/release-semver-action@v1
+        uses: ./
         with:
           auto_version: true
           tag_name: ${{ inputs.tag }}
           release_name: ${{ inputs.tag }}
+          move_major_version_tag: true
           update_package_json: true
           set_changelog_version: true
           release_notes_from_changelog: true

@@ -1,0 +1,2 @@
+fixed:
+  - Prevent release workflow from always triggering even without changes.
