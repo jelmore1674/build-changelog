@@ -51,7 +51,7 @@ jobs:
       - name: Create Release
         if: ${{ steps.get_tag.outputs.latest_tag == 'true' }}
         id: create_release
-        uses: ./
+        uses: jelmore1674/release-semver-action@v1
         with:
           auto_version: true
           tag_name: ${{ inputs.tag }}
