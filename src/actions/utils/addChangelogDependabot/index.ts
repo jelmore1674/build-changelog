@@ -8,6 +8,7 @@ import { log } from "@utils/log";
 import { readdirSync, rmSync, writeFileSync } from "node:fs";
 import { exit } from "node:process";
 import YAML from "yaml";
+import { z } from "zod";
 
 /**
  * Regex used to get the changes from the pr body.
@@ -64,18 +65,21 @@ async function addChangelogDependabot() {
   for (const file of changelogFiles) {
     if (isYamlFile(file)) {
       const filePath = `./changelog/${file}`;
-      const parsedFile = parseChanges<DependabotChangeFile>(filePath);
+      const parsedFile = parseChanges(filePath);
       debug(`File: ${file}\n\n${JSON.stringify(parsedFile, null, 2)}`);
 
       if (parsedFile.author !== "dependabot") {
         return;
       }
 
-      const changeSection = parsedFile?.[dependabotChangeSection];
+      const dependabotChangeSectionSchema = z.object({
+        [dependabotChangeSection]: z.array(z.string()),
+      });
 
-      if (
-        changeSection && matches.every(change => changeSection.includes(change))
-      ) {
+      const changeSection =
+        dependabotChangeSectionSchema.parse(parsedFile)[dependabotChangeSection];
+
+      if (matches.every(change => changeSection.includes(change))) {
         log("No new changes. Stopping action.");
         exit(0);
       }

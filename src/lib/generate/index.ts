@@ -73,7 +73,7 @@ function generateCommand(
     releaseVersion,
     changelogOptions,
   }: ChangeFields,
-  actionConfig = config as GenerateConfig,
+  actionConfig: GenerateConfig = config,
   skip_changelog = false,
 ) {
   log("ℹ️ generate command parameters", {
@@ -104,7 +104,7 @@ function generateCommand(
     (acc: Version[], file) => {
       if (isTomlOrYamlFile(file)) {
         log(`ℹ️ Parsing ${file} file now.`);
-        const parsedChanges = parseChanges<ParsedChanges>(path.join(changelogDir, file));
+        const parsedChanges = parseChanges(path.join(changelogDir, file));
 
         debug(`parsedChanges:\n${JSON.stringify(parsedChanges, null, 2)}`);
 
