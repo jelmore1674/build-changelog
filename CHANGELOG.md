@@ -332,6 +332,8 @@ _Read the [README.md](./README.md#complex-example) how to add changes._
 
 _Initial Release_
 
+[1.10.5]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.5
+[1.10.4]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.4
 [1.10.3]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.3
 [1.10.2]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.2
 [1.10.1]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.1
