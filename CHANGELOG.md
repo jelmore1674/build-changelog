@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updates `@jelmore1674/changelog` from 1.3.1 to 1.3.2 [`4591e58`](https://github.com/jelmore1674/build-changelog/commit/4591e58354c7599b47a1e4c0bf9be2792c728c8f) | [#130](https://github.com/jelmore1674/build-changelog/pull/130) | [dependabot](https://github.com/apps/dependabot)
 - Updates `@jelmore1674/github-action-helpers` from 0.2.2 to 0.2.3 [`4591e58`](https://github.com/jelmore1674/build-changelog/commit/4591e58354c7599b47a1e4c0bf9be2792c728c8f) | [#130](https://github.com/jelmore1674/build-changelog/pull/130) | [dependabot](https://github.com/apps/dependabot)
 - Updates `nock` from 14.0.4 to 14.0.5 [`d54711a`](https://github.com/jelmore1674/build-changelog/commit/d54711aa31cc328c02b37b1c7fda3f9469a73b1c) | [#132](https://github.com/jelmore1674/build-changelog/pull/132) | [dependabot](https://github.com/apps/dependabot)
+- Updates `@jelmore1674/changelog` from 1.3.2 to 1.3.3 [`9afb1ea`](https://github.com/jelmore1674/build-changelog/commit/9afb1ea68aab69739e741f2869253b6817b02171) | [#131](https://github.com/jelmore1674/build-changelog/pull/131) | [dependabot](https://github.com/apps/dependabot)
+- Updates `@jelmore1674/github-action-helpers` from 0.2.3 to 0.2.4 [`9afb1ea`](https://github.com/jelmore1674/build-changelog/commit/9afb1ea68aab69739e741f2869253b6817b02171) | [#131](https://github.com/jelmore1674/build-changelog/pull/131) | [dependabot](https://github.com/apps/dependabot)
 
 ## [1.10.4] - 2025-05-24
 
