@@ -1,0 +1,3 @@
+author: dependabot
+changed:
+  - Updates `nock` from 14.0.4 to 14.0.5
