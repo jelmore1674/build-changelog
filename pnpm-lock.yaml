@@ -70,8 +70,8 @@ importers:
         specifier: ^4.17.2
         version: 4.17.2
       nock:
-        specifier: ^14.0.4
-        version: 14.0.4
+        specifier: ^14.0.5
+        version: 14.0.5
       typescript:
         specifier: 5.8.3
         version: 5.8.3
@@ -429,8 +429,8 @@ packages:
     peerDependencies:
       tslib: '2'
 
-  '@mswjs/interceptors@0.38.6':
-    resolution: {integrity: sha512-qFlpmObPqeUs4u3oFYv/OM/xyX+pNa5TRAjqjvMhbGYlyMhzSrE5UfncL2rUcEeVfD9Gebgff73hPwqcOwJQNA==}
+  '@mswjs/interceptors@0.38.7':
+    resolution: {integrity: sha512-Jkb27iSn7JPdkqlTqKfhncFfnEZsIJVYxsFbUSWEkxdIPdsyngrhoDBk0/BGD2FQcRH99vlRrkHpNTyKqI+0/w==}
     engines: {node: '>=18'}
 
   '@octokit/auth-token@4.0.0':
@@ -895,8 +895,8 @@ packages:
   neo-async@2.6.2:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
 
-  nock@14.0.4:
-    resolution: {integrity: sha512-86fh+gIKH8H02+y0/HKAOZZXn6OwgzXvl6JYwfjvKkoKxUWz54wIIDU/+w24xzMvk/R8pNVXOrvTubyl+Ml6cg==}
+  nock@14.0.5:
+    resolution: {integrity: sha512-R49fALR9caB6vxuSWUIaK2eBYeTloZQUFBZ4rHO+TbhMGQHtwnhdqKLYki+o+8qMgLvoBYWrp/2KzGPhxL4S6w==}
     engines: {node: '>=18.20.0 <20 || >=20.12.1'}
 
   once@1.4.0:
@@ -1438,7 +1438,7 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
-  '@mswjs/interceptors@0.38.6':
+  '@mswjs/interceptors@0.38.7':
     dependencies:
       '@open-draft/deferred-promise': 2.2.0
       '@open-draft/logger': 0.3.0
@@ -1904,9 +1904,9 @@ snapshots:
 
   neo-async@2.6.2: {}
 
-  nock@14.0.4:
+  nock@14.0.5:
     dependencies:
-      '@mswjs/interceptors': 0.38.6
+      '@mswjs/interceptors': 0.38.7
       json-stringify-safe: 5.0.1
       propagate: 2.0.1
 
