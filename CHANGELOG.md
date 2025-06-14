@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Common Changelog](https://common-changelog.org),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.10.6] - TBD
+## [1.10.6] - 2025-06-14
 
 ### Changed
 
