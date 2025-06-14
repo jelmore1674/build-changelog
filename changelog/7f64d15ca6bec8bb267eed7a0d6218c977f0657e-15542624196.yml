@@ -1,0 +1,4 @@
+author: dependabot
+changed:
+  - Updates `@jelmore1674/changelog` from 1.3.3 to 1.3.4
+  - Updates `@jelmore1674/github-action-helpers` from 0.2.4 to 0.2.5

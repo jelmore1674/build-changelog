@@ -21,11 +21,11 @@ importers:
         specifier: 2.2.5
         version: 2.2.5
       '@jelmore1674/changelog':
-        specifier: ^1.3.3
-        version: 1.3.3
+        specifier: ^1.3.4
+        version: 1.3.4
       '@jelmore1674/github-action-helpers':
-        specifier: ^0.2.4
-        version: 0.2.4
+        specifier: ^0.2.5
+        version: 0.2.5
       fs-extra:
         specifier: 11.3.0
         version: 11.3.0
@@ -387,11 +387,11 @@ packages:
     resolution: {integrity: sha512-ZXRY4jNvVgSVQ8DL3LTcakaAtXwTVUxE81hslsyD2AtoXW/wVob10HkOJ1X/pAlcI7D+2YoZKg5do8G/w6RYgA==}
     engines: {node: '>=8'}
 
-  '@jelmore1674/changelog@1.3.3':
-    resolution: {integrity: sha512-w3gcQ4psQsHxrF/TJevFywmZvTsl2OlDMSa+Tt360kVnd1VacNHqrA2SybH/yWvgU55udGfUNCnOis8q1jHLYQ==}
+  '@jelmore1674/changelog@1.3.4':
+    resolution: {integrity: sha512-PWkxVUm00OgAiUUMmjt6S3VMuYrJvw10d2bN6IzLH/r+i03dEepnel32IsrTbBiovvVmHZBitKv/cV0d/QI4gg==}
 
-  '@jelmore1674/github-action-helpers@0.2.4':
-    resolution: {integrity: sha512-joMGP5XDq9tagRQ9qMtcbIHKrSjJLcsd6IXz+0vAoya3k9yOxeJkVVJi0fjdj5+F2OqfAJEl/F5THyvg83ZrNw==}
+  '@jelmore1674/github-action-helpers@0.2.5':
+    resolution: {integrity: sha512-nN9eKC1Hqri31dhrsG9DwlPLnv2VSDdko0z6nKxR1OqtRPQwJZNDgcVm9j203fwi5cGAF7EvF/KzL1janojCJA==}
 
   '@jridgewell/gen-mapping@0.3.8':
     resolution: {integrity: sha512-imAbBGkb+ebQyxKgzv5Hu2nmROxoDOXHh80evxdoXNOrvAnVx7zimzc1Oo5h9RlfV4vPXaE2iM5pOFbvOCClWA==}
@@ -1393,13 +1393,13 @@ snapshots:
 
   '@istanbuljs/schema@0.1.3': {}
 
-  '@jelmore1674/changelog@1.3.3':
+  '@jelmore1674/changelog@1.3.4':
     dependencies:
       handlebars: 4.7.8
       latest-semver: 4.0.0
       semver: 7.7.2
 
-  '@jelmore1674/github-action-helpers@0.2.4':
+  '@jelmore1674/github-action-helpers@0.2.5':
     dependencies:
       '@actions/core': 1.11.1
       '@actions/exec': 1.1.1
