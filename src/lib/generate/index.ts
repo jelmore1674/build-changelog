@@ -98,7 +98,7 @@ function generateCommand(
     changelogLinks = changelog.links;
   }
 
-  const files = readdirSync(changelogDir, { recursive: true, encoding: "utf8" });
+  const files = readdirSync(`./${actionConfig.dir}`, { recursive: true, encoding: "utf8" });
 
   const parsedChangelog = files.reduce(
     (acc: Version[], file) => {
