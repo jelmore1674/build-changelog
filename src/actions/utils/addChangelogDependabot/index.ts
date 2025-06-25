@@ -33,6 +33,7 @@ async function addChangelogDependabot() {
     return;
   }
 
+  const dir = getInput("dir", { required: true });
   const dependabotChangeSection = getValidStringInput<DependabotChangeSection>(
     "dependabot_section",
     {
@@ -57,13 +58,13 @@ async function addChangelogDependabot() {
     [dependabotChangeSection]: matches,
   };
 
-  const changelogFiles = readdirSync("./changelog", { recursive: true, encoding: "utf8" });
+  const changelogFiles = readdirSync(`./${dir}`, { recursive: true, encoding: "utf8" });
 
   debug(`Files found:\n${changelogFiles}`);
 
   for (const file of changelogFiles) {
     if (isYamlFile(file)) {
-      const filePath = `./changelog/${file}`;
+      const filePath = `./${dir}/${file}`;
       const parsedFile = parseChanges<DependabotChangeFile>(filePath);
       debug(`File: ${file}\n\n${JSON.stringify(parsedFile, null, 2)}`);
 
@@ -87,7 +88,7 @@ async function addChangelogDependabot() {
   }
 
   const ymlFile = YAML.stringify(dependabotUpdates);
-  writeFileSync(`./changelog/${context.sha}-${context.runId}.yml`, ymlFile, {
+  writeFileSync(`./${dir}/${context.sha}-${context.runId}.yml`, ymlFile, {
     encoding: "utf8",
   });
 

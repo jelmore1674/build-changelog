@@ -18,6 +18,7 @@ async function compareChangelogs() {
   const customBotName = getInput("custom_bot_name", { required: false });
   const nameOverrides = getKeyValuePairInput("name_override");
   const commentOnPr = getBooleanInput("comment_on_pr", { required: false });
+  const dir = getInput("dir", { required: true });
   // biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
   const show_author_full_name = getBooleanInput("show_author_full_name", { required: false });
 
@@ -33,6 +34,7 @@ async function compareChangelogs() {
   const config: GenerateConfig = {
     ...baseConfig,
     show_author_full_name,
+    dir,
   };
 
   startGroup("🎯 Get Current Changelog changes.");
@@ -54,7 +56,7 @@ async function compareChangelogs() {
     sha: context.sha,
     prNumber: number,
     prReferences: [],
-  });
+  }, config);
   endGroup();
 
   const noChanges = existingChangelog === newChangelog.count;
