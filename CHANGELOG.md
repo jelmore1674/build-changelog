@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Common Changelog](https://common-changelog.org),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.10.7] - TBD
+
+### Fixed
+
+- Update dependabot and enforcer to use dir input correctly. [`0d443f4`](https://github.com/jelmore1674/build-changelog/commit/0d443f4dc41a9416bc47a240e52c89eec58e840c) | [#138](https://github.com/jelmore1674/build-changelog/pull/138) | [Justin Elmore](https://github.com/jelmore1674)
+
 ## [1.10.6] - 2025-06-14
 
 ### Changed
@@ -341,6 +347,7 @@ _Read the [README.md](./README.md#complex-example) how to add changes._
 
 _Initial Release_
 
+[1.10.7]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.7
 [1.10.6]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.6
 [1.10.5]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.5
 [1.10.4]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.4
