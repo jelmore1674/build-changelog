@@ -450,6 +450,11 @@ skip_labels:
   default: "ops"
   description: "Comma separated list of labels to skip enforcing changelog changes."
 
+dir:
+  description: The directory to keep your changelog files. Defaults to the `changelog` directory.
+  default: "changelog"
+  required: true
+
 enable_dependabot:
   description: Allow creation of changelog file when dependabot creates a pull request.
   default: "false"
