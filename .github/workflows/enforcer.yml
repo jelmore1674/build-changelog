@@ -32,3 +32,4 @@ jobs:
           dependabot_section: changed
           comment_on_pr: true
           show_author_full_name: true
+          dir: build-changelog

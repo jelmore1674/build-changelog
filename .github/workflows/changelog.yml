@@ -48,3 +48,4 @@ jobs:
           auto_versioning: true
           commit_message: "Update Changelog [skip ci]"
           token: ${{ steps.get_workflow_token.outputs.token }}
+          dir: build-changelog
