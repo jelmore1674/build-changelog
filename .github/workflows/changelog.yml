@@ -6,7 +6,7 @@ on:
     branches:
       - main
     paths:
-      - "changelog/*"
+      - "build-changelog/*"
       - "bcl.toml"
       - "**/changelog.yml"
       - "CHANGELOG.md"
