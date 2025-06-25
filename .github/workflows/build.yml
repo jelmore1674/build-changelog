@@ -85,7 +85,7 @@ jobs:
 
       - if: ${{ steps.dirty.outputs.changes == 'true' }}
         name: "Commit and push changes"
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v6
         with:
           commit_author: "${{ steps.import-gpg.outputs.name }} <${{ steps.import-gpg.outputs.email }}>"
           commit_user_name: ${{ steps.import-gpg.outputs.name }}

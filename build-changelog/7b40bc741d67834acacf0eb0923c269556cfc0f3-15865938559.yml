@@ -1,0 +1,5 @@
+author: dependabot
+changed:
+  - Bumps
+    [stefanzweifel/git-auto-commit-action](https://github.com/stefanzweifel/git-auto-commit-action)
+    from 5 to 6.
