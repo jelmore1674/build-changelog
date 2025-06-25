@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Updates `@jelmore1674/changelog` from 1.3.3 to 1.3.4 [`a6018ab`](https://github.com/jelmore1674/build-changelog/commit/a6018abdcfef0d0787391de02976c9d9749c52dd) | [dependabot](https://github.com/apps/dependabot)
 - Updates `@jelmore1674/github-action-helpers` from 0.2.4 to 0.2.5 [`a6018ab`](https://github.com/jelmore1674/build-changelog/commit/a6018abdcfef0d0787391de02976c9d9749c52dd) | [dependabot](https://github.com/apps/dependabot)
+- Bumps [stefanzweifel/git-auto-commit-action](https://github.com/stefanzweifel/git-auto-commit-action) from 5 to 6. [`52f1e6a`](https://github.com/jelmore1674/build-changelog/commit/52f1e6af93c7af89305a4f41122db234a0c0869e) | [#136](https://github.com/jelmore1674/build-changelog/pull/136) | [dependabot](https://github.com/apps/dependabot)
 
 ### Fixed
 
