@@ -1,4 +1,4 @@
-dir = "changelog"
+dir = "build-changelog"
 # prefers = "toml"
 # git_tag_prefix = "v"
 # changelog_archive = true

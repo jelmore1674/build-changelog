@@ -1,0 +1,2 @@
+fixed:
+  - Update dependabot and enforcer to use dir input correctly.

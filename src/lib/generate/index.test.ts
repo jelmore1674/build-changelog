@@ -264,6 +264,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
         ...config,
         show_git_tag_prefix: true,
         auto_versioning: true,
+        dir: "changelog",
       },
     );
 
@@ -306,6 +307,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
         ...config,
         show_git_tag_prefix: true,
         auto_versioning: true,
+        dir: "changelog",
       },
     );
 
@@ -440,6 +442,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
         ...config,
         show_git_tag_prefix: true,
         auto_versioning: true,
+        dir: "changelog",
       },
     );
 
