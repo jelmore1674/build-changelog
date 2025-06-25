@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.10.7] - TBD
 
+### Changed
+
+- Updates `@jelmore1674/changelog` from 1.3.3 to 1.3.4 [`a6018ab`](https://github.com/jelmore1674/build-changelog/commit/a6018abdcfef0d0787391de02976c9d9749c52dd) | [dependabot](https://github.com/apps/dependabot)
+- Updates `@jelmore1674/github-action-helpers` from 0.2.4 to 0.2.5 [`a6018ab`](https://github.com/jelmore1674/build-changelog/commit/a6018abdcfef0d0787391de02976c9d9749c52dd) | [dependabot](https://github.com/apps/dependabot)
+
 ### Fixed
 
 - Update dependabot and enforcer to use dir input correctly. [`0d443f4`](https://github.com/jelmore1674/build-changelog/commit/0d443f4dc41a9416bc47a240e52c89eec58e840c) | [#138](https://github.com/jelmore1674/build-changelog/pull/138) | [Justin Elmore](https://github.com/jelmore1674)
