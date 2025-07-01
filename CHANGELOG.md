@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Common Changelog](https://common-changelog.org),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.10.8] - TBD
+
+### Changed
+
+- Updates `@biomejs/biome` from 2.0.5 to 2.0.6 [`37241f4`](https://github.com/jelmore1674/build-changelog/commit/37241f4aa23592a1e3ba03f61fa551920ffb8703) | [#139](https://github.com/jelmore1674/build-changelog/pull/139) | [dependabot](https://github.com/apps/dependabot)
+
 ## [1.10.7] - 2025-06-28
 
 ### Changed
@@ -356,6 +362,7 @@ _Read the [README.md](./README.md#complex-example) how to add changes._
 
 _Initial Release_
 
+[1.10.8]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.8
 [1.10.7]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.7
 [1.10.6]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.6
 [1.10.5]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.5
