@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Common Changelog](https://common-changelog.org),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.10.9] - TBD
+
+### Changed
+
+- Updates `@biomejs/biome` from 2.0.6 to 2.1.2 [`858af8e`](https://github.com/jelmore1674/build-changelog/commit/858af8e88a95d9f7766ac4779e6a5201cddccbdc) | [#142](https://github.com/jelmore1674/build-changelog/pull/142) | [dependabot](https://github.com/apps/dependabot)
+- Updates `dprint` from 0.50.0 to 0.50.1 [`858af8e`](https://github.com/jelmore1674/build-changelog/commit/858af8e88a95d9f7766ac4779e6a5201cddccbdc) | [#142](https://github.com/jelmore1674/build-changelog/pull/142) | [dependabot](https://github.com/apps/dependabot)
+- Updates `nock` from 14.0.5 to 14.0.6 [`858af8e`](https://github.com/jelmore1674/build-changelog/commit/858af8e88a95d9f7766ac4779e6a5201cddccbdc) | [#142](https://github.com/jelmore1674/build-changelog/pull/142) | [dependabot](https://github.com/apps/dependabot)
+
 ## [1.10.8] - 2025-07-05
 
 ### Changed
@@ -362,6 +370,7 @@ _Read the [README.md](./README.md#complex-example) how to add changes._
 
 _Initial Release_
 
+[1.10.9]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.9
 [1.10.8]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.8
 [1.10.7]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.7
 [1.10.6]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.6

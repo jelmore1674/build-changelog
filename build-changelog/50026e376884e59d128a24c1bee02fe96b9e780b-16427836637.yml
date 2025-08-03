@@ -1,5 +1,0 @@
-author: dependabot
-changed:
-  - Updates `@biomejs/biome` from 2.0.6 to 2.1.2
-  - Updates `dprint` from 0.50.0 to 0.50.1
-  - Updates `nock` from 14.0.5 to 14.0.6
