@@ -39,19 +39,12 @@ const dir = getInput("dir", { required: true });
 const isApiCommit = getBooleanInput("commit_with_api");
 const skipCommit = getBooleanInput("skip_commit");
 const version = getInput("version", { required: false });
-// biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
 const reference_sha = getBooleanInput("reference_sha", { required: false });
-// biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
 const git_tag_prefix = getInput("git_tag_prefix", { required: false });
-// biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
 const reference_pull_requests = getBooleanInput("reference_pull_requests", { required: false });
-// biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
 const show_author = getBooleanInput("show_author", { required: false });
-// biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
 const show_author_full_name = getBooleanInput("show_author_full_name", { required: false });
-// biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
 const show_git_tag_prefix = getBooleanInput("show_git_tag_prefix", { required: false });
-// biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
 const auto_versioning = getBooleanInput("auto_versioning", { required: false });
 
 const flags = getKeyValuePairInput("flags");

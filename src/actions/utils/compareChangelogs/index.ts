@@ -19,7 +19,6 @@ async function compareChangelogs() {
   const nameOverrides = getKeyValuePairInput("name_override");
   const commentOnPr = getBooleanInput("comment_on_pr", { required: false });
   const dir = getInput("dir", { required: true });
-  // biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
   const show_author_full_name = getBooleanInput("show_author_full_name", { required: false });
 
   const { number, references } = await getPullRequestInfo();
@@ -80,7 +79,6 @@ async function compareChangelogs() {
 
     const [error, response] = await tryCatch(
       getOctokit(token).rest.issues.listComments({
-        // biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
         issue_number: number,
         owner: context.repo.owner,
         repo: context.repo.repo,

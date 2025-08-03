@@ -9,7 +9,6 @@ async function getPrAuthorName(
 ) {
   const pr = await restClient.pulls.get({
     ...context.repo,
-    // biome-ignore lint/style/useNamingConvention: api
     pull_number: pullRequestNumber,
   });
 

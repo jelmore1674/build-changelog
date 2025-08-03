@@ -17,7 +17,6 @@ async function botCommentOnPr(message: string, prNumber: number, commentId?: num
     const [error] = await tryCatch(
       getOctokit(token).rest.issues.updateComment({
         ...context.repo,
-        // biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
         comment_id: commentId,
         body: message,
       }),
@@ -33,7 +32,6 @@ async function botCommentOnPr(message: string, prNumber: number, commentId?: num
 
   const [error] = await tryCatch(
     getOctokit(token).rest.issues.createComment({
-      // biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
       issue_number: prNumber,
       owner: context.repo.owner,
       repo: context.repo.repo,

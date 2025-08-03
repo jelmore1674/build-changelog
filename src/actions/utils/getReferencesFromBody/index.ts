@@ -7,9 +7,9 @@ import { tryCatch } from "@utils/tryCatch";
 /**
  * Regex used to find the linked issue or pull request.
  *
- * @link [regex101](https://regex101.com/r/v5aTcs/2)
+ * @link [regex101](https://regex101.com/r/v5aTcs/3)
  */
-const issueRegex = /(?:fixe?|close|resolve)(?:s?d?) (\#[0-9]+)/gi;
+const issueRegex = /(?:fixe?|close|resolve)(?:s?d?) (#[0-9]+)/gi;
 
 /**
  * Find any references from the pull request body.
@@ -27,7 +27,6 @@ async function getReferencesFromBody(body = "") {
         getOctokit(token).rest.issues.get({
           repo: context.repo.repo,
           owner: context.repo.owner,
-          // biome-ignore lint/style/useNamingConvention: Following yaml/toml convention.
           issue_number: number,
         }),
       );
