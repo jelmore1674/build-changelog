@@ -1,0 +1,6 @@
+author: dependabot
+changed:
+  - Updates `@biomejs/biome` from 2.1.2 to 2.1.4
+  - Updates `memfs` from 4.17.2 to 4.36.0
+  - Updates `nock` from 14.0.6 to 14.0.9
+  - Updates `typescript` from 5.8.3 to 5.9.2
