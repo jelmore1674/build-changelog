@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updates `@jelmore1674/github-action-helpers` from 0.2.6 to 0.2.7 [`66ea912`](https://github.com/jelmore1674/build-changelog/commit/66ea91203b0191233f7d0931417ba0b460924026) | [#145](https://github.com/jelmore1674/build-changelog/pull/145) | [dependabot](https://github.com/apps/dependabot)
 - Updates `fs-extra` from 11.3.0 to 11.3.1 [`66ea912`](https://github.com/jelmore1674/build-changelog/commit/66ea91203b0191233f7d0931417ba0b460924026) | [#145](https://github.com/jelmore1674/build-changelog/pull/145) | [dependabot](https://github.com/apps/dependabot)
 - Updates `yaml` from 2.8.0 to 2.8.1 [`66ea912`](https://github.com/jelmore1674/build-changelog/commit/66ea91203b0191233f7d0931417ba0b460924026) | [#145](https://github.com/jelmore1674/build-changelog/pull/145) | [dependabot](https://github.com/apps/dependabot)
+- Bumps [actions/checkout](https://github.com/actions/checkout) from 4 to 5. [`a03de63`](https://github.com/jelmore1674/build-changelog/commit/a03de6378804fa9f557b1bb6df55e078bf732330) | [#144](https://github.com/jelmore1674/build-changelog/pull/144) | [dependabot](https://github.com/apps/dependabot)
 
 ## [1.10.9] - 2025-08-09
 
