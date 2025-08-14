@@ -1,0 +1,3 @@
+author: dependabot
+changed:
+  - Bumps [actions/checkout](https://github.com/actions/checkout) from 4 to 5.
