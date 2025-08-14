@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Common Changelog](https://common-changelog.org),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.10.10] - TBD
+
+### Changed
+
+- Updates `@jelmore1674/changelog` from 1.3.6 to 1.3.7 [`66ea912`](https://github.com/jelmore1674/build-changelog/commit/66ea91203b0191233f7d0931417ba0b460924026) | [#145](https://github.com/jelmore1674/build-changelog/pull/145) | [dependabot](https://github.com/apps/dependabot)
+- Updates `@jelmore1674/github-action-helpers` from 0.2.6 to 0.2.7 [`66ea912`](https://github.com/jelmore1674/build-changelog/commit/66ea91203b0191233f7d0931417ba0b460924026) | [#145](https://github.com/jelmore1674/build-changelog/pull/145) | [dependabot](https://github.com/apps/dependabot)
+- Updates `fs-extra` from 11.3.0 to 11.3.1 [`66ea912`](https://github.com/jelmore1674/build-changelog/commit/66ea91203b0191233f7d0931417ba0b460924026) | [#145](https://github.com/jelmore1674/build-changelog/pull/145) | [dependabot](https://github.com/apps/dependabot)
+- Updates `yaml` from 2.8.0 to 2.8.1 [`66ea912`](https://github.com/jelmore1674/build-changelog/commit/66ea91203b0191233f7d0931417ba0b460924026) | [#145](https://github.com/jelmore1674/build-changelog/pull/145) | [dependabot](https://github.com/apps/dependabot)
+
 ## [1.10.9] - 2025-08-09
 
 ### Changed
@@ -370,6 +379,7 @@ _Read the [README.md](./README.md#complex-example) how to add changes._
 
 _Initial Release_
 
+[1.10.10]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.10
 [1.10.9]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.9
 [1.10.8]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.8
 [1.10.7]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.7
