@@ -53,7 +53,7 @@ jobs:
       - if: ${{ steps.dirty.outputs.changes == 'true' }}
         name: Load secret
         id: load-op
-        uses: 1password/load-secrets-action@v2
+        uses: 1password/load-secrets-action@v3
         with:
           # Export loaded secrets as environment variables
           export-env: false
