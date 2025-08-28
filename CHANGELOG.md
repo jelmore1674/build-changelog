@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Updates `@jelmore1674/changelog` from 1.3.7 to 1.3.8 [`6ce986a`](https://github.com/jelmore1674/build-changelog/commit/6ce986ac10ccbe9945d81bb6fb200a61ab793473) | [#147](https://github.com/jelmore1674/build-changelog/pull/147) | [dependabot](https://github.com/apps/dependabot)
 - Updates `@jelmore1674/github-action-helpers` from 0.2.7 to 0.2.8 [`6ce986a`](https://github.com/jelmore1674/build-changelog/commit/6ce986ac10ccbe9945d81bb6fb200a61ab793473) | [#147](https://github.com/jelmore1674/build-changelog/pull/147) | [dependabot](https://github.com/apps/dependabot)
+- Bumps [1password/load-secrets-action](https://github.com/1password/load-secrets-action) from 2 to 3. [`c164753`](https://github.com/jelmore1674/build-changelog/commit/c164753b7fe8a08c84d0336ab46abb4ff98e0275) | [#146](https://github.com/jelmore1674/build-changelog/pull/146) | [dependabot](https://github.com/apps/dependabot)
 
 ## [1.10.10] - 2025-08-16
 
