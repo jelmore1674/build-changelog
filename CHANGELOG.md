@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Common Changelog](https://common-changelog.org),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.10.11] - TBD
+
+### Changed
+
+- Updates `@jelmore1674/changelog` from 1.3.7 to 1.3.8 [`6ce986a`](https://github.com/jelmore1674/build-changelog/commit/6ce986ac10ccbe9945d81bb6fb200a61ab793473) | [#147](https://github.com/jelmore1674/build-changelog/pull/147) | [dependabot](https://github.com/apps/dependabot)
+- Updates `@jelmore1674/github-action-helpers` from 0.2.7 to 0.2.8 [`6ce986a`](https://github.com/jelmore1674/build-changelog/commit/6ce986ac10ccbe9945d81bb6fb200a61ab793473) | [#147](https://github.com/jelmore1674/build-changelog/pull/147) | [dependabot](https://github.com/apps/dependabot)
+
 ## [1.10.10] - 2025-08-16
 
 ### Changed
@@ -380,6 +387,7 @@ _Read the [README.md](./README.md#complex-example) how to add changes._
 
 _Initial Release_
 
+[1.10.11]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.11
 [1.10.10]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.10
 [1.10.9]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.9
 [1.10.8]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.8
