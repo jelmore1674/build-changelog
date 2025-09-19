@@ -19,7 +19,7 @@ import { parseChanges } from "@utils/parseChanges";
 import { sortBreakingChanges } from "@utils/sortBreakingChanges";
 import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
-import { changelogDir, changelogPath, config } from "../config";
+import { changelogPath, config } from "../config";
 import { rl } from "../readline";
 
 const GITHUB_SERVER_URL = process.env.GITHUB_SERVER_URL;
@@ -103,13 +103,11 @@ function generateCommand(
     encoding: "utf8",
   });
 
-  console.log({ files });
-
   const parsedChangelog = files.reduce(
     (acc: Version[], file) => {
       if (isTomlOrYamlFile(file)) {
         log(`ℹ️ Parsing ${file} file now.`);
-        const parsedChanges = parseChanges<ParsedChanges>(path.join(changelogDir, file));
+        const parsedChanges = parseChanges<ParsedChanges>(path.join(actionConfig.dir, file));
 
         debug(`parsedChanges:\n${JSON.stringify(parsedChanges, null, 2)}`);
 
@@ -173,7 +171,7 @@ function generateCommand(
             if (!VALID_KEYWORDS.includes(keyword)) {
               console.error(`\nINVALID_KEYWORD: The keyword "${keyword}" is invalid.\n`);
               console.error(`VALID_KEYWORDS: ${VALID_KEYWORDS.join(", ")}\n`);
-              console.error(path.join(changelogDir, file), "\n");
+              console.error(path.join(actionConfig.dir, file), "\n");
               process.exit(1);
             }
 
