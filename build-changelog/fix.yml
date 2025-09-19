@@ -1,2 +1,0 @@
-fixed:
-  - Issue where `dir` was not working without being set in config.

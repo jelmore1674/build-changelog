@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Common Changelog](https://common-changelog.org),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.10.12] - TBD
+
+### Fixed
+
+- Issue where `dir` was not working without being set in config. [`99a6a61`](https://github.com/jelmore1674/build-changelog/commit/99a6a61d9255a02372dc8abe76e2b4d8f510e356) | [#152](https://github.com/jelmore1674/build-changelog/pull/152) | [Justin Elmore](https://github.com/jelmore1674)
+
 ## [1.10.11] - 2025-08-30
 
 ### Changed
@@ -388,6 +394,7 @@ _Read the [README.md](./README.md#complex-example) how to add changes._
 
 _Initial Release_
 
+[1.10.12]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.12
 [1.10.11]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.11
 [1.10.10]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.10
 [1.10.9]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.9
