@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Bumps [actions/setup-node](https://github.com/actions/setup-node) from 4 to 5. [`d045024`](https://github.com/jelmore1674/build-changelog/commit/d0450247de16506b27f7b874aea3909b40c4ff93) | [#148](https://github.com/jelmore1674/build-changelog/pull/148) | [dependabot](https://github.com/apps/dependabot)
 - Updates `vite` from 7.0.0 to 7.1.5 [`a33d59e`](https://github.com/jelmore1674/build-changelog/commit/a33d59e58a7e751f9384cb758890ec735889e534) | [#150](https://github.com/jelmore1674/build-changelog/pull/150) | [dependabot](https://github.com/apps/dependabot)
+- Updates `fs-extra` from 11.3.1 to 11.3.2 [`3d007eb`](https://github.com/jelmore1674/build-changelog/commit/3d007eb03ad827914641b65f124e298ab2992f54) | [#151](https://github.com/jelmore1674/build-changelog/pull/151) | [dependabot](https://github.com/apps/dependabot)
 
 ## [1.10.12] - 2025-09-19
 
