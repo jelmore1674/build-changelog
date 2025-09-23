@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Common Changelog](https://common-changelog.org),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.10.13] - TBD
+
+### Changed
+
+- Bumps [actions/setup-node](https://github.com/actions/setup-node) from 4 to 5. [`d045024`](https://github.com/jelmore1674/build-changelog/commit/d0450247de16506b27f7b874aea3909b40c4ff93) | [#148](https://github.com/jelmore1674/build-changelog/pull/148) | [dependabot](https://github.com/apps/dependabot)
+
 ## [1.10.12] - 2025-09-19
 
 ### Fixed
@@ -394,6 +400,7 @@ _Read the [README.md](./README.md#complex-example) how to add changes._
 
 _Initial Release_
 
+[1.10.13]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.13
 [1.10.12]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.12
 [1.10.11]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.11
 [1.10.10]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.10
