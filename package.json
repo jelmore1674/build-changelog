@@ -38,7 +38,7 @@
     "yaml": "2.8.1"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.2.4",
+    "@biomejs/biome": "2.2.5",
     "@types/fs-extra": "11.0.4",
     "@types/iarna__toml": "2.0.5",
     "@types/node": "22.13.9",
@@ -47,9 +47,9 @@
     "@vitest/coverage-v8": "3.2.4",
     "commander": "14.0.1",
     "dprint": "0.50.2",
-    "memfs": "^4.43.0",
+    "memfs": "^4.48.1",
     "nock": "^14.0.10",
-    "typescript": "5.9.2",
+    "typescript": "5.9.3",
     "vite-tsconfig-paths": "5.1.4",
     "vitest": "3.2.4"
   },
