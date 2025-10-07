@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updates `@biomejs/biome` from 2.2.4 to 2.2.5 [`93d7d6e`](https://github.com/jelmore1674/build-changelog/commit/93d7d6e9d2d091507e0a94edf920dacc0ee433a4) | [#156](https://github.com/jelmore1674/build-changelog/pull/156) | [dependabot](https://github.com/apps/dependabot)
 - Updates `memfs` from 4.43.0 to 4.48.1 [`93d7d6e`](https://github.com/jelmore1674/build-changelog/commit/93d7d6e9d2d091507e0a94edf920dacc0ee433a4) | [#156](https://github.com/jelmore1674/build-changelog/pull/156) | [dependabot](https://github.com/apps/dependabot)
 - Updates `typescript` from 5.9.2 to 5.9.3 [`93d7d6e`](https://github.com/jelmore1674/build-changelog/commit/93d7d6e9d2d091507e0a94edf920dacc0ee433a4) | [#156](https://github.com/jelmore1674/build-changelog/pull/156) | [dependabot](https://github.com/apps/dependabot)
+- Updates `@jelmore1674/changelog` from 1.3.8 to 1.3.9 [`3034db2`](https://github.com/jelmore1674/build-changelog/commit/3034db288af23b37986c4e92ef210d671c90abe8) | [#155](https://github.com/jelmore1674/build-changelog/pull/155) | [dependabot](https://github.com/apps/dependabot)
+- Updates `@jelmore1674/github-action-helpers` from 0.2.8 to 0.2.9 [`3034db2`](https://github.com/jelmore1674/build-changelog/commit/3034db288af23b37986c4e92ef210d671c90abe8) | [#155](https://github.com/jelmore1674/build-changelog/pull/155) | [dependabot](https://github.com/apps/dependabot)
 
 ## [1.10.13] - 2025-09-27
 
