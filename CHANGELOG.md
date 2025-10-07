@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Common Changelog](https://common-changelog.org),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.10.14] - TBD
+
+### Changed
+
+- Updates `@biomejs/biome` from 2.2.4 to 2.2.5 [`93d7d6e`](https://github.com/jelmore1674/build-changelog/commit/93d7d6e9d2d091507e0a94edf920dacc0ee433a4) | [#156](https://github.com/jelmore1674/build-changelog/pull/156) | [dependabot](https://github.com/apps/dependabot)
+- Updates `memfs` from 4.43.0 to 4.48.1 [`93d7d6e`](https://github.com/jelmore1674/build-changelog/commit/93d7d6e9d2d091507e0a94edf920dacc0ee433a4) | [#156](https://github.com/jelmore1674/build-changelog/pull/156) | [dependabot](https://github.com/apps/dependabot)
+- Updates `typescript` from 5.9.2 to 5.9.3 [`93d7d6e`](https://github.com/jelmore1674/build-changelog/commit/93d7d6e9d2d091507e0a94edf920dacc0ee433a4) | [#156](https://github.com/jelmore1674/build-changelog/pull/156) | [dependabot](https://github.com/apps/dependabot)
+
 ## [1.10.13] - 2025-09-27
 
 ### Changed
@@ -410,6 +418,7 @@ _Read the [README.md](./README.md#complex-example) how to add changes._
 
 _Initial Release_
 
+[1.10.14]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.14
 [1.10.13]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.13
 [1.10.12]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.12
 [1.10.11]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.11
