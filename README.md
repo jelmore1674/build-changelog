@@ -1,6 +1,7 @@
 ![release](https://img.shields.io/github/v/release/jelmore1674/build-changelog?display_name=release&logo=npm&logoColor=CB3837)
 ![issues](https://img.shields.io/github/issues/jelmore1674/build-changelog)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](/tree/main?tab=MIT-1-ov-file)
+![Count of Action Users](https://img.shields.io/endpoint?url=https://jelmore1674.github.io/build-changelog/action-name.json)
 
 # build-changelog
 
