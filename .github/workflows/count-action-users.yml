@@ -26,4 +26,5 @@ jobs:
         with:
           action-list: jelmore1674/build-changelog
         env:
-          GITHUB_TOKEN: ${{steps.load-op.outputs.GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          # GITHUB_TOKEN: ${{steps.load-op.outputs.GITHUB_TOKEN}}
