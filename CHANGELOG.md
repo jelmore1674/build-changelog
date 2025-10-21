@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Bumps [actions/checkout](https://github.com/actions/checkout) from 2 to 5. [`cb627e1`](https://github.com/jelmore1674/build-changelog/commit/cb627e1df9debcf073fc7b493ea1dc6a7e7018a0) | [#162](https://github.com/jelmore1674/build-changelog/pull/162) | [dependabot](https://github.com/apps/dependabot)
 - Bumps [stefanzweifel/git-auto-commit-action](https://github.com/stefanzweifel/git-auto-commit-action) from 6 to 7. [`849fefd`](https://github.com/jelmore1674/build-changelog/commit/849fefdfda8ea0f7c9e5cd74ad7268c1deec2d1c) | [#159](https://github.com/jelmore1674/build-changelog/pull/159) | [dependabot](https://github.com/apps/dependabot)
+- Bumps [actions/setup-node](https://github.com/actions/setup-node) from 5 to 6. [`160f019`](https://github.com/jelmore1674/build-changelog/commit/160f0195f4a674c98c2b33bdcd15ddc2e6ece42d) | [#161](https://github.com/jelmore1674/build-changelog/pull/161) | [dependabot](https://github.com/apps/dependabot)
 
 ## [1.10.14] - 2025-10-11
 
