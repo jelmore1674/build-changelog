@@ -1,4 +1,0 @@
-author: dependabot
-changed:
-  - Updates `@biomejs/biome` from 2.2.5 to 2.2.6
-  - Updates `memfs` from 4.48.1 to 4.49.0
