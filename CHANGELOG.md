@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Bumps [actions/setup-node](https://github.com/actions/setup-node) from 5 to 6. [`160f019`](https://github.com/jelmore1674/build-changelog/commit/160f0195f4a674c98c2b33bdcd15ddc2e6ece42d) | [#161](https://github.com/jelmore1674/build-changelog/pull/161) | [dependabot](https://github.com/apps/dependabot)
 - Updates `@biomejs/biome` from 2.2.5 to 2.2.6 [`6684c16`](https://github.com/jelmore1674/build-changelog/commit/6684c16fde813423e446ad74277413a541d26302) | [#157](https://github.com/jelmore1674/build-changelog/pull/157) | [dependabot](https://github.com/apps/dependabot)
 - Updates `memfs` from 4.48.1 to 4.49.0 [`6684c16`](https://github.com/jelmore1674/build-changelog/commit/6684c16fde813423e446ad74277413a541d26302) | [#157](https://github.com/jelmore1674/build-changelog/pull/157) | [dependabot](https://github.com/apps/dependabot)
+- Updates `vite` from 7.1.5 to 7.1.11 [`091e283`](https://github.com/jelmore1674/build-changelog/commit/091e283c06e37837ce98f9bc85d2b770d64dc930) | [#163](https://github.com/jelmore1674/build-changelog/pull/163) | [dependabot](https://github.com/apps/dependabot)
 
 ## [1.10.14] - 2025-10-11
 
