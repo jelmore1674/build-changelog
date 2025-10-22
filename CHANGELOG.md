@@ -15,6 +15,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updates `@biomejs/biome` from 2.2.5 to 2.2.6 [`6684c16`](https://github.com/jelmore1674/build-changelog/commit/6684c16fde813423e446ad74277413a541d26302) | [#157](https://github.com/jelmore1674/build-changelog/pull/157) | [dependabot](https://github.com/apps/dependabot)
 - Updates `memfs` from 4.48.1 to 4.49.0 [`6684c16`](https://github.com/jelmore1674/build-changelog/commit/6684c16fde813423e446ad74277413a541d26302) | [#157](https://github.com/jelmore1674/build-changelog/pull/157) | [dependabot](https://github.com/apps/dependabot)
 - Updates `vite` from 7.1.5 to 7.1.11 [`091e283`](https://github.com/jelmore1674/build-changelog/commit/091e283c06e37837ce98f9bc85d2b770d64dc930) | [#163](https://github.com/jelmore1674/build-changelog/pull/163) | [dependabot](https://github.com/apps/dependabot)
+- Updates `@jelmore1674/changelog` from 1.3.9 to 1.3.10 [`8656405`](https://github.com/jelmore1674/build-changelog/commit/8656405307b374ab0d81913e09eb92f9884fc013) | [#160](https://github.com/jelmore1674/build-changelog/pull/160) | [dependabot](https://github.com/apps/dependabot)
+- Updates `@jelmore1674/github-action-helpers` from 0.2.9 to 0.2.10 [`8656405`](https://github.com/jelmore1674/build-changelog/commit/8656405307b374ab0d81913e09eb92f9884fc013) | [#160](https://github.com/jelmore1674/build-changelog/pull/160) | [dependabot](https://github.com/apps/dependabot)
+- Updates `semver` from 7.7.2 to 7.7.3 [`8656405`](https://github.com/jelmore1674/build-changelog/commit/8656405307b374ab0d81913e09eb92f9884fc013) | [#160](https://github.com/jelmore1674/build-changelog/pull/160) | [dependabot](https://github.com/apps/dependabot)
 
 ## [1.10.14] - 2025-10-11
 
