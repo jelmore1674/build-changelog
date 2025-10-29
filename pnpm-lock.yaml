@@ -21,8 +21,8 @@ importers:
         specifier: 2.2.5
         version: 2.2.5
       '@jelmore1674/changelog':
-        specifier: ^1.3.10
-        version: 1.3.10
+        specifier: ^1.3.11
+        version: 1.3.11
       '@jelmore1674/github-action-helpers':
         specifier: ^0.2.11
         version: 0.2.11
@@ -387,8 +387,8 @@ packages:
     resolution: {integrity: sha512-ZXRY4jNvVgSVQ8DL3LTcakaAtXwTVUxE81hslsyD2AtoXW/wVob10HkOJ1X/pAlcI7D+2YoZKg5do8G/w6RYgA==}
     engines: {node: '>=8'}
 
-  '@jelmore1674/changelog@1.3.10':
-    resolution: {integrity: sha512-Z6JnzfSC9Jw5D6KoNCMf4odiHxftlzQ7abhZEnlnJe7jrYSV3gxv9TVtYUvbpK/+vp9ieBaHjL+C1PGszGbeTw==}
+  '@jelmore1674/changelog@1.3.11':
+    resolution: {integrity: sha512-cUe1163DTPE0m+Czzndl1y/Ev+4hOKIR8eiUz4k0cXgquDUziPvZ6SBH4685zcR8ZEn/4q8CKSloStQLZkshEg==}
 
   '@jelmore1674/github-action-helpers@0.2.11':
     resolution: {integrity: sha512-JbrNNB+WkxjzeN/xZc3mzKLQWdd/w66Y4MefvF/xsW+VXdlFdY0kLF/3lp3lRCWeVPpZb2qveVLdI3grxAPmmw==}
@@ -1448,7 +1448,7 @@ snapshots:
 
   '@istanbuljs/schema@0.1.3': {}
 
-  '@jelmore1674/changelog@1.3.10':
+  '@jelmore1674/changelog@1.3.11':
     dependencies:
       handlebars: 4.7.8
       latest-semver: 4.0.0
