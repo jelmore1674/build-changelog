@@ -93,7 +93,8 @@ function generateCommand(
 
   if (!skip_changelog && existsSync(changelogPath)) {
     const changelogFile = readFileSync(changelogPath, { encoding: "utf8" });
-    if (!changelogFile.trim()) {
+    if (changelogFile.trim()) {
+      // TODO: Implement error as value for parseChangelog.
       const changelog = parseChangelog(changelogFile, releaseVersion);
       changelogVersions = changelog.versions;
       changelogLinks = changelog.links;
