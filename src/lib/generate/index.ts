@@ -93,9 +93,11 @@ function generateCommand(
 
   if (!skip_changelog && existsSync(changelogPath)) {
     const changelogFile = readFileSync(changelogPath, { encoding: "utf8" });
-    const changelog = parseChangelog(changelogFile, releaseVersion);
-    changelogVersions = changelog.versions;
-    changelogLinks = changelog.links;
+    if (!changelogFile.trim()) {
+      const changelog = parseChangelog(changelogFile, releaseVersion);
+      changelogVersions = changelog.versions;
+      changelogLinks = changelog.links;
+    }
   }
 
   const files = readdirSync(`${process.cwd()}/${actionConfig.dir}`, {
