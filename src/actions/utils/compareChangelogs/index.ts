@@ -33,7 +33,7 @@ async function compareChangelogs() {
       try {
         const parsedChangelog = parseChangelog(changelog);
         existingChangelog = getChangeCount(parsedChangelog.versions);
-      } catch (e) {
+      } catch (_e) {
         setFailed(
           "🚨 Unable to parse existing changelog. Ensure the `CHANGELOG.md` follows the semver convention.",
         );
