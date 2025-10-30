@@ -28,7 +28,18 @@ async function compareChangelogs() {
 
   if (existsSync(changelogPath)) {
     const changelog = readFileSync("CHANGELOG.md", "utf8");
-    existingChangelog = getChangeCount(parseChangelog(changelog).versions);
+    // Only parse the changelog if it is not empty.
+    if (changelog.trim() !== "") {
+      try {
+        const parsedChangelog = parseChangelog(changelog);
+        existingChangelog = getChangeCount(parsedChangelog.versions);
+      } catch (e) {
+        setFailed(
+          "🚨 Unable to parse existing changelog. Ensure the `CHANGELOG.md` follows the semver convention.",
+        );
+        exit(1);
+      }
+    }
   }
   const config: GenerateConfig = {
     ...baseConfig,
