@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Updates `@jelmore1674/changelog` from 1.3.10 to 1.3.11 [`15fa903`](https://github.com/jelmore1674/build-changelog/commit/15fa9032ae56257d7b187ebd5ad741c6229bed15) | [#164](https://github.com/jelmore1674/build-changelog/pull/164) | [dependabot](https://github.com/apps/dependabot)
+- Add `error` message when `parseChangelog` fails in changelog enforcer. [`b65cc68`](https://github.com/jelmore1674/build-changelog/commit/b65cc6877ab1f4c86389105da8f5b10a4a2df92a) | [#167](https://github.com/jelmore1674/build-changelog/pull/167) | [Justin Elmore](https://github.com/jelmore1674)
 
 ## [1.10.15] - 2025-10-25
 
