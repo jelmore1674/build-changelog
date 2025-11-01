@@ -1,0 +1,2 @@
+changed:
+  - Add `error` message when `parseChangelog` fails in changelog enforcer.
