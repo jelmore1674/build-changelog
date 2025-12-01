@@ -35,7 +35,7 @@
     "fs-extra": "11.3.2",
     "latest-semver": "^4.0.0",
     "semver": "^7.7.3",
-    "yaml": "2.8.1"
+    "yaml": "2.8.2"
   },
   "devDependencies": {
     "@biomejs/biome": "2.2.6",
