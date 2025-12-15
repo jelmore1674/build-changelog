@@ -1,0 +1,8 @@
+author: dependabot
+changed:
+  - Updates `@biomejs/biome` from 2.2.6 to 2.3.9
+  - Updates `@vitest/coverage-v8` from 3.2.4 to 4.0.15
+  - Updates `commander` from 14.0.1 to 14.0.2
+  - Updates `memfs` from 4.49.0 to 4.51.1
+  - Updates `vite-tsconfig-paths` from 5.1.4 to 6.0.1
+  - Updates `vitest` from 3.2.4 to 4.0.15
