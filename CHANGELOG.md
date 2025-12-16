@@ -16,6 +16,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updates `vite-tsconfig-paths` from 5.1.4 to 6.0.1 [`4e47ec8`](https://github.com/jelmore1674/build-changelog/commit/4e47ec8175dd681a64895128531b35c7fdaa0378) | [#172](https://github.com/jelmore1674/build-changelog/pull/172) | [dependabot](https://github.com/apps/dependabot)
 - Updates `vitest` from 3.2.4 to 4.0.15 [`4e47ec8`](https://github.com/jelmore1674/build-changelog/commit/4e47ec8175dd681a64895128531b35c7fdaa0378) | [#172](https://github.com/jelmore1674/build-changelog/pull/172) | [dependabot](https://github.com/apps/dependabot)
 - Bumps [actions/checkout](https://github.com/actions/checkout) from 5 to 6. [`3d8630e`](https://github.com/jelmore1674/build-changelog/commit/3d8630e1340e7aa126668fa83c3895834ab883a9) | [#169](https://github.com/jelmore1674/build-changelog/pull/169) | [dependabot](https://github.com/apps/dependabot)
+- Updates `@actions/core` from 1.11.1 to 2.0.1 [`3482113`](https://github.com/jelmore1674/build-changelog/commit/3482113c3075dc48cdcbb963a58a079d7917ec67) | [#171](https://github.com/jelmore1674/build-changelog/pull/171) | [dependabot](https://github.com/apps/dependabot)
+- Updates `@actions/exec` from 1.1.1 to 2.0.0 [`3482113`](https://github.com/jelmore1674/build-changelog/commit/3482113c3075dc48cdcbb963a58a079d7917ec67) | [#171](https://github.com/jelmore1674/build-changelog/pull/171) | [dependabot](https://github.com/apps/dependabot)
+- Updates `yaml` from 2.8.1 to 2.8.2 [`3482113`](https://github.com/jelmore1674/build-changelog/commit/3482113c3075dc48cdcbb963a58a079d7917ec67) | [#171](https://github.com/jelmore1674/build-changelog/pull/171) | [dependabot](https://github.com/apps/dependabot)
 
 ## [1.10.16] - 2025-11-01
 

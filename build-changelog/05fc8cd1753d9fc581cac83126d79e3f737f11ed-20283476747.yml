@@ -1,5 +1,0 @@
-author: dependabot
-changed:
-  - Updates `@actions/core` from 1.11.1 to 2.0.1
-  - Updates `@actions/exec` from 1.1.1 to 2.0.0
-  - Updates `yaml` from 2.8.1 to 2.8.2
