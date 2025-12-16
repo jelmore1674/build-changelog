@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Common Changelog](https://common-changelog.org),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.10.17] - TBD
+
+### Changed
+
+- Updates `@biomejs/biome` from 2.2.6 to 2.3.9 [`4e47ec8`](https://github.com/jelmore1674/build-changelog/commit/4e47ec8175dd681a64895128531b35c7fdaa0378) | [#172](https://github.com/jelmore1674/build-changelog/pull/172) | [dependabot](https://github.com/apps/dependabot)
+- Updates `@vitest/coverage-v8` from 3.2.4 to 4.0.15 [`4e47ec8`](https://github.com/jelmore1674/build-changelog/commit/4e47ec8175dd681a64895128531b35c7fdaa0378) | [#172](https://github.com/jelmore1674/build-changelog/pull/172) | [dependabot](https://github.com/apps/dependabot)
+- Updates `commander` from 14.0.1 to 14.0.2 [`4e47ec8`](https://github.com/jelmore1674/build-changelog/commit/4e47ec8175dd681a64895128531b35c7fdaa0378) | [#172](https://github.com/jelmore1674/build-changelog/pull/172) | [dependabot](https://github.com/apps/dependabot)
+- Updates `memfs` from 4.49.0 to 4.51.1 [`4e47ec8`](https://github.com/jelmore1674/build-changelog/commit/4e47ec8175dd681a64895128531b35c7fdaa0378) | [#172](https://github.com/jelmore1674/build-changelog/pull/172) | [dependabot](https://github.com/apps/dependabot)
+- Updates `vite-tsconfig-paths` from 5.1.4 to 6.0.1 [`4e47ec8`](https://github.com/jelmore1674/build-changelog/commit/4e47ec8175dd681a64895128531b35c7fdaa0378) | [#172](https://github.com/jelmore1674/build-changelog/pull/172) | [dependabot](https://github.com/apps/dependabot)
+- Updates `vitest` from 3.2.4 to 4.0.15 [`4e47ec8`](https://github.com/jelmore1674/build-changelog/commit/4e47ec8175dd681a64895128531b35c7fdaa0378) | [#172](https://github.com/jelmore1674/build-changelog/pull/172) | [dependabot](https://github.com/apps/dependabot)
+
 ## [1.10.16] - 2025-11-01
 
 ### Changed
@@ -441,6 +452,7 @@ _Read the [README.md](./README.md#complex-example) how to add changes._
 
 _Initial Release_
 
+[1.10.17]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.17
 [1.10.16]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.16
 [1.10.15]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.15
 [1.10.14]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.14
