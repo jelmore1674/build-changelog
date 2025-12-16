@@ -34,7 +34,7 @@ jobs:
           application_private_key: ${{ steps.load-op.outputs.GH_APP_KEY }}
           revoke_token: true
 
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           ref: ${{ github.head_ref }}
           fetch-depth: 2
