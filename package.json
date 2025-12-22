@@ -32,7 +32,7 @@
     "@iarna/toml": "2.2.5",
     "@jelmore1674/changelog": "^1.3.11",
     "@jelmore1674/github-action-helpers": "^0.2.11",
-    "fs-extra": "11.3.2",
+    "fs-extra": "11.3.3",
     "latest-semver": "^4.0.0",
     "semver": "^7.7.3",
     "yaml": "2.8.2"
