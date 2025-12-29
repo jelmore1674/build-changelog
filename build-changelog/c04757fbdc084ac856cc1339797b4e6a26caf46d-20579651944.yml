@@ -1,0 +1,4 @@
+author: dependabot
+changed:
+  - Updates `@jelmore1674/github-action-helpers` from 0.2.11 to 0.2.12
+  - Updates `fs-extra` from 11.3.2 to 11.3.3
