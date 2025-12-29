@@ -1,0 +1,7 @@
+author: dependabot
+changed:
+  - Updates `@biomejs/biome` from 2.3.9 to 2.3.10
+  - Updates `@vitest/coverage-v8` from 4.0.15 to 4.0.16
+  - Updates `dprint` from 0.50.2 to 0.51.1
+  - Updates `vite-tsconfig-paths` from 6.0.1 to 6.0.3
+  - Updates `vitest` from 4.0.15 to 4.0.16
