@@ -1,0 +1,6 @@
+author: dependabot
+changed:
+  - Updates `@actions/core` from 2.0.1 to 2.0.2
+  - Updates `@actions/github` from 6.0.1 to 7.0.0
+  - Updates `@jelmore1674/github-action-helpers` from 0.2.11 to 0.2.13
+  - Updates `fs-extra` from 11.3.2 to 11.3.3
