@@ -4,6 +4,8 @@ on:
   schedule:
     - cron: "0 4 * * *"
   workflow_dispatch:
+  push:
+    branches: [gh-pages]
 
 jobs:
   count:
@@ -27,4 +29,3 @@ jobs:
           action-list: jelmore1674/build-changelog
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-          # GITHUB_TOKEN: ${{steps.load-op.outputs.GITHUB_TOKEN}}
