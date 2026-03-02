@@ -1,0 +1,5 @@
+author: dependabot
+changed:
+  - Bumps
+    [crazy-max/ghaction-import-gpg](https://github.com/crazy-max/ghaction-import-gpg)
+    from 6 to 7.
