@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Common Changelog](https://common-changelog.org),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.10.18] - TBD
+
+### Changed
+
+- Bumps [crazy-max/ghaction-import-gpg](https://github.com/crazy-max/ghaction-import-gpg) from 6 to 7. [`df6f64b`](https://github.com/jelmore1674/build-changelog/commit/df6f64b2f9f16e534a7221a026e8375aa6528da1) | [#183](https://github.com/jelmore1674/build-changelog/pull/183) | [dependabot](https://github.com/apps/dependabot)
+
 ## [1.10.17] - 2025-12-20
 
 ### Changed
@@ -456,6 +462,7 @@ _Read the [README.md](./README.md#complex-example) how to add changes._
 
 _Initial Release_
 
+[1.10.18]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.18
 [1.10.17]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.17
 [1.10.16]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.16
 [1.10.15]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.15
