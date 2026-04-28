@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Bumps [crazy-max/ghaction-import-gpg](https://github.com/crazy-max/ghaction-import-gpg) from 6 to 7. [`df6f64b`](https://github.com/jelmore1674/build-changelog/commit/df6f64b2f9f16e534a7221a026e8375aa6528da1) | [#183](https://github.com/jelmore1674/build-changelog/pull/183) | [dependabot](https://github.com/apps/dependabot)
+- Bumps [yaml](https://github.com/eemeli/yaml) from 2.8.2 to 2.8.3. [`f5e7ef7`](https://github.com/jelmore1674/build-changelog/commit/f5e7ef7d48a688d4786cb1467aef64b7456ae86d) | [#184](https://github.com/jelmore1674/build-changelog/pull/184) | [dependabot](https://github.com/apps/dependabot)
 
 ## [1.10.17] - 2025-12-20
 
