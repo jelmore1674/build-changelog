@@ -36,8 +36,8 @@ importers:
         specifier: ^7.7.3
         version: 7.7.3
       yaml:
-        specifier: 2.8.2
-        version: 2.8.2
+        specifier: 2.8.3
+        version: 2.8.3
     devDependencies:
       '@biomejs/biome':
         specifier: 2.3.9
@@ -59,7 +59,7 @@ importers:
         version: 0.38.4
       '@vitest/coverage-v8':
         specifier: 4.0.15
-        version: 4.0.15(vitest@4.0.15(@types/node@22.13.9)(yaml@2.8.2))
+        version: 4.0.15(vitest@4.0.15(@types/node@22.13.9)(yaml@2.8.3))
       commander:
         specifier: 14.0.2
         version: 14.0.2
@@ -77,10 +77,10 @@ importers:
         version: 5.9.3
       vite-tsconfig-paths:
         specifier: 6.0.1
-        version: 6.0.1(typescript@5.9.3)(vite@7.3.0(@types/node@22.13.9)(yaml@2.8.2))
+        version: 6.0.1(typescript@5.9.3)(vite@7.3.0(@types/node@22.13.9)(yaml@2.8.3))
       vitest:
         specifier: 4.0.15
-        version: 4.0.15(@types/node@22.13.9)(yaml@2.8.2)
+        version: 4.0.15(@types/node@22.13.9)(yaml@2.8.3)
 
 packages:
 
@@ -1073,8 +1073,8 @@ packages:
   wrappy@1.0.2:
     resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
 
-  yaml@2.8.2:
-    resolution: {integrity: sha512-mplynKqc1C2hTVYxd0PU2xQAc22TI1vShAYGksCCfxbn/dFwnHTNi1bvYsBTkhdUNtGIf5xNOg938rrSSYvS9A==}
+  yaml@2.8.3:
+    resolution: {integrity: sha512-AvbaCLOO2Otw/lW5bmh9d/WEdcDFdQp2Z2ZUH3pX9U2ihyUY0nvLv7J6TrWowklRGPYbB/IuIMfYgxaCPg5Bpg==}
     engines: {node: '>= 14.6'}
     hasBin: true
 
@@ -1512,7 +1512,7 @@ snapshots:
 
   '@vercel/ncc@0.38.4': {}
 
-  '@vitest/coverage-v8@4.0.15(vitest@4.0.15(@types/node@22.13.9)(yaml@2.8.2))':
+  '@vitest/coverage-v8@4.0.15(vitest@4.0.15(@types/node@22.13.9)(yaml@2.8.3))':
     dependencies:
       '@bcoe/v8-coverage': 1.0.2
       '@vitest/utils': 4.0.15
@@ -1525,7 +1525,7 @@ snapshots:
       obug: 2.1.1
       std-env: 3.10.0
       tinyrainbow: 3.0.3
-      vitest: 4.0.15(@types/node@22.13.9)(yaml@2.8.2)
+      vitest: 4.0.15(@types/node@22.13.9)(yaml@2.8.3)
     transitivePeerDependencies:
       - supports-color
 
@@ -1538,13 +1538,13 @@ snapshots:
       chai: 6.2.1
       tinyrainbow: 3.0.3
 
-  '@vitest/mocker@4.0.15(vite@7.3.0(@types/node@22.13.9)(yaml@2.8.2))':
+  '@vitest/mocker@4.0.15(vite@7.3.0(@types/node@22.13.9)(yaml@2.8.3))':
     dependencies:
       '@vitest/spy': 4.0.15
       estree-walker: 3.0.3
       magic-string: 0.30.21
     optionalDependencies:
-      vite: 7.3.0(@types/node@22.13.9)(yaml@2.8.2)
+      vite: 7.3.0(@types/node@22.13.9)(yaml@2.8.3)
 
   '@vitest/pretty-format@4.0.15':
     dependencies:
@@ -1866,18 +1866,18 @@ snapshots:
 
   universalify@2.0.1: {}
 
-  vite-tsconfig-paths@6.0.1(typescript@5.9.3)(vite@7.3.0(@types/node@22.13.9)(yaml@2.8.2)):
+  vite-tsconfig-paths@6.0.1(typescript@5.9.3)(vite@7.3.0(@types/node@22.13.9)(yaml@2.8.3)):
     dependencies:
       debug: 4.4.3
       globrex: 0.1.2
       tsconfck: 3.1.6(typescript@5.9.3)
     optionalDependencies:
-      vite: 7.3.0(@types/node@22.13.9)(yaml@2.8.2)
+      vite: 7.3.0(@types/node@22.13.9)(yaml@2.8.3)
     transitivePeerDependencies:
       - supports-color
       - typescript
 
-  vite@7.3.0(@types/node@22.13.9)(yaml@2.8.2):
+  vite@7.3.0(@types/node@22.13.9)(yaml@2.8.3):
     dependencies:
       esbuild: 0.27.1
       fdir: 6.5.0(picomatch@4.0.3)
@@ -1888,12 +1888,12 @@ snapshots:
     optionalDependencies:
       '@types/node': 22.13.9
       fsevents: 2.3.3
-      yaml: 2.8.2
+      yaml: 2.8.3
 
-  vitest@4.0.15(@types/node@22.13.9)(yaml@2.8.2):
+  vitest@4.0.15(@types/node@22.13.9)(yaml@2.8.3):
     dependencies:
       '@vitest/expect': 4.0.15
-      '@vitest/mocker': 4.0.15(vite@7.3.0(@types/node@22.13.9)(yaml@2.8.2))
+      '@vitest/mocker': 4.0.15(vite@7.3.0(@types/node@22.13.9)(yaml@2.8.3))
       '@vitest/pretty-format': 4.0.15
       '@vitest/runner': 4.0.15
       '@vitest/snapshot': 4.0.15
@@ -1910,7 +1910,7 @@ snapshots:
       tinyexec: 1.0.2
       tinyglobby: 0.2.15
       tinyrainbow: 3.0.3
-      vite: 7.3.0(@types/node@22.13.9)(yaml@2.8.2)
+      vite: 7.3.0(@types/node@22.13.9)(yaml@2.8.3)
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 22.13.9
@@ -1936,4 +1936,4 @@ snapshots:
 
   wrappy@1.0.2: {}
 
-  yaml@2.8.2: {}
+  yaml@2.8.3: {}
