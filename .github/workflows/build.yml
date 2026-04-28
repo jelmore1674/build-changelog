@@ -76,7 +76,7 @@ jobs:
       - if: ${{ steps.dirty.outputs.changes == 'true' }}
         name: "Import GPG key"
         id: import-gpg
-        uses: crazy-max/ghaction-import-gpg@v6
+        uses: crazy-max/ghaction-import-gpg@v7
         with:
           gpg_private_key: ${{ steps.decode.outputs.GPG }}
           passphrase: "${{ steps.load-op.outputs.GPG_PASSPHRASE }}"
