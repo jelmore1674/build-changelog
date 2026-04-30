@@ -1,0 +1,5 @@
+author: dependabot
+changed:
+  - Bumps
+    [jelmore1674/release-semver-action](https://github.com/jelmore1674/release-semver-action)
+    from 1 to 2.
