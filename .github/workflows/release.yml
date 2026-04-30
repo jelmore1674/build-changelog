@@ -1,9 +1,9 @@
 name: Release
 
 on:
-  schedule:
-    - cron: "20 4 * * 6"
-
+  # NOTE: Temporarily Disable cron until upgrade to node 24 is complete
+  # schedule:
+  #   - cron: "20 4 * * 6"
   workflow_dispatch:
     inputs:
       tag:
