@@ -14,6 +14,7 @@
     "build:enforcer": "ncc build src/enforcer.ts -m -o enforcer",
     "build:generate": "ncc build src/generate.ts -m -o generate",
     "build:notes": "ncc build src/notes.ts -m -o notes",
+    "build:schema": "node ./src/utils/schema/index.ts",
     "__LINT__": "#################################################################################",
     "lint": "pnpm lint:biome && pnpm lint:dprint ",
     "lint:biome": "biome lint --error-on-warnings",
@@ -36,7 +37,8 @@
     "fs-extra": "11.3.4",
     "latest-semver": "^4.0.0",
     "semver": "^7.7.4",
-    "yaml": "2.8.3"
+    "yaml": "2.8.3",
+    "zod": "^4.4.1"
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.13",
