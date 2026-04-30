@@ -11,6 +11,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Bumps [crazy-max/ghaction-import-gpg](https://github.com/crazy-max/ghaction-import-gpg) from 6 to 7. [`df6f64b`](https://github.com/jelmore1674/build-changelog/commit/df6f64b2f9f16e534a7221a026e8375aa6528da1) | [#183](https://github.com/jelmore1674/build-changelog/pull/183) | [dependabot](https://github.com/apps/dependabot)
 - Bumps [yaml](https://github.com/eemeli/yaml) from 2.8.2 to 2.8.3. [`f5e7ef7`](https://github.com/jelmore1674/build-changelog/commit/f5e7ef7d48a688d4786cb1467aef64b7456ae86d) | [#184](https://github.com/jelmore1674/build-changelog/pull/184) | [dependabot](https://github.com/apps/dependabot)
+- Updates `@biomejs/biome` from 2.3.9 to 2.4.13 [`0ea0b7b`](https://github.com/jelmore1674/build-changelog/commit/0ea0b7b472830bcb1dad972805cdad58b9e5079e) | [#185](https://github.com/jelmore1674/build-changelog/pull/185) | [dependabot](https://github.com/apps/dependabot)
+- Updates `@vitest/coverage-v8` from 4.0.15 to 4.1.5 [`0ea0b7b`](https://github.com/jelmore1674/build-changelog/commit/0ea0b7b472830bcb1dad972805cdad58b9e5079e) | [#185](https://github.com/jelmore1674/build-changelog/pull/185) | [dependabot](https://github.com/apps/dependabot)
+- Updates `commander` from 14.0.2 to 14.0.3 [`0ea0b7b`](https://github.com/jelmore1674/build-changelog/commit/0ea0b7b472830bcb1dad972805cdad58b9e5079e) | [#185](https://github.com/jelmore1674/build-changelog/pull/185) | [dependabot](https://github.com/apps/dependabot)
+- Updates `dprint` from 0.50.2 to 0.54.0 [`0ea0b7b`](https://github.com/jelmore1674/build-changelog/commit/0ea0b7b472830bcb1dad972805cdad58b9e5079e) | [#185](https://github.com/jelmore1674/build-changelog/pull/185) | [dependabot](https://github.com/apps/dependabot)
+- Updates `memfs` from 4.51.1 to 4.57.2 [`0ea0b7b`](https://github.com/jelmore1674/build-changelog/commit/0ea0b7b472830bcb1dad972805cdad58b9e5079e) | [#185](https://github.com/jelmore1674/build-changelog/pull/185) | [dependabot](https://github.com/apps/dependabot)
+- Updates `nock` from 14.0.10 to 14.0.13 [`0ea0b7b`](https://github.com/jelmore1674/build-changelog/commit/0ea0b7b472830bcb1dad972805cdad58b9e5079e) | [#185](https://github.com/jelmore1674/build-changelog/pull/185) | [dependabot](https://github.com/apps/dependabot)
+- Updates `typescript` from 5.9.3 to 6.0.3 [`0ea0b7b`](https://github.com/jelmore1674/build-changelog/commit/0ea0b7b472830bcb1dad972805cdad58b9e5079e) | [#185](https://github.com/jelmore1674/build-changelog/pull/185) | [dependabot](https://github.com/apps/dependabot)
+- Updates `vite-tsconfig-paths` from 6.0.1 to 6.1.1 [`0ea0b7b`](https://github.com/jelmore1674/build-changelog/commit/0ea0b7b472830bcb1dad972805cdad58b9e5079e) | [#185](https://github.com/jelmore1674/build-changelog/pull/185) | [dependabot](https://github.com/apps/dependabot)
+- Updates `vitest` from 4.0.15 to 4.1.5 [`0ea0b7b`](https://github.com/jelmore1674/build-changelog/commit/0ea0b7b472830bcb1dad972805cdad58b9e5079e) | [#185](https://github.com/jelmore1674/build-changelog/pull/185) | [dependabot](https://github.com/apps/dependabot)
 
 ## [1.10.17] - 2025-12-20
 
