@@ -1,4 +1,0 @@
-changed:
-  - message: Changed all actions to use `node24`.
-  - message: Changed default directory to `build-changelog`.
-    flag: breaking

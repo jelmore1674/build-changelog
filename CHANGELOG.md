@@ -5,10 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Common Changelog](https://common-changelog.org),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.10.18] - TBD
+## [2.0.0] - TBD
 
 ### Changed
 
+- [Breaking 🧨] - Changed default directory to `build-changelog`. [`c8419f7`](https://github.com/jelmore1674/build-changelog/commit/c8419f7d22ac362e4bf4aeb9e6fd963683d63fee) | [#189](https://github.com/jelmore1674/build-changelog/pull/189) | [Justin Elmore](https://github.com/jelmore1674)
 - Bumps [crazy-max/ghaction-import-gpg](https://github.com/crazy-max/ghaction-import-gpg) from 6 to 7. [`df6f64b`](https://github.com/jelmore1674/build-changelog/commit/df6f64b2f9f16e534a7221a026e8375aa6528da1) | [#183](https://github.com/jelmore1674/build-changelog/pull/183) | [dependabot](https://github.com/apps/dependabot)
 - Bumps [yaml](https://github.com/eemeli/yaml) from 2.8.2 to 2.8.3. [`f5e7ef7`](https://github.com/jelmore1674/build-changelog/commit/f5e7ef7d48a688d4786cb1467aef64b7456ae86d) | [#184](https://github.com/jelmore1674/build-changelog/pull/184) | [dependabot](https://github.com/apps/dependabot)
 - Updates `@biomejs/biome` from 2.3.9 to 2.4.13 [`0ea0b7b`](https://github.com/jelmore1674/build-changelog/commit/0ea0b7b472830bcb1dad972805cdad58b9e5079e) | [#185](https://github.com/jelmore1674/build-changelog/pull/185) | [dependabot](https://github.com/apps/dependabot)
@@ -27,6 +28,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updates `@jelmore1674/github-action-helpers` from 0.2.11 to 1.0.0 [`d109dec`](https://github.com/jelmore1674/build-changelog/commit/d109decb64bb36ed574bbfd0f3c9f19369bf2ab7) | [#188](https://github.com/jelmore1674/build-changelog/pull/188) | [dependabot](https://github.com/apps/dependabot)
 - Updates `fs-extra` from 11.3.2 to 11.3.4 [`d109dec`](https://github.com/jelmore1674/build-changelog/commit/d109decb64bb36ed574bbfd0f3c9f19369bf2ab7) | [#188](https://github.com/jelmore1674/build-changelog/pull/188) | [dependabot](https://github.com/apps/dependabot)
 - Updates `semver` from 7.7.3 to 7.7.4 [`d109dec`](https://github.com/jelmore1674/build-changelog/commit/d109decb64bb36ed574bbfd0f3c9f19369bf2ab7) | [#188](https://github.com/jelmore1674/build-changelog/pull/188) | [dependabot](https://github.com/apps/dependabot)
+- Changed all actions to use `node24`. [`c8419f7`](https://github.com/jelmore1674/build-changelog/commit/c8419f7d22ac362e4bf4aeb9e6fd963683d63fee) | [#189](https://github.com/jelmore1674/build-changelog/pull/189) | [Justin Elmore](https://github.com/jelmore1674)
+
+### Added
+
+- `zod` to the project. [`c8419f7`](https://github.com/jelmore1674/build-changelog/commit/c8419f7d22ac362e4bf4aeb9e6fd963683d63fee) | [#189](https://github.com/jelmore1674/build-changelog/pull/189) | [Justin Elmore](https://github.com/jelmore1674)
+- Create json schema using zod. [`c8419f7`](https://github.com/jelmore1674/build-changelog/commit/c8419f7d22ac362e4bf4aeb9e6fd963683d63fee) | [#189](https://github.com/jelmore1674/build-changelog/pull/189) | [Justin Elmore](https://github.com/jelmore1674)
 
 ## [1.10.17] - 2025-12-20
 
@@ -479,7 +486,7 @@ _Read the [README.md](./README.md#complex-example) how to add changes._
 
 _Initial Release_
 
-[1.10.18]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.18
+[2.0.0]: https://github.com/jelmore1674/build-changelog/releases/tag/v2.0.0
 [1.10.17]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.17
 [1.10.16]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.16
 [1.10.15]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.15
