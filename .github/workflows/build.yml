@@ -54,9 +54,6 @@ jobs:
         name: Load secret
         id: load-op
         uses: 1password/load-secrets-action@v3
-        with:
-          # Export loaded secrets as environment variables
-          export-env: false
         env:
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
           GPG_KEY: op://Actions/shared/GPG_KEY
