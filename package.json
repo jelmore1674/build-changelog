@@ -2,6 +2,7 @@
   "name": "@jelmore1674/build-changelog",
   "version": "1.10.17",
   "description": "",
+  "type": "module",
   "main": "dist/index.js",
   "files": [
     "dist"
