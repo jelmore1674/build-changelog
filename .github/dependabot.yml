@@ -16,7 +16,7 @@ updates:
         dependency-type: "development"
     ignore:
       - dependency-name: "@types/node"
-        versions: [">20"]
+        versions: [">24"]
         # Ignore patch updates for Node
         update-types: [
           "version-update:semver-major",
