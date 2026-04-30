@@ -1,195 +1,195 @@
 {
-    "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "type": "object",
-    "properties": {
-        "added": {
-            "$ref": "#/$defs/__schema0"
-        },
-        "changed": {
-            "$ref": "#/$defs/__schema8"
-        },
-        "removed": {
-            "$ref": "#/$defs/__schema9"
-        },
-        "fixed": {
-            "$ref": "#/$defs/__schema10"
-        },
-        "security": {
-            "$ref": "#/$defs/__schema11"
-        },
-        "deprecated": {
-            "$ref": "#/$defs/__schema12"
-        },
-        "version": {
-            "$ref": "#/$defs/__schema13"
-        },
-        "release_date": {
-            "$ref": "#/$defs/__schema15"
-        },
-        "notice": {
-            "$ref": "#/$defs/__schema17"
-        },
-        "change": {
-            "$ref": "#/$defs/__schema19"
-        }
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "added": {
+      "$ref": "#/$defs/__schema0"
     },
-    "additionalProperties": false,
-    "title": "build-changelog",
-    "description": "Schema for changelog files",
-    "$defs": {
-        "__schema0": {
-            "description": "Changes where you add to the project",
-            "$ref": "#/$defs/__schema1"
+    "changed": {
+      "$ref": "#/$defs/__schema8"
+    },
+    "removed": {
+      "$ref": "#/$defs/__schema9"
+    },
+    "fixed": {
+      "$ref": "#/$defs/__schema10"
+    },
+    "security": {
+      "$ref": "#/$defs/__schema11"
+    },
+    "deprecated": {
+      "$ref": "#/$defs/__schema12"
+    },
+    "version": {
+      "$ref": "#/$defs/__schema13"
+    },
+    "release_date": {
+      "$ref": "#/$defs/__schema15"
+    },
+    "notice": {
+      "$ref": "#/$defs/__schema17"
+    },
+    "change": {
+      "$ref": "#/$defs/__schema19"
+    }
+  },
+  "additionalProperties": false,
+  "title": "build-changelog",
+  "description": "Schema for changelog files",
+  "$defs": {
+    "__schema0": {
+      "description": "Changes where you add to the project",
+      "$ref": "#/$defs/__schema1"
+    },
+    "__schema1": {
+      "anyOf": [
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/__schema2"
+          },
+          "description": "This is a simple change entry"
         },
-        "__schema1": {
-            "anyOf": [
-                {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/$defs/__schema2"
-                    },
-                    "description": "This is a simple change entry"
-                },
-                {
-                    "type": "object",
-                    "properties": {
-                        "breaking": {
-                            "$ref": "#/$defs/__schema3"
-                        }
-                    },
-                    "required": [
-                        "breaking"
-                    ],
-                    "additionalProperties": false,
-                    "description": "This is a breaking change"
-                },
-                {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/$defs/__schema5"
-                    },
-                    "description": "A complex change entry"
-                }
-            ]
-        },
-        "__schema2": {
-            "type": "string",
-            "description": "Simple Change Entry"
-        },
-        "__schema3": {
-            "type": "array",
-            "items": {
-                "$ref": "#/$defs/__schema4"
-            },
-            "description": "The change entry messages"
-        },
-        "__schema4": {
-            "type": "string",
-            "description": "The change entry message"
-        },
-        "__schema5": {
-            "type": "object",
-            "properties": {
-                "message": {
-                    "type": "string",
-                    "description": "The change entry message"
-                },
-                "flag": {
-                    "description": "The flag to add a prefix to the changes",
-                    "$ref": "#/$defs/__schema6"
-                },
-                "references": {
-                    "description": "Issue or Pull Request reference to the change",
-                    "$ref": "#/$defs/__schema7"
-                }
-            },
-            "required": [
-                "message"
-            ],
-            "additionalProperties": false
-        },
-        "__schema6": {
-            "type": "string"
-        },
-        "__schema7": {
-            "type": "array",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "type": {
-                        "type": "string",
-                        "enum": [
-                            "pull_request",
-                            "issue"
-                        ],
-                        "description": "The type of reference, can be `pull_request`,`pr`, or `issue`"
-                    },
-                    "number": {
-                        "type": "number",
-                        "description": "The pull request or issue number"
-                    }
-                },
-                "required": [
-                    "type",
-                    "number"
-                ],
-                "additionalProperties": false
+        {
+          "type": "object",
+          "properties": {
+            "breaking": {
+              "$ref": "#/$defs/__schema3"
             }
+          },
+          "required": [
+            "breaking"
+          ],
+          "additionalProperties": false,
+          "description": "This is a breaking change"
         },
-        "__schema8": {
-            "description": "Changes where you changed functionality",
-            "$ref": "#/$defs/__schema1"
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/__schema5"
+          },
+          "description": "A complex change entry"
+        }
+      ]
+    },
+    "__schema2": {
+      "type": "string",
+      "description": "Simple Change Entry"
+    },
+    "__schema3": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/__schema4"
+      },
+      "description": "The change entry messages"
+    },
+    "__schema4": {
+      "type": "string",
+      "description": "The change entry message"
+    },
+    "__schema5": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "description": "The change entry message"
         },
-        "__schema9": {
-            "description": "Changes where you removed a feature or something else",
-            "$ref": "#/$defs/__schema1"
+        "flag": {
+          "description": "The flag to add a prefix to the changes",
+          "$ref": "#/$defs/__schema6"
         },
-        "__schema10": {
-            "description": "Changes where you fixed a bug",
-            "$ref": "#/$defs/__schema1"
-        },
-        "__schema11": {
-            "description": "Changes where you made an update for security reasons",
-            "$ref": "#/$defs/__schema1"
-        },
-        "__schema12": {
-            "description": "Changes where you plan on removing something, but are waiting to do so",
-            "$ref": "#/$defs/__schema1"
-        },
-        "__schema13": {
-            "description": "The current version of the project. If left off this will fallback to being `Unreleased`",
-            "$ref": "#/$defs/__schema14"
-        },
-        "__schema14": {
-            "type": "string"
-        },
-        "__schema15": {
-            "description": "The release date of the current version. If this is property is not defined this will fall back to `TBD`",
-            "$ref": "#/$defs/__schema16"
-        },
-        "__schema16": {
-            "type": "string",
-            "format": "date",
-            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
-        },
-        "__schema17": {
-            "description": "A notice for a the current release",
-            "$ref": "#/$defs/__schema18"
-        },
-        "__schema18": {
-            "type": "string"
-        },
-        "__schema19": {
-            "description": "The type of change you are creating. Valid values are `major` | `minor` | `patch`.",
-            "$ref": "#/$defs/__schema20"
-        },
-        "__schema20": {
+        "references": {
+          "description": "Issue or Pull Request reference to the change",
+          "$ref": "#/$defs/__schema7"
+        }
+      },
+      "required": [
+        "message"
+      ],
+      "additionalProperties": false
+    },
+    "__schema6": {
+      "type": "string"
+    },
+    "__schema7": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
             "type": "string",
             "enum": [
-                "major",
-                "minor",
-                "patch"
-            ]
-        }
+              "pull_request",
+              "issue"
+            ],
+            "description": "The type of reference, can be `pull_request`,`pr`, or `issue`"
+          },
+          "number": {
+            "type": "number",
+            "description": "The pull request or issue number"
+          }
+        },
+        "required": [
+          "type",
+          "number"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "__schema8": {
+      "description": "Changes where you changed functionality",
+      "$ref": "#/$defs/__schema1"
+    },
+    "__schema9": {
+      "description": "Changes where you removed a feature or something else",
+      "$ref": "#/$defs/__schema1"
+    },
+    "__schema10": {
+      "description": "Changes where you fixed a bug",
+      "$ref": "#/$defs/__schema1"
+    },
+    "__schema11": {
+      "description": "Changes where you made an update for security reasons",
+      "$ref": "#/$defs/__schema1"
+    },
+    "__schema12": {
+      "description": "Changes where you plan on removing something, but are waiting to do so",
+      "$ref": "#/$defs/__schema1"
+    },
+    "__schema13": {
+      "description": "The current version of the project. If left off this will fallback to being `Unreleased`",
+      "$ref": "#/$defs/__schema14"
+    },
+    "__schema14": {
+      "type": "string"
+    },
+    "__schema15": {
+      "description": "The release date of the current version. If this is property is not defined this will fall back to `TBD`",
+      "$ref": "#/$defs/__schema16"
+    },
+    "__schema16": {
+      "type": "string",
+      "format": "date",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+    },
+    "__schema17": {
+      "description": "A notice for a the current release",
+      "$ref": "#/$defs/__schema18"
+    },
+    "__schema18": {
+      "type": "string"
+    },
+    "__schema19": {
+      "description": "The type of change you are creating. Valid values are `major` | `minor` | `patch`.",
+      "$ref": "#/$defs/__schema20"
+    },
+    "__schema20": {
+      "type": "string",
+      "enum": [
+        "major",
+        "minor",
+        "patch"
+      ]
     }
+  }
 }
