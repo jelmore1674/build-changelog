@@ -1,6 +1,6 @@
 {
   "name": "@jelmore1674/build-changelog",
-  "version": "1.10.17",
+  "version": "2.0.0",
   "description": "",
   "type": "module",
   "main": "dist/index.js",
