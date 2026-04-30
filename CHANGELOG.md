@@ -30,6 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updates `semver` from 7.7.3 to 7.7.4 [`d109dec`](https://github.com/jelmore1674/build-changelog/commit/d109decb64bb36ed574bbfd0f3c9f19369bf2ab7) | [#188](https://github.com/jelmore1674/build-changelog/pull/188) | [dependabot](https://github.com/apps/dependabot)
 - Changed all actions to use `node24`. [`c8419f7`](https://github.com/jelmore1674/build-changelog/commit/c8419f7d22ac362e4bf4aeb9e6fd963683d63fee) | [#189](https://github.com/jelmore1674/build-changelog/pull/189) | [Justin Elmore](https://github.com/jelmore1674)
 - Bumps [jelmore1674/release-semver-action](https://github.com/jelmore1674/release-semver-action) from 1 to 2. [`83cb4e6`](https://github.com/jelmore1674/build-changelog/commit/83cb4e625b5a466c81ea77693bec3ab7751d89ca) | [#191](https://github.com/jelmore1674/build-changelog/pull/191) | [dependabot](https://github.com/apps/dependabot)
+- Bumps [1password/load-secrets-action](https://github.com/1password/load-secrets-action) from 3 to 4. [`0f9db16`](https://github.com/jelmore1674/build-changelog/commit/0f9db16a588cb873886e1046a9ee052137850410) | [#192](https://github.com/jelmore1674/build-changelog/pull/192) | [dependabot](https://github.com/apps/dependabot)
 
 ### Added
 
