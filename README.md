@@ -162,10 +162,6 @@ jobs:
           fetch-depth: 2
 
       - uses: jelmore1674/build-changelog@v1
-        # NOTE:
-        # Set the dir to `build-changelog` so your editor can use the json schema from the schema
-        # store. In the future the `build-changelog` will be the default.
-        dir: build-changelog
 ```
 
 Here is a list of all of the inputs for the action.
@@ -184,7 +180,7 @@ inputs:
 
   dir:
     description: The directory to keep your changelog files. Defaults to the `changelog` directory.
-    default: "changelog"
+    default: "build-changelog"
     required: true
 
   flags:
@@ -453,7 +449,7 @@ skip_labels:
 
 dir:
   description: The directory to keep your changelog files. Defaults to the `changelog` directory.
-  default: "changelog"
+  default: "build-changelog"
   required: true
 
 enable_dependabot:

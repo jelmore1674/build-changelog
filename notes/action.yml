@@ -3,5 +3,5 @@ description: Get release notes your changelog.
 author: Justin Elmore
 
 runs:
-  using: node20
+  using: node24
   main: index.js

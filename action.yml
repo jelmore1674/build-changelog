@@ -36,7 +36,7 @@ inputs:
 
   dir:
     description: The directory to keep your changelog files. Defaults to the `changelog` directory.
-    default: "changelog"
+    default: "build-changelog"
     required: true
 
   flags:
@@ -135,5 +135,5 @@ outputs:
     description: The Semantically updated version.
 
 runs:
-  using: node20
+  using: node24
   main: ./generate/index.js
