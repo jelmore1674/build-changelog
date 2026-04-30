@@ -16,7 +16,7 @@ jobs:
 
       - name: Load secret
         id: load-op
-        uses: 1password/load-secrets-action@v3
+        uses: 1password/load-secrets-action@v4
         env:
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
           GITHUB_TOKEN: "op://Actions/shared/GH_TOKEN"
