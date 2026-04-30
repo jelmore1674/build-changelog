@@ -1,0 +1,5 @@
+author: dependabot
+changed:
+  - Bumps
+    [1password/load-secrets-action](https://github.com/1password/load-secrets-action)
+    from 3 to 4.
