@@ -1,0 +1,4 @@
+author: dependabot
+changed:
+  - Updates `@biomejs/biome` from 2.4.13 to 2.4.14
+  - Updates `nock` from 14.0.13 to 14.0.14
