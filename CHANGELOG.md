@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Common Changelog](https://common-changelog.org),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.1] - TBD
+
+### Changed
+
+- Updates `zod` from 4.4.1 to 4.4.2 [`a8450b3`](https://github.com/jelmore1674/build-changelog/commit/a8450b3181163ac6ff266fb3eca4773979d022ea) | [#193](https://github.com/jelmore1674/build-changelog/pull/193) | [dependabot](https://github.com/apps/dependabot)
+
 ## [2.0.0] - 2026-04-30
 
 ### Changed
@@ -489,6 +495,7 @@ _Read the [README.md](./README.md#complex-example) how to add changes._
 
 _Initial Release_
 
+[2.0.1]: https://github.com/jelmore1674/build-changelog/releases/tag/v2.0.1
 [2.0.0]: https://github.com/jelmore1674/build-changelog/releases/tag/v2.0.0
 [1.10.17]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.17
 [1.10.16]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.16
