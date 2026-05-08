@@ -32,13 +32,13 @@
     "@actions/exec": "^3.0.0",
     "@actions/github": "^9.1.1",
     "@iarna/toml": "2.2.5",
-    "@jelmore1674/changelog": "^2.0.0",
+    "@jelmore1674/changelog": "^2.0.1",
     "@jelmore1674/github-action-helpers": "^1.0.0",
-    "fs-extra": "11.3.4",
+    "fs-extra": "11.3.5",
     "latest-semver": "^4.0.0",
     "semver": "^7.7.4",
-    "yaml": "2.8.3",
-    "zod": "^4.4.2"
+    "yaml": "2.8.4",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.13",
