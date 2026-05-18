@@ -30,22 +30,17 @@ jobs:
         if: ${{ steps.get_tag.outputs.latest_tag == 'true' }}
         id: load-op
         uses: 1password/load-secrets-action@v4
-        with:
-          # Export loaded secrets as environment variables
-          export-env: false
         env:
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
           GH_APP_KEY: "op://Actions/GH_APP_KEY/private key"
           APP_ID: op://Actions/shared/APP_ID
 
       - name: Get Token
-        if: ${{ steps.get_tag.outputs.latest_tag == 'true' }}
         id: get_workflow_token
-        uses: peter-murray/workflow-application-token-action@v4
+        uses: actions/create-github-app-token@v3
         with:
-          application_id: ${{ steps.load-op.outputs.APP_ID }}
-          application_private_key: ${{ steps.load-op.outputs.GH_APP_KEY }}
-          revoke_token: true
+          client-id: ${{ steps.load-op.outputs.APP_ID }}
+          private-key: ${{ steps.load-op.outputs.GH_APP_KEY }}
 
       - name: Create Release
         if: ${{ steps.get_tag.outputs.latest_tag == 'true' }}

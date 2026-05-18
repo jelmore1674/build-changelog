@@ -25,11 +25,10 @@ jobs:
 
       - name: Get Token
         id: get_workflow_token
-        uses: peter-murray/workflow-application-token-action@v4
+        uses: actions/create-github-app-token@v3
         with:
-          application_id: ${{ steps.load-op.outputs.APP_ID}}
-          application_private_key: ${{ steps.load-op.outputs.GH_APP_KEY }}
-          revoke_token: true
+          app-id: ${{ steps.load-op.outputs.APP_ID}}
+          private-key: ${{ steps.load-op.outputs.GH_APP_KEY }}
 
       - uses: actions/checkout@v6
         with:
