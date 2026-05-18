@@ -1,3 +1,6 @@
+allowBuilds:
+  dprint: true
+  esbuild: true
 onlyBuiltDependencies:
   - '@biomejs/biome'
   - dprint

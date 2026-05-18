@@ -14,17 +14,9 @@ jobs:
         with:
           ref: gh-pages
 
-      - name: Load secret
-        id: load-op
-        uses: 1password/load-secrets-action@v4
-        env:
-          OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
-          GITHUB_TOKEN: "op://Actions/shared/GH_TOKEN"
-
       - name: Generate user count JSON endpoint
         uses: cicirello/count-action-users@v1
         with:
           action-list: jelmore1674/build-changelog
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-          # GITHUB_TOKEN: ${{steps.load-op.outputs.GITHUB_TOKEN}}
