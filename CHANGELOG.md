@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Common Changelog](https://common-changelog.org),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.2] - TBD
+
+### Changed
+
+- Updates `@biomejs/biome` from 2.4.13 to 2.4.15 [`7ef7684`](https://github.com/jelmore1674/build-changelog/commit/7ef7684900e8365f3a8bf84068cabcda18cda877) | [#197](https://github.com/jelmore1674/build-changelog/pull/197) | [dependabot](https://github.com/apps/dependabot)
+- Updates `@vitest/coverage-v8` from 4.1.5 to 4.1.6 [`7ef7684`](https://github.com/jelmore1674/build-changelog/commit/7ef7684900e8365f3a8bf84068cabcda18cda877) | [#197](https://github.com/jelmore1674/build-changelog/pull/197) | [dependabot](https://github.com/apps/dependabot)
+- Updates `nock` from 14.0.13 to 14.0.15 [`7ef7684`](https://github.com/jelmore1674/build-changelog/commit/7ef7684900e8365f3a8bf84068cabcda18cda877) | [#197](https://github.com/jelmore1674/build-changelog/pull/197) | [dependabot](https://github.com/apps/dependabot)
+- Updates `vitest` from 4.1.5 to 4.1.6 [`7ef7684`](https://github.com/jelmore1674/build-changelog/commit/7ef7684900e8365f3a8bf84068cabcda18cda877) | [#197](https://github.com/jelmore1674/build-changelog/pull/197) | [dependabot](https://github.com/apps/dependabot)
+
 ## [2.0.1] - 2026-05-09
 
 ### Changed
@@ -495,6 +504,7 @@ _Read the [README.md](./README.md#complex-example) how to add changes._
 
 _Initial Release_
 
+[2.0.2]: https://github.com/jelmore1674/build-changelog/releases/tag/v2.0.2
 [2.0.1]: https://github.com/jelmore1674/build-changelog/releases/tag/v2.0.1
 [2.0.0]: https://github.com/jelmore1674/build-changelog/releases/tag/v2.0.0
 [1.10.17]: https://github.com/jelmore1674/build-changelog/releases/tag/v1.10.17
