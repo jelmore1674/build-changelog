@@ -13,6 +13,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updates `@vitest/coverage-v8` from 4.1.5 to 4.1.6 [`7ef7684`](https://github.com/jelmore1674/build-changelog/commit/7ef7684900e8365f3a8bf84068cabcda18cda877) | [#197](https://github.com/jelmore1674/build-changelog/pull/197) | [dependabot](https://github.com/apps/dependabot)
 - Updates `nock` from 14.0.13 to 14.0.15 [`7ef7684`](https://github.com/jelmore1674/build-changelog/commit/7ef7684900e8365f3a8bf84068cabcda18cda877) | [#197](https://github.com/jelmore1674/build-changelog/pull/197) | [dependabot](https://github.com/apps/dependabot)
 - Updates `vitest` from 4.1.5 to 4.1.6 [`7ef7684`](https://github.com/jelmore1674/build-changelog/commit/7ef7684900e8365f3a8bf84068cabcda18cda877) | [#197](https://github.com/jelmore1674/build-changelog/pull/197) | [dependabot](https://github.com/apps/dependabot)
+- Swap to the `@actions/create-github-app-token` action. [`1943a90`](https://github.com/jelmore1674/build-changelog/commit/1943a90824fe4c533b0dcf3c0324831c6dd96e9d) | [#200](https://github.com/jelmore1674/build-changelog/pull/200) | [Justin Elmore](https://github.com/jelmore1674)
+
+### Added
+
+- Use `mise` to manage `node` and `pnpm` versions. [`1943a90`](https://github.com/jelmore1674/build-changelog/commit/1943a90824fe4c533b0dcf3c0324831c6dd96e9d) | [#200](https://github.com/jelmore1674/build-changelog/pull/200) | [Justin Elmore](https://github.com/jelmore1674)
 
 ## [2.0.1] - 2026-05-09
 

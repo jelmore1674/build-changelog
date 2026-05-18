@@ -1,5 +1,0 @@
-added:
-  - Use `mise` to manage `node` and `pnpm` versions.
-
-changed:
-  - Swap to the `@actions/create-github-app-token` action.
