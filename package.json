@@ -46,14 +46,14 @@
     "@types/node": "^24.0.0",
     "@types/semver": "7.7.1",
     "@vercel/ncc": "0.38.4",
-    "@vitest/coverage-v8": "4.1.6",
+    "@vitest/coverage-v8": "4.1.7",
     "commander": "14.0.3",
     "dprint": "0.54.0",
     "memfs": "^4.57.2",
     "nock": "^14.0.15",
     "typescript": "6.0.3",
     "vite-tsconfig-paths": "6.1.1",
-    "vitest": "4.1.6"
+    "vitest": "4.1.7"
   },
   "bin": {
     "bcl": "dist/index.js"
