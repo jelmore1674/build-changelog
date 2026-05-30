@@ -21,26 +21,26 @@ importers:
         specifier: 2.2.5
         version: 2.2.5
       '@jelmore1674/changelog':
-        specifier: ^2.0.0
-        version: 2.0.0
+        specifier: ^2.0.2
+        version: 2.0.2
       '@jelmore1674/github-action-helpers':
         specifier: ^1.0.0
         version: 1.0.0
       fs-extra:
-        specifier: 11.3.4
-        version: 11.3.4
+        specifier: 11.3.5
+        version: 11.3.5
       latest-semver:
         specifier: ^4.0.0
         version: 4.0.0
       semver:
-        specifier: ^7.7.4
-        version: 7.7.4
+        specifier: ^7.8.1
+        version: 7.8.1
       yaml:
-        specifier: 2.8.3
-        version: 2.8.3
+        specifier: 2.9.0
+        version: 2.9.0
       zod:
-        specifier: ^4.4.2
-        version: 4.4.2
+        specifier: ^4.4.3
+        version: 4.4.3
     devDependencies:
       '@biomejs/biome':
         specifier: 2.4.16
@@ -80,10 +80,10 @@ importers:
         version: 6.0.3
       vite-tsconfig-paths:
         specifier: 6.1.1
-        version: 6.1.1(typescript@6.0.3)(vite@7.3.0(@types/node@24.12.2)(yaml@2.8.3))
+        version: 6.1.1(typescript@6.0.3)(vite@7.3.0(@types/node@24.12.2)(yaml@2.9.0))
       vitest:
         specifier: 4.1.7
-        version: 4.1.7(@types/node@24.12.2)(@vitest/coverage-v8@4.1.7)(vite@7.3.0(@types/node@24.12.2)(yaml@2.8.3))
+        version: 4.1.7(@types/node@24.12.2)(@vitest/coverage-v8@4.1.7)(vite@7.3.0(@types/node@24.12.2)(yaml@2.9.0))
 
 packages:
 
@@ -393,8 +393,8 @@ packages:
   '@iarna/toml@2.2.5':
     resolution: {integrity: sha512-trnsAYxU3xnS1gPHPyU961coFyLkh4gAD/0zQ5mymY4yOZ+CYvsPqUbOFSw0aDM4y0tV7tiFxL/1XfXPNC6IPg==}
 
-  '@jelmore1674/changelog@2.0.0':
-    resolution: {integrity: sha512-zaVzxu8qvfo0vYf6ukJmXG2X/pNKv5bBen8sUbrW5koH2HfsTciX6bevnWSzLrwhCkPRgN0w0QqfuiFKVjGeNg==}
+  '@jelmore1674/changelog@2.0.2':
+    resolution: {integrity: sha512-3U1HGGprEJCwBz29mxECfsYF09n47YPIGqpBNhaQf2CCI/3chH9LeEBDfbiLU5FLTPs403F/iUVbt0M6hENYWQ==}
 
   '@jelmore1674/github-action-helpers@1.0.0':
     resolution: {integrity: sha512-ayy6oPJr2A9DKn8QvJmcjrpN9lTIPkM6ZXoLEohtFsY7tlKH/aSj8u35IPPxSZSJxCIkX/VA75KQPiSIqXNPww==}
@@ -846,8 +846,8 @@ packages:
       picomatch:
         optional: true
 
-  fs-extra@11.3.4:
-    resolution: {integrity: sha512-CTXd6rk/M3/ULNQj8FBqBWHYBVYybQ3VPBw0xGKFe3tuH7ytT6ACnvzpIQ3UZtB8yvUKC2cXn1a+x+5EVQLovA==}
+  fs-extra@11.3.5:
+    resolution: {integrity: sha512-eKpRKAovdpZtR1WopLHxlBWvAgPny3c4gX1G5Jhwmmw4XJj0ifSD5qB5TOo8hmA0wlRKDAOAhEE1yVPgs6Fgcg==}
     engines: {node: '>=14.14'}
 
   fsevents@2.3.3:
@@ -976,8 +976,8 @@ packages:
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
     hasBin: true
 
-  semver@7.7.4:
-    resolution: {integrity: sha512-vFKC2IEtQnVhpT78h1Yp8wzwrf8CM+MzKMHGJZfBtzhZNycRFnXsHk6E5TxIkkMsgNS7mdX3AGB7x2QM2di4lA==}
+  semver@7.8.1:
+    resolution: {integrity: sha512-rkVq3IXh+4FDGch+KwzX3aV9W3kO54GyEgpvBzSyctDA6Xtd7RJQV1xmXbeQp5v7+VzLOfVqiutSE6GICgPFvg==}
     engines: {node: '>=10'}
     hasBin: true
 
@@ -1171,13 +1171,13 @@ packages:
   wordwrap@1.0.0:
     resolution: {integrity: sha512-gvVzJFlPycKc5dZN4yPkP8w7Dc37BtP1yczEneOb4uq34pXZcvrtRTmWV8W+Ume+XCxKgbjM+nevkyFPMybd4Q==}
 
-  yaml@2.8.3:
-    resolution: {integrity: sha512-AvbaCLOO2Otw/lW5bmh9d/WEdcDFdQp2Z2ZUH3pX9U2ihyUY0nvLv7J6TrWowklRGPYbB/IuIMfYgxaCPg5Bpg==}
+  yaml@2.9.0:
+    resolution: {integrity: sha512-2AvhNX3mb8zd6Zy7INTtSpl1F15HW6Wnqj0srWlkKLcpYl/gMIMJiyuGq2KeI2YFxUPjdlB+3Lc10seMLtL4cA==}
     engines: {node: '>= 14.6'}
     hasBin: true
 
-  zod@4.4.2:
-    resolution: {integrity: sha512-IynmDyxsEsb9RKzO3J9+4SxXnl2FTFSzNBaKKaMV6tsSk0rw9gYw9gs+JFCq/qk2LCZ78KDwyj+Z289TijSkUw==}
+  zod@4.4.3:
+    resolution: {integrity: sha512-ytENFjIJFl2UwYglde2jchW2Hwm4GJFLDiSXWdTrJQBIN9Fcyp7n4DhxJEiWNAJMV1/BqWfW/kkg71UDcHJyTQ==}
 
 snapshots:
 
@@ -1375,11 +1375,11 @@ snapshots:
 
   '@iarna/toml@2.2.5': {}
 
-  '@jelmore1674/changelog@2.0.0':
+  '@jelmore1674/changelog@2.0.2':
     dependencies:
       handlebars: 4.7.9
       latest-semver: 4.0.0
-      semver: 7.7.4
+      semver: 7.8.1
 
   '@jelmore1674/github-action-helpers@1.0.0':
     dependencies:
@@ -1714,7 +1714,7 @@ snapshots:
       obug: 2.1.1
       std-env: 4.1.0
       tinyrainbow: 3.1.0
-      vitest: 4.1.7(@types/node@24.12.2)(@vitest/coverage-v8@4.1.7)(vite@7.3.0(@types/node@24.12.2)(yaml@2.8.3))
+      vitest: 4.1.7(@types/node@24.12.2)(@vitest/coverage-v8@4.1.7)(vite@7.3.0(@types/node@24.12.2)(yaml@2.9.0))
 
   '@vitest/expect@4.1.7':
     dependencies:
@@ -1725,13 +1725,13 @@ snapshots:
       chai: 6.2.2
       tinyrainbow: 3.1.0
 
-  '@vitest/mocker@4.1.7(vite@7.3.0(@types/node@24.12.2)(yaml@2.8.3))':
+  '@vitest/mocker@4.1.7(vite@7.3.0(@types/node@24.12.2)(yaml@2.9.0))':
     dependencies:
       '@vitest/spy': 4.1.7
       estree-walker: 3.0.3
       magic-string: 0.30.21
     optionalDependencies:
-      vite: 7.3.0(@types/node@24.12.2)(yaml@2.8.3)
+      vite: 7.3.0(@types/node@24.12.2)(yaml@2.9.0)
 
   '@vitest/pretty-format@4.1.7':
     dependencies:
@@ -1771,7 +1771,7 @@ snapshots:
 
   clean-semver@2.1.0:
     dependencies:
-      semver: 7.7.4
+      semver: 7.8.1
 
   commander@15.0.0: {}
 
@@ -1838,7 +1838,7 @@ snapshots:
     optionalDependencies:
       picomatch: 4.0.4
 
-  fs-extra@11.3.4:
+  fs-extra@11.3.5:
     dependencies:
       graceful-fs: 4.2.11
       jsonfile: 6.2.1
@@ -1913,7 +1913,7 @@ snapshots:
 
   make-dir@4.0.0:
     dependencies:
-      semver: 7.7.4
+      semver: 7.8.1
 
   memfs@4.57.3(tslib@2.8.1):
     dependencies:
@@ -1995,7 +1995,7 @@ snapshots:
       '@rollup/rollup-win32-x64-msvc': 4.60.4
       fsevents: 2.3.3
 
-  semver@7.7.4: {}
+  semver@7.8.1: {}
 
   siginfo@2.0.0: {}
 
@@ -2031,7 +2031,7 @@ snapshots:
   to-semver@4.0.0:
     dependencies:
       clean-semver: 2.1.0
-      semver: 7.7.4
+      semver: 7.8.1
 
   tree-dump@1.1.0(tslib@2.8.1):
     dependencies:
@@ -2058,17 +2058,17 @@ snapshots:
 
   universalify@2.0.1: {}
 
-  vite-tsconfig-paths@6.1.1(typescript@6.0.3)(vite@7.3.0(@types/node@24.12.2)(yaml@2.8.3)):
+  vite-tsconfig-paths@6.1.1(typescript@6.0.3)(vite@7.3.0(@types/node@24.12.2)(yaml@2.9.0)):
     dependencies:
       debug: 4.4.3
       globrex: 0.1.2
       tsconfck: 3.1.6(typescript@6.0.3)
-      vite: 7.3.0(@types/node@24.12.2)(yaml@2.8.3)
+      vite: 7.3.0(@types/node@24.12.2)(yaml@2.9.0)
     transitivePeerDependencies:
       - supports-color
       - typescript
 
-  vite@7.3.0(@types/node@24.12.2)(yaml@2.8.3):
+  vite@7.3.0(@types/node@24.12.2)(yaml@2.9.0):
     dependencies:
       esbuild: 0.27.7
       fdir: 6.5.0(picomatch@4.0.4)
@@ -2079,12 +2079,12 @@ snapshots:
     optionalDependencies:
       '@types/node': 24.12.2
       fsevents: 2.3.3
-      yaml: 2.8.3
+      yaml: 2.9.0
 
-  vitest@4.1.7(@types/node@24.12.2)(@vitest/coverage-v8@4.1.7)(vite@7.3.0(@types/node@24.12.2)(yaml@2.8.3)):
+  vitest@4.1.7(@types/node@24.12.2)(@vitest/coverage-v8@4.1.7)(vite@7.3.0(@types/node@24.12.2)(yaml@2.9.0)):
     dependencies:
       '@vitest/expect': 4.1.7
-      '@vitest/mocker': 4.1.7(vite@7.3.0(@types/node@24.12.2)(yaml@2.8.3))
+      '@vitest/mocker': 4.1.7(vite@7.3.0(@types/node@24.12.2)(yaml@2.9.0))
       '@vitest/pretty-format': 4.1.7
       '@vitest/runner': 4.1.7
       '@vitest/snapshot': 4.1.7
@@ -2101,7 +2101,7 @@ snapshots:
       tinyexec: 1.2.3
       tinyglobby: 0.2.16
       tinyrainbow: 3.1.0
-      vite: 7.3.0(@types/node@24.12.2)(yaml@2.8.3)
+      vite: 7.3.0(@types/node@24.12.2)(yaml@2.9.0)
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 24.12.2
@@ -2116,6 +2116,6 @@ snapshots:
 
   wordwrap@1.0.0: {}
 
-  yaml@2.8.3: {}
+  yaml@2.9.0: {}
 
-  zod@4.4.2: {}
+  zod@4.4.3: {}
