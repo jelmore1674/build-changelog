@@ -36,6 +36,7 @@ jobs:
           APP_ID: op://Actions/shared/APP_ID
 
       - name: Get Token
+        if: ${{ steps.get_tag.outputs.latest_tag == 'true' }}
         id: get_workflow_token
         uses: actions/create-github-app-token@v3
         with:
