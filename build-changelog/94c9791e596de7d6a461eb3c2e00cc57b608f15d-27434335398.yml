@@ -1,0 +1,7 @@
+author: dependabot
+changed:
+  - Updates `@biomejs/biome` from 2.4.16 to 2.5.0
+  - Updates `@vercel/ncc` from 0.38.4 to 0.44.0
+  - Updates `@vitest/coverage-v8` from 4.1.7 to 4.1.8
+  - Updates `memfs` from 4.57.3 to 4.57.7
+  - Updates `vitest` from 4.1.7 to 4.1.8
