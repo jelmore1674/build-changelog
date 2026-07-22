@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Common Changelog](https://common-changelog.org),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.4] - TBD
+
+### Changed
+
+- Updates `@jelmore1674/changelog` from 2.0.0 to 2.0.4 [`fc83c93`](https://github.com/jelmore1674/build-changelog/commit/fc83c930d902a419c44b5a3946027707b81c5ade) | [#209](https://github.com/jelmore1674/build-changelog/pull/209) | [dependabot](https://github.com/apps/dependabot)
+- Updates `@jelmore1674/github-action-helpers` from 1.0.0 to 1.0.2 [`fc83c93`](https://github.com/jelmore1674/build-changelog/commit/fc83c930d902a419c44b5a3946027707b81c5ade) | [#209](https://github.com/jelmore1674/build-changelog/pull/209) | [dependabot](https://github.com/apps/dependabot)
+- Updates `fs-extra` from 11.3.4 to 11.3.6 [`fc83c93`](https://github.com/jelmore1674/build-changelog/commit/fc83c930d902a419c44b5a3946027707b81c5ade) | [#209](https://github.com/jelmore1674/build-changelog/pull/209) | [dependabot](https://github.com/apps/dependabot)
+- Updates `semver` from 7.7.4 to 7.8.5 [`fc83c93`](https://github.com/jelmore1674/build-changelog/commit/fc83c930d902a419c44b5a3946027707b81c5ade) | [#209](https://github.com/jelmore1674/build-changelog/pull/209) | [dependabot](https://github.com/apps/dependabot)
+- Updates `yaml` from 2.8.3 to 2.9.0 [`fc83c93`](https://github.com/jelmore1674/build-changelog/commit/fc83c930d902a419c44b5a3946027707b81c5ade) | [#209](https://github.com/jelmore1674/build-changelog/pull/209) | [dependabot](https://github.com/apps/dependabot)
+- Updates `zod` from 4.4.2 to 4.4.3 [`fc83c93`](https://github.com/jelmore1674/build-changelog/commit/fc83c930d902a419c44b5a3946027707b81c5ade) | [#209](https://github.com/jelmore1674/build-changelog/pull/209) | [dependabot](https://github.com/apps/dependabot)
+
 ## [2.0.3] - 2026-06-06
 
 ### Changed
@@ -519,6 +530,7 @@ _Read the [README.md](./README.md#complex-example) how to add changes._
 
 _Initial Release_
 
+[2.0.4]: https://github.com/jelmore1674/build-changelog/releases/tag/v2.0.4
 [2.0.3]: https://github.com/jelmore1674/build-changelog/releases/tag/v2.0.3
 [2.0.2]: https://github.com/jelmore1674/build-changelog/releases/tag/v2.0.2
 [2.0.1]: https://github.com/jelmore1674/build-changelog/releases/tag/v2.0.1
