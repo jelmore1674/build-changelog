@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updates `semver` from 7.7.4 to 7.8.5 [`fc83c93`](https://github.com/jelmore1674/build-changelog/commit/fc83c930d902a419c44b5a3946027707b81c5ade) | [#209](https://github.com/jelmore1674/build-changelog/pull/209) | [dependabot](https://github.com/apps/dependabot)
 - Updates `yaml` from 2.8.3 to 2.9.0 [`fc83c93`](https://github.com/jelmore1674/build-changelog/commit/fc83c930d902a419c44b5a3946027707b81c5ade) | [#209](https://github.com/jelmore1674/build-changelog/pull/209) | [dependabot](https://github.com/apps/dependabot)
 - Updates `zod` from 4.4.2 to 4.4.3 [`fc83c93`](https://github.com/jelmore1674/build-changelog/commit/fc83c930d902a419c44b5a3946027707b81c5ade) | [#209](https://github.com/jelmore1674/build-changelog/pull/209) | [dependabot](https://github.com/apps/dependabot)
+- Bumps [actions/checkout](https://github.com/actions/checkout) from 6 to 7. [`a524bda`](https://github.com/jelmore1674/build-changelog/commit/a524bda5565e612ee0a2414f5046fc8b4e49abcb) | [#205](https://github.com/jelmore1674/build-changelog/pull/205) | [dependabot](https://github.com/apps/dependabot)
 
 ## [2.0.3] - 2026-06-06
 
