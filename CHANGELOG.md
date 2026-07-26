@@ -15,7 +15,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updates `dprint` from 0.54.0 to 0.55.2 [`c287ffc`](https://github.com/jelmore1674/build-changelog/commit/c287ffc32119f56566fb3672ea0f9e79020a4ca9) | [#208](https://github.com/jelmore1674/build-changelog/pull/208) | [dependabot](https://github.com/apps/dependabot)
 - Updates `memfs` from 4.57.3 to 4.64.0 [`c287ffc`](https://github.com/jelmore1674/build-changelog/commit/c287ffc32119f56566fb3672ea0f9e79020a4ca9) | [#208](https://github.com/jelmore1674/build-changelog/pull/208) | [dependabot](https://github.com/apps/dependabot)
 - Updates `nock` from 14.0.15 to 14.0.16 [`c287ffc`](https://github.com/jelmore1674/build-changelog/commit/c287ffc32119f56566fb3672ea0f9e79020a4ca9) | [#208](https://github.com/jelmore1674/build-changelog/pull/208) | [dependabot](https://github.com/apps/dependabot)
-- Updates `typescript` from 6.0.3 to 7.0.2 [`c287ffc`](https://github.com/jelmore1674/build-changelog/commit/c287ffc32119f56566fb3672ea0f9e79020a4ca9) | [#208](https://github.com/jelmore1674/build-changelog/pull/208) | [dependabot](https://github.com/apps/dependabot)
 - Updates `vitest` from 4.1.7 to 4.1.10 [`c287ffc`](https://github.com/jelmore1674/build-changelog/commit/c287ffc32119f56566fb3672ea0f9e79020a4ca9) | [#208](https://github.com/jelmore1674/build-changelog/pull/208) | [dependabot](https://github.com/apps/dependabot)
 
 ## [2.0.4] - 2026-07-25

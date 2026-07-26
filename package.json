@@ -51,7 +51,7 @@
     "dprint": "0.55.2",
     "memfs": "^4.64.0",
     "nock": "^14.0.16",
-    "typescript": "7.0.2",
+    "typescript": "6.0.3",
     "vite-tsconfig-paths": "6.1.1",
     "vitest": "4.1.10"
   },
