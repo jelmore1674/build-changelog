@@ -28,4 +28,8 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-    versioning-strategy: major
+    ignore:
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-minor"
+          - "version-update:semver-patch"
