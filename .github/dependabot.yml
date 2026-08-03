@@ -28,3 +28,4 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    versioning-strategy: major
