@@ -29,7 +29,7 @@ jobs:
       - name: Load secret
         if: ${{ steps.get_tag.outputs.latest_tag == 'true' }}
         id: load-op
-        uses: 1password/load-secrets-action@v4
+        uses: 1password/load-secrets-action@v5
         env:
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
           GH_APP_KEY: "op://Actions/GH_APP_KEY/private key"
