@@ -40,20 +40,20 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.5.5",
+    "@biomejs/biome": "2.5.9",
     "@types/fs-extra": "11.0.4",
     "@types/iarna__toml": "2.0.5",
     "@types/node": "^24.0.0",
-    "@types/semver": "7.7.1",
-    "@vercel/ncc": "0.44.1",
-    "@vitest/coverage-v8": "4.1.10",
+    "@types/semver": "7.8.0",
+    "@vercel/ncc": "0.45.0",
+    "@vitest/coverage-v8": "4.1.11",
     "commander": "15.0.0",
-    "dprint": "0.55.2",
-    "memfs": "^4.64.0",
-    "nock": "^14.0.16",
-    "typescript": "6.0.3",
+    "dprint": "0.56.0",
+    "memfs": "^4.68.1",
+    "nock": "^14.0.17",
+    "typescript": "7.0.2",
     "vite-tsconfig-paths": "6.1.1",
-    "vitest": "4.1.10"
+    "vitest": "4.1.11"
   },
   "bin": {
     "bcl": "dist/index.js"
