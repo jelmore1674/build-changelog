@@ -21,14 +21,14 @@ importers:
         specifier: 2.2.5
         version: 2.2.5
       '@jelmore1674/changelog':
-        specifier: ^2.0.4
-        version: 2.0.4
+        specifier: ^2.0.6
+        version: 2.0.6
       '@jelmore1674/github-action-helpers':
-        specifier: ^1.0.2
-        version: 1.0.2
+        specifier: ^1.0.3
+        version: 1.0.3
       fs-extra:
-        specifier: 11.3.6
-        version: 11.3.6
+        specifier: 11.4.0
+        version: 11.4.0
       latest-semver:
         specifier: ^4.0.0
         version: 4.0.0
@@ -39,8 +39,8 @@ importers:
         specifier: 2.9.0
         version: 2.9.0
       zod:
-        specifier: ^4.4.3
-        version: 4.4.3
+        specifier: ^4.5.4
+        version: 4.5.4
     devDependencies:
       '@biomejs/biome':
         specifier: 2.5.5
@@ -80,7 +80,7 @@ importers:
         version: 6.0.3
       vite-tsconfig-paths:
         specifier: 6.1.1
-        version: 6.1.1(typescript@6.0.3)(vite@7.3.0(@types/node@24.12.2)(yaml@2.9.0))
+        version: 6.1.1(supports-color@7.2.0)(typescript@6.0.3)(vite@7.3.0(@types/node@24.12.2)(yaml@2.9.0))
       vitest:
         specifier: 4.1.10
         version: 4.1.10(@types/node@24.12.2)(@vitest/coverage-v8@4.1.10)(vite@7.3.0(@types/node@24.12.2)(yaml@2.9.0))
@@ -426,11 +426,11 @@ packages:
   '@iarna/toml@2.2.5':
     resolution: {integrity: sha512-trnsAYxU3xnS1gPHPyU961coFyLkh4gAD/0zQ5mymY4yOZ+CYvsPqUbOFSw0aDM4y0tV7tiFxL/1XfXPNC6IPg==}
 
-  '@jelmore1674/changelog@2.0.4':
-    resolution: {integrity: sha512-iXZya6ZsgNs07P2hXZL5GHLDj9dBfkKi1sTTKEHVzZsaVj9Sg/P0yzRRGZy+91RGWqWDYy/sxGNjOnOLtTaLuA==}
+  '@jelmore1674/changelog@2.0.6':
+    resolution: {integrity: sha512-BTmFFpoOKWqRBLrG6LId23Xc+dDuFwa83WuGuz3/h1OVy1NF+WC6L5ZrH+LM2p8reG0t0GAFFBxKGtTuQx03KA==}
 
-  '@jelmore1674/github-action-helpers@1.0.2':
-    resolution: {integrity: sha512-EDZCUKUzDzPUe9rBMx5/3DsRZMuZG1WaYmHSbDV5ey8RzHf3TimbNbiVpnhrfLB5ywWvwSDO1GQfGxVR7toX8Q==}
+  '@jelmore1674/github-action-helpers@1.0.3':
+    resolution: {integrity: sha512-cp2+qD7q0dvrIQKoErkrWYDgyA1r02NXZz7meqsyyqJ1Ec2a0rFRQZ7dhi1bttocICpztdp7/VEIaRb3PgaYkg==}
 
   '@jridgewell/resolve-uri@3.1.2':
     resolution: {integrity: sha512-bRISgCIjP20/tbWSPWMEi54QVPRZExkuD9lJL+UIxUKtwVJA8wW1Trb1jMs1RFXo1CBTNZ/5hpC9QvmKWdopKw==}
@@ -889,8 +889,8 @@ packages:
       picomatch:
         optional: true
 
-  fs-extra@11.3.6:
-    resolution: {integrity: sha512-w8ZNZr2mKIc7qeNaQ9AVPT1+iFaI+Avd4xudVOvdDJ8VytREi1Ft5Ih7hd9jjehod8vAM5GMsfQ/TpPf4EyoEA==}
+  fs-extra@11.4.0:
+    resolution: {integrity: sha512-EQsFzMUJkCKGr1ePqlYADkIUmHW1s3ZXr5Yqy6wbGrfUCphpl2maM/kyOIRA2HpP3AaFQTZXD4ldjek+nccddA==}
     engines: {node: '>=14.14'}
 
   fsevents@2.3.3:
@@ -1221,8 +1221,8 @@ packages:
     engines: {node: '>= 14.6'}
     hasBin: true
 
-  zod@4.4.3:
-    resolution: {integrity: sha512-ytENFjIJFl2UwYglde2jchW2Hwm4GJFLDiSXWdTrJQBIN9Fcyp7n4DhxJEiWNAJMV1/BqWfW/kkg71UDcHJyTQ==}
+  zod@4.5.4:
+    resolution: {integrity: sha512-sC95tT5iHHH9gtpj6A81kh+NEaRAUFN+qlUPDUbRfOMvNf5QCBqsb3WgvnpVtK5Y+4UfA6KqufotuTvMGiTlsA==}
 
 snapshots:
 
@@ -1432,13 +1432,13 @@ snapshots:
 
   '@iarna/toml@2.2.5': {}
 
-  '@jelmore1674/changelog@2.0.4':
+  '@jelmore1674/changelog@2.0.6':
     dependencies:
       handlebars: 4.7.9
       latest-semver: 4.0.0
       semver: 7.8.5
 
-  '@jelmore1674/github-action-helpers@1.0.2':
+  '@jelmore1674/github-action-helpers@1.0.3':
     dependencies:
       '@actions/core': 3.0.1
       '@actions/exec': 3.0.0
@@ -1833,9 +1833,11 @@ snapshots:
 
   convert-source-map@2.0.0: {}
 
-  debug@4.4.3:
+  debug@4.4.3(supports-color@7.2.0):
     dependencies:
       ms: 2.1.3
+    optionalDependencies:
+      supports-color: 7.2.0
 
   dprint@0.55.2:
     optionalDependencies:
@@ -1898,7 +1900,7 @@ snapshots:
     optionalDependencies:
       picomatch: 4.0.5
 
-  fs-extra@11.3.6:
+  fs-extra@11.4.0:
     dependencies:
       graceful-fs: 4.2.11
       jsonfile: 6.2.1
@@ -2118,9 +2120,9 @@ snapshots:
 
   universalify@2.0.1: {}
 
-  vite-tsconfig-paths@6.1.1(typescript@6.0.3)(vite@7.3.0(@types/node@24.12.2)(yaml@2.9.0)):
+  vite-tsconfig-paths@6.1.1(supports-color@7.2.0)(typescript@6.0.3)(vite@7.3.0(@types/node@24.12.2)(yaml@2.9.0)):
     dependencies:
-      debug: 4.4.3
+      debug: 4.4.3(supports-color@7.2.0)
       globrex: 0.1.2
       tsconfck: 3.1.6(typescript@6.0.3)
       vite: 7.3.0(@types/node@24.12.2)(yaml@2.9.0)
@@ -2178,4 +2180,4 @@ snapshots:
 
   yaml@2.9.0: {}
 
-  zod@4.4.3: {}
+  zod@4.5.4: {}
