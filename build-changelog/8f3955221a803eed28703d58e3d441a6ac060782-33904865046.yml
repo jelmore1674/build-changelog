@@ -1,0 +1,6 @@
+author: dependabot
+changed:
+  - Updates `@jelmore1674/changelog` from 2.0.4 to 2.0.6
+  - Updates `@jelmore1674/github-action-helpers` from 1.0.2 to 1.0.3
+  - Updates `fs-extra` from 11.3.6 to 11.4.0
+  - Updates `zod` from 4.4.3 to 4.5.4
